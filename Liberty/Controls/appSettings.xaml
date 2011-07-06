@@ -1,0 +1,40 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+	mc:Ignorable="d"
+	x:Class="Liberty.Controls.appSettings"
+	x:Name="appSet"
+	d:DesignWidth="585" d:DesignHeight="339">
+
+	<Grid x:Name="LayoutRoot">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="0*"/>
+		</Grid.RowDefinitions>
+		
+		<Image x:Name="btnOpen" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,11,12" d:LayoutOverrides="VerticalAlignment" />
+		<TextBlock Height="19" HorizontalAlignment="Left" Margin="517,0,0,10" x:Name="lblOpen" Text="CANCEL" VerticalAlignment="Bottom" Width="50" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
+        
+		<Image x:Name="btnOpen_Copy" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,100,12" d:LayoutOverrides="VerticalAlignment" />
+		<TextBlock Height="19" HorizontalAlignment="Left" Margin="441,0,0,10" x:Name="lblOpen_Copy" Text="OK" VerticalAlignment="Bottom" Width="33" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
+		<Rectangle Fill="#FFD1D1D1" HorizontalAlignment="Left" Margin="116.174,36.667,0,40.333" Stroke="#FFD1D1D1" Width="0.75"/>
+		<TextBlock HorizontalAlignment="Left" Height="10.5" FontSize="8" Margin="34.167,51.501,0,0" FontWeight="SemiBold" TextWrapping="Wrap" VerticalAlignment="Top" Width="57.667"><Run Language="en-gb" Text="MAINWINDOW"/></TextBlock>
+        
+		
+		<ed:RegularPolygon Fill="#FF000000" HorizontalAlignment="Left" Height="1.833" InnerRadius="1" Margin="27.458,56.542,0,0" PointCount="3" Stretch="Fill" Stroke="#FF000000" VerticalAlignment="Top" Width="3.917" RenderTransformOrigin="0.469,0.636">
+			<ed:RegularPolygon.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="90"/>
+					<TranslateTransform X="-0.128" Y="-0.374"/>
+				</TransformGroup>
+			</ed:RegularPolygon.RenderTransform>
+		</ed:RegularPolygon>
+        
+		
+	</Grid>
+</UserControl>

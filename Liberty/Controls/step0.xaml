@@ -1,0 +1,38 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	mc:Ignorable="d"
+	x:Class="Liberty.Controls.step0"
+	x:Name="stepZero"
+	d:DesignWidth="585" d:DesignHeight="339">
+			<UserControl.Resources>
+			        <ResourceDictionary>
+			            <ResourceDictionary.MergedDictionaries>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+			                
+							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+			            </ResourceDictionary.MergedDictionaries>
+			        </ResourceDictionary>
+			    </UserControl.Resources>
+	
+	<ControlsMetro:MetroContentControl>
+		<Grid x:Name="LayoutRoot">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="0.749*"/>
+				<RowDefinition Height="0.251*"/>
+			</Grid.RowDefinitions>
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Welcome to Liberty" Height="60" VerticalAlignment="Top" />
+			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="The free, open-sauce Halo: Reach campaign save editor - Let's select a storage type" Height="25" VerticalAlignment="Top" />
+			
+			<Label Name="subHeading1" Content="storage type;" Margin="0,110,0,115" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" />
+			
+			<RadioButton Name="cBSaveOP" Content="Select a save file on your Computer" VerticalAlignment="Bottom" Margin="26.183,0,72.5,98.04" IsChecked="True"/>
+			<RadioButton Name="cBSaveOD" Content="Select a save file on a removable device (USB, mem card, HDD connected to the computer)" Foreground="#949494" VerticalAlignment="Bottom" Margin="26.183,0,46,77.58"/>
+		</Grid>
+	</ControlsMetro:MetroContentControl>
+</UserControl>

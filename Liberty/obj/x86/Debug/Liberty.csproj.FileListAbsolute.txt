@@ -1,0 +1,114 @@
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty.csprojResolveAssemblyReference.cache
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\App.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty_MarkupCompile.cache
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\progressStepBar.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\progressStepBar.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\MainWindow.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty_MarkupCompile.lref
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\Liberty.exe
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\Liberty.pdb
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\MainWindow.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty.g.resources
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty.Properties.Resources.resources
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty.exe
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty.pdb
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\aboutBox.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\aboutBox.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step0.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step0.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step1.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step1.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step2.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step3.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step2.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step3.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\messageBox.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\messageBox.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step4.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step4.g.cs
+W:\Users\Alex Reed\documents\visual studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step5.baml
+W:\Users\Alex Reed\documents\visual studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step5.g.cs
+W:\Users\Alex Reed\documents\visual studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\updater.baml
+W:\Users\Alex Reed\documents\visual studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\updater.g.cs
+W:\Users\Alex Reed\documents\visual studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\uploadOnLoad.baml
+W:\Users\Alex Reed\documents\visual studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\uploadOnLoad.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\exceptionWindow.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\leavingLiberty.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\exceptionWindow.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\leavingLiberty.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Simple Styles.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\App.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step4.0.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step4.0.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\massObjectMove.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\massObjectMove.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step0_1.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step0_2.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step0_1.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\step0_2.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\System.Windows.Interactivity.dll
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\MahApps.Metro.dll
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\MahApps.Metro.Controls.pdb
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\X360.pdb
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\bin\Debug\X360.xml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\progressWindow.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Controls\progressWindow.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\Liberty\obj\x86\Debug\Liberty.csproj.GenerateResource.Cache
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\bin\Debug\Liberty.exe
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\bin\Debug\Liberty.pdb
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\bin\Debug\MahApps.Metro.Controls.dll
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\bin\Debug\MahApps.Metro.dll
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\bin\Debug\X360.dll
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\aboutBox.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\exceptionWindow.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\leavingLiberty.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\massObjectMove.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\messageBox.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\progressStepBar.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\progressWindow.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step0.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step0_1.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step0_2.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step1.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step2.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step3.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step4.0.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step4.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step5.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\updater.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\uploadOnLoad.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Simple Styles.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\App.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\aboutBox.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\exceptionWindow.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\leavingLiberty.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\massObjectMove.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\messageBox.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\progressStepBar.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\progressWindow.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step0.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step0_1.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step0_2.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step1.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step2.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step3.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step4.0.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step4.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\step5.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\updater.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Controls\uploadOnLoad.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\App.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Liberty_MarkupCompile.cache
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Liberty_MarkupCompile.lref
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\MainWindow.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Liberty.g.resources
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Liberty.Properties.Resources.resources
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Liberty.exe
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\Liberty\obj\x86\Debug\Liberty.pdb

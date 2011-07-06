@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Liberty</RootNamespace>
+    <AssemblyName>Liberty</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MahApps.Metro">
+      <HintPath>.\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.Controls">
+      <HintPath>.\MahApps.Metro.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="X360">
+      <HintPath>.\X360.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="classInfo\applicationExtra.cs" />
+    <Compile Include="classInfo\nameLookup.cs" />
+    <Compile Include="classInfo\savePackageData.cs" />
+    <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
+    <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
+    <Compile Include="Controls\exceptionWindow.xaml.cs">
+      <DependentUpon>exceptionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\leavingLiberty.xaml.cs">
+      <DependentUpon>leavingLiberty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\massObjectMove.xaml.cs">
+      <DependentUpon>massObjectMove.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\progressWindow.xaml.cs">
+      <DependentUpon>progressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step0_1.xaml.cs">
+      <DependentUpon>step0_1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step0_2.xaml.cs">
+      <DependentUpon>step0_2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step4.0.xaml.cs">
+      <DependentUpon>step4.0.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="eggData\egg1Data.cs" />
+    <Compile Include="FATX\EntryTypes.cs" />
+    <Compile Include="FATX\Extensions.cs" />
+    <Compile Include="FATX\FATXDrive.cs" />
+    <Compile Include="FATX\Info.cs" />
+    <Compile Include="FATX\IO.cs" />
+    <Compile Include="FATX\Management.cs" />
+    <Compile Include="FATX\Misc.cs" />
+    <Compile Include="FATX\PkgCreate.cs" />
+    <Compile Include="FATX\Read.cs" />
+    <Compile Include="FATX\STFS\AccountDecryption.cs" />
+    <Compile Include="FATX\STFS\STFSInfo.cs" />
+    <Compile Include="FATX\Structs.cs" />
+    <Compile Include="FATX\Win32\API.cs" />
+    <Compile Include="FATX\Write.cs" />
+    <Compile Include="IO\SaveReader.cs" />
+    <Compile Include="IO\SaveWriter.cs" />
+    <Compile Include="Save Management\CampaignSave.cs" />
+    <Compile Include="Save Management\CampaignSaveChunk.cs" />
+    <Compile Include="Save Management\CampaignSaveObject.cs" />
+    <Compile Include="Save Management\CampaignSavePlayer.cs" />
+    <Compile Include="Security\SaveSHA1.cs" />
+    <Compile Include="Util\TagList.cs" />
+    <Page Include="Controls\aboutBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\exceptionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\leavingLiberty.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\massObjectMove.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\messageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\progressStepBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\progressWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step0.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step0_1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step0_2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step4.0.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step4.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\step5.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\updater.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\uploadOnLoad.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classInfo\editBipedData.cs" />
+    <Compile Include="classInfo\extraIO.cs" />
+    <Compile Include="classInfo\iniClass.cs" />
+    <Compile Include="classInfo\loadPackageData.cs" />
+    <Compile Include="classInfo\stfsCheck.cs" />
+    <Compile Include="classInfo\storage\fileInfoStorage.cs" />
+    <Compile Include="classInfo\updating.cs" />
+    <Compile Include="Controls\aboutBox.xaml.cs">
+      <DependentUpon>aboutBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\messageBox.xaml.cs">
+      <DependentUpon>messageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\progressStepBar.xaml.cs">
+      <DependentUpon>progressStepBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step0.xaml.cs">
+      <DependentUpon>step0.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step1.xaml.cs">
+      <DependentUpon>step1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step2.xaml.cs">
+      <DependentUpon>step2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step3.xaml.cs">
+      <DependentUpon>step3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step4.xaml.cs">
+      <DependentUpon>step4.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\step5.xaml.cs">
+      <DependentUpon>step5.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\updater.xaml.cs">
+      <DependentUpon>updater.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\uploadOnLoad.xaml.cs">
+      <DependentUpon>uploadOnLoad.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Simple Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Resources\taglist.ini" />
+    <None Include="taglist.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Button-onhover.png" />
+    <Resource Include="Images\c-close.png" />
+    <Resource Include="Images\c-minimize.png" />
+    <Resource Include="Images\h-close.png" />
+    <Resource Include="Images\h-minimize.png" />
+    <Resource Include="Images\l-close.png" />
+    <Resource Include="Images\l-minimize.png" />
+    <Resource Include="Images\SecondaryButton.png" />
+    <Resource Include="Images\TopBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KV.bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mapImages\M05.jpg" />
+    <Resource Include="Images\mapImages\M10.jpg" />
+    <Resource Include="Images\mapImages\M20.jpg" />
+    <Resource Include="Images\mapImages\M30.jpg" />
+    <Resource Include="Images\mapImages\M35.jpg" />
+    <Resource Include="Images\mapImages\M45.jpg" />
+    <Resource Include="Images\mapImages\M50.jpg" />
+    <Resource Include="Images\mapImages\M52.jpg" />
+    <Resource Include="Images\mapImages\M60.jpg" />
+    <Resource Include="Images\mapImages\M70.jpg" />
+    <Resource Include="Images\mapImages\M70_bonus.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="classInfo\chunkData\" />
+    <Folder Include="Fonts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Updater.exe" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!--<Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />-->
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
