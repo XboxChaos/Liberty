@@ -1,0 +1,31 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	mc:Ignorable="d"
+	x:Class="Liberty.Controls.step4_0"
+	x:Name="stepFour0"
+	d:DesignWidth="585" d:DesignHeight="339">
+			<UserControl.Resources>
+			        <ResourceDictionary>
+			            <ResourceDictionary.MergedDictionaries>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+			                
+							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+			            </ResourceDictionary.MergedDictionaries>
+			        </ResourceDictionary>
+			    </UserControl.Resources>
+	
+	<ControlsMetro:MetroContentControl>
+		<Grid x:Name="LayoutRoot">
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Fine Tuning - Mass Tweaks" Height="46" VerticalAlignment="Top" />
+			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Mass edit your save" Height="25.911" VerticalAlignment="Top" />
+	        <Label Name="subHeading1" Content="extra tweaks;" Margin="9,75,0,238" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" />
+	        <CheckBox Name="checkAllMaxAmmo" Content="Max Ammo to all loaded Weapons" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,101,0,221" HorizontalAlignment="Left" Width="211" d:LayoutOverrides="HorizontalAlignment"/>
+	    </Grid>
+	</ControlsMetro:MetroContentControl>
+</UserControl>

@@ -1,0 +1,37 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	mc:Ignorable="d"
+	x:Class="Liberty.Controls.step0_2"
+	x:Name="stepZero2"
+	d:DesignWidth="585" d:DesignHeight="339">
+
+	<UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+                
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+	<ControlsMetro:MetroContentControl>
+		
+		<Grid x:Name="LayoutRoot">
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Let's get your save from your device" Height="45" VerticalAlignment="Top" />
+			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Let's choose a save on your device" Height="28" VerticalAlignment="Top" />
+			<Label x:Name="subHeading1_1" Content="get save from profile;" Margin="0,112,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="159" Height="29.822" VerticalAlignment="Top" />
+			<Label x:Name="lblaboutDevice" Foreground="#949494" Content="Select your save:" HorizontalAlignment="Left" Height="26.911" VerticalAlignment="Top" Width="114" Margin="24,139.672,0,0" />
+			<ComboBox x:Name="cBSaves" Margin="138,141.822,40,0" Height="23" VerticalAlignment="Top" />
+			<Image x:Name="btnOpen1" Height="21" Stretch="Fill" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" Margin="0,172.911,40,145.089" Width="71" HorizontalAlignment="Right" d:LayoutOverrides="Width, HorizontalMargin"/>
+			<TextBlock Height="19" Margin="484,176.911,49,143.089" x:Name="lblOpen1" Text="REFRESH" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold"/>
+		</Grid>
+		
+	</ControlsMetro:MetroContentControl>
+</UserControl>

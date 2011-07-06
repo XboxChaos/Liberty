@@ -1,0 +1,41 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	mc:Ignorable="d"
+	x:Class="Liberty.Controls.step5"
+	x:Name="stepFive"
+	d:DesignWidth="585" d:DesignHeight="339">
+			<UserControl.Resources>
+			        <ResourceDictionary>
+			            <ResourceDictionary.MergedDictionaries>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+			                
+							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+			            </ResourceDictionary.MergedDictionaries>
+			        </ResourceDictionary>
+			    </UserControl.Resources>
+
+	<ControlsMetro:MetroContentControl>
+		<Grid x:Name="LayoutRoot">
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="All Done" Height="46" VerticalAlignment="Top" />
+			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Your save has been modded, fixed, re-injected and resigned." Height="25.911" VerticalAlignment="Top" />
+			
+			<Label x:Name="subBaseHeader_0" Content="All done! Thank you for using Liberty, the only free and open-sauce Halo: Reach campaign editor." Margin="40,89,4,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Top" />
+			<Label x:Name="subBaseHeader_1" Content="Please check the 'About' section for infomation on the developers, testers and who we need to thank for" Margin="4,105.267,4,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Top" />
+			<Label x:Name="subBaseHeader_2" Content="helping or making us make this tool. If you want to, feel free to visit the program's homepage at" Margin="4,121.534,4,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Top" />
+			<Label x:Name="subBaseHeader_3" Content="www.xboxchaos.com or donate to them." Margin="4,136.801,4,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Top" />
+			<Label x:Name="subBaseHeader_1_0" Content="Don't forget to check for updates so you can always have the latest features and improvements." Margin="40,167.068,4,145.665" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" />
+			<Label x:Name="subBaseHeader_2_0" Content="If you want to mod another save, just restart Liberty and start again. Otherwise, press OK to close" Margin="40,0,4,115.398" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Bottom" />
+			<Label x:Name="subBaseHeader_2_1" Content="Liberty and then just transfer the save back to your HardDrive, USB, or Memory Unit and enjoy some" Margin="8,0,4,99.398" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Bottom" />
+			<Label x:Name="subBaseHeader_2_2" Content="more Halo: Reach." Margin="8,0,4,83.131" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Bottom" />
+			<Label x:Name="subBaseHeader_3_0" Content="Love," Margin="40,0,4,14.665" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Bottom" />
+			<Label x:Name="subBaseHeader_3_05" Content="the Liberty Development Team" Margin="73,0,-29,14.665" FontFamily="SegeoUI" FontSize="13" FontWeight="Bold" Foreground="#949494" Height="26.267" VerticalAlignment="Bottom" />
+			
+		</Grid>
+	</ControlsMetro:MetroContentControl>
+</UserControl>

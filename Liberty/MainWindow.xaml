@@ -1,0 +1,137 @@
+﻿<Window x:Class="Liberty.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:Liberty.Controls"
+		xmlns:Child="clr-namespace:Liberty.Controls"
+		xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+		x:Name="mainWindow"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        Title="Liberty" Height="477" Width="635"
+		ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None"
+		Background="{x:Null}">
+				<Window.Resources>
+			        <ResourceDictionary>
+			            <ResourceDictionary.MergedDictionaries>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+			                
+							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+			            </ResourceDictionary.MergedDictionaries>
+			        </ResourceDictionary>
+			    </Window.Resources>
+				
+				<Window.Triggers>
+				        <EventTrigger RoutedEvent="Window.Loaded">
+				            <BeginStoryboard>
+				                <Storyboard Name="FormFade">
+				                    <DoubleAnimation  Name="FormFadeAnimation"
+				                                            Storyboard.TargetName="mainWindow"
+				                                            Storyboard.TargetProperty="(Window.Opacity)"
+				                                            From="0.0" To="1.0" Duration="0:0:0.5"
+				                                            AutoReverse="False" RepeatBehavior="1x"
+				                                         />
+				                </Storyboard>
+				            </BeginStoryboard>
+				        </EventTrigger>
+				        <EventTrigger RoutedEvent="Window.Unloaded">
+				            <BeginStoryboard>
+				                <Storyboard Name="FormFadeOut" Completed="FormFadeOut_Completed">
+				                    <DoubleAnimation  Name="FormFadeOutAnimation"
+				                                            Storyboard.TargetName="mainWindow"
+				                                            Storyboard.TargetProperty="(Window.Opacity)"
+				                                            From="1.0" To="0.0" Duration="0:0:0.5"
+				                                            AutoReverse="False" RepeatBehavior="1x"
+				                                         />
+				                </Storyboard>
+				            </BeginStoryboard>
+				        </EventTrigger>
+				</Window.Triggers>
+				
+	<ControlsMetro:MetroContentControl>
+		<Grid Loaded="Grid_Loaded">
+	        <Rectangle Name="recMask" Fill="White" Margin="10,10,10,10" Stroke="Black" Opacity="0.60" Visibility="Hidden" />
+	        <!--DropShadow-->
+			<Border Margin="10" BorderThickness="0,0,1,1" BorderBrush="#FFE94F19">
+				<Border.Effect>
+					<DropShadowEffect Color="#FFE94F19"
+						Direction="10"
+						BlurRadius="12"
+						ShadowDepth="1" />
+				</Border.Effect>
+				<Grid Background="#FFFFFFFF" />
+			</Border>
+			
+			<Border 
+				x:Name="headerBar" 
+				Margin="10,10,10,0"
+				Width="Auto" 
+				Height="32" 
+				VerticalAlignment="Top"
+				DockPanel.Dock="Top" 
+				Background="{x:Null}" 
+				BorderThickness="0, 0, 0, 0"
+				BorderBrush="#3b5998">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="0.455*"/>
+						<RowDefinition Height="0.545*"/>
+					</Grid.RowDefinitions>
+					<Thumb 
+						x:Name="headerThumb" 
+						Opacity="0" 
+						Background="{x:Null}" 
+						Foreground="{x:Null}" 
+						Margin="0,0,0,-12" DragDelta="headerThumb_DragDelta" Grid.RowSpan="2"
+						/>
+					<Image Name="btnClose" Width="11" Height="11" Source="Images/l-close.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,11,-4.955" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnClose_IsMouseDirectlyOverChanged" MouseDown="btnClose_MouseDown" MouseUp="btnClose_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
+					<Image Name="btnMinimize" Width="11" Height="11" Source="Images/l-minimize.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,29,-3.955" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnMinimize_IsMouseDirectlyOverChanged" MouseDown="btnMinimize_MouseDown" MouseUp="btnMinimize_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
+	            </Grid>
+			</Border>
+
+	        <Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,239.514,0" HorizontalAlignment="Right" Width="88" MouseEnter="btnBugReport_MouseEnter" MouseLeave="btnBugReport_MouseLeave" MouseDown="btnBugReport_MouseDown" MouseUp="btnBugReport_MouseUp" Height="22.5" VerticalAlignment="Top"/>
+	        <Label x:Name="lblDevider2" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="0,9,257,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top" />
+	        <Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,177.514,0" HorizontalAlignment="Right" Width="88" Height="22.5" VerticalAlignment="Top"/>
+			<Label x:Name="lblDevider" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="0,9.201,171.998,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top"/>
+	        <Label Name="btnAbout" Content="ABOUT" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.193,136,0" HorizontalAlignment="Right" Width="44" Height="22.5" VerticalAlignment="Top" MouseEnter="btnAbout_MouseEnter" MouseLeave="btnAbout_MouseLeave" MouseDown="btnAbout_MouseDown" MouseUp="btnAbout_MouseUp"/>
+	        <local:progressStepBar x:Name="progressBar" HorizontalAlignment="Center" Width="635" Height="56" Margin="0,38,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height" />
+			
+			<StackPanel Name="stackStep0" Margin="40,85,10,53">
+				<Child:step0 x:Name="step0" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep0_1" Margin="40,85,10,53">
+				<Child:step0_1 x:Name="step0_1" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep0_2" Margin="40,85,10,53">
+				<Child:step0_2 x:Name="step0_2" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep1" Margin="40,85,10,70">
+				<Child:step1 x:Name="step1" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep2" Margin="40,85,10,70">
+				<Child:step2 x:Name="step2" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep3" Margin="40,85,10,70">
+				<Child:step3 x:Name="step3" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep4" Margin="40,85,10,70">
+				<Child:step4 x:Name="step4" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep4_0" Margin="40,85,10,70">
+				<Child:step4_0 x:Name="step4_0" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Name="stackStep5" Margin="40,85,10,70">
+				<Child:step5 x:Name="step5" Width="585" HorizontalAlignment="Left"/>
+			</StackPanel>
+			
+			<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,29" />
+	        <TextBlock Height="19" HorizontalAlignment="Left" Margin="566,0,0,26.81" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        
+			<Image x:Name="btnBack" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" Margin="0,0,109,29" />
+	        <TextBlock Height="19" HorizontalAlignment="Left" Margin="475,0,0,26.81" x:Name="lblBack" Text="BACK" VerticalAlignment="Bottom" Width="33" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	    
+			<MediaElement Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
+			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>
+		</Grid>
+	</ControlsMetro:MetroContentControl>
+</Window>

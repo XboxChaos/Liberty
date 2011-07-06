@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="Liberty.Controls.progressStepBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="56" d:DesignWidth="635">
+	
+				<UserControl.Resources>
+			        <ResourceDictionary>
+			            <ResourceDictionary.MergedDictionaries>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+			                
+							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+			            </ResourceDictionary.MergedDictionaries>
+			        </ResourceDictionary>
+			    </UserControl.Resources>
+    <Grid>
+        <Rectangle Name="progressBarSub" Margin="35,35,35,20" Fill="#FFD1D1D1" Stroke="#FFD1D1D1" />
+        <Rectangle Name="progressBar" Margin="34,34,524,19" Fill="#FF868686" Stroke="#FF868686"/>
+        <!--COLOR GUIDE;
+        Selected Header;   #FF868686
+        Unselected Header; #FFD4D2D2
+        
+        Progress Bar;      #FF868686
+        -->
+        
+        <!--PositionGuide
+        Step1: 571
+		Step2: 548
+		Step3: 524
+        Step4: 473
+        Step5: 352
+        Step6: 228
+        Step7: 136
+        Step8: 35
+        -->
+
+        <Label Content="PREPARATION" Height="22" HorizontalAlignment="Left" Margin="28,11,0,0" Name="lblProgress1" VerticalAlignment="Top" Width="69" FontWeight="SemiBold" FontSize="9" Foreground="#FF868686" />
+        <Label Content="CON SELECTION" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="22" HorizontalAlignment="Left" Margin="122,11,0,0" Name="lblProgress2" VerticalAlignment="Top" Width="82" />
+        <Label Content="CHARACTER DATA" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="21" Margin="236,11,263,0" Name="lblProgress3" VerticalAlignment="Top" />
+		<Label Content="WEAPON DATA" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="21" HorizontalAlignment="Right" Margin="0,11,182,0" Name="lblProgress4" VerticalAlignment="Top" Width="88" />
+		<Label Content="FINE TUNING" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="21" HorizontalAlignment="Right" Margin="0,11,99,0" Name="lblProgress5" VerticalAlignment="Top" Width="73" />
+        <Label Content="FINISHED" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="28" HorizontalAlignment="Right" Margin="0,11,26,0" Name="lblProgress6" VerticalAlignment="Top" Width="53" />
+    </Grid>
+</UserControl>

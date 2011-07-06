@@ -1,0 +1,20 @@
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\LibertyUpdater.csprojResolveAssemblyReference.cache
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\MainWindow.baml
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\MainWindow.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\App.g.cs
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\LibertyUpdater_MarkupCompile.cache
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\LibertyUpdater.g.resources
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\bin\Debug\LibertyUpdater.exe
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\bin\Debug\LibertyUpdater.pdb
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\LibertyUpdater.exe
+W:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\Liberty\LibertyUpdater\obj\Debug\LibertyUpdater.pdb
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\bin\Debug\LibertyUpdater.exe
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\bin\Debug\LibertyUpdater.pdb
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\MainWindow.baml
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\MainWindow.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\App.g.cs
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater_MarkupCompile.cache
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater.g.resources
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater.exe
+C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater.pdb

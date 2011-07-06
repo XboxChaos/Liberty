@@ -1,0 +1,78 @@
+﻿<Window
+   		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+		xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+		x:Class="Liberty.Controls.progressWindow"
+		x:Name="progBox"
+        Title="Liberty - ProgressBar" Height="158" Width="368"
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True" Background="{x:Null}" ShowInTaskbar="False" Closing="progBox_Closing">
+	
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard Name="FormFade">
+                    <DoubleAnimation  Name="FormFadeAnimation"
+                                            Storyboard.TargetName="progBox"
+                                            Storyboard.TargetProperty="(Window.Opacity)"
+                                            From="0.0" To="1.0" Duration="0:0:0.5"
+                                            AutoReverse="False" RepeatBehavior="1x"
+                                         />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Window.Unloaded">
+            <BeginStoryboard>
+                <Storyboard Name="FormFadeOut" Completed="FormFadeOut_Completed">
+                    <DoubleAnimation  Name="FormFadeOutAnimation"
+                                            Storyboard.TargetName="progBox"
+                                            Storyboard.TargetProperty="(Window.Opacity)"
+                                            From="1.0" To="0.0" Duration="0:0:0.5"
+                                            AutoReverse="False" RepeatBehavior="1x"
+                                         />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+</Window.Triggers>
+
+	<Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+                
+				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+	<ControlsMetro:MetroContentControl>
+		<Grid>
+	        <!--DropShadow-->
+	        <Border Margin="10,10,12,33">
+	            <Border.Effect>
+	                <DropShadowEffect Color="Black"
+						Direction="315"
+						BlurRadius="15"
+						ShadowDepth="3" />
+	            </Border.Effect>
+	        	<Grid>
+	        		<Grid.Background>
+	        			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+	        				<GradientStop Color="White" Offset="0" />
+	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
+	        			</LinearGradientBrush>
+	        		</Grid.Background>
+	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="SAVING FATX FILE ENTRY" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
+	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
+					
+					<Label Name="lblStatus" Foreground="#FF373A3D" Content="Saving modified gamesave to your external device." Margin="39,49,26.667,29.5" d:LayoutOverrides="VerticalAlignment" />
+					<Rectangle Fill="#00000000" Margin="43.25,0,32.258,29.5" Stroke="Black" Height="13" VerticalAlignment="Bottom" StrokeThickness="0.5"/>
+					
+					<ProgressBar Name="pBProgress" Value="0" Height="11.5" Margin="44,0,33,30.25" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment" IsTabStop="False" />
+	        	</Grid>
+	        </Border>
+	    </Grid>
+	</ControlsMetro:MetroContentControl>
+</Window>
