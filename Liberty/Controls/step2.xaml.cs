@@ -48,7 +48,7 @@ namespace Liberty.Controls
             Reach.BipedObject currentBiped = classInfo.storage.fileInfoStorage.saveData.Player.Biped;
             foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
             {
-                if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd)
+                if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd && obj.Zone == currentBiped.Zone)
                     availableBipeds.Add((Reach.BipedObject)obj);
             }
 
@@ -60,10 +60,7 @@ namespace Liberty.Controls
                 ComboBoxItem item = new ComboBoxItem();
                 item.Content = classInfo.nameLookup.translate(obj.ResourceID);
                 item.Tag = obj;
-                if (obj.Zone != currentBiped.Zone)
-                    item.Visibility = System.Windows.Visibility.Hidden;
-                else
-                    cBBipeds.Items.Add(item);
+                cBBipeds.Items.Add(item);
 
                 if (obj.ResourceID == currentBiped.ResourceID)
                 {
