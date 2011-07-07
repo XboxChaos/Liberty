@@ -538,15 +538,15 @@ namespace Liberty
             var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
             btnBack.Source = new BitmapImage(source);
 
-            step--;
-            step--;
-
-            if (fileInfoStorage.saveIsLocal)
+            if (fileInfoStorage.saveIsLocal && step == 3)
             {
-                if (step == 2)
-                    step = 0;
+                step = 0;
             }
-
+            else
+            {
+                step--;
+                step--;
+            }
             goForward();
         }
         #endregion
