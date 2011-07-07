@@ -89,6 +89,9 @@
     <Compile Include="Controls\massObjectMove.xaml.cs">
       <DependentUpon>massObjectMove.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\messageBoxOptions.xaml.cs">
+      <DependentUpon>messageBoxOptions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\progressWindow.xaml.cs">
       <DependentUpon>progressWindow.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
     <Page Include="Controls\messageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\messageBoxOptions.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\progressStepBar.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -278,7 +285,6 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Resources\taglist.ini" />
-    <None Include="taglist.ini" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Button-onhover.png" />

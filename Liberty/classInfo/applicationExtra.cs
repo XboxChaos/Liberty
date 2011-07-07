@@ -29,6 +29,15 @@ namespace Liberty.classInfo
 {
     class applicationExtra
     {
+        public static string downloadTaglist()
+        {
+            try
+            {
+                System.Net.WebClient wb = new System.Net.WebClient();
+                return wb.DownloadString("http://xboxchaos.com/reach/liberty/taglist.ini");
+            } catch { return Properties.Resources.taglist; }
+        }
+
         public static void closeApplication()
         {
             Process[] processes = Process.GetProcesses();

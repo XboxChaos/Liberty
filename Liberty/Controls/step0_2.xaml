@@ -30,7 +30,7 @@
 			<Label x:Name="lblaboutDevice" Foreground="#949494" Content="Select your save:" HorizontalAlignment="Left" Height="26.911" VerticalAlignment="Top" Width="114" Margin="24,139.672,0,0" />
 			<ComboBox x:Name="cBSaves" Margin="138,141.822,40,0" Height="23" VerticalAlignment="Top" />
 			<Image x:Name="btnOpen1" Height="21" Stretch="Fill" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" Margin="0,172.911,40,145.089" Width="71" HorizontalAlignment="Right" d:LayoutOverrides="Width, HorizontalMargin"/>
-			<TextBlock Height="19" Margin="484,176.911,49,143.089" x:Name="lblOpen1" Text="REFRESH" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold"/>
+			<TextBlock Height="19" Margin="484,174.911,49,145.089" x:Name="lblOpen1" Text="REFRESH" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold"/>
 		</Grid>
 		
 	</ControlsMetro:MetroContentControl>

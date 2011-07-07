@@ -21,22 +21,25 @@
 			    </UserControl.Resources>
 	<ControlsMetro:MetroContentControl>
 		<Grid x:Name="LayoutRoot">
-			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Biped Customization" Grid.RowSpan="2" />
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Biped Customization" Margin="0,0,0,292" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="First of all, let's change your biped infomation." Height="25.911" VerticalAlignment="Top" />
 			
-			<Label Name="subHeading1" Content="biped infomation;" Margin="0,72,0,241" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
-			<Label Name="lblGamertag" Content="current biped: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,98.267,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
-			<Label x:Name="subHeading1_Copy" Content="Are you all happy now? Good. Let's move on to weapons." Margin="8,0,56,20.733" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" VerticalAlignment="Bottom" />
-			<ComboBox Name="cBBipeds" VerticalAlignment="Top" Margin="131,99,0,0" Height="23" HorizontalAlignment="Left" Width="120" SelectionChanged="cBBipeds_SelectionChanged" />
-            <CheckBox Name="checkInvincible" Content="Enable for player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,153,0,0" HorizontalAlignment="Left" Width="418" Height="18.161" VerticalAlignment="Top"/>
-            <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,172.96,0,140.04" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
-	        <Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,112.129" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
-	        <Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,84.218" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
-	        <Label x:Name="lblGamertag_Copy2" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,57.307" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
-	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,112.129" MaxLines="1" x:Name="txtPlayerXCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerXCord_TextChanged" />
-	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,84.169" MaxLines="1" x:Name="txtPlayerYCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerYCord_TextChanged" />
-	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,56.209" MaxLines="1" x:Name="txtPlayerZCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerZCord_TextChanged" />
-	        <CheckBox x:Name="cBNoWeapTransfer" Content="Don't transfer my weapons to my new biped (experimental)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,129,0,0" HorizontalAlignment="Left" Width="418" Height="16.161" VerticalAlignment="Top" IsEnabled="False" />
+			<Label Name="subHeading1" Content="biped infomation;" Margin="0,61,0,252" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
+			<Label Name="lblGamertag" Content="current biped: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,87,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
+            <ComboBox Name="cBBipeds" VerticalAlignment="Top" Margin="131,88,0,0" Height="23" HorizontalAlignment="Left" Width="120" SelectionChanged="cBBipeds_SelectionChanged" />
+            <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,142,0,0" HorizontalAlignment="Left" Width="418" Height="18.161" VerticalAlignment="Top"/>
+            <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,192,0,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
+	        <Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,93" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
+	        <Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,65" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
+	        <Label x:Name="lblGamertag_Copy2" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,38" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
+	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,93" MaxLines="1" x:Name="txtPlayerXCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerXCord_TextChanged" />
+	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,65" MaxLines="1" x:Name="txtPlayerYCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerYCord_TextChanged" />
+	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,37" MaxLines="1" x:Name="txtPlayerZCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerZCord_TextChanged" />
+	        <CheckBox x:Name="cBNoWeapTransfer" Content="Don't transfer my weapons to my new biped (experimental)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,118,0,0" HorizontalAlignment="Left" Width="418" Height="16.161" VerticalAlignment="Top" IsEnabled="False" />
+            <Label Content="Know something we don't? Do you have a named ident that we don't?" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" Margin="11,0,182,150" Name="label1" VerticalAlignment="Bottom" />
+            
+			<Image x:Name="btnOpen" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,113.874,153.517" HorizontalAlignment="Right" Width="61.126" />
+            <TextBlock Height="19" HorizontalAlignment="Left" Margin="429.492,0,0,153.517" x:Name="lblOpen" Text="YES" VerticalAlignment="Bottom" Width="21.929" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" />
         </Grid>
 	</ControlsMetro:MetroContentControl>
 </UserControl>

@@ -18,3 +18,13 @@ C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyU
 C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater.g.resources
 C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater.exe
 C:\Users\Aaron\Downloads\haloreachliberty-s(1)\LibertyUpdater\obj\Debug\LibertyUpdater.pdb
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\bin\Debug\LibertyUpdater.exe
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\bin\Debug\LibertyUpdater.pdb
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\MainWindow.baml
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\MainWindow.g.cs
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\App.g.cs
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater_MarkupCompile.cache
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.g.resources
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.exe
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.pdb

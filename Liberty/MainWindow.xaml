@@ -125,10 +125,10 @@
 			</StackPanel>
 			
 			<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,29" />
-	        <TextBlock Height="19" HorizontalAlignment="Left" Margin="566,0,0,26.81" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        <TextBlock Height="19" HorizontalAlignment="Left" Margin="566,0,0,28.81" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 	        
 			<Image x:Name="btnBack" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" Margin="0,0,109,29" />
-	        <TextBlock Height="19" HorizontalAlignment="Left" Margin="475,0,0,26.81" x:Name="lblBack" Text="BACK" VerticalAlignment="Bottom" Width="33" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        <TextBlock Height="19" HorizontalAlignment="Left" Margin="475,0,0,28.81" x:Name="lblBack" Text="BACK" VerticalAlignment="Bottom" Width="33" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 	    
 			<MediaElement Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
 			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>

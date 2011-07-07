@@ -11,7 +11,7 @@ namespace Liberty.classInfo
         {
             try
             {
-                classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(Properties.Resources.taglist);
+                classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(classInfo.applicationExtra.downloadTaglist());
                 return null;
             }
             catch (Exception exception)

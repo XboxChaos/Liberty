@@ -71,10 +71,10 @@
 					<TextBox Name="lblException" Text="" IsReadOnly="True" Background="{x:Null}" Margin="47,81,25,75" BorderThickness="0" FontSize="13" Foreground="#FF373A3D" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" />
 					
 	        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,27" />
-	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,29,25" x:Name="lblOK" Text="CONTINUE" VerticalAlignment="Bottom" Width="62" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,29,27" x:Name="lblOK" Text="CONTINUE" VerticalAlignment="Bottom" Width="62" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 	        		
 					<Image Name="btnUpdate" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/SecondaryButton.png" Margin="0,0,110,27" HorizontalAlignment="Right" Width="71" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
-					<TextBlock Height="19" Margin="0,0,127,25" Name="lblUpdate" Text="EXIT" VerticalAlignment="Bottom" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="31" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
+					<TextBlock Height="19" Margin="0,0,127,27" Name="lblUpdate" Text="EXIT" VerticalAlignment="Bottom" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="31" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
 					
 					
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,200,0,0" x:Name="textBlock2_Copy" Text="If you continue, your save might become corrupt." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
