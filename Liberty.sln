@@ -6,6 +6,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibertyUpdater", "LibertyUpdater\LibertyUpdater.csproj", "{25798D7D-064E-44FC-94AE-6EA66FA37151}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs17
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Liberty\\Liberty.csproj
+		SccProjectName1 = Liberty
+		SccLocalPath1 = Liberty
+		SccProjectUniqueName2 = LibertyUpdater\\LibertyUpdater.csproj
+		SccProjectName2 = LibertyUpdater
+		SccLocalPath2 = LibertyUpdater
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
