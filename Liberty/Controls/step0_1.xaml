@@ -35,7 +35,7 @@
 				<Label Name="lblFileDirec" Content="please load a file..." FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="24.911" VerticalAlignment="Bottom" Margin="29,0,128,88.319" />
 				
 				<Image Name="btnOpen" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,53,92" d:LayoutOverrides="VerticalAlignment" />
-		        <TextBlock Height="19" HorizontalAlignment="Left" Margin="480,0,0,90" Name="lblOpen" Text="OPEN" VerticalAlignment="Bottom" Width="33" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
+		        <TextBlock Height="19" HorizontalAlignment="Left" Margin="480,0,0,92" Name="lblOpen" Text="OPEN" VerticalAlignment="Bottom" Width="33" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
 	        </Grid>
 			
 			<Grid Name="saveIsNotLocal" Visibility="Visible">
@@ -46,7 +46,7 @@
 				<Label Name="lblUSBWarning" Visibility="Hidden" FontWeight="SemiBold" Foreground="#FF9F0404" Content="USB evices are currently not supported. Sorry about that." Height="26.911" VerticalAlignment="Bottom" Margin="130,0,131,18.417" FontFamily="Segoe UI" Background="#00DE2222" />
 				
 				<Image Name="btnOpen1" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" Margin="0,0,176,92.089" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="71" />
-		        <TextBlock Height="19" HorizontalAlignment="Left" Margin="348,0,0,90.089" Name="lblOpen1" Text="REFRESH" VerticalAlignment="Bottom" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
+		        <TextBlock Height="19" HorizontalAlignment="Left" Margin="348,0,0,92.089" Name="lblOpen1" Text="REFRESH" VerticalAlignment="Bottom" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
 	        </Grid>
 			
 		</Grid>

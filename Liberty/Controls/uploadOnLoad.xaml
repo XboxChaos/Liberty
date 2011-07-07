@@ -69,10 +69,10 @@
 					
 					
 	        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,18" />
-	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,38,16" x:Name="lblOK" Text="IGNORE" VerticalAlignment="Bottom" Width="45" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,38,18" x:Name="lblOK" Text="IGNORE" VerticalAlignment="Bottom" Width="45" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 	        		
 					<Image x:Name="btnUpdate" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" Margin="129,0,108,18" />
-	        		<TextBlock Height="19" Margin="141,0,114,16" x:Name="lblUpdate" Text="UPDATE" VerticalAlignment="Bottom" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        		<TextBlock Height="19" Margin="141,0,114,18" x:Name="lblUpdate" Text="UPDATE" VerticalAlignment="Bottom" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 					<TextBox x:Name="lblBuildChanges" Margin="54,84,38,57.5" TextWrapping="Wrap" Text="**buildChanges**" Width="217" Height="194" Background="#00000000" BorderBrush="#00CCCCCC" BorderThickness="0" SelectionBrush="#003399FF" FontWeight="Normal" Foreground="#FF373A3D" IsReadOnly="True" IsReadOnlyCaretVisible="True" Cursor="Arrow" VerticalScrollBarVisibility="Auto"/>
 					
 				</Grid>

@@ -70,10 +70,10 @@
 					
 					
 	        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,27" />
-	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,44,25" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,44,27" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 	        		
 					<Image Name="btnUpdate" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/SecondaryButton.png" Margin="0,0,110,27" HorizontalAlignment="Right" Width="71" />
-					<TextBlock Height="19" Margin="0,0,115,25" Name="lblUpdate" Text="UPDATE" VerticalAlignment="Bottom" Foreground="#FFA9ACAF" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="54" />
+					<TextBlock Height="19" Margin="0,0,115,27" Name="lblUpdate" Text="UPDATE" VerticalAlignment="Bottom" Foreground="#FFA9ACAF" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="54" />
 					
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,81,0,0" x:Name="lblBuildVer1" Text="Build Version: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,81,0,0" x:Name="lblBuildVer" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />

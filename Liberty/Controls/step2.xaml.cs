@@ -62,7 +62,9 @@ namespace Liberty.Controls
                 item.Tag = obj;
                 if (obj.Zone != currentBiped.Zone)
                     item.Visibility = System.Windows.Visibility.Hidden;
-                cBBipeds.Items.Add(item);
+                else
+                    cBBipeds.Items.Add(item);
+
                 if (obj.ResourceID == currentBiped.ResourceID)
                 {
                     originalBipdItem = cBBipeds.Items.Count - 1;
@@ -152,12 +154,45 @@ namespace Liberty.Controls
         }
         #endregion
 
+		#region btnOpenwpf
+        private void btnOpen_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnOpen.Source = new BitmapImage(source);
+
+            classInfo.storage.fileInfoStorage.leavingStep2 = true;
+
+            OnExecuteMethod();
+        }
+
+        private void btnOpen_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnOpen.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnOpen.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnOpen_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton", UriKind.Relative);
+            btnOpen.Source = new BitmapImage(source);
+        }
+        #endregion
+		
         private void cBBipeds_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (originalBipdItem != cBBipeds.SelectedIndex)
             {
                 OnExecuteMethod();
-                cBNoWeapTransfer.IsEnabled = true;
+                if (classInfo.storage.fileInfoStorage.messageOpt) { cBNoWeapTransfer.IsEnabled = true; }
+                else { cBBipeds.SelectedIndex = originalBipdItem; }
             }
             originalBipdItem = cBBipeds.SelectedIndex;
         }

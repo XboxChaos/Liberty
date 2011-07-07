@@ -45,7 +45,8 @@ namespace Liberty
 
         protected void ParentWPF_bipdSwapAlert(object sender, EventArgs e)
         {
-            loadDialog(1, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted.\n\nContinue? (Xerax, fix this!)", "Biped Swap");
+            if (classInfo.storage.fileInfoStorage.leavingStep2) { loadDialog(5, null, null); }
+            else { loadDialog(8, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted.\nContinue?", "Biped Swap"); }
         }
 
         protected void ParentWPF_massCordMove(object sender, EventArgs e)
@@ -326,6 +327,13 @@ namespace Liberty
                     Controls.progressWindow progBar = new Controls.progressWindow();
                     progBar.Owner = this;
                     progBar.ShowDialog();
+                    break;
+                case 8:
+                    Controls.messageBoxOptions msgBoxOpt = new Controls.messageBoxOptions();
+                    msgBoxOpt.lblSubInfo.Text = message;
+                    msgBoxOpt.lblTitle.Text = title.ToUpper();
+                    msgBoxOpt.Owner = this;
+                    msgBoxOpt.ShowDialog();
                     break;
             }
             recMask.Visibility = System.Windows.Visibility.Hidden;

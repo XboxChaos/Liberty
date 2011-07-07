@@ -48,5 +48,8 @@ namespace Liberty.classInfo.storage
         public static int driveType;
 
         public static Util.TagList tagList = null;
+
+        public static bool messageOpt = false;
+        public static bool leavingStep2 = false;
     }
 }
