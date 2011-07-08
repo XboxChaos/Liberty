@@ -234,8 +234,7 @@ namespace Liberty.Reach
         public virtual void Delete()
         {
             DropAll();
-            if (_carrier != null)
-                _carrier.DropCarriedObject(this);
+            Drop();
             _entry.ID = 0;
             _entry.Flags = 0x22;
             _entry.LoadAddress = 0;
@@ -264,7 +263,7 @@ namespace Liberty.Reach
         /// <summary>
         /// Drops the object from its carrier.
         /// </summary>
-        public void Drop()
+        public virtual void Drop()
         {
             if (_carrier != null)
                 _carrier.DropCarriedObject(this);
@@ -490,6 +489,7 @@ namespace Liberty.Reach
             if (_firstCarried == obj)
             {
                 _firstCarried = obj._nextCarried;
+                obj.OnDrop();
             }
             else
             {
@@ -497,10 +497,17 @@ namespace Liberty.Reach
                 while (current != null && current._nextCarried != obj)
                     current = current._nextCarried;
                 if (current != null)
+                {
                     current._nextCarried = obj._nextCarried;
+                    obj.OnDrop();
+                }
             }
             obj._carrier = null;
             obj._nextCarried = null;
+        }
+
+        protected virtual void OnDrop()
+        {
         }
 
         /// <summary>
@@ -510,13 +517,31 @@ namespace Liberty.Reach
         /// This should only be used by derived classes when object reference properties are changed.
         /// </remarks>
         /// <param name="obj">The object to pick up.</param>
-        public void PickUpObject(GameObject obj)
+        internal void PickUpObject(GameObject obj)
         {
-            if (obj._carrier != null)
-                obj._carrier.DropCarriedObject(obj);
+            obj.Drop();
             obj._carrier = this;
             obj._nextCarried = _firstCarried;
             _firstCarried = obj;
+        }
+
+        /// <summary>
+        /// Handle this to adjust internal object pointers if a carried object is swapped with another one.
+        /// </summary>
+        /// <param name="oldObj">The old object</param>
+        /// <param name="newObj">The object it will be replaced with</param>
+        internal virtual void ReplaceCarriedObject(GameObject oldObj, GameObject newObj)
+        {
+            if (oldObj.Carrier == this)
+            {
+                oldObj.OnReplace(newObj);
+                oldObj.Drop();
+                PickUpObject(newObj);
+            }
+        }
+
+        protected virtual void OnReplace(GameObject newObj)
+        {
         }
 
         /// <summary>
@@ -530,6 +555,19 @@ namespace Liberty.Reach
             writer.WriteFloat(_x);
             writer.WriteFloat(_y);
             writer.WriteFloat(_z);
+        }
+
+        public override bool Equals(object obj)
+        {
+            GameObject gameObject = obj as GameObject;
+            if (gameObject == null)
+                return false;
+            return (_entry.ID == gameObject._entry.ID);
+        }
+
+        public override int GetHashCode()
+        {
+            return (int)_entry.ID;
         }
 
         private ObjectEntry _entry;
@@ -655,18 +693,6 @@ namespace Liberty.Reach
             _armorAbility = null;
         }
 
-        protected override void DropCarriedObject(GameObject obj)
-        {
-            base.DropCarriedObject(obj);
-
-            if (_primaryWeapon == obj)
-                _primaryWeapon = null;
-            else if (_secondaryWeapon == obj)
-                _secondaryWeapon = null;
-            else if (_armorAbility == obj)
-                _armorAbility = null;
-        }
-
         /// <summary>
         /// The primary weapon that the biped is holding. Can be null.
         /// </summary>
@@ -679,7 +705,7 @@ namespace Liberty.Reach
             set
             {
                 if (_primaryWeapon != null)
-                    DropCarriedObject(_primaryWeapon);
+                    _primaryWeapon.Drop();
                 if (value != null)
                     PickUpObject(value);
                 _primaryWeapon = value;
@@ -698,7 +724,7 @@ namespace Liberty.Reach
             set
             {
                 if (_secondaryWeapon != null)
-                    DropCarriedObject(_secondaryWeapon);
+                    _secondaryWeapon.Drop();
                 if (value != null)
                     PickUpObject(value);
                 _secondaryWeapon = value;
@@ -743,7 +769,7 @@ namespace Liberty.Reach
             set
             {
                 if (_armorAbility != null)
-                    DropCarriedObject(_armorAbility);
+                    _armorAbility.Drop();
                 if (value != null)
                     PickUpObject(value);
                 _armorAbility = value;
@@ -797,6 +823,11 @@ namespace Liberty.Reach
             reader.Seek(start + 0x378, SeekOrigin.Begin);
             _fragGrenades = reader.ReadSByte();
             _plasmaGrenades = reader.ReadSByte();
+
+            // Vehicle
+            reader.Seek(start + 0xA00, SeekOrigin.Begin);
+            _currentVehicleId = reader.ReadUInt32();
+            _controlledVehicleId = reader.ReadUInt32();
         }
 
         protected override void DoUpdate(Liberty.SaveIO.SaveWriter writer, long start)
@@ -845,8 +876,13 @@ namespace Liberty.Reach
             writer.WriteSByte(_fragGrenades);
             writer.WriteSByte(_plasmaGrenades);
 
-            writer.Seek(start + 0xA54, SeekOrigin.Begin);
-            writer.WriteUInt32(ID);
+            /*writer.Seek(start + 0xA54, SeekOrigin.Begin);
+            writer.WriteUInt32(ID);*/
+
+            // Vehicle
+            writer.Seek(start + 0xA00, SeekOrigin.Begin);
+            writer.WriteUInt32(_currentVehicleId);
+            writer.WriteUInt32(_controlledVehicleId);
         }
 
         /// <summary>
@@ -865,13 +901,49 @@ namespace Liberty.Reach
                 _armorAbility = (EquipmentObject)objects[(int)_armorAbilityId];
         }
 
+        protected override void DropCarriedObject(GameObject obj)
+        {
+            base.DropCarriedObject(obj);
+
+            if (_primaryWeapon == obj)
+                _primaryWeapon = null;
+            else if (_secondaryWeapon == obj)
+                _secondaryWeapon = null;
+            else if (_armorAbility == obj)
+                _armorAbility = null;
+        }
+
+        protected override void OnDrop()
+        {
+            base.OnDrop();
+
+            _currentVehicleId = 0xFFFFFFFF;
+            _controlledVehicleId = 0xFFFFFFFF;
+        }
+
+        protected override void OnReplace(GameObject newObj)
+        {
+            base.OnReplace(newObj);
+
+            BipedObject newBiped = newObj as BipedObject;
+            if (newBiped != null)
+            {
+                newBiped._currentVehicleId = _currentVehicleId;
+                newBiped._controlledVehicleId = _controlledVehicleId;
+                _currentVehicleId = 0xFFFFFFFF;
+                _controlledVehicleId = 0xFFFFFFFF;
+            }
+        }
+
         private ushort _primaryWeaponId;
         private ushort _secondaryWeaponId;
         private WeaponObject _primaryWeapon = null;
         private WeaponObject _secondaryWeapon = null;
-
         private ushort _armorAbilityId;
         private EquipmentObject _armorAbility = null;
+
+        private uint _currentVehicleId = 0xFFFFFFFF;
+        private uint _controlledVehicleId = 0xFFFFFFFF;
 
         private uint _actorId;
         private GamePlayer _player = null;
@@ -1024,16 +1096,64 @@ namespace Liberty.Reach
         {
         }
 
+        protected override void DoLoad(SaveIO.SaveReader reader, long start)
+        {
+            base.DoLoad(reader, start);
+
+            reader.Seek(start + 0x388, SeekOrigin.Begin);
+            _driverObjectId = (ushort)(reader.ReadUInt32() & 0xFFFF);
+            _controllerObjectId = (ushort)(reader.ReadUInt32() & 0xFFFF);
+        }
+
         protected override void DoUpdate(SaveIO.SaveWriter writer, long start)
         {
             base.DoUpdate(writer, start);
 
             writer.Seek(start + 0x388, SeekOrigin.Begin);
-            if (FirstCarried != null)
-                writer.WriteUInt32(FirstCarried.ID);
+            if (_driver != null)
+                writer.WriteUInt32(_driver.ID);
+            else
+                writer.WriteUInt32(0xFFFFFFFF);
+            if (_controller != null)
+                writer.WriteUInt32(_controller.ID);
             else
                 writer.WriteUInt32(0xFFFFFFFF);
         }
+
+        protected override void DropCarriedObject(GameObject obj)
+        {
+            base.DropCarriedObject(obj);
+
+            if (_driver == obj)
+                _driver = null;
+            if (_controller == obj)
+                _controller = null;
+        }
+
+        internal override void ResolveObjectRefs(List<GameObject> objects)
+        {
+            base.ResolveObjectRefs(objects);
+
+            if (_driverObjectId != 0xFFFF)
+                _driver = objects[(int)_driverObjectId] as BipedObject;
+            if (_controllerObjectId != 0xFFFF)
+                _controller = objects[(int)_controllerObjectId] as BipedObject;
+        }
+
+        internal override void ReplaceCarriedObject(GameObject oldObj, GameObject newObj)
+        {
+            if (_driver == oldObj)
+                _driver = newObj as BipedObject;
+            if (_controller == oldObj)
+                _controller = newObj as BipedObject;
+
+            base.ReplaceCarriedObject(oldObj, newObj);
+        }
+
+        private ushort _driverObjectId = 0xFFFF;
+        private BipedObject _driver = null;
+        private ushort _controllerObjectId = 0xFFFF;
+        private BipedObject _controller = null;
     }
 
     /// <summary>

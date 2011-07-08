@@ -89,6 +89,8 @@ namespace Liberty.Reach
                     _biped.DropAll();
                 }
                 newBiped.Drop();
+                /*if (_biped.Carrier != null)
+                    _biped.Carrier.ReplaceCarriedObject(_biped, newBiped);*/
                 _biped.Delete();
                 _biped = newBiped;
             }
