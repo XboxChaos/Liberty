@@ -54,8 +54,8 @@ namespace Liberty.Controls
 
             FormFadeOut.Begin();
 
-            if (classInfo.storage.fileInfoStorage.leavingStep2) { Process.Start("http://www.xboxchaos.com/index.php/tracker/project-6-liberty-taglist-ident-naming/"); }
-            else { Process.Start("http://www.xboxchaos.com/index.php/tracker/project-5-liberty/"); }
+            if (classInfo.storage.fileInfoStorage.leavingStep2) { Process.Start("http://liberty.codeplex.com/discussions/264198"); }
+            else { Process.Start("http://liberty.codeplex.com/workitem/list/basic"); }
         }
         #endregion
 
