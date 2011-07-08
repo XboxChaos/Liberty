@@ -45,7 +45,7 @@ namespace Liberty
 
         protected void ParentWPF_bipdSwapAlert(object sender, EventArgs e)
         {
-            if (classInfo.storage.fileInfoStorage.leavingStep2) { loadDialog(5, null, null); }
+            if (classInfo.storage.fileInfoStorage.leavingStep2) { loadDialog(5, "http://liberty.codeplex.com/discussions/264198", "CodePlex"); }
             else { loadDialog(8, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted.\nContinue?", "Biped Swap"); }
         }
 
@@ -313,7 +313,7 @@ namespace Liberty
                     exp.ShowDialog();
                     break;
                 case 5:
-                    Controls.leavingLiberty llib = new Controls.leavingLiberty();
+                    Controls.leavingLiberty llib = new Controls.leavingLiberty(title, message);
                     llib.Owner = this;
                     llib.ShowDialog();
                     break;
@@ -484,7 +484,7 @@ namespace Liberty
         {
             btnBugReport.Foreground = (Brush)bc.ConvertFrom("#FF868686");
 
-            loadDialog(5, null, null);
+            loadDialog(5, "http://liberty.codeplex.com/workitem/list/basic", "CodePlex");
         }
         #endregion
 
