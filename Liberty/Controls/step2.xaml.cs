@@ -44,29 +44,43 @@ namespace Liberty.Controls
             txtPlayerYCord.Text = Convert.ToString(playerCords[1]);
             txtPlayerZCord.Text = Convert.ToString(playerCords[2]);
 
-            SortedSet<Reach.BipedObject> availableBipeds = new SortedSet<Reach.BipedObject>(new mapIdentComparer());
             Reach.BipedObject currentBiped = classInfo.storage.fileInfoStorage.saveData.Player.Biped;
-            foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+            if (currentBiped.Vehicle == null)
             {
-                if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd && obj.Zone == currentBiped.Zone)
-                    availableBipeds.Add((Reach.BipedObject)obj);
-            }
-
-            originalBipdItem = -1;
-            cBNoWeapTransfer.IsEnabled = false;
-            cBBipeds.Items.Clear();
-            foreach (Reach.BipedObject obj in availableBipeds)
-            {
-                ComboBoxItem item = new ComboBoxItem();
-                item.Content = classInfo.nameLookup.translate(obj.ResourceID);
-                item.Tag = obj;
-                cBBipeds.Items.Add(item);
-
-                if (obj.ResourceID == currentBiped.ResourceID)
+                SortedSet<Reach.BipedObject> availableBipeds = new SortedSet<Reach.BipedObject>(new mapIdentComparer());
+                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
                 {
-                    originalBipdItem = cBBipeds.Items.Count - 1;
-                    cBBipeds.SelectedItem = item;
+                    if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd && obj.Zone == currentBiped.Zone)
+                        availableBipeds.Add((Reach.BipedObject)obj);
                 }
+
+                originalBipdItem = -1;
+                cBNoWeapTransfer.IsEnabled = false;
+                cBBipeds.Items.Clear();
+                foreach (Reach.BipedObject obj in availableBipeds)
+                {
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Content = classInfo.nameLookup.translate(obj.ResourceID);
+                    item.Tag = obj;
+                    cBBipeds.Items.Add(item);
+
+                    if (obj.ResourceID == currentBiped.ResourceID)
+                    {
+                        originalBipdItem = cBBipeds.Items.Count - 1;
+                        cBBipeds.SelectedIndex = originalBipdItem;
+                    }
+                }
+            }
+            else
+            {
+                // Add a dummy item
+                cBBipeds.IsEnabled = false;
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = classInfo.nameLookup.translate(currentBiped.ResourceID);
+                item.Tag = currentBiped;
+                cBBipeds.Items.Add(item);
+                originalBipdItem = 0;
+                cBBipeds.SelectedIndex = 0;
             }
         }
 
