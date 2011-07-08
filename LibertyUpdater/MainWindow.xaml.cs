@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Net;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace LibertyUpdater
 {
@@ -26,6 +27,9 @@ namespace LibertyUpdater
         int threadTime = 500;
         string currentData = "";
         bool finishedUpdating;
+
+        [DllImport("gdi32", EntryPoint = "AddFontResource")]
+        public static extern int AddFontResourceA(string lpFileName);
 
 		public MainWindow()
 		{
@@ -118,7 +122,7 @@ namespace LibertyUpdater
                         output = "Downloading Application Exe...";
                         System.Threading.Thread.Sleep(threadTime);
 
-                        if (File.Exists(appDir)) { try { File.Delete(appDir); } catch { } }
+                        if (File.Exists(appDir)) { File.Delete(appDir); }
                         wb.DownloadFile(new Uri(line), appDir);
                     }
                     else
@@ -130,6 +134,73 @@ namespace LibertyUpdater
                         wb.DownloadFile(new Uri("http://xeraxic.com/downloads/lib/" + line), appDirec + "\\" + line);
                     }
                     i++;
+                }
+
+                output = "Installing Fonts...";
+                System.Threading.Thread.Sleep(threadTime);
+
+                tempFonts();
+                string fontPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\fonts\\";
+                string[] fonts = new string[17];
+                #region fontnaming
+                {
+                    File.WriteAllBytes(fontPath + "segoeui.ttf", LibertyUpdater.Properties.Resources.segoeui);
+                    fonts[0] = fontPath + "segoeui.ttf";
+
+                    File.WriteAllBytes(fontPath + "segoeuib.ttf", LibertyUpdater.Properties.Resources.segoeuib);
+                    fonts[1] = fontPath + "segoeuib.ttf";
+
+                    File.WriteAllBytes(fontPath + "segoeuii.ttf", LibertyUpdater.Properties.Resources.segoeuii);
+                    fonts[2] = fontPath + "segoeuii.ttf";
+
+                    File.WriteAllBytes(fontPath + "segoeuil.ttf", LibertyUpdater.Properties.Resources.segoeuil);
+                    fonts[3] = fontPath + "segoeuil.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeUIMono_Bold.ttf", LibertyUpdater.Properties.Resources.SegoeUIMono_Bold);
+                    fonts[4] = fontPath + "SegoeUIMono_Bold.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeUIMono_Regular.ttf", LibertyUpdater.Properties.Resources.SegoeUIMono_Regular);
+                    fonts[5] = fontPath + "SegoeUIMono_Regular.ttf";
+
+                    File.WriteAllBytes(fontPath + "segoeuiz.ttf", LibertyUpdater.Properties.Resources.segoeuiz);
+                    fonts[6] = fontPath + "segoeuiz.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeWP.ttf", LibertyUpdater.Properties.Resources.SegoeWP);
+                    fonts[7] = fontPath + "SegoeWP.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeWP_Black.ttf", LibertyUpdater.Properties.Resources.SegoeWP_Black);
+                    fonts[8] = fontPath + "SegoeWP_Black.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeWP_Bold.ttf", LibertyUpdater.Properties.Resources.SegoeWP_Bold);
+                    fonts[9] = fontPath + "SegoeWP_Bold.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeWP_Light.ttf", LibertyUpdater.Properties.Resources.SegoeWP_Light);
+                    fonts[10] = fontPath + "SegoeWP_Light.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeWP_Semibold.ttf", LibertyUpdater.Properties.Resources.SegoeWP_Semibold);
+                    fonts[11] = fontPath + "SegoeWP_Semibold.ttf";
+
+                    File.WriteAllBytes(fontPath + "SegoeWP_Semilight.ttf", LibertyUpdater.Properties.Resources.SegoeWP_Semilight);
+                    fonts[12] = fontPath + "SegoeWP_Semilight.ttf";
+
+                    File.WriteAllBytes(fontPath + "seguisb.ttf", LibertyUpdater.Properties.Resources.seguisb);
+                    fonts[13] = fontPath + "seguisb.ttf";
+
+                    File.WriteAllBytes(fontPath + "seguisym.ttf", LibertyUpdater.Properties.Resources.seguisym);
+                    fonts[14] = fontPath + "seguisym.ttf";
+
+                    File.WriteAllBytes(fontPath + "Semilight.ttf", LibertyUpdater.Properties.Resources.Semilight);
+                    fonts[15] = fontPath + "Semilight.ttf";
+                }
+                #endregion
+
+
+                for (int j = 0; j < 16; j++)
+                {
+                    fi = new FileInfo(fonts[j]);
+                    output = "Installing Font: " + fi.Name;
+                    System.Threading.Thread.Sleep(250);
+                    try { AddFontResourceA(fonts[j]); } catch { }
                 }
 
                 output = "Loading Liberty...";
@@ -148,5 +219,13 @@ namespace LibertyUpdater
 
             finished = true;
         }
+
+        public void tempFonts()
+        {
+            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\fonts\\";
+            if (!Directory.Exists(temp)) { Directory.CreateDirectory(temp); }
+        }
+
+
     }
 }

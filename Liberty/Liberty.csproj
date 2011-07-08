@@ -325,6 +325,9 @@
     <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\LibertyUpdater.exe" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Updater.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -28,3 +28,6 @@ C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyU
 C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.g.resources
 C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.exe
 C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.pdb
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\LibertyUpdater.Properties.Resources.resources
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Alex Reed\Documents\Visual Studio 2010\Projects\projectliberty\LibertyUpdater\obj\Debug\GenerateResource.write.1.tlog
