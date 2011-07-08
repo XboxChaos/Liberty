@@ -449,7 +449,7 @@ namespace Liberty.Controls
         #region maxPrimaryWeapClip
         private void btnMaxPrimaryClip_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/PrimaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
             btnMaxPrimaryClip.Source = new BitmapImage(source);
 
             txtWeapPluginClipAmmo.Text = "32767";
@@ -459,7 +459,7 @@ namespace Liberty.Controls
         {
             if ((bool)e.NewValue)
             {
-                var source = new Uri(@"/Liberty;component/Images/PrimaryButton.png", UriKind.Relative);
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
                 btnMaxPrimaryClip.Source = new BitmapImage(source);
             }
             else
@@ -471,7 +471,7 @@ namespace Liberty.Controls
 
         private void btnMaxPrimaryClip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/PrimaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
             btnMaxPrimaryClip.Source = new BitmapImage(source);
         }
         #endregion
