@@ -40,6 +40,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>LibertyUpdater.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -60,6 +63,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,6 +90,22 @@
     <None Include="Application.ico">
       <Visible>false</Visible>
     </None>
+    <None Include="Resources\segoeui.ttf" />
+    <None Include="Resources\segoeuib.ttf" />
+    <None Include="Resources\segoeuii.ttf" />
+    <None Include="Resources\segoeuil.ttf" />
+    <None Include="Resources\SegoeUIMono-Bold.TTF" />
+    <None Include="Resources\SegoeUIMono-Regular.TTF" />
+    <None Include="Resources\segoeuiz.ttf" />
+    <None Include="Resources\SegoeWP-Black.ttf" />
+    <None Include="Resources\SegoeWP-Bold.ttf" />
+    <None Include="Resources\SegoeWP-Light.ttf" />
+    <None Include="Resources\SegoeWP-Semibold.ttf" />
+    <None Include="Resources\SegoeWP-Semilight.ttf" />
+    <None Include="Resources\SegoeWP.ttf" />
+    <None Include="Resources\seguisb.ttf" />
+    <None Include="Resources\seguisym.ttf" />
+    <None Include="Resources\Semilight.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="icon.ico" />
@@ -90,6 +114,12 @@
     <Resource Include="Images\Button-onhover.png" />
     <Resource Include="Images\SecondaryButton.png" />
     <Resource Include="Images\TopBar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath32)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
