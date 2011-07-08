@@ -18,11 +18,13 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class leavingLiberty : Window
 	{
-		public leavingLiberty()
+        private string _url;
+
+		public leavingLiberty(string siteName, string url)
 		{
 			this.InitializeComponent();
-			
-			// Insert code required on object creation below this point.
+            textBlock2.Text = textBlock2.Text.Replace("{0}", siteName);
+            _url = url;
 		}
 		
 		#region wpfBullshit
@@ -53,9 +55,7 @@ namespace Liberty.Controls
             btnOK.Source = new BitmapImage(source);
 
             FormFadeOut.Begin();
-
-            if (classInfo.storage.fileInfoStorage.leavingStep2) { Process.Start("http://liberty.codeplex.com/discussions/264198"); }
-            else { Process.Start("http://liberty.codeplex.com/workitem/list/basic"); }
+            Process.Start(_url);
         }
         #endregion
 
