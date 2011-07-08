@@ -26,7 +26,7 @@ using System.IO;
 namespace Liberty.Reach
 {
     /// <summary>
-    /// Provides constants for known object tags.
+    /// Provides constants for known object tag groups.
     /// </summary>
     public enum TagGroup
     {
@@ -982,7 +982,7 @@ namespace Liberty.Reach
             base.DoUpdate(writer, start);
 
             writer.Seek(start + 0x1B4, SeekOrigin.Begin);
-            if (Carrier != null)
+            if (Carrier != null && (Carrier.TagGroup == TagGroup.Bipd || Carrier.TagGroup == TagGroup.Vehi))
             {
                 writer.WriteUInt32(Carrier.ID);
                 writer.WriteUInt32(Carrier.ID);
@@ -1058,12 +1058,12 @@ namespace Liberty.Reach
                 writer.WriteUInt32(_player.ID);
             else
                 writer.WriteUInt32(0xFFFFFFFF);
-            if (Carrier != null)
+            if (Carrier != null && Carrier.TagGroup == TagGroup.Bipd)
                 writer.WriteUInt32(Carrier.ID);
             else
                 writer.WriteUInt32(0xFFFFFFFF);
             writer.Seek(start + 0x1B4, SeekOrigin.Begin);
-            if (Carrier != null)
+            if (Carrier != null && Carrier.TagGroup == TagGroup.Bipd)
             {
                 writer.WriteUInt32(Carrier.ID);
                 writer.WriteUInt32(Carrier.ID);
