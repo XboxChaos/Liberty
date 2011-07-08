@@ -511,7 +511,7 @@ namespace Liberty
 
         private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnOK.Source = new BitmapImage(source);
 
             goForward();
@@ -541,7 +541,7 @@ namespace Liberty
 
         private void btnBack_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnBack.Source = new BitmapImage(source);
 
             if (fileInfoStorage.saveIsLocal && step == 3)
