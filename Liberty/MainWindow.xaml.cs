@@ -165,8 +165,14 @@ namespace Liberty
                     }
                     break;
                 case 2:
-                    if (!fileInfoStorage.saveIsLocal) { step0_2.saveData(); }
-                    if (fileInfoStorage.fileExtractDirectory == null) { loadDialog(1, "You must select a valid Halo Reach campaign gamesave before you can continue.", "Error"); step--; goForward(); }
+                    if (!fileInfoStorage.saveIsLocal)
+                        step0_2.saveData();
+                    if (fileInfoStorage.fileExtractDirectory == null)
+                    {
+                        loadDialog(1, "You must select a valid Halo Reach campaign gamesave before you can continue.", "Error");
+                        step -= 2;
+                        goForward();
+                    }
                     else
                     {
                         step1.loadData();

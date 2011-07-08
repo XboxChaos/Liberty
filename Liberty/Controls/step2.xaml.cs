@@ -70,6 +70,7 @@ namespace Liberty.Controls
                         cBBipeds.SelectedIndex = originalBipdItem;
                     }
                 }
+                cBBipeds.IsEnabled = true;
             }
             else
             {
