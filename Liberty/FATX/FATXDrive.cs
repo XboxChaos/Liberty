@@ -21,6 +21,7 @@ namespace FATX
         public FATX.IOReader br;
         public FATX.IOWriter bw;
         private PartitionInfo[] partinfo;
+        private string dLabel = null;
         bool closed = false;
         Microsoft.Win32.SafeHandles.SafeFileHandle xHandle;
         string driveName = "";
@@ -64,6 +65,10 @@ namespace FATX
                         }
                     }
                 }
+
+                // Hax: fall back to the volume label if there is one
+                if (dLabel != null && dLabel.Length > 0)
+                    return dLabel;
 
                 // That shit wasn't found... just return the drive type
                 return DriveType.ToString();// +" " + DriveSizeConverted;
@@ -110,7 +115,7 @@ namespace FATX
             return xHandle;
         }
 
-        public FATXDrive(string dumpPath, Info.DriveType dtype)
+        public FATXDrive(string dumpPath, Info.DriveType dtype, string volumeLabel)
         {
             if (dtype == Info.DriveType.Backup)
             {
@@ -122,6 +127,7 @@ namespace FATX
             }
             DriveType = dtype;
             DumpPath = dumpPath;
+            dLabel = volumeLabel;
             ReadSize();
         }
 

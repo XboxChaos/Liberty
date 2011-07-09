@@ -41,12 +41,12 @@
 			<Grid Name="saveIsNotLocal" Visibility="Visible">
 				<Label Name="subHeading1_1" Content="external storage type;" Margin="0,110,0,114.089" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="154" />
 				<Label Name="lblaboutDevice" Foreground="#949494" Content="Select your device:" HorizontalAlignment="Left" Height="26.911" VerticalAlignment="Bottom" Width="114" Margin="24,0,0,89.328" />
-				<ComboBox Name="cBStorageType" Margin="138,0,257,91.089" Height="23" VerticalAlignment="Bottom" />
+				<ComboBox Name="cBStorageType" Margin="138,0,197,91.089" Height="23" VerticalAlignment="Bottom" />
 				
 				<Label Name="lblUSBWarning" Visibility="Hidden" FontWeight="SemiBold" Foreground="#FF9F0404" Content="USB evices are currently not supported. Sorry about that." Height="26.911" VerticalAlignment="Bottom" Margin="130,0,131,18.417" FontFamily="Segoe UI" Background="#00DE2222" />
 				
-				<Image Name="btnOpen1" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" Margin="0,0,176,92.089" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="71" />
-		        <TextBlock Height="19" HorizontalAlignment="Left" Margin="348,0,0,92.089" Name="lblOpen1" Text="REFRESH" VerticalAlignment="Bottom" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
+				<Image Name="btnOpen1" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" Margin="0,0,116,92.089" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="71" />
+		        <TextBlock Height="19" HorizontalAlignment="Left" Margin="408,0,0,92.089" Name="lblOpen1" Text="REFRESH" VerticalAlignment="Bottom" Width="52" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged1" MouseDown="btnOpen_MouseDown1" MouseUp="btnOpen_MouseUp1" FontWeight="Bold" d:LayoutOverrides="VerticalAlignment" />
 	        </Grid>
 			
 		</Grid>
