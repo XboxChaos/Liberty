@@ -82,6 +82,9 @@
     <Compile Include="classInfo\applicationExtra.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
     <Compile Include="classInfo\savePackageData.cs" />
+    <Compile Include="classInfo\SkinningEngine\IO\PathData.cs" />
+    <Compile Include="classInfo\SkinningEngine\loadSettings.cs" />
+    <Compile Include="classInfo\SkinningEngine\RuntimeStorage.cs" />
     <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
     <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
     <Compile Include="Controls\exceptionWindow.xaml.cs">
@@ -321,7 +324,6 @@
     <Resource Include="Images\mapImages\M70_bonus.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="classInfo\chunkData\" />
     <Folder Include="Fonts\" />
   </ItemGroup>
   <ItemGroup>
