@@ -25,6 +25,17 @@ namespace Liberty.Controls
 
         public string loadData()
         {
+            if (classInfo.storage.fileInfoStorage.saveIsLocal)
+            {
+                subBaseHeader_2_1.Content = "Liberty and then just transfer the save back to your hard drive, USB, or memory unit and enjoy some";
+                subBaseHeader_2_2.Content = "more Halo: Reach.";
+            }
+            else
+            {
+                subBaseHeader_2_1.Content = "Liberty and enjoy some more Halo: Reach.";
+                subBaseHeader_2_2.Content = "";
+            }
+
             return classInfo.stfsCheck.finishFileEditing();
         }
 
