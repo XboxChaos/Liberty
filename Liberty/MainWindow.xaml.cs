@@ -46,7 +46,7 @@ namespace Liberty
         protected void ParentWPF_bipdSwapAlert(object sender, EventArgs e)
         {
             if (classInfo.storage.fileInfoStorage.leavingStep2) { loadDialog(5, "http://liberty.codeplex.com/discussions/264198", "CodePlex"); }
-            else { loadDialog(8, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted.\nContinue?", "Biped Swap"); }
+            else { loadDialog(8, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted. Continue?", "Biped Swap"); }
         }
 
         protected void ParentWPF_massCordMove(object sender, EventArgs e)
