@@ -33,7 +33,7 @@ namespace Liberty.Controls
 	{
         public event EventHandler ExecuteMethod;
         public event EventHandler<MessageEventArgs> ExecuteMethodLocal;
-        FATX.FATXDrive[] physDrives;
+        FATX.FATXDrive[] physDrives = null;
 		public step0_1()
 		{
 			this.InitializeComponent();
@@ -90,6 +90,12 @@ namespace Liberty.Controls
                     }
                     else
                         fileInfoStorage.driveType = 1;
+
+                    for (int i = 0; i < physDrives.Length; i++)
+                    {
+                        if (i != cBStorageType.SelectedIndex)
+                            physDrives[i].Close();
+                    }
                 }
                 return true;
             }
@@ -99,6 +105,12 @@ namespace Liberty.Controls
         public void updateFATX()
         {
 			cBStorageType.Items.Clear();
+            if (physDrives != null)
+            {
+                foreach (FATX.FATXDrive drive in physDrives)
+                    drive.Close();
+                physDrives = null;
+            }
 			
             //Create a new instance of the IO class
             FATX.IO.HDDFATX io = new FATX.IO.HDDFATX(false, null);
@@ -112,7 +124,7 @@ namespace Liberty.Controls
             {
                 string Type = physDrives[i].DriveName;
                 ComboBoxItem hdd = new ComboBoxItem();
-                hdd.Content = physDrives[i].DriveType.ToString() + " - " + physDrives[i].DriveName.ToString();
+                hdd.Content = physDrives[i].DriveType.ToString() + " - " + physDrives[i].DriveName.ToString() + " (" + physDrives[i].DriveSizeConverted + ")";
                 hdd.Tag = physDrives[i];
                 cBStorageType.Items.Add(hdd);
                 i++;

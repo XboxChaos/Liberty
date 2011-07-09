@@ -36,7 +36,6 @@ namespace Liberty.Controls
             FrontEnd.Interval = new TimeSpan(0, 0, 0, 0, 100);
             System.Threading.ThreadStart ts = delegate { doOveride(); };
             Worker = new System.Threading.Thread(ts);
-            FrontEnd.Start();
             Worker.Start();
 		}
 
@@ -44,7 +43,9 @@ namespace Liberty.Controls
 
         public void doOveride()
         {
+            FrontEnd.Start();
             fileInfoStorage.oldFileInFolder.OverWrite(fileInfoStorage.fileOriginalDirectory, ref progressValue, ref maxValue, ref cancel);
+            fileInfoStorage.xChosenDrive.Close();
         }
 
         void FrontEnd_Tick(object sender, EventArgs e)
@@ -60,11 +61,8 @@ namespace Liberty.Controls
 
             if (maxValue == progressValue)
             {
+                FrontEnd.Stop();
                 this.FormFadeOut.Begin();
-            }
-            else
-            {
-                FrontEnd.Start();
             }
         }
 

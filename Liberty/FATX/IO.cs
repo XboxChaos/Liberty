@@ -86,24 +86,22 @@ namespace FATX
                         catch(Exception e) { fs.Close(); br.Close(); diskDrive.Close(); continue; }
                     }
                     ///Gets usb drives
-                    List<string> DriveLetters = Environment.GetLogicalDrives().ToList();
+                    DriveInfo[] drives = DriveInfo.GetDrives();
                     ///Check to see if the drive has a subdirectory of "Xbox360"
-                    for (int i = 0; i < DriveLetters.Count; i++)
+                    foreach (DriveInfo drive in drives)
                     {
-                        if (DriveLetters[i] == "A:\\" || DriveLetters[i] == "B:\\")
+                        if (drive.Name == @"A:\" || drive.Name == @"B:\" ||
+                            drive.DriveType == DriveType.NoRootDirectory || drive.DriveType == DriveType.CDRom ||
+                            drive.DriveType == DriveType.Network || drive.DriveType == DriveType.Unknown)
                         {
-                            DriveLetters.RemoveAt(i);
-                            i--;
                             continue;
                         }
 
                         //If the directory does not exist
-                        DirectoryInfo di = new DirectoryInfo(DriveLetters[i] + "Xbox360");
+                        DirectoryInfo di = new DirectoryInfo(drive.Name + "Xbox360");
                         if (!di.Exists)
                         {
-                            //Remove the drive from the list
-                            DriveLetters.RemoveAt(i);
-                            i--;
+                            continue;
                         }
                         else
                         {
@@ -119,16 +117,9 @@ namespace FATX
                                 }
                             }
                             if (!found)
-                            {
-                                DriveLetters.RemoveAt(i);
-                                i--;
-                            }
+                                continue;
                         }
-                    }
-                    ///Finally create our new FATXDrive...
-                    for (int i = 0; i < DriveLetters.Count; i++)
-                    {
-                        driveList.Add(new FATXDrive(DriveLetters[i] + "Xbox360", Info.DriveType.USB));
+                        driveList.Add(new FATXDrive(drive.Name + "Xbox360", Info.DriveType.USB, drive.VolumeLabel));
                     }
                     return driveList.ToArray();
                 }
