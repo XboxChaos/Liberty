@@ -38,12 +38,13 @@ namespace Liberty.Controls
 
         public void loadData()
         {
-            int i = 0;
-            int j = 0;
+            if (currentChunkIndex == -1)
+                objectInfo.Visibility = System.Windows.Visibility.Hidden;
             foreach (TreeViewItem item in tVObjects.Items)
             {
                 item.Items.Clear();
             }
+            int i = 0;
             foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
             {
                 if (obj != null && !obj.Deleted)
@@ -56,7 +57,6 @@ namespace Liberty.Controls
                     tvi.Tag = i;
 
                     (items[convertClassToNode(obj.TagGroup)] as TreeViewItem).Items.Add(tvi);
-                    j++;
                 }
 
                 i++;
@@ -315,6 +315,8 @@ namespace Liberty.Controls
                                 lblOpen.Visibility = System.Windows.Visibility.Visible;
                                 btnOpen.Visibility = System.Windows.Visibility.Visible;
                             }
+
+                            objectInfo.Visibility = System.Windows.Visibility.Visible;
                         }
                     }
                     catch { }
