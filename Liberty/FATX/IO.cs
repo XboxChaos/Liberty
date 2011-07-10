@@ -110,7 +110,8 @@ namespace FATX
                             bool found = false;
                             foreach (FileInfo file in fi)
                             {
-                                if (file.Name == "Data0000" || file.Name == "Data0001" || file.Name == "Data0002")
+                                string name = file.Name.ToLower();
+                                if (name == "data0000" || name == "data0001" || name == "data0002")
                                 {
                                     found = true;
                                     break;
