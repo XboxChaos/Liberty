@@ -105,7 +105,7 @@
 			<StackPanel Name="stackStep0_2" Margin="40,85,10,53">
 				<Child:step0_2 x:Name="step0_2" Width="585" HorizontalAlignment="Left"/>
 			</StackPanel>
-			<StackPanel Name="stackStep1" Margin="40,85,10,70">
+			<StackPanel Name="stackStep1" Margin="40,85,10,54">
 				<Child:step1 x:Name="step1" Width="585" HorizontalAlignment="Left"/>
 			</StackPanel>
 			<StackPanel Name="stackStep2" Margin="40,85,10,70">
