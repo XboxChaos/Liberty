@@ -127,6 +127,17 @@ namespace Liberty.SaveIO
         }
 
         /// <summary>
+        /// Writes a UTF-16 encoded string to the underlying stream.
+        /// </summary>
+        /// <param name="str">The string to write.</param>
+        public void WriteUTF16(string str)
+        {
+            foreach (char ch in str)
+                WriteInt16((short)ch);
+            WriteInt16(0x0000);
+        }
+
+        /// <summary>
         /// Changes the position of the underlying stream.
         /// </summary>
         /// <param name="offset">The new offset, relative to the selected origin.</param>

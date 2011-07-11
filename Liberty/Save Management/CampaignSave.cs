@@ -88,6 +88,10 @@ namespace Liberty.Reach
             // Update player information
             Player.Update(writer);
 
+            // Checkpoint message
+            writer.Seek(0x9DF9E0, SeekOrigin.Begin);
+            writer.WriteUTF16(_checkpointMsg);
+
             // Resign the file
             Resign();
         }
@@ -157,6 +161,16 @@ namespace Liberty.Reach
         public uint Skulls
         {
             get { return _skulls; }
+        }
+
+        /// <summary>
+        /// A message that should be shown once the game is started.
+        /// This defaults to "Checkpoint...Done"
+        /// </summary>
+        public string Message
+        {
+            get { return _checkpointMsg; }
+            set { _checkpointMsg = value; }
         }
 
         private void WritePlayerBipedID(SaveIO.SaveWriter writer, long offset)
@@ -237,6 +251,10 @@ namespace Liberty.Reach
             reader.Seek(0x1D6AC, SeekOrigin.Begin);
             _serviceTag = reader.ReadUTF16();
 
+            // Message
+            reader.Seek(0x9DF9E0, SeekOrigin.Begin);
+            _checkpointMsg = reader.ReadUTF16();
+
             // Read objects
             Chunk objectChunk = new Chunk(reader, ChunkOffset.Object);
             if (objectChunk.Name != "object")
@@ -257,5 +275,6 @@ namespace Liberty.Reach
         private string _serviceTag;
         private GamePlayer _player = null;
         private uint _skulls;
+        private string _checkpointMsg;
     }
 }

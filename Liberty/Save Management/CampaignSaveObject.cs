@@ -231,9 +231,9 @@ namespace Liberty.Reach
         /// This does not update the object list!
         /// Update() needs to know the object's info so that it can properly mark it as unused.
         /// </remarks>
-        public virtual void Delete()
+        public virtual void Delete(bool deleteCarried = false)
         {
-            DropAll();
+            DropAll(deleteCarried);
             Drop();
             _entry.ID = 0;
             _entry.Flags = 0x22;
@@ -263,7 +263,7 @@ namespace Liberty.Reach
         /// <summary>
         /// Drops the object from its carrier.
         /// </summary>
-        public virtual void Drop()
+        public void Drop()
         {
             if (_carrier != null)
                 _carrier.DropCarriedObject(this);
@@ -271,18 +271,19 @@ namespace Liberty.Reach
 
         /// <summary>
         /// Drops all objects that the object is carrying.
+        /// Optionally, you can delete them as well.
         /// </summary>
-        public virtual void DropAll()
+        public void DropAll(bool delete = false)
         {
             GameObject obj = _firstCarried;
             while (obj != null)
             {
-                obj._carrier = null;
                 GameObject next = obj._nextCarried;
-                obj._nextCarried = null;
+                DropCarriedObject(obj);
+                if (delete)
+                    obj.Delete(true);
                 obj = next;
             }
-            _firstCarried = null;
         }
 
         /// <summary>
@@ -683,14 +684,6 @@ namespace Liberty.Reach
         internal BipedObject(Liberty.SaveIO.SaveReader reader, ObjectEntry entry)
             : base(reader, entry)
         {
-        }
-
-        public override void DropAll()
-        {
-            base.DropAll();
-            _primaryWeapon = null;
-            _secondaryWeapon = null;
-            _armorAbility = null;
         }
 
         /// <summary>
@@ -1135,25 +1128,25 @@ namespace Liberty.Reach
             base.ResolveObjectRefs(objects);
 
             if (_driverObjectId != 0xFFFF)
-                _driver = objects[(int)_driverObjectId] as BipedObject;
+                _driver = objects[(int)_driverObjectId];
             if (_controllerObjectId != 0xFFFF)
-                _controller = objects[(int)_controllerObjectId] as BipedObject;
+                _controller = objects[(int)_controllerObjectId];
         }
 
         internal override void ReplaceCarriedObject(GameObject oldObj, GameObject newObj)
         {
             if (_driver == oldObj)
-                _driver = newObj as BipedObject;
+                _driver = newObj;
             if (_controller == oldObj)
-                _controller = newObj as BipedObject;
+                _controller = newObj;
 
             base.ReplaceCarriedObject(oldObj, newObj);
         }
 
         private ushort _driverObjectId = 0xFFFF;
-        private BipedObject _driver = null;
+        private GameObject _driver = null;
         private ushort _controllerObjectId = 0xFFFF;
-        private BipedObject _controller = null;
+        private GameObject _controller = null;
     }
 
     /// <summary>

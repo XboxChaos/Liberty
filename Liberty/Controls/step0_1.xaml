@@ -27,8 +27,8 @@
 				<RowDefinition Height="0.749*"/>
 				<RowDefinition Height="0.251*"/>
 			</Grid.RowDefinitions>
-			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Select save from {0}" Height="45" VerticalAlignment="Top" />
-			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Let's select your save from your {0}" Height="28" VerticalAlignment="Top" />
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="{}{0}" Height="45" VerticalAlignment="Top" />
+			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="{}{1}" Height="28" VerticalAlignment="Top" />
 			
 			<Grid Name="saveIsLocal" Visibility="Hidden">
 				<Label Name="subHeading1" Content="file selection;" Margin="0,110,0,119" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" />

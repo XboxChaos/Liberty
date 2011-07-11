@@ -66,7 +66,7 @@ namespace STFS
                 IO.Close();
                 return buffer;
             }
-            catch (Exception e) { Close(); return new byte[4]; }
+            catch { Close(); return new byte[4]; }
         }
 
         public string GameName()
@@ -92,7 +92,7 @@ namespace STFS
                 IO.Close();
                 return ss;
             }
-            catch(Exception e) { Close(); return ""; }
+            catch { Close(); return ""; }
         }
 
         public uint TitleID()
@@ -105,7 +105,7 @@ namespace STFS
                 IO.Close();
                 return ui;
             }
-            catch(Exception e) { Close(); return 0; }
+            catch { Close(); return 0; }
         }
 
         public byte[] ConsoleID()
@@ -118,7 +118,7 @@ namespace STFS
                 IO.Close();
                 return buffer;
             }
-            catch (Exception e) { Close(); return new byte[0x5]; }
+            catch { Close(); return new byte[0x5]; }
         }
 
         public byte[] DeviceID()
@@ -131,7 +131,7 @@ namespace STFS
                 IO.Close();
                 return buffer;
             }
-            catch (Exception e) { Close(); return new byte[0x14]; }
+            catch { Close(); return new byte[0x14]; }
         }
 
         public byte[] ProfileID()
@@ -144,7 +144,7 @@ namespace STFS
                 IO.Close();
                 return buffer;
             }
-            catch (Exception e) { Close(); return new byte[8]; }
+            catch { Close(); return new byte[8]; }
         }
 
         public string DisplayName()
@@ -165,7 +165,7 @@ namespace STFS
             IO.Close();
             return ss;
             }
-            catch (Exception e) { Close(); return ""; }
+            catch { Close(); return ""; }
         }
 
         private IOReader GetIO()
@@ -174,7 +174,7 @@ namespace STFS
             {
                 IO.Close();
             }
-            catch (Exception e) { }
+            catch { }
             CheckBuffer();
             IO = new IOReader(new System.IO.MemoryStream(Buffer));
             //IO = new IOReader(xFile.GetStream());
@@ -187,7 +187,7 @@ namespace STFS
             {
                 IO.Close();
             }
-            catch (Exception e) { }
+            catch { }
             IO = new IOReader(xFile.GetStream());
             return IO;
         }
@@ -218,7 +218,7 @@ namespace STFS
             {
                 IO.Close();
             }
-            catch (Exception e) { }
+            catch { }
         }
     }
 }

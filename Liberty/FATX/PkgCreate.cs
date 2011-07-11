@@ -8,7 +8,7 @@ namespace FATX_Browser.FATX
     class PkgCreate
     {
         int SPC, Blocks, PID;
-        long PartitionOffset;
+        //long PartitionOffset;
         string Path;
         public PkgCreate(int SectorsPerCluster, int Clusters, int PartitionID, string FilePath, long partitionOffset)
         {

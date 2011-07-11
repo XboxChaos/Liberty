@@ -77,13 +77,13 @@ namespace FATX
                                     }
                                 }
                             }
-                            catch (Exception e) { br.Close(); fs.Close(); diskDrive.Close(); continue; }
+                            catch { br.Close(); fs.Close(); diskDrive.Close(); continue; }
                             br.Close();
                             fs.Close();
                             diskDrive.Close();
                             bool closed = diskDrive.IsClosed;
                         }
-                        catch(Exception e) { fs.Close(); br.Close(); diskDrive.Close(); continue; }
+                        catch { fs.Close(); br.Close(); diskDrive.Close(); continue; }
                     }
                     ///Gets usb drives
                     DriveInfo[] drives = DriveInfo.GetDrives();
@@ -600,7 +600,7 @@ namespace FATX
         Misc m;
         Stream Underlying;
         byte[] PreviouslyRead = new byte[0];
-        long PreviouslyReadOffset = -1;
+        //long PreviouslyReadOffset = -1;
 
         public FATXFileStream(string[] InPaths, FATX.File file)
         {
@@ -714,7 +714,7 @@ namespace FATX
             // oh yeeeuh, I wanted it to read from the nearest 0x200 byte boundary
             // so if we keep calling .ReadByte() it would have that shit cached
             // idk why i didn't do that
-            int index = (int)(RealOffset - RealSectorOffset);
+            /*int index = (int)(RealOffset - RealSectorOffset);
             if (Position.DownToNearest200() == PreviouslyReadOffset && index < PreviouslyRead.Length)
             {
                 xPositionInFile++;
@@ -744,7 +744,7 @@ namespace FATX
                 PreviouslyReadOffset = Position.DownToNearest200();
                 // Return the value at the index we should be at
                 return (int)buffer[index];
-            }
+            }*/
         }
 
         #region Notes on these read functions
@@ -771,7 +771,7 @@ namespace FATX
             // Before we do anything, we're going to check our cached buffer
             // to see if we can do anything with our previous buffer
 
-            uint CurrentIndex = 0;
+            //uint CurrentIndex = 0;
             byte[] b_Return;
             // If the number of bytes they're reading is smaller than
             // the cluster size...
