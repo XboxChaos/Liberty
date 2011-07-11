@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace Liberty.Controls
 {
@@ -25,7 +26,13 @@ namespace Liberty.Controls
 		
 		public void loadData()
 		{
-			//Load Data	
+            string message = classInfo.storage.fileInfoStorage.saveData.Message;
+            if (message == "Checkpoint... done")
+            {
+                string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                message = "Modded with Liberty " + version;
+            }
+            txtStartingMsg.Text = message;
 		}
 		
 		public void saveData()
@@ -34,6 +41,7 @@ namespace Liberty.Controls
             {
                 classInfo.savePackageData.setAllMaxAmmo();
             }
+            classInfo.storage.fileInfoStorage.saveData.Message = txtStartingMsg.Text;
 		}
 	}
 }

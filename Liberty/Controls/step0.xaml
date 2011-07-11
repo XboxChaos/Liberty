@@ -31,7 +31,7 @@
 			
 			<Label Name="subHeading1" Content="storage type;" Margin="0,110,0,115" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" />
 			
-			<RadioButton Name="cBSaveOP" Content="Select a save file on your Computer" VerticalAlignment="Bottom" Margin="26.183,0,72.5,98.04" IsChecked="True"/>
+			<RadioButton Name="cBSaveOP" Content="Select a save file on your computer" VerticalAlignment="Bottom" Margin="26.183,0,72.5,98.04" IsChecked="True"/>
 			<RadioButton Name="cBSaveOD" Content="Select a save file on a removable device (USB, mem card, HDD connected to the computer)" Foreground="#949494" VerticalAlignment="Bottom" Margin="26.183,0,46,77.58"/>
 		</Grid>
 	</ControlsMetro:MetroContentControl>

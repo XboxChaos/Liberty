@@ -78,20 +78,23 @@ namespace Liberty.Reach
             {
                 if (transferWeapons)
                 {
+                    if (newBiped.PrimaryWeapon != null)
+                        newBiped.PrimaryWeapon.Delete();
+                    if (newBiped.SecondaryWeapon != null)
+                        newBiped.SecondaryWeapon.Delete();
+                    if (newBiped.ArmorAbility != null)
+                        newBiped.ArmorAbility.Delete();
+
                     newBiped.PrimaryWeapon = _biped.PrimaryWeapon;
                     newBiped.SecondaryWeapon = _biped.SecondaryWeapon;
                     newBiped.ArmorAbility = _biped.ArmorAbility;
                     newBiped.FragGrenades = _biped.FragGrenades;
                     newBiped.PlasmaGrenades = _biped.PlasmaGrenades;
                 }
-                else
-                {
-                    _biped.DropAll();
-                }
                 newBiped.Drop();
                 /*if (_biped.Carrier != null)
                     _biped.Carrier.ReplaceCarriedObject(_biped, newBiped);*/
-                _biped.Delete();
+                _biped.Delete(true);
                 _biped = newBiped;
             }
         }

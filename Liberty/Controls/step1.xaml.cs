@@ -29,7 +29,7 @@ namespace Liberty.Controls
 
             lblGamertag.Content = arrayData[0];
             lblServiceTag.Content = arrayData[1];
-            lblMapName.Content = classInfo.loadPackageData.mapToMissionName(arrayData[2]) + " - " + arrayData[2];
+            lblMapName.Content = arrayData[3] + " - " + arrayData[2];
             lblDifficulty.Content = arrayData[4];
 
             string mapImage = classInfo.loadPackageData.getMapName(arrayData[2]);

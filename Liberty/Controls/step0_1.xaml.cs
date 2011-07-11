@@ -57,14 +57,14 @@ namespace Liberty.Controls
 
             if (classInfo.storage.fileInfoStorage.saveIsLocal)
             {
-                title.Content = title.Content.ToString().Replace("{0}", "Computer");
-                subTitle.Content = subTitle.Content.ToString().Replace("{0}", "Computer");
+                title.Content = "Select Save from Computer";
+                subTitle.Content = "Let's select your save from a file on your computer";
                 saveIsLocal.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
-                title.Content = title.Content.ToString().Replace("{0}", "External Storage Device");
-                subTitle.Content = subTitle.Content.ToString().Replace("{0}", "External Storage Device");
+                title.Content = "Select Save from External Storage Device";
+                subTitle.Content = "Let's select the device that your save is stored on";
                 saveIsNotLocal.Visibility = System.Windows.Visibility.Visible;
 
                 updateFATX();

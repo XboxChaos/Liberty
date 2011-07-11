@@ -55,7 +55,7 @@ namespace Liberty.Controls
                 }
 
                 originalBipdItem = -1;
-                cBNoWeapTransfer.IsEnabled = false;
+                cBWeapTransfer.IsEnabled = false;
                 cBBipeds.Items.Clear();
                 foreach (Reach.BipedObject obj in availableBipeds)
                 {
@@ -87,7 +87,7 @@ namespace Liberty.Controls
 
         public void saveData()
         {
-            classInfo.storage.fileInfoStorage.saveData.Player.ChangeBiped((Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag, !(bool)cBNoWeapTransfer.IsChecked);
+            classInfo.storage.fileInfoStorage.saveData.Player.ChangeBiped((Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag, (bool)cBWeapTransfer.IsChecked);
             classInfo.savePackageData.setPlayerInvincibility((bool)checkInvincible.IsChecked);
 
             float[] playerCords = new float[3];
@@ -193,7 +193,7 @@ namespace Liberty.Controls
 
         private void btnOpen_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
             btnOpen.Source = new BitmapImage(source);
         }
         #endregion
@@ -203,7 +203,7 @@ namespace Liberty.Controls
             if (originalBipdItem != cBBipeds.SelectedIndex)
             {
                 OnExecuteMethod();
-                if (classInfo.storage.fileInfoStorage.messageOpt) { cBNoWeapTransfer.IsEnabled = true; }
+                if (classInfo.storage.fileInfoStorage.messageOpt) { cBWeapTransfer.IsEnabled = true; }
                 else { cBBipeds.SelectedIndex = originalBipdItem; }
             }
             originalBipdItem = cBBipeds.SelectedIndex;
