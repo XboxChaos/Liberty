@@ -41,6 +41,11 @@ namespace Liberty
             step2.ExecuteMethod += new EventHandler(ParentWPF_bipdSwapAlert);
             step4.ExecuteMethod += new EventHandler(ParentWPF_massCordMove);
 
+            settingsPanel.Visibility = System.Windows.Visibility.Hidden;
+#if DEBUG
+    btnSettings.Visibility = System.Windows.Visibility.Visible;
+    lblDevider3.Visibility = System.Windows.Visibility.Visible;
+#endif
         }
 
         protected void ParentWPF_bipdSwapAlert(object sender, EventArgs e)
@@ -485,6 +490,30 @@ namespace Liberty
             btnBugReport.Foreground = (Brush)bc.ConvertFrom("#FF868686");
 
             loadDialog(5, "http://liberty.codeplex.com/workitem/list/basic", "CodePlex");
+        }
+        #endregion
+
+        #region btnSettingswpf
+        private void btnSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
+        }
+
+        private void btnSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+        }
+
+        private void btnSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
+        }
+
+        private void btnSettings_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+
+            settingsPanel.Visibility = System.Windows.Visibility.Visible;
         }
         #endregion
 
