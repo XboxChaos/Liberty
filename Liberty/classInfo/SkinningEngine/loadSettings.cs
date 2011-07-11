@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Liberty.classInfo.SkinningEngine
 {
@@ -204,6 +205,223 @@ namespace Liberty.classInfo.SkinningEngine
                 return "NV";
             }
 
+        }
+
+        public static void restoreTheme()
+        {
+            #region dialog
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.backgroundGradient_Bottom =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.backgroundGradient_Bottom;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.backgroundGradient_Top =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.backgroundGradient_Top;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.ContentBoldColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.ContentBoldColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.ContentBoldFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.ContentBoldFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.ContentColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.ContentColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.ContentFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.ContentFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.HeaderColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.HeaderColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.HeaderFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.HeaderFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.SubHeaderColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.SubHeaderColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.dialogs.SubHeaderFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.dialogs.SubHeaderFontWeight;
+            #endregion
+
+            #region headerBar
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.InactiveColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.InactiveColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.InactiveFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.InactiveFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.OnClickColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.OnClickColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.OnClickFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.OnClickFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.OnHoverColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.OnHoverColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.OnHoverFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.OnHoverFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.SeperatorColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.SeperatorColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.headerBar.SeperatorFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.headerBar.SeperatorFontWeight;
+            #endregion
+
+            #region mainWindow
+            classInfo.SkinningEngine.RuntimeStorage.mainWindow.WindowBackground =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.mainWindow.WindowBackground;
+
+            classInfo.SkinningEngine.RuntimeStorage.mainWindow.WindowDropShadow =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.mainWindow.WindowDropShadow;
+            #endregion
+
+            #region stepForms
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.HeaderColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.HeaderColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.HeaderFontWeight =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.HeaderFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.StepInfoBoldColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.StepInfoBoldColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.StepInfoBoldFontWeight =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.StepInfoBoldFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.StepOutroBoldColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.StepOutroBoldColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.StepOutroFontWeight =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.StepOutroFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.StepTitleMainColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.StepTitleMainColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.StepTitleMainFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.StepTitleMainFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.SubHeaderColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.SubHeaderColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.SubHeaderFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.SubHeaderFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.SubStepTitleMainColour =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.SubStepTitleMainColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.stepForms.SubStepTitleMainFontWeight =
+                classInfo.SkinningEngine.RuntimeStorage.defaultSettings.stepForms.SubStepTitleMainFontWeight;
+            #endregion
+
+            #region progressBar
+            classInfo.SkinningEngine.RuntimeStorage.progressBar.HeaderSelectedColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.progressBar.HeaderSelectedColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.progressBar.HeaderSelectedFontWeight =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.progressBar.HeaderSelectedFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.progressBar.HeaderUnSelectedColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.progressBar.HeaderUnSelectedColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.progressBar.HeaderUnSelectedFontWeight =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.progressBar.HeaderUnSelectedFontWeight;
+
+            classInfo.SkinningEngine.RuntimeStorage.progressBar.ProgressbarColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.progressBar.ProgressbarColour;
+
+            classInfo.SkinningEngine.RuntimeStorage.progressBar.ProgressbarSubColour =
+               classInfo.SkinningEngine.RuntimeStorage.defaultSettings.progressBar.ProgressbarSubColour;
+            #endregion
+        }
+
+        public static bool validateTheme(string filename)
+        {
+            string[] stepForms = new string[12];
+            string[] progressBar = new string[6];
+            string[] headerBar = new string[8];
+            string[] dialogs = new string[10];
+            string[] mainWindow = new string[2];
+
+            iniFile ini = new iniFile(filename);
+
+            #region stepForms
+            stepForms[0] = Convert.ToString(ini.IniReadValue("stepForms", "HeaderColour"));
+            stepForms[1] = Convert.ToString(ini.IniReadValue("stepForms", "HeaderFontWeight"));
+            stepForms[2] = Convert.ToString(ini.IniReadValue("stepForms", "SubHeaderColour"));
+            stepForms[3] = Convert.ToString(ini.IniReadValue("stepForms", "SubHeaderFontWeight"));
+            stepForms[4] = Convert.ToString(ini.IniReadValue("stepForms", "StepTitleMainColour"));
+            stepForms[5] = Convert.ToString(ini.IniReadValue("stepForms", "StepTitleMainFontWeight"));
+            stepForms[6] = Convert.ToString(ini.IniReadValue("stepForms", "SubStepTitleMainColour"));
+            stepForms[7] = Convert.ToString(ini.IniReadValue("stepForms", "SubStepTitleMainFontWeight"));
+            stepForms[8] = Convert.ToString(ini.IniReadValue("stepForms", "StepInfoBoldColour"));
+            stepForms[9] = Convert.ToString(ini.IniReadValue("stepForms", "StepInfoBoldFontWeight"));
+            stepForms[10] = Convert.ToString(ini.IniReadValue("stepForms", "StepOutroBoldColour"));
+            stepForms[11] = Convert.ToString(ini.IniReadValue("stepForms", "StepOutroFontWeight"));
+            #endregion
+
+            #region progressBar
+            progressBar[0] = Convert.ToString(ini.IniReadValue("progressBar", "HeaderSelectedColour"));
+            progressBar[1] = Convert.ToString(ini.IniReadValue("progressBar", "HeaderSelectedFontWeight"));
+            progressBar[2] = Convert.ToString(ini.IniReadValue("progressBar", "HeaderUnSelectedColour"));
+            progressBar[3] = Convert.ToString(ini.IniReadValue("progressBar", "HeaderUnSelectedFontWeight"));
+            progressBar[4] = Convert.ToString(ini.IniReadValue("progressBar", "ProgressbarColour"));
+            progressBar[5] = Convert.ToString(ini.IniReadValue("progressBar", "ProgressbarSubColour"));
+            #endregion
+
+            #region headerBar
+            headerBar[0] = Convert.ToString(ini.IniReadValue("headerBar", "InactiveColour"));
+            headerBar[1] = Convert.ToString(ini.IniReadValue("headerBar", "InactiveFontWeight"));
+            headerBar[2] = Convert.ToString(ini.IniReadValue("headerBar", "OnHoverColour"));
+            headerBar[3] = Convert.ToString(ini.IniReadValue("headerBar", "OnHoverFontWeight"));
+            headerBar[4] = Convert.ToString(ini.IniReadValue("headerBar", "OnClickColour"));
+            headerBar[5] = Convert.ToString(ini.IniReadValue("headerBar", "OnClickFontWeight"));
+            headerBar[6] = Convert.ToString(ini.IniReadValue("headerBar", "SeperatorColour"));
+            headerBar[7] = Convert.ToString(ini.IniReadValue("headerBar", "SeperatorFontWeight"));
+            #endregion
+
+            #region dialogs
+            dialogs[0] = Convert.ToString(ini.IniReadValue("dialogs", "backgroundGradient_Top"));
+            dialogs[1] = Convert.ToString(ini.IniReadValue("dialogs", "backgroundGradient_Bottom"));
+            dialogs[2] = Convert.ToString(ini.IniReadValue("dialogs", "HeaderColour"));
+            dialogs[3] = Convert.ToString(ini.IniReadValue("dialogs", "HeaderFontWeight"));
+            dialogs[4] = Convert.ToString(ini.IniReadValue("dialogs", "SubHeaderColour"));
+            dialogs[5] = Convert.ToString(ini.IniReadValue("dialogs", "SubHeaderFontWeight"));
+            dialogs[6] = Convert.ToString(ini.IniReadValue("dialogs", "ContentColour"));
+            dialogs[7] = Convert.ToString(ini.IniReadValue("dialogs", "ContentFontWeight"));
+            dialogs[8] = Convert.ToString(ini.IniReadValue("dialogs", "ContentBoldColour"));
+            dialogs[9] = Convert.ToString(ini.IniReadValue("dialogs", "ContentBoldFontWeight"));
+            #endregion
+
+            #region mainWindow
+            mainWindow[0] = Convert.ToString(ini.IniReadValue("mainWindow", "WindowBackground"));
+            mainWindow[1] = Convert.ToString(ini.IniReadValue("mainWindow", "WindowDropShadow"));
+            #endregion
+
+            if (stepForms.Contains(null) || progressBar.Contains(null) ||
+                headerBar.Contains(null) || dialogs.Contains(null) || mainWindow.Contains(null))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static string[] loadAllInstalledThemes()
+        {
+            string themes = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\themes\\";
+            string themesInDirec = "";
+            DirectoryInfo di = new DirectoryInfo(themes);
+            FileInfo[] rgFiles = di.GetFiles("*.ini");
+            foreach (FileInfo fi in rgFiles)
+            {
+                themesInDirec += fi.FullName + "\n";
+            }
+
+            string[] themesInDirecArray = themesInDirec.Split('\n');
+
+            return themesInDirecArray;
         }
     }
 }
