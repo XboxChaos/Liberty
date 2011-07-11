@@ -59,7 +59,7 @@
 						BlurRadius="12"
 						ShadowDepth="1" />
 				</Border.Effect>
-				<Grid Background="#FFFFFFFF" />
+				<Grid Name="formBackground" Background="#FFFFFFFF" />
 			</Border>
 			
 			<Border 
@@ -89,12 +89,13 @@
 	            </Grid>
 			</Border>
 
-	        <Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,239.514,0" HorizontalAlignment="Right" Width="88" MouseEnter="btnBugReport_MouseEnter" MouseLeave="btnBugReport_MouseLeave" MouseDown="btnBugReport_MouseDown" MouseUp="btnBugReport_MouseUp" Height="22.5" VerticalAlignment="Top"/>
+	        <Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,261.376,0" HorizontalAlignment="Right" Width="66.138" MouseEnter="btnBugReport_MouseEnter" MouseLeave="btnBugReport_MouseLeave" MouseDown="btnBugReport_MouseDown" MouseUp="btnBugReport_MouseUp" Height="22.5" VerticalAlignment="Top"/>
 	        <Label x:Name="lblDevider2" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="0,9,257,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top" />
 	        <Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,177.514,0" HorizontalAlignment="Right" Width="88" Height="22.5" VerticalAlignment="Top"/>
 			<Label x:Name="lblDevider" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="0,9.201,171.998,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top"/>
 	        <Label Name="btnAbout" Content="ABOUT" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.193,136,0" HorizontalAlignment="Right" Width="44" Height="22.5" VerticalAlignment="Top" MouseEnter="btnAbout_MouseEnter" MouseLeave="btnAbout_MouseLeave" MouseDown="btnAbout_MouseDown" MouseUp="btnAbout_MouseUp"/>
-	        <local:progressStepBar x:Name="progressBar" HorizontalAlignment="Center" Width="635" Height="56" Margin="0,38,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height" />
+			
+			<local:progressStepBar x:Name="progressBar" HorizontalAlignment="Center" Width="635" Height="56" Margin="0,38,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height" />
 			
 			<StackPanel Name="stackStep0" Margin="40,85,10,53">
 				<Child:step0 x:Name="step0" Width="585" HorizontalAlignment="Left"/>
@@ -132,6 +133,12 @@
 	    
 			<MediaElement Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
 			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>
+			<Label x:Name="btnSettings" Content="SETTINGS" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,323.74,0" HorizontalAlignment="Right" Width="47.919" MouseEnter="btnSettings_MouseEnter" MouseLeave="btnSettings_MouseLeave" MouseDown="btnSettings_MouseDown" MouseUp="btnSettings_MouseUp" Height="22.5" VerticalAlignment="Top" Visibility="Hidden"/>
+			<Label x:Name="lblDevider3" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="301.82,9,0,0" Height="22.583" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" Visibility="Hidden" />
+		
+			<StackPanel Name="settingsPanel" Width="615" Height="410" Margin="0, 40, 3, 0" VerticalAlignment="Top" Visibility="Hidden" Background="#FFFFFFFF">
+				<local:settingsMain x:Name="settingsMain" />
+			</StackPanel>
 		</Grid>
 	</ControlsMetro:MetroContentControl>
 </Window>

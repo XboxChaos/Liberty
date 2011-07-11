@@ -105,6 +105,15 @@
     <Compile Include="Controls\progressWindow.xaml.cs">
       <DependentUpon>progressWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\settingsMain.xaml.cs">
+      <DependentUpon>settingsMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\appSettings.xaml.cs">
+      <DependentUpon>appSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Settings\themeSettings.xaml.cs">
+      <DependentUpon>themeSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\step0_1.xaml.cs">
       <DependentUpon>step0_1.xaml</DependentUpon>
     </Compile>
@@ -168,6 +177,18 @@
     <Page Include="Controls\progressWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\settingsMain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\appSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Settings\themeSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\step0.xaml">
       <Generator>MSBuild:Compile</Generator>
