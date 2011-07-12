@@ -4,8 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             Width="615" Height="320">
     <Grid>
+    	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="140,35,0,35" Stroke="#FFBFBFC0" Width="1"/>
             
-    </Grid>
+		<Label Name="btnupdateSettings" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8.5" Margin="15,56,491,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+		<Label Name="btnlaunchSettings" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8.5" Margin="15,74,491,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+		<Label Name="btntaglistSettings" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8.5" Margin="15,92,491,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+    
+		<StackPanel Name="updateSettings" Margin="160,40,5,40">
+			<Label Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
+			<Label Name="UPSsubheader" Content="Change default settings about the updater, " FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="8,-10,0,0"/>
+		</StackPanel>
+	</Grid>
 </UserControl>

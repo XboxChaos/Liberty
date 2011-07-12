@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:local="clr-namespace:Liberty.Controls.Settings"
+			 xmlns:Child="clr-namespace:Liberty.Controls.Settings"
 			 xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
              mc:Ignorable="d" 
 			 
@@ -22,7 +24,19 @@
     <Grid>
     	<Label Content="settings" Height="45" HorizontalAlignment="Left" Margin="18,-11,0,0" Name="lblSettingsHeader" VerticalAlignment="Top" Width="109" FontWeight="Light" FontSize="23" Foreground="#FF868686" />
     
-	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" Name="lblSettingsSoft" VerticalAlignment="Top" Width="87" FontWeight="SemiBold" FontSize="11" Foreground="#FF000000" />
-	    <Label Content="THEMES" Height="29" HorizontalAlignment="Left" Margin="93,26,0,0" x:Name="lblSettingsTheme" VerticalAlignment="Top" Width="69" FontWeight="Normal" FontSize="11" Foreground="#FF868686" />
-    </Grid>
+	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" x:Name="btnSoft" VerticalAlignment="Top" Width="71" FontWeight="ExtraBold" FontSize="11" Foreground="#FF000000" MouseEnter="btnSoft_MouseEnter" MouseLeave="btnSoft_MouseLeave" MouseDown="btnSoft_MouseDown" MouseUp="btnSoft_MouseUp"/>
+	    <Label Content="THEMES" Height="29" HorizontalAlignment="Left" Margin="93,26,0,0" x:Name="btnTheme" VerticalAlignment="Top" Width="52" FontWeight="Normal" FontSize="11" Foreground="#FF868686" MouseEnter="btnTheme_MouseEnter" MouseLeave="btnTheme_MouseLeave" MouseDown="btnTheme_MouseDown" MouseUp="btnTheme_MouseUp"/>
+    
+		<StackPanel VerticalAlignment="Bottom" Width="615" Height="30">
+			
+		</StackPanel>
+	
+		<StackPanel Name="softwarePanel" VerticalAlignment="Bottom" Width="615" Margin="0,0,0,30" Height="320">
+			<Child:appSettings />
+		</StackPanel>
+		
+		<StackPanel Name="themePanel" VerticalAlignment="Bottom" Width="615" Margin="0,0,0,30" Height="320">
+			<Child:themeSettings />
+		</StackPanel>
+	</Grid>
 </UserControl>
