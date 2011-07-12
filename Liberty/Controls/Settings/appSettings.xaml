@@ -6,15 +6,15 @@
              mc:Ignorable="d" 
              Width="615" Height="320">
     <Grid>
-    	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="140,35,0,35" Stroke="#FFBFBFC0" Width="1"/>
+    	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="1"/>
             
-		<Label Name="btnupdateSettings" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8.5" Margin="15,56,491,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
-		<Label Name="btnlaunchSettings" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8.5" Margin="15,74,491,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
-		<Label Name="btntaglistSettings" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8.5" Margin="15,92,491,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+		<Label Name="btnupdateSettings" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+		<Label Name="btnlaunchSettings" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,74,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+		<Label Name="btntaglistSettings" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
     
-		<StackPanel Name="updateSettings" Margin="160,40,5,40">
+		<StackPanel Name="updateSettings" Margin="183,40,-18,40">
 			<Label Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
-			<Label Name="UPSsubheader" Content="Change default settings about the updater, " FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="8,-10,0,0"/>
+			<Label Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="8,-10,0,0"/>
 		</StackPanel>
 	</Grid>
 </UserControl>
