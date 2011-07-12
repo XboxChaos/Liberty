@@ -524,6 +524,7 @@ namespace Liberty.Reach
             obj._carrier = this;
             obj._nextCarried = _firstCarried;
             _firstCarried = obj;
+            obj.OnPickUp();
         }
 
         /// <summary>
@@ -533,15 +534,20 @@ namespace Liberty.Reach
         /// <param name="newObj">The object it will be replaced with</param>
         internal virtual void ReplaceCarriedObject(GameObject oldObj, GameObject newObj)
         {
-            if (oldObj.Carrier == this)
+            if (oldObj != null && oldObj.Carrier == this)
             {
                 oldObj.OnReplace(newObj);
                 oldObj.Drop();
-                PickUpObject(newObj);
             }
+            if (newObj != null)
+                PickUpObject(newObj);
         }
 
         protected virtual void OnReplace(GameObject newObj)
+        {
+        }
+
+        protected virtual void OnPickUp()
         {
         }
 
@@ -665,7 +671,7 @@ namespace Liberty.Reach
             }
         }
 
-        private bool _makeInvincible;
+        private bool _makeInvincible = false;
         private bool _canUseOldValues = true;
         private float _oldHealthModifier;
         private float _oldShieldModifier;
@@ -697,10 +703,7 @@ namespace Liberty.Reach
             }
             set
             {
-                if (_primaryWeapon != null)
-                    _primaryWeapon.Drop();
-                if (value != null)
-                    PickUpObject(value);
+                ReplaceCarriedObject(_primaryWeapon, value);
                 _primaryWeapon = value;
             }
         }
@@ -716,10 +719,7 @@ namespace Liberty.Reach
             }
             set
             {
-                if (_secondaryWeapon != null)
-                    _secondaryWeapon.Drop();
-                if (value != null)
-                    PickUpObject(value);
+                ReplaceCarriedObject(_secondaryWeapon, value);
                 _secondaryWeapon = value;
             }
         }
@@ -761,10 +761,7 @@ namespace Liberty.Reach
             }
             set
             {
-                if (_armorAbility != null)
-                    _armorAbility.Drop();
-                if (value != null)
-                    PickUpObject(value);
+                ReplaceCarriedObject(_armorAbility, value);
                 _armorAbility = value;
             }
         }
@@ -928,6 +925,21 @@ namespace Liberty.Reach
             }
         }
 
+        internal override void ReplaceCarriedObject(GameObject oldObj, GameObject newObj)
+        {
+            if (oldObj != null)
+            {
+                if (_primaryWeapon == oldObj)
+                    _primaryWeapon = newObj as WeaponObject;
+                if (_secondaryWeapon == oldObj)
+                    _secondaryWeapon = newObj as WeaponObject;
+                if (_armorAbility == oldObj)
+                    _armorAbility = newObj as EquipmentObject;
+            }
+
+            base.ReplaceCarriedObject(oldObj, newObj);
+        }
+
         private ushort _primaryWeaponId;
         private ushort _secondaryWeaponId;
         private WeaponObject _primaryWeapon = null;
@@ -964,6 +976,9 @@ namespace Liberty.Reach
         {
             base.DoLoad(reader, start);
 
+            reader.Seek(start + 0x1B4, SeekOrigin.Begin);
+            _userId = reader.ReadUInt32();
+
             reader.Seek(start + 0x2C6, SeekOrigin.Begin);
             _ammo = reader.ReadInt16();
             reader.Seek(2, SeekOrigin.Current);
@@ -975,21 +990,36 @@ namespace Liberty.Reach
             base.DoUpdate(writer, start);
 
             writer.Seek(start + 0x1B4, SeekOrigin.Begin);
-            if (Carrier != null && (Carrier.TagGroup == TagGroup.Bipd || Carrier.TagGroup == TagGroup.Vehi))
-            {
-                writer.WriteUInt32(Carrier.ID);
-                writer.WriteUInt32(Carrier.ID);
-            }
-            else
-            {
-                writer.WriteUInt32(0xFFFFFFFF);
-                writer.WriteUInt32(0xFFFFFFFF);
-            }
+            writer.WriteUInt32(_userId);
+            writer.WriteUInt32(_userId);
 
             writer.Seek(start + 0x2C6, SeekOrigin.Begin);
             writer.WriteInt16(_ammo);
             writer.Seek(2, SeekOrigin.Current);
             writer.WriteInt16(_clipAmmo);
+        }
+
+        protected override void OnDrop()
+        {
+            base.OnDrop();
+            _userId = 0xFFFFFFFF;
+        }
+
+        protected override void OnReplace(GameObject newObj)
+        {
+            base.OnReplace(newObj);
+
+            WeaponObject newWeapon = newObj as WeaponObject;
+            if (newWeapon != null)
+                newWeapon._userId = _userId;
+            _userId = 0xFFFFFFFF;
+        }
+
+        protected override void OnPickUp()
+        {
+            base.OnPickUp();
+            if (Carrier.TagGroup == TagGroup.Bipd || Carrier.TagGroup == TagGroup.Vehi)
+                _userId = Carrier.ID;
         }
 
         /// <summary>
@@ -1012,6 +1042,7 @@ namespace Liberty.Reach
 
         private short _ammo;
         private short _clipAmmo;
+        private uint _userId;
     }
 
     /// <summary>
@@ -1049,10 +1080,6 @@ namespace Liberty.Reach
             writer.Seek(start + 0xF0, SeekOrigin.Begin);
             if (_player != null)
                 writer.WriteUInt32(_player.ID);
-            else
-                writer.WriteUInt32(0xFFFFFFFF);
-            if (Carrier != null && Carrier.TagGroup == TagGroup.Bipd)
-                writer.WriteUInt32(Carrier.ID);
             else
                 writer.WriteUInt32(0xFFFFFFFF);
             writer.Seek(start + 0x1B4, SeekOrigin.Begin);

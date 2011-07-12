@@ -74,7 +74,7 @@ namespace Liberty.Reach
         /// <param name="newBiped">The new biped to use.</param>
         public void ChangeBiped(BipedObject newBiped, bool transferWeapons)
         {
-            if (newBiped != _biped && newBiped != null)
+            if (newBiped != _biped && newBiped != null && !newBiped.Deleted)
             {
                 if (transferWeapons)
                 {
