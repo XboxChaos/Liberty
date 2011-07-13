@@ -107,12 +107,6 @@ namespace Liberty
                 loadDialog(4, ex.Message.ToString(), null);
             }
 
-            if (File.Exists(@"X360.dll")) { }
-            else
-            {
-                loadDialog(1, "The external dynamic link library 'X360' is missing. Please put it in the same directory as the exe, or you won't be able to use Liberty!", "MISSING DLL");
-            }
-
             string excepLoadTag = classInfo.nameLookup.loadTaglist();
             if (excepLoadTag != null)
                 loadDialog(4, excepLoadTag, null);
