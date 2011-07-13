@@ -15,12 +15,14 @@ namespace Liberty
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            if (File.Exists("X360.dll") || !File.Exists("MahApps.Metro.dll") || !File.Exists("MahApps.Metro.Controls.dll") || !File.Exists("System.Windows.Interactivity.dll"))
+            if (!File.Exists("X360.dll") || !File.Exists("MahApps.Metro.dll") || !File.Exists("MahApps.Metro.Controls.dll") || !File.Exists("System.Windows.Interactivity.dll"))
             {
                 Controls.dllMissingError dllMissing = new Controls.dllMissingError();
                 dllMissing.ShowDialog();
                 this.Shutdown();
             }
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
         }
     }
 }
