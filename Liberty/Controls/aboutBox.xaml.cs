@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Liberty.Controls
 {
@@ -20,7 +21,9 @@ namespace Liberty.Controls
 	{
 		public aboutBox()
 		{
-			InitializeComponent();			
+			InitializeComponent();
+
+            lblTitle.Text = lblTitle.Text.Replace("{0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
 		}
 
 		private void lblXboxChaos_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

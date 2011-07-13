@@ -16,6 +16,7 @@ using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using Microsoft.Win32;
 using Liberty.classInfo.storage;
@@ -82,6 +83,7 @@ namespace Liberty
 
             try
             {
+                Dns.GetHostEntry("xeraxic.com");
                 WebClient wb = new WebClient();
                 string downloadedInfo = wb.DownloadString(new Uri("http://xeraxic.com/downloads/checkVersionInfo.php?appName=Liberty&proDesc=1"));
                 downloadedInfo = downloadedInfo.Replace("\r", "");
@@ -100,7 +102,10 @@ namespace Liberty
 
                 if (svrBuild > pcBuild) { loadDialog(3, descData, null); }
 
-                btnCFU.MouseDown +=new MouseButtonEventHandler(btnCFU_MouseDown); btnCFU.MouseEnter +=new MouseEventHandler(btnCFU_MouseEnter); btnCFU.MouseLeave +=new MouseEventHandler(btnCFU_MouseLeave); btnCFU.MouseUp +=new MouseButtonEventHandler(btnCFU_MouseUp);
+                btnCFU.MouseDown += new MouseButtonEventHandler(btnCFU_MouseDown); btnCFU.MouseEnter += new MouseEventHandler(btnCFU_MouseEnter); btnCFU.MouseLeave += new MouseEventHandler(btnCFU_MouseLeave); btnCFU.MouseUp += new MouseButtonEventHandler(btnCFU_MouseUp);
+            }
+            catch (SocketException)
+            {
             }
             catch (Exception ex)
             {
