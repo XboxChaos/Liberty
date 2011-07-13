@@ -90,6 +90,9 @@
     <Compile Include="classInfo\SkinningEngine\RuntimeStorage.cs" />
     <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
     <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
+    <Compile Include="Controls\dllMissingError.xaml.cs">
+      <DependentUpon>dllMissingError.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\exceptionWindow.xaml.cs">
       <DependentUpon>exceptionWindow.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,10 @@
     <Compile Include="Security\SaveSHA1.cs" />
     <Compile Include="Util\TagList.cs" />
     <Page Include="Controls\aboutBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\dllMissingError.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
