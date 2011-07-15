@@ -48,7 +48,7 @@
 				        </EventTrigger>
 				</Window.Triggers>
 				
-	<ControlsMetro:MetroContentControl>
+	<ControlsMetro:MetroContentControl IsTabStop="False">
 		<Grid Loaded="Grid_Loaded">
 	        <Rectangle Name="recMask" Fill="White" Margin="10,10,10,10" Stroke="Black" Opacity="0.60" Visibility="Hidden" />
 	        <!--DropShadow-->
@@ -115,7 +115,7 @@
 			<StackPanel Name="stackStep3" Margin="40,85,10,70">
 				<Child:step3 x:Name="step3" Width="585" HorizontalAlignment="Left"/>
 			</StackPanel>
-			<StackPanel Name="stackStep4" Margin="40,85,10,70">
+			<StackPanel Name="stackStep4" Margin="40,85,10,54">
 				<Child:step4 x:Name="step4" Width="585" HorizontalAlignment="Left"/>
 			</StackPanel>
 			<StackPanel Name="stackStep4_0" Margin="40,85,10,70">
