@@ -69,24 +69,24 @@ namespace LibertyUpdater
 
         public void updaterCode(ref string output, ref bool finished)
         {
+            Liberty.classInfo.iniFile iniFile = new Liberty.classInfo.iniFile("update.ini");
+            string PIDAppName = iniFile.IniReadValue("AppInfo", "appName");
+
             //Tell the user we are checking for their derpness
-            output = "Checking if Liberty is closed...";
+            output = "Checking if " + PIDAppName + " is closed...";
             System.Threading.Thread.Sleep(threadTime);
 
             Process[] processes = Process.GetProcesses();
             foreach (Process process in processes)
             {
-                if (process.ProcessName == "Liberty" || process.ProcessName == "Liberty.vshost")
+                if (process.ProcessName == PIDAppName || process.ProcessName == PIDAppName + ".vshost")
                 {
                     //Closing what the user re-opened -__-
-                    output = "Closing Liberty...";
+                    output = "Closing " + PIDAppName + "...";
                     System.Threading.Thread.Sleep(threadTime);
                     process.Kill();
                 }
             }
-
-            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\update\\";
-            Liberty.classInfo.iniFile iniFile = new Liberty.classInfo.iniFile(temp + "update.ini");
 
             output = "Reading Update INI File";
             System.Threading.Thread.Sleep(threadTime);
@@ -100,7 +100,7 @@ namespace LibertyUpdater
             try
             {
                 WebClient wb = new WebClient();
-                string downloadedInfo = wb.DownloadString(new Uri("http://xeraxic.com/downloads/checkVersionInfo.php?appName=Liberty&appVer=1"));
+                string downloadedInfo = wb.DownloadString(new Uri("http://xeraxic.com/downloads/checkVersionInfo.php?appName=" + PIDAppName + "&appVer=1"));
                 downloadedInfo = downloadedInfo.Replace("\r", "");
                 string[] updateData = downloadedInfo.Split('\n');
 
@@ -139,8 +139,8 @@ namespace LibertyUpdater
                 output = "Installing Fonts...";
                 System.Threading.Thread.Sleep(threadTime);
 
-                tempFonts();
-                string fontPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\fonts\\";
+                tempFonts(PIDAppName);
+                string fontPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + PIDAppName + "\\fonts\\";
                 string[] fonts = new string[17];
                 #region fontnaming
                 {
@@ -202,8 +202,9 @@ namespace LibertyUpdater
                     System.Threading.Thread.Sleep(250);
                     try { AddFontResourceA(fonts[j]); } catch { }
                 }
+                try { Directory.Delete(fontPath, true); } catch{  }
 
-                output = "Loading Liberty...";
+                output = "Loading " + PIDAppName + "...";
                 System.Threading.Thread.Sleep(threadTime);
 
                 Process.Start(appDir);
@@ -213,16 +214,16 @@ namespace LibertyUpdater
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: \n\n" + ex.Message, "Liberty Updater - Error");
+                MessageBox.Show("Error: \n\n" + ex.Message, PIDAppName + " Updater - Error");
                 System.Threading.Thread.Sleep(1000);
             }
 
             finished = true;
         }
 
-        public void tempFonts()
+        public void tempFonts(string pid)
         {
-            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\fonts\\";
+            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\" + pid + "\\fonts\\";
             if (!Directory.Exists(temp)) { Directory.CreateDirectory(temp); }
         }
 

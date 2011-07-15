@@ -24,6 +24,7 @@ using System.Text;
 using System.Reflection;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 
 namespace Liberty.classInfo
 {
@@ -41,7 +42,10 @@ namespace Liberty.classInfo
             ini.IniWriteValue("AppInfo", "appVer", Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
             ini.IniWriteValue("AppInfo", "appDir", Assembly.GetExecutingAssembly().Location);
 
-            File.WriteAllBytes(temp + "update.exe", Liberty.Properties.Resources.Updater);
+            using (WebClient wb = new WebClient())
+            {
+                wb.DownloadFile("http://xeraxic.com/downloads/updater.exe", temp + "update.exe");
+            }
 
             Process.Start(temp + "update.exe");
 
