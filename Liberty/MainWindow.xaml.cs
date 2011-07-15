@@ -41,6 +41,8 @@ namespace Liberty
             step0_1.ExecuteMethodLocal += new EventHandler<Controls.MessageEventArgs>(ParentWPF_fileException);
             step2.ExecuteMethod += new EventHandler(ParentWPF_bipdSwapAlert);
             step4.ExecuteMethod += new EventHandler(ParentWPF_massCordMove);
+            /*step4.ExecuteMethod2 += new EventHandler(ParentWPF_replaceObject);
+            step4.ExecuteMethod3 += new EventHandler(ParentWPF_childObjects);*/
 
             settingsPanel.Visibility = System.Windows.Visibility.Hidden;
 #if DEBUG
@@ -70,6 +72,16 @@ namespace Liberty
             loadDialog(4, e.Message, null);
         }
 
+        /*protected void ParentWPF_replaceObject(object sender, EventArgs e)
+        {
+            loadDialog(9, "Select an object to replace \"" + classInfo.storage.fileInfoStorage.replaceObjectName + "\":", "REPLACE OBJECT");
+        }
+
+        protected void ParentWPF_childObjects(object sender, EventArgs e)
+        {
+            loadDialog(9, "Select a child object to edit:", "EDIT CHILD OBJECT");
+        }*/
+
         private void Grid_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             try
@@ -78,7 +90,7 @@ namespace Liberty
             }
             catch (Exception ex)
             {
-                loadDialog(4, ex.Message.ToString(), null);
+                loadDialog(4, ex.ToString(), null);
             }
 
             try
@@ -109,7 +121,7 @@ namespace Liberty
             }
             catch (Exception ex)
             {
-                loadDialog(4, ex.Message.ToString(), null);
+                loadDialog(4, ex.ToString(), null);
             }
 
             string excepLoadTag = classInfo.nameLookup.loadTaglist();
@@ -188,17 +200,17 @@ namespace Liberty
                         //Clear TV code from last session
                         {
                             TreeViewItem node1 = new TreeViewItem() { Header = "bipd" };
-                            TreeViewItem node2 = new TreeViewItem() { Header = "ctrl" };
-                            TreeViewItem node3 = new TreeViewItem() { Header = "eqip" };
-                            TreeViewItem node4 = new TreeViewItem() { Header = "ssce" };
-                            TreeViewItem node5 = new TreeViewItem() { Header = "mach" };
-                            TreeViewItem node6 = new TreeViewItem() { Header = "scen" };
-                            TreeViewItem node7 = new TreeViewItem() { Header = "term" };
-                            TreeViewItem node8 = new TreeViewItem() { Header = "weap" };
-                            TreeViewItem node9 = new TreeViewItem() { Header = "vehi" };
-                            TreeViewItem node10 = new TreeViewItem() { Header = "bloc" };
-                            TreeViewItem node11 = new TreeViewItem() { Header = "crea" };
-                            TreeViewItem node12 = new TreeViewItem() { Header = "efsc" };
+                            TreeViewItem node2 = new TreeViewItem() { Header = "bloc" };
+                            TreeViewItem node3 = new TreeViewItem() { Header = "crea" };
+                            TreeViewItem node4 = new TreeViewItem() { Header = "ctrl" };
+                            TreeViewItem node5 = new TreeViewItem() { Header = "efsc" };
+                            TreeViewItem node6 = new TreeViewItem() { Header = "eqip" };
+                            TreeViewItem node7 = new TreeViewItem() { Header = "mach" };
+                            TreeViewItem node8 = new TreeViewItem() { Header = "scen" };
+                            TreeViewItem node9 = new TreeViewItem() { Header = "ssce" };
+                            TreeViewItem node10 = new TreeViewItem() { Header = "term" };
+                            TreeViewItem node11 = new TreeViewItem() { Header = "vehi" };
+                            TreeViewItem node12 = new TreeViewItem() { Header = "weap" };
                             TreeViewItem node13 = new TreeViewItem() { Header = "unknown" };
 
                             step4.tVObjects.Items.Clear();
@@ -345,6 +357,13 @@ namespace Liberty
                     msgBoxOpt.Owner = this;
                     msgBoxOpt.ShowDialog();
                     break;
+                /*case 9:
+                    Controls.listboxWindow listbox = new Controls.listboxWindow();
+                    listbox.lblTitle.Text = title.ToUpper();
+                    listbox.lblSubInfo.Text = message;
+                    listbox.Owner = this;
+                    listbox.ShowDialog();
+                    break;*/
             }
             recMask.Visibility = System.Windows.Visibility.Hidden;
         }
