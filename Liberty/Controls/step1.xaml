@@ -20,7 +20,7 @@
 			            </ResourceDictionary.MergedDictionaries>
 			        </ResourceDictionary>
 			    </UserControl.Resources>
-	<ControlsMetro:MetroContentControl>
+	<ControlsMetro:MetroContentControl IsTabStop="False">
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Is this Right?" Grid.RowSpan="2" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Let's just make sure that this is the correct Reach save file." Height="25.911" VerticalAlignment="Top" />

@@ -19,7 +19,7 @@
 			            </ResourceDictionary.MergedDictionaries>
 			        </ResourceDictionary>
 			    </UserControl.Resources>
-	<ControlsMetro:MetroContentControl>
+	<ControlsMetro:MetroContentControl IsTabStop="False">
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Biped Customization" Margin="0,0,0,292" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="First of all, let's change your biped infomation." Height="25.911" VerticalAlignment="Top" />
@@ -38,8 +38,8 @@
 	        <CheckBox x:Name="cBWeapTransfer" Content="Transfer my weapons and armour ability to my new biped (experimental)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,118,0,0" HorizontalAlignment="Left" Width="418" Height="16.161" VerticalAlignment="Top" IsEnabled="False" />
             <Label Content="Know something we don't? Do you have a named ident that we don't?" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" Margin="11,0,182,150" Name="label1" VerticalAlignment="Bottom" />
             
-			<Image x:Name="btnOpen" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,113.874,153.517" HorizontalAlignment="Right" Width="61.126" />
-            <TextBlock Height="19" HorizontalAlignment="Left" Margin="429.492,0,0,153.517" x:Name="lblOpen" Text="YES" VerticalAlignment="Bottom" Width="21.929" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" />
+			<Image x:Name="btnOpen" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,114,154" HorizontalAlignment="Right" Width="61.126" />
+            <TextBlock Height="19" HorizontalAlignment="Left" Margin="430,0,0,154" x:Name="lblOpen" Text="YES" VerticalAlignment="Bottom" Width="21.929" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" />
         </Grid>
 	</ControlsMetro:MetroContentControl>
 </UserControl>

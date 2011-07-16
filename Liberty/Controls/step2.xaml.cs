@@ -44,6 +44,9 @@ namespace Liberty.Controls
             txtPlayerYCord.Text = Convert.ToString(playerCords[1]);
             txtPlayerZCord.Text = Convert.ToString(playerCords[2]);
 
+            originalBipdItem = -1;
+            cBWeapTransfer.IsEnabled = false;
+            cBBipeds.Items.Clear();
             Reach.BipedObject currentBiped = classInfo.storage.fileInfoStorage.saveData.Player.Biped;
             if (currentBiped.Vehicle == null)
             {
@@ -53,10 +56,6 @@ namespace Liberty.Controls
                     if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd && obj.Zone == currentBiped.Zone)
                         availableBipeds.Add((Reach.BipedObject)obj);
                 }
-
-                originalBipdItem = -1;
-                cBWeapTransfer.IsEnabled = false;
-                cBBipeds.Items.Clear();
                 foreach (Reach.BipedObject obj in availableBipeds)
                 {
                     ComboBoxItem item = new ComboBoxItem();
@@ -193,7 +192,7 @@ namespace Liberty.Controls
 
         private void btnOpen_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnOpen.Source = new BitmapImage(source);
         }
         #endregion

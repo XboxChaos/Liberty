@@ -31,6 +31,13 @@ namespace Liberty.Controls
             {
                 txtPrimaryWeapAmmo.Text = Convert.ToString(ammoArray[0]);
                 txtPrimaryWeapClipAmmo.Text = Convert.ToString(ammoArray[1]);
+
+                txtPrimaryWeapAmmo.IsEnabled = true;
+                txtPrimaryWeapClipAmmo.IsEnabled = true;
+                btnMaxPrimaryClip.Visibility = System.Windows.Visibility.Visible;
+                btnPrimaryMaxWeaponAmmo.Visibility = System.Windows.Visibility.Visible;
+                lblMaxPrimaryClip.Visibility = System.Windows.Visibility.Visible;
+                lblPrimaryMaxWeaponAmmo.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
@@ -46,6 +53,13 @@ namespace Liberty.Controls
             {
                 txtSecondaryWeapAmmo.Text = Convert.ToString(ammoArray[2]);
                 txtSecondaryWeapClipAmmo.Text = Convert.ToString(ammoArray[3]);
+
+                txtSecondaryWeapAmmo.IsEnabled = true;
+                txtSecondaryWeapClipAmmo.IsEnabled = true;
+                btnMaxSecondaryClip.Visibility = System.Windows.Visibility.Visible;
+                btnSecondaryMaxWeaponAmmo.Visibility = System.Windows.Visibility.Visible;
+                lblMaxSecondaryClip.Visibility = System.Windows.Visibility.Visible;
+                lblSecondaryMaxWeaponAmmo.Visibility = System.Windows.Visibility.Visible;
             }
             else
             {
@@ -63,11 +77,11 @@ namespace Liberty.Controls
 
         public bool saveData()
         {
-            if (txtFragNadeCount.Text == "" || txtPlasmaNadeCount.Text == "" || txtPrimaryWeapAmmo.Text == "" || txtPrimaryWeapClipAmmo.Text == "")
+            /*if (txtFragNadeCount.Text == "" || txtPlasmaNadeCount.Text == "" || txtPrimaryWeapAmmo.Text == "" || txtPrimaryWeapClipAmmo.Text == "")
             {
                 return false;
             }
-            else
+            else*/
             {
                 int[] saveAmmo = new int[6];
 
@@ -275,7 +289,7 @@ namespace Liberty.Controls
 
         private void btnMaxFrag_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnMaxFrag.Source = new BitmapImage(source);
         }
         #endregion
@@ -305,7 +319,7 @@ namespace Liberty.Controls
 
         private void btnPlasmaMax_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnMaxPlasma.Source = new BitmapImage(source);
         }
         #endregion
@@ -335,7 +349,7 @@ namespace Liberty.Controls
 
         private void btnPrimaryMaxWeaponAmmo_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnPrimaryMaxWeaponAmmo.Source = new BitmapImage(source);
         }
         #endregion
@@ -365,7 +379,7 @@ namespace Liberty.Controls
 
         private void btnMaxPrimaryClip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnMaxPrimaryClip.Source = new BitmapImage(source);
         }
         #endregion
@@ -395,7 +409,7 @@ namespace Liberty.Controls
 
         private void btnSecondaryMaxWeaponAmmo_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnSecondaryMaxWeaponAmmo.Source = new BitmapImage(source);
         }
         #endregion
@@ -425,7 +439,7 @@ namespace Liberty.Controls
 
         private void btnMaxSecondaryClip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnMaxSecondaryClip.Source = new BitmapImage(source);
         }
         #endregion

@@ -179,7 +179,7 @@ namespace Liberty.Controls
 
         private void btnOpen_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnOpen.Source = new BitmapImage(source);
         }
         #endregion
@@ -209,7 +209,7 @@ namespace Liberty.Controls
 
         private void btnOpen_MouseDown1(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnOpen1.Source = new BitmapImage(source);
         }
         #endregion

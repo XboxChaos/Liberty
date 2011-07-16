@@ -20,7 +20,7 @@
 			        </ResourceDictionary>
 			    </UserControl.Resources>
 	
-	<ControlsMetro:MetroContentControl>
+	<ControlsMetro:MetroContentControl IsTabStop="False">
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Fine Tuning - Quick Tweaks" Height="46" VerticalAlignment="Top" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Make quick tweaks to your save" Height="25.911" VerticalAlignment="Top" />
