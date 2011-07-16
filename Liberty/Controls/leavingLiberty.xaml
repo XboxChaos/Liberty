@@ -69,10 +69,10 @@
 	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
 					
 	        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,28,21" />
-	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,39,21" x:Name="lblOK" Text="LEAVE" VerticalAlignment="Bottom" Width="43" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,28,21" x:Name="lblOK" Text="LEAVE" VerticalAlignment="Bottom" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
 	        		
 					<Image Name="btnUpdate" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/SecondaryButton.png" Margin="0,0,113,21" HorizontalAlignment="Right" Width="71" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
-					<TextBlock Height="19" Margin="0,0,130,21" Name="lblUpdate" Text="STAY" VerticalAlignment="Bottom" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="31" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
+					<TextBlock Height="19" Margin="0,0,113,21" Name="lblUpdate" Text="STAY" VerticalAlignment="Bottom" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="71" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" TextAlignment="Center" />
 					
 					
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="48,82,0,0" x:Name="textBlock2_Copy" Text="Are you sure? Your save and progress won't be affected." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="Normal" Foreground="#FF373A3D" />

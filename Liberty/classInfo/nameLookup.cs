@@ -16,7 +16,7 @@ namespace Liberty.classInfo
             }
             catch (Exception exception)
             {
-                return exception.Message;
+                return exception.ToString();
             }
         }
 

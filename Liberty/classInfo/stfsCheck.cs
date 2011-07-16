@@ -54,7 +54,7 @@ namespace Liberty.classInfo
             {
                 if (package != null)
                     package.CloseIO();
-                return ex.Message;
+                return ex.ToString();
             }
         }
         public static string finishFileEditing()
@@ -79,7 +79,7 @@ namespace Liberty.classInfo
             {
                 if (package != null)
                     package.CloseIO();
-                return ex.Message;
+                return ex.ToString();
             }
         }
     }
