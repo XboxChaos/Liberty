@@ -93,9 +93,6 @@
     <Compile Include="classInfo\SkinningEngine\RuntimeStorage.cs" />
     <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
     <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
-    <Compile Include="Controls\listboxWindow.xaml.cs">
-      <DependentUpon>listboxWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\dllMissingError.xaml.cs">
       <DependentUpon>dllMissingError.xaml</DependentUpon>
     </Compile>
@@ -159,10 +156,6 @@
     <Compile Include="Security\SaveSHA1.cs" />
     <Compile Include="Util\TagList.cs" />
     <Page Include="Controls\aboutBox.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\listboxWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -374,12 +367,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\LibertyUpdater.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Updater.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!--<Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />-->
