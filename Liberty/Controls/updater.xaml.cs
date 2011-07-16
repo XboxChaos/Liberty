@@ -71,7 +71,7 @@ namespace Liberty.Controls
         private void update_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             if (classInfo.storage.fileInfoStorage.connectedToUpdate) { }
-            else { this.Close(); }
+            else { this.FormFadeOut.Begin(); }
         }
 
         #region wpfBullshit
@@ -131,9 +131,8 @@ namespace Liberty.Controls
             var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
             btnUpdate.Source = new BitmapImage(source);
 
-            FormFadeOut.Begin();
-
             classInfo.updating.startUpdate();
+            FormFadeOut.Begin();
         }
         #endregion
 

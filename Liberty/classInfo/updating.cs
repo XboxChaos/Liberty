@@ -42,14 +42,7 @@ namespace Liberty.classInfo
             ini.IniWriteValue("AppInfo", "appVer", Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
             ini.IniWriteValue("AppInfo", "appDir", Assembly.GetExecutingAssembly().Location);
 
-            using (WebClient wb = new WebClient())
-            {
-                wb.DownloadFile("http://xeraxic.com/downloads/updater.exe", temp + "update.exe");
-            }
-
-            Process.Start(temp + "update.exe");
-
-            applicationExtra.closeApplication();
+            classInfo.storage.fileInfoStorage.updStart = true;
         }
     }
 }

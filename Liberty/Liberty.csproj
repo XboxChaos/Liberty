@@ -49,6 +49,9 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Liberty.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro">
       <HintPath>.\MahApps.Metro.dll</HintPath>
@@ -107,6 +110,9 @@
     </Compile>
     <Compile Include="Controls\messageBoxOptions.xaml.cs">
       <DependentUpon>messageBoxOptions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\progressUpdaterDownload.xaml.cs">
+      <DependentUpon>progressUpdaterDownload.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\progressWindow.xaml.cs">
       <DependentUpon>progressWindow.xaml</DependentUpon>
@@ -187,6 +193,10 @@
     <Page Include="Controls\progressStepBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\progressUpdaterDownload.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\progressWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
