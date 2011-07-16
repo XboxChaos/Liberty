@@ -315,12 +315,32 @@ namespace Liberty
                     Controls.updater update = new Controls.updater();
                     update.Owner = this;
                     update.ShowDialog();
+                    if (classInfo.storage.fileInfoStorage.updStart)
+                    {
+                        Controls.progressUpdaterDownload upd = new Controls.progressUpdaterDownload();
+                        upd.Owner = this;
+                        upd.ShowDialog();
+                        classInfo.storage.fileInfoStorage.updStart = false;
+                        string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\update\\";
+                        Process.Start(temp + "update.exe");
+                        classInfo.applicationExtra.closeApplication();
+                    }
                     break;
                 case 3:
                     Controls.uploadOnLoad updateOL = new Controls.uploadOnLoad();
                     updateOL.Owner = this;
                     updateOL.lblBuildChanges.Text = message;
                     updateOL.ShowDialog();
+                    if (classInfo.storage.fileInfoStorage.updStart)
+                    {
+                        Controls.progressUpdaterDownload upd = new Controls.progressUpdaterDownload();
+                        upd.Owner = this;
+                        upd.ShowDialog();
+                        classInfo.storage.fileInfoStorage.updStart = false;
+                        string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\update\\";
+                        Process.Start(temp + "update.exe");
+                        classInfo.applicationExtra.closeApplication();
+                    }
                     break;
                 case 4:
                     Controls.exceptionWindow exp = new Controls.exceptionWindow();

@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using X360.FATX;
-using System.Windows.Controls;
 
 namespace Liberty.classInfo.storage
 {
@@ -53,8 +52,6 @@ namespace Liberty.classInfo.storage
         public static bool messageOpt = false;
         public static bool leavingStep2 = false;
 
-        public static List<ListBoxItem> listboxItems = null;
-        public static ListBoxItem selectedListboxItem = null;
-        public static string replaceObjectName;
+        public static bool updStart = false;
     }
 }

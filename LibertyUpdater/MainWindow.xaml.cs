@@ -27,6 +27,7 @@ namespace LibertyUpdater
         int threadTime = 500;
         string currentData = "";
         bool finishedUpdating;
+        string thisDirec = Environment.CurrentDirectory + "\\";
 
         [DllImport("gdi32", EntryPoint = "AddFontResource")]
         public static extern int AddFontResourceA(string lpFileName);
@@ -69,7 +70,7 @@ namespace LibertyUpdater
 
         public void updaterCode(ref string output, ref bool finished)
         {
-            Liberty.classInfo.iniFile iniFile = new Liberty.classInfo.iniFile("update.ini");
+            Liberty.classInfo.iniFile iniFile = new Liberty.classInfo.iniFile(thisDirec + "update.ini");
             string PIDAppName = iniFile.IniReadValue("AppInfo", "appName");
 
             //Tell the user we are checking for their derpness
