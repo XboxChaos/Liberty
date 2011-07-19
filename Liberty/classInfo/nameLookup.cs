@@ -18,7 +18,8 @@ namespace Liberty.classInfo
                     if (applicationSettings.storeTaglistNoMem)
                     {
                         string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
-                        File.WriteAllText(applicationExtra.downloadTaglist(), temp + "taglst.tgl");
+                        Directory.CreateDirectory(temp);
+                        File.WriteAllText(temp + "taglst.tgl", applicationExtra.downloadTaglist());
                         classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl");
                     }
                     else
@@ -31,7 +32,8 @@ namespace Liberty.classInfo
                     if (applicationSettings.storeTaglistNoMem)
                     {
                         string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
-                        File.WriteAllText(Liberty.Properties.Resources.taglist, temp + "taglst.tgl");
+                        Directory.CreateDirectory(temp);
+                        File.WriteAllText(temp + "taglst.tgl", Liberty.Properties.Resources.taglist);
                         classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl");
                     }
                     else

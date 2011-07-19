@@ -3,20 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liberty", "Liberty\Liberty.csproj", "{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibertyUpdater", "LibertyUpdater\LibertyUpdater.csproj", "{25798D7D-064E-44FC-94AE-6EA66FA37151}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 2
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs17
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Liberty\\Liberty.csproj
 		SccProjectName1 = Liberty
 		SccLocalPath1 = Liberty
-		SccProjectUniqueName2 = LibertyUpdater\\LibertyUpdater.csproj
-		SccProjectName2 = LibertyUpdater
-		SccLocalPath2 = LibertyUpdater
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -33,12 +28,6 @@ Global
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Release|x86.ActiveCfg = Release|x86
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Release|x86.Build.0 = Release|x86
-		{25798D7D-064E-44FC-94AE-6EA66FA37151}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{25798D7D-064E-44FC-94AE-6EA66FA37151}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{25798D7D-064E-44FC-94AE-6EA66FA37151}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{25798D7D-064E-44FC-94AE-6EA66FA37151}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{25798D7D-064E-44FC-94AE-6EA66FA37151}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{25798D7D-064E-44FC-94AE-6EA66FA37151}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
