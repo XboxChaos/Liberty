@@ -102,6 +102,9 @@
     <Compile Include="Controls\exceptionWindow.xaml.cs">
       <DependentUpon>exceptionWindow.xaml</DependentUpon>
     </Compile>
+	<Compile·Include="Controls\listboxWindow.xaml.cs">  
+	  <DependentUpon>listboxWindow.xaml</DependentUpon>  
+	</Compile>  
     <Compile Include="Controls\leavingLiberty.xaml.cs">
       <DependentUpon>leavingLiberty.xaml</DependentUpon>
     </Compile>
