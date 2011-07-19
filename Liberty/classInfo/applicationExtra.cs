@@ -25,11 +25,36 @@ using System.Diagnostics;
 using System.IO;
 using FATX;
 using System.Windows.Controls;
+using Liberty.classInfo.storage.settings;
+using Microsoft.Win32;
 
 namespace Liberty.classInfo
 {
     class applicationExtra
     {
+        public static void loadApplicationSettings()
+        {
+            RegistryKey keyApp = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings\\");
+            RegistryKey keyTheme = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\themeSettings\\");
+
+            // Update
+            applicationSettings.checkUpdatesOL = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("updOnLaunch", 1));
+            applicationSettings.showChangeLog = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("updChnLog", 1));
+
+            // Application
+            applicationSettings.displaySplash = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appDisSplash", 1));
+            applicationSettings.checkDLL = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appMsgDll", 1));
+            applicationSettings.enableEasterEggs = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appEstEgg", 1));
+            applicationSettings.ausFileType = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appAssFileType", 1));
+            applicationSettings.splashTimer = (int)keyApp.GetValue("appSplashTime", 5);
+
+            // Taglist
+            applicationSettings.getLatestTagLst = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appDLTagLst", 1));
+            applicationSettings.storeTaglistNoMem = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTgLstNoMem", 1));
+            applicationSettings.extTaglistFrmAsc = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTglstFromAsc", 1));
+            applicationSettings.extTaglistFromAscDirec = (string)keyApp.GetValue("appTglstFromAscDirec", "");
+        }
+
         public static string downloadTaglist()
         {
             try

@@ -93,6 +93,7 @@
     <Compile Include="classInfo\SkinningEngine\IO\PathData.cs" />
     <Compile Include="classInfo\SkinningEngine\loadSettings.cs" />
     <Compile Include="classInfo\SkinningEngine\RuntimeStorage.cs" />
+    <Compile Include="classInfo\storage\settings\applicationSettings.cs" />
     <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
     <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
     <Compile Include="Controls\dllMissingError.xaml.cs">
@@ -156,6 +157,9 @@
     <Compile Include="Save Management\CampaignSaveObject.cs" />
     <Compile Include="Save Management\CampaignSavePlayer.cs" />
     <Compile Include="Security\SaveSHA1.cs" />
+    <Compile Include="SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Util\TagList.cs" />
     <Page Include="Controls\aboutBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -309,6 +313,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -330,7 +338,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.manifest" />
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -348,6 +355,7 @@
     <Resource Include="Images\l-minimize.png" />
     <Resource Include="Images\SecondaryButton.png" />
     <Resource Include="Images\TopBar.png" />
+    <Resource Include="splash.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\KV.bin" />

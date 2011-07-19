@@ -34,6 +34,11 @@ namespace Liberty.Controls
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+            load();
+        }
+
+        public void load()
+        {
             softCode.loadSettings();
             themeCode.loadSettings();
         }
