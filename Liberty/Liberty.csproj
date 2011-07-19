@@ -102,11 +102,12 @@
     <Compile Include="Controls\exceptionWindow.xaml.cs">
       <DependentUpon>exceptionWindow.xaml</DependentUpon>
     </Compile>
-	<Compile·Include="Controls\listboxWindow.xaml.cs">  
-	  <DependentUpon>listboxWindow.xaml</DependentUpon>  
-	</Compile>  
     <Compile Include="Controls\leavingLiberty.xaml.cs">
       <DependentUpon>leavingLiberty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\listboxWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>listboxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\massObjectMove.xaml.cs">
       <DependentUpon>massObjectMove.xaml</DependentUpon>
@@ -177,6 +178,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\leavingLiberty.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\listboxWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

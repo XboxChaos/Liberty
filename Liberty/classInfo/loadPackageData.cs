@@ -164,6 +164,8 @@ namespace Liberty.classInfo
                     return "crea";
                 case Reach.TagGroup.Efsc:
                     return "efsc";
+                case Reach.TagGroup.Proj:
+                    return "proj";
             }
             return "unk1";
         }
@@ -196,6 +198,8 @@ namespace Liberty.classInfo
                     return Reach.TagGroup.Crea;
                 case "efsc":
                     return Reach.TagGroup.Efsc;
+                case "proj":
+                    return Reach.TagGroup.Proj;
             }
             return Reach.TagGroup.Unknown;
         }
