@@ -107,6 +107,31 @@ namespace Liberty.SaveIO
         }
 
         /// <summary>
+        /// Writes an unsigned 64-bit integer to the underlying stream.
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        public void WriteUInt64(ulong value)
+        {
+            _stream.WriteByte((byte)(value >> 56));
+            _stream.WriteByte((byte)((value >> 48) & 0xFF));
+            _stream.WriteByte((byte)((value >> 40) & 0xFF));
+            _stream.WriteByte((byte)((value >> 32) & 0xFF));
+            _stream.WriteByte((byte)((value >> 24) & 0xFF));
+            _stream.WriteByte((byte)((value >> 16) & 0xFF));
+            _stream.WriteByte((byte)((value >> 8) & 0xFF));
+            _stream.WriteByte((byte)(value & 0xFF));
+        }
+
+        /// <summary>
+        /// Writes an signed 64-bit integer to the underlying stream.
+        /// </summary>
+        /// <param name="value">The value to write.</param>
+        public void WriteInt64(long value)
+        {
+            WriteUInt64((ulong)value);
+        }
+
+        /// <summary>
         /// Writes a 32-bit float value to the underlying stream.
         /// </summary>
         /// <param name="value">The value to write.</param>

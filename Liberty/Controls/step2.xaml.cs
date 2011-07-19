@@ -50,6 +50,7 @@ namespace Liberty.Controls
             Reach.BipedObject currentBiped = classInfo.storage.fileInfoStorage.saveData.Player.Biped;
             if (currentBiped.Vehicle == null)
             {
+                // Calculate a list of available bipeds
                 SortedSet<Reach.BipedObject> availableBipeds = new SortedSet<Reach.BipedObject>(new mapIdentComparer());
                 foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
                 {
@@ -87,7 +88,9 @@ namespace Liberty.Controls
         public void saveData()
         {
             classInfo.storage.fileInfoStorage.saveData.Player.ChangeBiped((Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag, (bool)cBWeapTransfer.IsChecked);
+
             classInfo.savePackageData.setPlayerInvincibility((bool)checkInvincible.IsChecked);
+            classInfo.savePackageData.setPlayerNoclip((bool)checkNoPhysics.IsChecked);
 
             float[] playerCords = new float[3];
             playerCords[0] = Convert.ToSingle(txtPlayerXCord.Text);

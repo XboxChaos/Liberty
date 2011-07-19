@@ -77,7 +77,7 @@ namespace Liberty.Reach
         /// <summary>
         /// A SaveReader stream that can be used to read the entry list.
         /// </summary>
-        public Liberty.SaveIO.SaveReader EntryList
+        public Liberty.SaveIO.SaveReader EntryReader
         {
             get { return _entryListStream; }
         }

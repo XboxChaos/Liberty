@@ -38,7 +38,7 @@ namespace Liberty.Reach
         /// <param name="index">The player's index into the players chunk.</param>
         internal GamePlayer(Chunk chunk, List<GameObject> objectList, uint index)
         {
-            SaveIO.SaveReader reader = chunk.EntryList;
+            SaveIO.SaveReader reader = chunk.EntryReader;
             _dataPosition = reader.BaseStream.Position + chunk.EntryListStart;
 
             _id = ((uint)reader.ReadUInt16() << 16) | index;

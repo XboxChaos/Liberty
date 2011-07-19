@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Reflection;
 
 namespace Liberty.Controls
 {
@@ -21,10 +22,13 @@ namespace Liberty.Controls
         private int currentChunkIndex = -1;
         private string currentParentNodeTag = null;
         public event EventHandler ExecuteMethod;
+        public event EventHandler ExecuteMethod2;
+        public event EventHandler ExecuteMethod3;
         public int currentPlugin = -1;
         Reach.BipedObject objBipd;
         Reach.WeaponObject objWeap;
-
+        Reach.VehicleObject objVehi;
+        private List<TreeViewItem> objectItems = new List<TreeViewItem>();
 
 		public step4()
 		{
@@ -35,15 +39,22 @@ namespace Liberty.Controls
 		}
 
         protected virtual void OnExecuteMethod() { if (ExecuteMethod != null) ExecuteMethod(this, EventArgs.Empty); }
+        protected virtual void OnExecuteMethod2() { if (ExecuteMethod2 != null) ExecuteMethod2(this, EventArgs.Empty); }
+        protected virtual void OnExecuteMethod3() { if (ExecuteMethod3 != null) ExecuteMethod3(this, EventArgs.Empty); }
 
         public void loadData()
         {
-            if (currentChunkIndex == -1)
-                objectInfo.Visibility = System.Windows.Visibility.Hidden;
+            currentChunkIndex = -1;
+            objectInfo.Visibility = System.Windows.Visibility.Hidden;
+            btnDelete.Visibility = System.Windows.Visibility.Hidden;
+            lblDelete.Visibility = System.Windows.Visibility.Hidden;
+            btnReplace.Visibility = System.Windows.Visibility.Hidden;
+            lblReplace.Visibility = System.Windows.Visibility.Hidden;
             foreach (TreeViewItem item in tVObjects.Items)
             {
                 item.Items.Clear();
             }
+            objectItems.Clear();
             int i = 0;
             foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
             {
@@ -57,6 +68,11 @@ namespace Liberty.Controls
                     tvi.Tag = i;
 
                     (items[convertClassToNode(obj.TagGroup)] as TreeViewItem).Items.Add(tvi);
+                    objectItems.Add(tvi);
+                }
+                else
+                {
+                    objectItems.Add(null);
                 }
 
                 i++;
@@ -82,12 +98,18 @@ namespace Liberty.Controls
 
                         classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] = objBipd;
                         break;
-                    case 7:
+
+                    case 1:
                         objWeap.Invincible = (bool)cBWeapInvici.IsChecked;
                         objWeap.Ammo = Convert.ToInt16(txtWeapPluginAmmo.Text);
                         objWeap.ClipAmmo = Convert.ToInt16(txtWeapPluginClipAmmo.Text);
 
                         classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] = objWeap;
+                        break;
+
+                    case 2:
+                        objVehi.Invincible = (bool)cBVehiInvici.IsChecked;
+                        classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] = objVehi;
                         break;
                 }
             }
@@ -99,62 +121,32 @@ namespace Liberty.Controls
             {
                 case Reach.TagGroup.Bipd:
                     return 0;
-                case Reach.TagGroup.Vehi:
-                    return 8;
-                case Reach.TagGroup.Weap:
-                    return 7;
-                case Reach.TagGroup.Eqip:
+                case Reach.TagGroup.Bloc:
+                    return 1;
+                case Reach.TagGroup.Crea:
                     return 2;
-                case Reach.TagGroup.Term:
-                    return 6;
-                case Reach.TagGroup.Scen:
+                case Reach.TagGroup.Ctrl:
+                    return 3;
+                case Reach.TagGroup.Efsc:
+                    return 4;
+                case Reach.TagGroup.Eqip:
                     return 5;
                 case Reach.TagGroup.Mach:
-                    return 4;
-                case Reach.TagGroup.Ctrl:
-                    return 1;
+                    return 6;
+                case Reach.TagGroup.Proj:
+                    return 7;
+                case Reach.TagGroup.Scen:
+                    return 8;
                 case Reach.TagGroup.Ssce:
-                    return 3;
-                case Reach.TagGroup.Bloc:
                     return 9;
-                case Reach.TagGroup.Crea:
+                case Reach.TagGroup.Term:
                     return 10;
-                case Reach.TagGroup.Efsc:
+                case Reach.TagGroup.Vehi:
                     return 11;
+                case Reach.TagGroup.Weap:
+                    return 12;
             }
-            return 12;
-        }
-
-        public static Reach.TagGroup convertIntToClass(int type)
-        {
-            switch (type)
-            {
-                case 0:
-                    return Reach.TagGroup.Bipd;
-                case 8:
-                    return Reach.TagGroup.Vehi;
-                case 7:
-                    return Reach.TagGroup.Weap;
-                case 2:
-                    return Reach.TagGroup.Eqip;
-                case 6:
-                    return Reach.TagGroup.Term;
-                case 5:
-                    return Reach.TagGroup.Scen;
-                case 4:
-                    return Reach.TagGroup.Mach;
-                case 1:
-                    return Reach.TagGroup.Ctrl;
-                case 3:
-                    return Reach.TagGroup.Ssce;
-                case 9:
-                    return Reach.TagGroup.Bloc;
-                case 10:
-                    return Reach.TagGroup.Crea;
-                case 11:
-                    return Reach.TagGroup.Efsc;
-            }
-            return Reach.TagGroup.Unknown;
+            return 13;
         }
 
         #region textValidation
@@ -241,12 +233,18 @@ namespace Liberty.Controls
 
                                 classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] = objBipd;
                                 break;
-                            case 7:
+
+                            case 1:
                                 objWeap.Invincible = (bool)cBWeapInvici.IsChecked;
                                 objWeap.Ammo = Convert.ToInt16(txtWeapPluginAmmo.Text);
                                 objWeap.ClipAmmo = Convert.ToInt16(txtWeapPluginClipAmmo.Text);
 
                                 classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] = objWeap;
+                                break;
+
+                            case 2:
+                                objVehi.Invincible = (bool)cBVehiInvici.IsChecked;
+                                classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] = objVehi;
                                 break;
                         }
                     }
@@ -262,50 +260,105 @@ namespace Liberty.Controls
 
                         if (e.NewValue.ToString().Contains("Header:["))
                         {
-                            txtObjectXCord.Text = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].X.ToString();
-                            txtObjectYCord.Text = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].Y.ToString();
-                            txtObjectZCord.Text = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].Z.ToString();
+                            Reach.GameObject currentObject = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex];
+                            txtObjectXCord.Text = currentObject.X.ToString();
+                            txtObjectYCord.Text = currentObject.Y.ToString();
+                            txtObjectZCord.Text = currentObject.Z.ToString();
 
-                            lblResourceIdent.Content = "0x" + classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].ResourceID.ToString("X");
-                            lblMapIdent.Content = classInfo.nameLookup.translate(classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].ResourceID);
-                            lblObjectType.Content = classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].TagGroup);
+                            lblMapIdent.Content = "0x" + currentObject.ID.ToString("X");
+                            lblResourceIdent.Content = "0x" + currentObject.ResourceID.ToString("X");
+                            lblFileOffset.Content = "0x" + currentObject.FileOffset.ToString("X");
 
-                            weapPlugin.Visibility = System.Windows.Visibility.Hidden;
-                            bipdPlugin.Visibility = System.Windows.Visibility.Hidden;
-
-                            if ((int)convertClassToNode(classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].TagGroup) == 0) //Bipd Plugin
+                            // Parent button
+                            if (currentObject.Carrier != null)
                             {
-                                bipdPlugin.Visibility = System.Windows.Visibility.Visible;
-
-                                objBipd = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] as Reach.BipedObject;
-
-                                txtBipdPlasmaNade.Text = Convert.ToString(objBipd.PlasmaGrenades);
-                                txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
-
-                                cBBipdInvici.IsChecked = objBipd.Invincible;
-
-                                currentPlugin = 0;
-                            }
-                            else if ((int)convertClassToNode(classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].TagGroup) == 7) //Weapon Plugin
-                            {
-                                weapPlugin.Visibility = System.Windows.Visibility.Visible;
-
-                                objWeap = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex] as Reach.WeaponObject;
-
-                                txtWeapPluginClipAmmo.Text = Convert.ToString(objWeap.ClipAmmo);
-                                txtWeapPluginAmmo.Text = Convert.ToString(objWeap.Ammo);
-
-                                cBWeapInvici.IsChecked = objWeap.Invincible;
-
-                                currentPlugin = 2;
+                                lblParentIdent.Content = "0x" + currentObject.Carrier.ID.ToString("X");
+                                lblParentIdent.Visibility = System.Windows.Visibility.Visible;
+                                btnParent.Visibility = System.Windows.Visibility.Visible;
+                                lblParent.Visibility = System.Windows.Visibility.Visible;
                             }
                             else
                             {
-                                currentPlugin = -1;
+                                lblParentIdent.Visibility = System.Windows.Visibility.Hidden;
+                                btnParent.Visibility = System.Windows.Visibility.Hidden;
+                                lblParent.Visibility = System.Windows.Visibility.Hidden;
                             }
 
-                            //classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].
-                            if ((int)convertClassToNode(classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex].TagGroup) == 9)
+                            // Children button
+                            if (currentObject.FirstCarried != null)
+                            {
+                                int numChildren = 0;
+                                Reach.GameObject obj = currentObject.FirstCarried;
+                                while (obj != null)
+                                {
+                                    numChildren++;
+                                    obj = obj.NextCarried;
+                                }
+                                if (numChildren == 1)
+                                    lblNumChildren.Content = "1 child";
+                                else
+                                    lblNumChildren.Content = numChildren.ToString() + " children";
+
+                                lblNumChildren.Visibility = System.Windows.Visibility.Visible;
+                                btnChildren.Visibility = System.Windows.Visibility.Visible;
+                                lblChildren.Visibility = System.Windows.Visibility.Visible;
+                            }
+                            else
+                            {
+                                lblNumChildren.Visibility = System.Windows.Visibility.Hidden;
+                                btnChildren.Visibility = System.Windows.Visibility.Hidden;
+                                lblChildren.Visibility = System.Windows.Visibility.Hidden;
+                            }
+
+                            weapPlugin.Visibility = System.Windows.Visibility.Hidden;
+                            bipdPlugin.Visibility = System.Windows.Visibility.Hidden;
+                            vehiPlugin.Visibility = System.Windows.Visibility.Hidden;
+
+                            switch (currentObject.TagGroup)
+                            {
+                                case Reach.TagGroup.Bipd:
+                                    bipdPlugin.Visibility = System.Windows.Visibility.Visible;
+
+                                    objBipd = currentObject as Reach.BipedObject;
+
+                                    txtBipdPlasmaNade.Text = Convert.ToString(objBipd.PlasmaGrenades);
+                                    txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
+
+                                    cBBipdInvici.IsChecked = objBipd.Invincible;
+
+                                    currentPlugin = 0;
+                                    break;
+
+                                case Reach.TagGroup.Weap:
+                                    weapPlugin.Visibility = System.Windows.Visibility.Visible;
+
+                                    objWeap = currentObject as Reach.WeaponObject;
+
+                                    txtWeapPluginClipAmmo.Text = Convert.ToString(objWeap.ClipAmmo);
+                                    txtWeapPluginAmmo.Text = Convert.ToString(objWeap.Ammo);
+
+                                    cBWeapInvici.IsChecked = objWeap.Invincible;
+
+                                    currentPlugin = 1;
+                                    break;
+
+                                case Reach.TagGroup.Vehi:
+                                    vehiPlugin.Visibility = System.Windows.Visibility.Visible;
+
+                                    objVehi = currentObject as Reach.VehicleObject;
+
+                                    cBVehiInvici.IsChecked = objVehi.Invincible;
+
+                                    currentPlugin = 2;
+                                    break;
+
+                                default:
+                                    currentPlugin = -1;
+                                    break;
+                            }
+
+                            // Mass object move
+                            if (currentObject.TagGroup == Reach.TagGroup.Bloc)
                             {
                                 lblOpen.Visibility = System.Windows.Visibility.Hidden;
                                 btnOpen.Visibility = System.Windows.Visibility.Hidden;
@@ -314,6 +367,32 @@ namespace Liberty.Controls
                             {
                                 lblOpen.Visibility = System.Windows.Visibility.Visible;
                                 btnOpen.Visibility = System.Windows.Visibility.Visible;
+                            }
+
+                            // Replace button
+                            if ((currentObject.TagGroup == Reach.TagGroup.Weap ||
+                                currentObject.TagGroup == Reach.TagGroup.Eqip) &&
+                                ((TreeViewItem)SelectedItem.Parent).Items.Count > 1)
+                            {
+                                btnReplace.Visibility = System.Windows.Visibility.Visible;
+                                lblReplace.Visibility = System.Windows.Visibility.Visible;
+                            }
+                            else
+                            {
+                                btnReplace.Visibility = System.Windows.Visibility.Hidden;
+                                lblReplace.Visibility = System.Windows.Visibility.Hidden;
+                            }
+
+                            // Delete button
+                            if (currentObject != classInfo.storage.fileInfoStorage.saveData.Player.Biped)
+                            {
+                                btnDelete.Visibility = System.Windows.Visibility.Visible;
+                                lblDelete.Visibility = System.Windows.Visibility.Visible;
+                            }
+                            else
+                            {
+                                btnDelete.Visibility = System.Windows.Visibility.Hidden;
+                                lblDelete.Visibility = System.Windows.Visibility.Hidden;
                             }
 
                             objectInfo.Visibility = System.Windows.Visibility.Visible;
@@ -326,6 +405,11 @@ namespace Liberty.Controls
         #endregion
 
         #region wpf bullshit
+        private void removeObjectFromTreeView(int index)
+        {
+            
+        }
+
         #region btnOpenwpf
         private void btnOpen_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -353,7 +437,7 @@ namespace Liberty.Controls
 
         private void btnOpen_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnOpen.Source = new BitmapImage(source);
         }
         #endregion
@@ -383,7 +467,7 @@ namespace Liberty.Controls
 
         private void btnPrimaryMaxWeaponAmmo_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnPrimaryMaxWeaponAmmo.Source = new BitmapImage(source);
         }
         #endregion
@@ -413,7 +497,7 @@ namespace Liberty.Controls
 
         private void btnBipdFragMax_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnBipdFragMax.Source = new BitmapImage(source);
         }
         #endregion
@@ -443,7 +527,7 @@ namespace Liberty.Controls
 
         private void btnBipdPlasmaMax_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnBipdPlasmaMax.Source = new BitmapImage(source);
         }
         #endregion
@@ -473,8 +557,204 @@ namespace Liberty.Controls
 
         private void btnMaxPrimaryClip_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
             btnMaxPrimaryClip.Source = new BitmapImage(source);
+        }
+        #endregion
+
+        #region btnDelete
+        private void btnDelete_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnDelete.Source = new BitmapImage(source);
+
+            Reach.GameObject currentObject = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex];
+            currentObject.Delete();
+
+            // Remove the TreeViewItem
+            TreeViewItem tvi = objectItems[currentChunkIndex];
+            TreeViewItem parent = (TreeViewItem)tvi.Parent;
+            int currentPos = parent.Items.IndexOf(tvi);
+            parent.Items.Remove(tvi);
+
+            // Select a nearby one
+            if (currentPos == parent.Items.Count)
+                currentPos--;
+            if (currentPos >= 0)
+            {
+                ((TreeViewItem)parent.Items.GetItemAt(currentPos)).IsSelected = true;
+            }
+            else
+            {
+                currentChunkIndex = -1;
+                objectInfo.Visibility = System.Windows.Visibility.Hidden;
+                btnDelete.Visibility = System.Windows.Visibility.Hidden;
+                lblDelete.Visibility = System.Windows.Visibility.Hidden;
+                btnReplace.Visibility = System.Windows.Visibility.Hidden;
+                lblReplace.Visibility = System.Windows.Visibility.Hidden;
+            }
+        }
+
+        private void btnDelete_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnDelete.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnDelete.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnDelete_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+            btnDelete.Source = new BitmapImage(source);
+        }
+        #endregion
+
+        #region btnReplace
+        private void btnReplace_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnReplace.Source = new BitmapImage(source);
+
+            // Set up the list of items
+            classInfo.storage.fileInfoStorage.listboxItems = new List<ListBoxItem>();
+            TreeViewItem tvi = objectItems[currentChunkIndex];
+            TreeViewItem parent = (TreeViewItem)tvi.Parent;
+            foreach (TreeViewItem item in parent.Items)
+            {
+                if ((int)item.Tag != currentChunkIndex)
+                {
+                    ListBoxItem lbItem = new ListBoxItem();
+                    lbItem.Content = item.Header;
+                    lbItem.Tag = item;
+                    classInfo.storage.fileInfoStorage.listboxItems.Add(lbItem);
+                }
+            }
+            classInfo.storage.fileInfoStorage.replaceObjectName = (string)tvi.Header;
+            
+            OnExecuteMethod2();
+            ListBoxItem selectedItem = classInfo.storage.fileInfoStorage.selectedListboxItem;
+            if (selectedItem != null)
+            {
+                TreeViewItem newItem = (TreeViewItem)selectedItem.Tag;
+                Reach.GameObject oldObj = classInfo.storage.fileInfoStorage.saveData.Objects[(int)tvi.Tag];
+                Reach.GameObject newObj = classInfo.storage.fileInfoStorage.saveData.Objects[(int)newItem.Tag];
+                oldObj.ReplaceWith(newObj);
+
+                newItem.IsSelected = true;
+                parent.Items.Remove(tvi);
+            }
+        }
+
+        private void btnReplace_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnReplace.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnReplace.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnReplace_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+            btnReplace.Source = new BitmapImage(source);
+        }
+        #endregion
+
+        #region btnParent
+        private void btnParent_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnParent.Source = new BitmapImage(source);
+
+            Reach.GameObject currentObject = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex];
+            TreeViewItem tvi = objectItems[(int)(currentObject.Carrier.ID & 0xFFFF)];
+            ((TreeViewItem)tvi.Parent).ExpandSubtree();
+            tvi.IsSelected = true;
+        }
+
+        private void btnParent_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnParent.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnParent.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnParent_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+            btnParent.Source = new BitmapImage(source);
+        }
+        #endregion
+
+        #region btnChildren
+        private void btnChildren_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnChildren.Source = new BitmapImage(source);
+
+            Reach.GameObject currentObject = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex];
+            Reach.GameObject obj = currentObject.FirstCarried;
+            classInfo.storage.fileInfoStorage.listboxItems = new List<ListBoxItem>();
+            while (obj != null)
+            {
+                ListBoxItem item = new ListBoxItem();
+                int index = (int)(obj.ID & 0xFFFF);
+                TreeViewItem tvi = objectItems[index];
+                item.Content = "[" + ((TreeViewItem)tvi.Parent).Header + "] " + tvi.Header;
+                item.Tag = tvi;
+                classInfo.storage.fileInfoStorage.listboxItems.Add(item);
+                obj = obj.NextCarried;
+            }
+            OnExecuteMethod3();
+
+            ListBoxItem selectedItem = classInfo.storage.fileInfoStorage.selectedListboxItem;
+            if (selectedItem != null)
+            {
+                // This is kinda glitchy, but it works
+                TreeViewItem tvi = (TreeViewItem)selectedItem.Tag;
+                ((TreeViewItem)tvi.Parent).ExpandSubtree();
+                tvi.IsSelected = true;
+            }
+        }
+
+        private void btnChildren_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnChildren.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnChildren.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnChildren_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+            btnChildren.Source = new BitmapImage(source);
         }
         #endregion
 
