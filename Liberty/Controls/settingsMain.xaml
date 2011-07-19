@@ -8,7 +8,7 @@
 			 xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
              mc:Ignorable="d" 
 			 
-             d:DesignHeight="410" d:DesignWidth="615">
+             d:DesignHeight="410" d:DesignWidth="610" Loaded="UserControl_Loaded">
 	
 				<UserControl.Resources>
 			        <ResourceDictionary>
@@ -21,22 +21,25 @@
 			            </ResourceDictionary.MergedDictionaries>
 			        </ResourceDictionary>
 			    </UserControl.Resources>
+<ControlsMetro:MetroContentControl>
     <Grid>
     	<Label Content="settings" Height="45" HorizontalAlignment="Left" Margin="18,-11,0,0" Name="lblSettingsHeader" VerticalAlignment="Top" Width="109" FontWeight="Light" FontSize="23" Foreground="#FF868686" />
     
 	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" x:Name="btnSoft" VerticalAlignment="Top" Width="71" FontWeight="Bold" FontSize="11" Foreground="#FF000000" MouseEnter="btnSoft_MouseEnter" MouseLeave="btnSoft_MouseLeave" MouseDown="btnSoft_MouseDown" MouseUp="btnSoft_MouseUp"/>
 	    <Label Content="THEMES" Height="29" HorizontalAlignment="Left" Margin="93,26,0,0" x:Name="btnTheme" VerticalAlignment="Top" Width="52" FontWeight="Normal" FontSize="11" Foreground="#FF868686" MouseEnter="btnTheme_MouseEnter" MouseLeave="btnTheme_MouseLeave" MouseDown="btnTheme_MouseDown" MouseUp="btnTheme_MouseUp"/>
-    
-		<StackPanel VerticalAlignment="Bottom" Width="615" Height="30">
-			
-		</StackPanel>
 	
-		<StackPanel Name="softwarePanel" VerticalAlignment="Bottom" Width="615" Margin="0,0,0,30" Height="320">
-			<Child:appSettings />
+		<StackPanel Name="softwarePanel" VerticalAlignment="Top" Width="615" Margin="0,30,0,0" Height="320">
+			<Child:appSettings x:Name="softCode" />
 		</StackPanel>
 		
-		<StackPanel Name="themePanel" VerticalAlignment="Bottom" Width="615" Margin="0,0,0,30" Height="320">
-			<Child:themeSettings />
+		<StackPanel Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
+			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
+		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,13,1.19" />
+		<TextBlock Height="19" HorizontalAlignment="Left" Margin="553,0,0,-1" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+		
+		<Image x:Name="btnBack" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" Margin="0,0,97,1.19" />
+		<TextBlock Height="19" HorizontalAlignment="Left" Margin="454,0,0,-1" x:Name="lblBack" Text="CANCEL" VerticalAlignment="Bottom" Width="51" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
 	</Grid>
+</ControlsMetro:MetroContentControl>
 </UserControl>
