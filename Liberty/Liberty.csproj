@@ -59,8 +59,10 @@
     <Reference Include="MahApps.Metro.Controls">
       <HintPath>.\MahApps.Metro.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\System.Windows.Interactivity.dll</HintPath>
@@ -101,9 +103,6 @@
     </Compile>
     <Compile Include="Controls\leavingLiberty.xaml.cs">
       <DependentUpon>leavingLiberty.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\listboxWindow.xaml.cs">
-      <DependentUpon>listboxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\massObjectMove.xaml.cs">
       <DependentUpon>massObjectMove.xaml</DependentUpon>
@@ -171,10 +170,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\leavingLiberty.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\listboxWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -335,6 +330,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

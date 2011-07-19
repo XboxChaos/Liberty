@@ -22,17 +22,23 @@ namespace Liberty.Controls
         private bool isApp = true;
         BrushConverter bc = new BrushConverter();
         FontWeight fw = new FontWeight();
+        public event EventHandler ExecuteMethod;
+        protected virtual void OnExecuteMethod() { if (ExecuteMethod != null) ExecuteMethod(this, EventArgs.Empty); }
 
         public settingsMain()
         {
             InitializeComponent();
 
             themePanel.Visibility = System.Windows.Visibility.Hidden;
-            themePanel.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            softCode.loadSettings();
+            themeCode.loadSettings();
         }
 
         #region uncleanWPFstuff
-        
         #region btnSoftwpf
         private void btnSoft_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
@@ -69,7 +75,7 @@ namespace Liberty.Controls
         }
         #endregion
 
-        #region btnSoftwpf
+        #region btnThemewpf
         private void btnTheme_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (isApp)
@@ -102,6 +108,72 @@ namespace Liberty.Controls
             isApp = false;
             themePanel.Visibility = System.Windows.Visibility.Visible;
             softwarePanel.Visibility = System.Windows.Visibility.Hidden;
+        }
+        #endregion
+
+        #region btnOKwpf
+        private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnOK.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnOK.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnOK.Source = new BitmapImage(source);
+        }
+
+        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+            btnOK.Source = new BitmapImage(source);
+
+            //Save Code
+            softCode.saveSettings();
+            themeCode.saveSettings();
+
+            //Leave Code
+            OnExecuteMethod();
+        }
+        #endregion
+
+        #region btnBackwpf
+        private void btnBack_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+                btnBack.Source = new BitmapImage(source);
+            }
+            else
+            {
+                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+                btnBack.Source = new BitmapImage(source);
+            }
+        }
+
+        private void btnBack_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
+            btnBack.Source = new BitmapImage(source);
+        }
+
+        private void btnBack_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
+            btnBack.Source = new BitmapImage(source);
+            
+            //Close code
+            OnExecuteMethod();
         }
         #endregion
         #endregion

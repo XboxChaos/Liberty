@@ -24,6 +24,7 @@ using System.Text;
 using System.Diagnostics;
 using System.IO;
 using FATX;
+using System.Windows.Controls;
 
 namespace Liberty.classInfo
 {
@@ -84,6 +85,22 @@ namespace Liberty.classInfo
             stfsCheck.checkSTFSPackage(temp);
 
             return temp;
+        }
+
+        public static int settingsConvertBoolToInt(CheckBox cb)
+        {
+            if ((bool)cb.IsChecked)
+                return 1;
+            else
+                return 0;
+        }
+
+        public static bool settingsConvertIntToBool(int regVal)
+        {
+            if (regVal == 1)
+                return true;
+            else
+                return false;
         }
     }
 }

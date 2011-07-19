@@ -43,6 +43,7 @@ namespace Liberty
             step4.ExecuteMethod += new EventHandler(ParentWPF_massCordMove);
             /*step4.ExecuteMethod2 += new EventHandler(ParentWPF_replaceObject);
             step4.ExecuteMethod3 += new EventHandler(ParentWPF_childObjects);*/
+            settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
 
             settingsPanel.Visibility = System.Windows.Visibility.Hidden;
 #if DEBUG
@@ -55,6 +56,11 @@ namespace Liberty
         {
             if (classInfo.storage.fileInfoStorage.leavingStep2) { loadDialog(5, "http://liberty.codeplex.com/discussions/264198", "CodePlex"); }
             else { loadDialog(8, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted. Continue?", "Biped Swap"); }
+        }
+
+        protected void ParentWPF_CloseSettings(object sender, EventArgs e)
+        {
+            settingsPanel.Visibility = System.Windows.Visibility.Hidden;
         }
 
         protected void ParentWPF_massCordMove(object sender, EventArgs e)
