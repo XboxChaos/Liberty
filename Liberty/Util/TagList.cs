@@ -7,6 +7,12 @@ using System.Globalization;
 
 namespace Liberty.Util
 {
+    enum TagListMode
+    {
+        Liberty,
+        Ascension
+    }
+
     /// <summary>
     /// Provides methods for reading INI-style taglists.
     /// </summary>
@@ -16,10 +22,23 @@ namespace Liberty.Util
         /// Loads a taglist from a file.
         /// </summary>
         /// <param name="path">The file to load from</param>
-        /// <returns>A TagList object representing the file contents</returns>
-        public static TagList FromFile(string path)
+        /// <param name="mode">The type of taglist to load</param>
+        /// <returns>A TagList object representing the taglist contents</returns>
+        public static TagList FromFile(string path, TagListMode mode)
         {
-            return new TagList(new StreamReader(File.OpenRead(path)));
+            string contents = File.ReadAllText(path, ASCIIEncoding.ASCII);
+
+            switch (mode)
+            {
+                case TagListMode.Liberty:
+                    return new TagList(contents, null);
+
+                case TagListMode.Ascension:
+                    return new TagList(contents, Path.GetFileNameWithoutExtension(path));
+
+                default:
+                    return null;
+            }
         }
 
         /// <summary>
@@ -29,7 +48,7 @@ namespace Liberty.Util
         /// <returns>A TagList object representing the string contents</returns>
         public static TagList FromString(string data)
         {
-            return new TagList(new StringReader(data));
+            return new TagList(data, null);
         }
 
         /// <summary>
@@ -37,14 +56,15 @@ namespace Liberty.Util
         /// </summary>
         /// <param name="group">The group in the taglist to read from.</param>
         /// <param name="id">The tag ident to translate</param>
-        /// <returns>The name of the tag, or the ID in hex form if none.</returns>
+        /// <returns>The name of the tag, or null if none.</returns>
         public string Translate(string group, uint id)
         {
             TagKey key = new TagKey { group = group.ToLower(), id = id };
             if (_tags.ContainsKey(key))
                 return _tags[key];
             else
-                return "0x" + id.ToString("X");
+                //return "0x" + id.ToString("X");
+                return null;
         }
 
         private struct TagKey
@@ -53,20 +73,34 @@ namespace Liberty.Util
             public uint id;
         }
         
-        private TagList(TextReader reader)
+        private TagList(string contents, string defaultGroup)
         {   
-            bool inBlock = false;
-            string currentGroup = "";
-            string line = reader.ReadLine();
-            while (line != null)
+            bool inBlock;
+            string currentGroup;
+
+            // Set up variables for ascension mode
+            if (defaultGroup == null)
             {
+                currentGroup = "";
+                inBlock = false;
+            }
+            else
+            {
+                currentGroup = defaultGroup.ToLower();
+                inBlock = true;
+            }
+
+            string[] lines = contents.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
                 int commentPos = line.IndexOf(';');
                 if (commentPos != -1)
                     line = line.Substring(0, commentPos);
                 line = line.Trim();
                 if (line.Length > 0)
                 {
-                    if (line.StartsWith("[") && line.EndsWith("]"))
+                    if (line.StartsWith("[") && line.EndsWith("]") && defaultGroup == null)
                     {
                         // Enter a new block
                         inBlock = true;
@@ -102,9 +136,7 @@ namespace Liberty.Util
                         _tags[new TagKey { group = currentGroup, id = id }] = name;
                     }
                 }
-                line = reader.ReadLine();
             }
-            reader.Close();
         }
 
         private Dictionary<TagKey, string> _tags = new Dictionary<TagKey, string>();

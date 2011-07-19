@@ -18,7 +18,7 @@ namespace Liberty
         {
             classInfo.applicationExtra.loadApplicationSettings();
 
-            if (applicationSettings.checkDLL && !File.Exists("X360.dll") || !File.Exists("MahApps.Metro.dll") || !File.Exists("MahApps.Metro.Controls.dll") || !File.Exists("System.Windows.Interactivity.dll"))
+            if (applicationSettings.checkDLL && (!File.Exists("X360.dll") || !File.Exists("MahApps.Metro.dll") || !File.Exists("MahApps.Metro.Controls.dll") || !File.Exists("System.Windows.Interactivity.dll")))
             {
                 Controls.dllMissingError dllMissing = new Controls.dllMissingError();
                 dllMissing.ShowDialog();

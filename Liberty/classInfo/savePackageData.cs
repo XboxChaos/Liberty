@@ -68,5 +68,10 @@ namespace Liberty.classInfo
                 }
             }
         }
+
+        public static void setPlayerNoclip(bool enable)
+        {
+            classInfo.storage.fileInfoStorage.saveData.Player.Biped.PhysicsEnabled = !enable;
+        }
     }
 }

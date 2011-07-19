@@ -113,6 +113,32 @@ namespace Liberty.SaveIO
         }
 
         /// <summary>
+        /// Reads a 64-bit unsigned integer from the underlying stream and advances its position by 8.
+        /// </summary>
+        /// <returns>The value that was read</returns>
+        public ulong ReadUInt64()
+        {
+            /*_stream.Read(_buffer, 0, 8);
+            return (ulong)((_buffer[0] << 56) | (_buffer[1] << 48) | (_buffer[2] << 40) | (_buffer[3] << 32) |
+                           (_buffer[4] << 24) | (_buffer[5] << 16) | (_buffer[6] << 8) | _buffer[7]);*/
+            ulong upper = (ulong)ReadUInt32();
+            ulong lower = (ulong)ReadUInt32();
+            return (upper << 32) | lower;
+        }
+
+        /// <summary>
+        /// Reads a 64-bit signed integer from the underlying stream and advances its position by 8.
+        /// </summary>
+        /// <returns>The value that was read</returns>
+        public long ReadInt64()
+        {
+            /*_stream.Read(_buffer, 0, 8);
+            return (long)((_buffer[0] << 56) | (_buffer[1] << 48) | (_buffer[2] << 40) | (_buffer[3] << 32) |
+                          (_buffer[4] << 24) | (_buffer[5] << 16) | (_buffer[6] << 8) | _buffer[7]);*/
+            return (long)ReadUInt64();
+        }
+
+        /// <summary>
         /// Reads a 32-bit float from the underlying stream and advances its position by 4.
         /// </summary>
         /// <returns>The float value that was read.</returns>
@@ -219,6 +245,6 @@ namespace Liberty.SaveIO
         }
 
         private Stream _stream = null;
-        private byte[] _buffer = new byte[4];
+        private byte[] _buffer = new byte[8];
     }
 }

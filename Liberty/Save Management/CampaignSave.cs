@@ -264,7 +264,7 @@ namespace Liberty.Reach
             // Read players
             Chunk playersChunk = new Chunk(reader, ChunkOffset.Players);
             if (playersChunk.Name != "players")
-                throw new ArgumentException("The file format is invalid: the \"players\" chunk is missing");
+                throw new ArgumentException("The file format is invalid: the \"players\" chunk is missing or is at the wrong offset");
             ReadPlayers(playersChunk);
         }
 

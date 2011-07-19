@@ -21,12 +21,16 @@
 			    </UserControl.Resources>
 	
 	
-	<ControlsMetro:MetroContentControl>
+	<ControlsMetro:MetroContentControl IsTabStop="False">
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Fine Tuning" Height="46" VerticalAlignment="Top" />
-			<Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Edit object data of every object in the save" Height="25.911" VerticalAlignment="Bottom" />
+			<Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Edit the data of every object in the save" Height="25.911" VerticalAlignment="Bottom" />
+			<Image x:Name="btnDelete" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnDelete_IsMouseDirectlyOverChanged" MouseDown="btnDelete_MouseDown" MouseUp="btnDelete_MouseUp" Margin="0,310,0,0" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71" />
+			<TextBlock Margin="0,312,0,0" x:Name="lblDelete" Text="DELETE" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71" TextAlignment="Center" IsMouseDirectlyOverChanged="btnDelete_IsMouseDirectlyOverChanged" MouseDown="btnDelete_MouseDown" MouseUp="btnDelete_MouseUp" />
+			<Image x:Name="btnReplace" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnReplace_IsMouseDirectlyOverChanged" MouseDown="btnReplace_MouseDown" MouseUp="btnReplace_MouseUp" Margin="75,310,0,0" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71" />
+			<TextBlock Margin="75,312,0,0" x:Name="lblReplace" Text="REPLACE" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="71" TextAlignment="Center" IsMouseDirectlyOverChanged="btnReplace_IsMouseDirectlyOverChanged" MouseDown="btnReplace_MouseDown" MouseUp="btnReplace_MouseUp" />
 	        
-			<TreeView Name="tVObjects" HorizontalAlignment="Left" Margin="0,74.721,0,23" Width="194" SelectedItemChanged="tVObjects_SelectedItemChanged" MaxHeight="233" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="10.667">
+			<TreeView Name="tVObjects" HorizontalAlignment="Left" Margin="0,75,0,35" Width="194" SelectedItemChanged="tVObjects_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="10.667" MaxHeight="229" MinHeight="229" Height="229">
 	        	<TreeViewItem Header="bipd" Tag="0">
 			    </TreeViewItem>
 				<TreeViewItem Header="ctrl" Tag="8">
@@ -48,54 +52,64 @@
 				<TreeViewItem Header="unknown" Tag="50">
 			    </TreeViewItem>			
 				</TreeView>
-			<Grid x:Name="objectInfo" Margin="194,64.61,-12,-6.539">
-				<Label x:Name="subHeading1_Copy1" Content="object position data;" Margin="0,117.29,0,137.639" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" d:LayoutOverrides="VerticalAlignment" />
-				<Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="26,0,0,111.728" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
-				<Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="26,0,0,83.817" HorizontalAlignment="Left" Width="20" Height="24.911" VerticalAlignment="Bottom" />
-				<Label x:Name="lblGamertag_Copy2" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="26,0,0,55.906" HorizontalAlignment="Left" Width="20" Height="24.911" VerticalAlignment="Bottom" />
-				<TextBox Margin="54,0,0,111.688" MaxLines="1" x:Name="txtObjectXCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" TextChanged="txtObjectXCord_TextChanged" MaxHeight="22" Height="22" HorizontalAlignment="Left" Width="94" />
-				<TextBox Margin="54,0,0,83.728" MaxLines="1" x:Name="txtObjectYCord" Text="" TextWrapping="Wrap" TextChanged="txtObjectYCord_TextChanged" VerticalAlignment="Bottom" MaxHeight="22" Height="22" HorizontalAlignment="Left" Width="94" />
-				<TextBox Margin="54,0,0,55.768" MaxLines="1" x:Name="txtObjectZCord" Text="" TextWrapping="Wrap" TextChanged="txtObjectZCord_TextChanged" MaxHeight="22" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="94" />
+			<Grid x:Name="objectInfo" Margin="198,75,-16,-17">
+				<Label x:Name="subHeading1_Copy1" Content="object position data;" Margin="0,112,0,143" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
+				<Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="26,139.29,0,116.728" HorizontalAlignment="Left" Width="20" />
+				<Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="26,0,0,88.817" HorizontalAlignment="Left" Width="20" Height="24.911" VerticalAlignment="Bottom" />
+				<Label x:Name="lblGamertag_Copy2" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="26,0,0,60.906" HorizontalAlignment="Left" Width="20" Height="24.911" VerticalAlignment="Bottom" />
+				<TextBox Margin="54,0,0,117" MaxLines="1" x:Name="txtObjectXCord" Text="" TextWrapping="Wrap" TextChanged="txtObjectXCord_TextChanged" MaxHeight="22" Height="22" HorizontalAlignment="Left" Width="94" VerticalAlignment="Bottom" />
+				<TextBox Margin="54,0,0,89" MaxLines="1" x:Name="txtObjectYCord" Text="" TextWrapping="Wrap" TextChanged="txtObjectYCord_TextChanged" VerticalAlignment="Bottom" MaxHeight="22" Height="22" HorizontalAlignment="Left" Width="94" />
+				<TextBox Margin="54,0,0,61" MaxLines="1" x:Name="txtObjectZCord" Text="" TextWrapping="Wrap" TextChanged="txtObjectZCord_TextChanged" MaxHeight="22" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="94" />
 	        
-				<Label x:Name="subHeading1_Copy" Content="object identifier data;" Margin="0,0,0,254.929" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
-				<Label x:Name="lblGamertag_Copy3" Content="Save Ident: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="5,30,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
-				<Label x:Name="lblGamertag_Copy4" Content="Map Ident: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="5,58.911,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
-				<Label x:Name="lblGamertag_Copy5" Content="Object Type: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="5,87.822,0,0" HorizontalAlignment="Left" Width="80" Height="24.911" VerticalAlignment="Top" />
+				<Label x:Name="subHeading1_Copy" Content="object information;" Margin="0,0,0,254.929" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" Padding="5,0,5,5" />
+				<Label x:Name="lblGamertag_Copy3" Content="Save Ident: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="5,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
+				<Label x:Name="lblGamertag_Copy4" Content="Map Ident: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="5,54,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
+				<Label x:Name="lblGamertag_Copy5" Content="File Offset:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="5,83,0,0" HorizontalAlignment="Left" Width="80" Height="24.911" VerticalAlignment="Top" />
 			
-				<Label x:Name="lblObjectType" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="85,88.379,0,0" HorizontalAlignment="Left" Height="24.911" VerticalAlignment="Top" Width="96" />
-				<Label x:Name="lblResourceIdent" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="85,59.468,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" />
-				<Label x:Name="lblMapIdent" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="85,30.557,0,0" Height="24.911" VerticalAlignment="Top" />
+				<Label x:Name="lblFileOffset" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="85,83,0,0" HorizontalAlignment="Left" Height="24.911" VerticalAlignment="Top" Width="96" />
+				<Label x:Name="lblResourceIdent" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="85,54,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" />
+				<Label x:Name="lblMapIdent" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="85,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="96" />
 			
-				<Image x:Name="btnOpen" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="55,0,0,29.539" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Left" Width="91.762" />
-				<TextBlock Height="19" HorizontalAlignment="Left" Margin="65.833,0,0,29.539" x:Name="lblOpen" Text="MASS MOVE" VerticalAlignment="Bottom" Width="72.929" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+				<Image x:Name="btnOpen" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="55,0,0,34" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Left" Width="91.762" />
+				<TextBlock Height="19" HorizontalAlignment="Left" Margin="66,0,0,34" x:Name="lblOpen" Text="MASS MOVE" VerticalAlignment="Bottom" Width="72.929" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
 	    
-				<Grid x:Name="weapPlugin" Margin="165,75.929,12,3">
-					<Label x:Name="subHeading1_Copy2" Content="weapon settings;" Margin="0,8,98,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Right" Width="120" Height="29" VerticalAlignment="Top" />
+				<Grid x:Name="weapPlugin" Margin="177,80,0,-3.243">
+					<Label x:Name="subHeading1_Copy2" Content="weapon settings;" Margin="0,8,106,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Right" Width="120" Height="29" VerticalAlignment="Top" />
 					<Label x:Name="lblPrimaryClipAmmo" Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="6,36,98,0" Height="24.911" VerticalAlignment="Top" />
 					<Label x:Name="lblGamertag_Copy6" Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,90.049,96,0" Height="24.911" VerticalAlignment="Top" />
-					<Image x:Name="btnPrimaryMaxWeaponAmmo" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnPrimaryMaxWeaponAmmo_IsMouseDirectlyOverChanged" MouseDown="btnPrimaryMaxWeaponAmmo_MouseDown" MouseUp="btnPrimaryMaxWeaponAmmo_MouseUp" Margin="76,116.96,79,0" Height="21" VerticalAlignment="Top" />
-					<TextBlock Margin="97,118.96,96,0" x:Name="lblPrimaryMaxWeaponAmmo" Text="MAX" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnPrimaryMaxWeaponAmmo_IsMouseDirectlyOverChanged" MouseDown="btnPrimaryMaxWeaponAmmo_MouseDown" MouseUp="btnPrimaryMaxWeaponAmmo_MouseUp" FontWeight="Bold" Height="19" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" />
-					<Image Height="21" Margin="76,63.911,79,0" x:Name="btnMaxPrimaryClip" Source="/Liberty;component/Images/Button-onhover.png" Stretch="Fill" VerticalAlignment="Top" MouseUp="btnMaxPrimaryClip_MouseUp" MouseDown="btnMaxPrimaryClip_MouseDown" IsMouseDirectlyOverChanged="btnMaxPrimaryClip_IsMouseDirectlyOverChanged" />
-					<TextBlock FontFamily="Segoe WP Semibold" FontWeight="Bold" Foreground="#FF373A3D" Height="19" Margin="97,65.911,96,0" x:Name="lblMaxPrimaryClip" Text="MAX" VerticalAlignment="Top" MouseUp="btnMaxPrimaryClip_MouseUp" MouseDown="btnMaxPrimaryClip_MouseDown" IsMouseDirectlyOverChanged="btnMaxPrimaryClip_IsMouseDirectlyOverChanged" d:LayoutOverrides="HorizontalAlignment" />
+					<Image x:Name="btnPrimaryMaxWeaponAmmo" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnPrimaryMaxWeaponAmmo_IsMouseDirectlyOverChanged" MouseDown="btnPrimaryMaxWeaponAmmo_MouseDown" MouseUp="btnPrimaryMaxWeaponAmmo_MouseUp" Margin="76,117,79,0" Height="21" VerticalAlignment="Top" />
+					<TextBlock Margin="97,119,96,0" x:Name="lblPrimaryMaxWeaponAmmo" Text="MAX" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnPrimaryMaxWeaponAmmo_IsMouseDirectlyOverChanged" MouseDown="btnPrimaryMaxWeaponAmmo_MouseDown" MouseUp="btnPrimaryMaxWeaponAmmo_MouseUp" FontWeight="Bold" Height="19" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" />
+					<Image Height="21" Margin="76,64,79,0" x:Name="btnMaxPrimaryClip" Source="/Liberty;component/Images/Button-onhover.png" Stretch="Fill" VerticalAlignment="Top" MouseUp="btnMaxPrimaryClip_MouseUp" MouseDown="btnMaxPrimaryClip_MouseDown" IsMouseDirectlyOverChanged="btnMaxPrimaryClip_IsMouseDirectlyOverChanged" />
+					<TextBlock FontFamily="Segoe WP Semibold" FontWeight="Bold" Foreground="#FF373A3D" Height="19" Margin="97,66,96,0" x:Name="lblMaxPrimaryClip" Text="MAX" VerticalAlignment="Top" MouseUp="btnMaxPrimaryClip_MouseUp" MouseDown="btnMaxPrimaryClip_MouseDown" IsMouseDirectlyOverChanged="btnMaxPrimaryClip_IsMouseDirectlyOverChanged" d:LayoutOverrides="HorizontalAlignment" />
 				
-					<TextBox HorizontalAlignment="Left" Margin="8,60.911,0,0" MaxLines="1" x:Name="txtWeapPluginClipAmmo" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="59.17" TextChanged="txtWeapPluginClipAmmo_TextChanged" />
-					<CheckBox x:Name="cBWeapInvici" Content="Weapon is Invincible" Foreground="#949494" FontSize="13" FontWeight="Light" Margin="8,153,8,24"/>
-					<TextBox x:Name="txtWeapPluginAmmo" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="8,114.96,0,0" Width="59.17" TextChanged="txtWeapPluginAmmo_TextChanged" MaxLines="1"/>
+					<TextBox HorizontalAlignment="Left" Margin="8,61,0,0" MaxLines="1" x:Name="txtWeapPluginClipAmmo" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="59" TextChanged="txtWeapPluginClipAmmo_TextChanged" />
+					<CheckBox x:Name="cBWeapInvici" Content="Weapon is Invincible" Foreground="#949494" FontSize="13" FontWeight="Light" Margin="8,153,8,24" FontFamily="Segoe UI"/>
+					<TextBox x:Name="txtWeapPluginAmmo" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="8,115,0,0" Width="59" TextChanged="txtWeapPluginAmmo_TextChanged" MaxLines="1"/>
 				</Grid>
 			
-				<Grid x:Name="bipdPlugin" Margin="165,78.929,12,0" Height="202" Visibility="Hidden">
-					<Label x:Name="subHeading1_Copy3" Content="biped settings;" Margin="0,8,98,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Right" Width="120" Height="29" VerticalAlignment="Top" />
-					<Label x:Name="lblPrimaryClipAmmo1" Content="plasma grenades: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="6,37,98,0" Height="24.911" VerticalAlignment="Top" />
-					<Label x:Name="lblGamertag_Copy61" Content="fragmentation grenades: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,96.049,68,0" Height="24.911" VerticalAlignment="Top" />
-					<Image x:Name="btnBipdFragMax" Stretch="Fill" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnBipdFragMax_IsMouseDirectlyOverChanged" MouseDown="btnBipdFragMax_MouseDown" MouseUp="btnBipdFragMax_MouseUp" Margin="76,122.96,79,0" Height="21" VerticalAlignment="Top" />
-					<TextBlock Margin="97,124.96,96,0" x:Name="lblBipdFragMax" Text="MAX" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnBipdFragMax_IsMouseDirectlyOverChanged" MouseDown="btnBipdFragMax_MouseDown" MouseUp="btnBipdFragMax_MouseUp" FontWeight="Bold" Height="19" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" />
-					<Image Height="21" Margin="76,64.911,79,0" x:Name="btnBipdPlasmaMax" Source="/Liberty;component/Images/SecondaryButton.png" Stretch="Fill" VerticalAlignment="Top" MouseUp="btnBipdPlasmaMax_MouseUp" MouseDown="btnBipdPlasmaMax_MouseDown" IsMouseDirectlyOverChanged="btnBipdPlasmaMax_IsMouseDirectlyOverChanged" />
-					<TextBlock FontFamily="Segoe WP Semibold" FontWeight="Bold" Foreground="#FF373A3D" Height="19" Margin="97,66.911,96,0" x:Name="lblBipdPlasmaMax" Text="MAX" VerticalAlignment="Top" MouseUp="btnBipdPlasmaMax_MouseUp" MouseDown="btnBipdPlasmaMax_MouseDown" IsMouseDirectlyOverChanged="btnBipdPlasmaMax_IsMouseDirectlyOverChanged" d:LayoutOverrides="HorizontalAlignment" />
+				<Grid x:Name="bipdPlugin" Margin="177,80,0,-3.243">
+					<Label x:Name="subHeading1_Copy3" Content="biped settings;" Margin="0,8,106,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Right" Width="120" Height="29" VerticalAlignment="Top" />
+					<Label x:Name="lblPrimaryClipAmmo1" Content="plasma grenades: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="6,36,98,0" Height="24.911" VerticalAlignment="Top" />
+					<Label x:Name="lblGamertag_Copy61" Content="fragmentation grenades: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,90.049,68,0" Height="24.911" VerticalAlignment="Top" />
+					<Image x:Name="btnBipdFragMax" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnBipdFragMax_IsMouseDirectlyOverChanged" MouseDown="btnBipdFragMax_MouseDown" MouseUp="btnBipdFragMax_MouseUp" Margin="76,117,79,0" Height="21" VerticalAlignment="Top" />
+					<TextBlock Margin="97,119,96,0" x:Name="lblBipdFragMax" Text="MAX" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnBipdFragMax_IsMouseDirectlyOverChanged" MouseDown="btnBipdFragMax_MouseDown" MouseUp="btnBipdFragMax_MouseUp" FontWeight="Bold" Height="19" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" />
+					<Image Height="21" Margin="76,64,79,0" x:Name="btnBipdPlasmaMax" Source="/Liberty;component/Images/Button-onhover.png" Stretch="Fill" VerticalAlignment="Top" MouseUp="btnBipdPlasmaMax_MouseUp" MouseDown="btnBipdPlasmaMax_MouseDown" IsMouseDirectlyOverChanged="btnBipdPlasmaMax_IsMouseDirectlyOverChanged" />
+					<TextBlock FontFamily="Segoe WP Semibold" FontWeight="Bold" Foreground="#FF373A3D" Height="19" Margin="97,66,96,0" x:Name="lblBipdPlasmaMax" Text="MAX" VerticalAlignment="Top" MouseUp="btnBipdPlasmaMax_MouseUp" MouseDown="btnBipdPlasmaMax_MouseDown" IsMouseDirectlyOverChanged="btnBipdPlasmaMax_IsMouseDirectlyOverChanged" d:LayoutOverrides="HorizontalAlignment" />
 				
-					<TextBox HorizontalAlignment="Left" Margin="8,61.911,0,0" MaxLines="1" x:Name="txtBipdPlasmaNade" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="59.17" TextChanged="txtWeapPluginClipAmmo_TextChanged" />
-					<CheckBox x:Name="cBBipdInvici" Content="Biped is Invincible" Foreground="#949494" FontSize="13" FontWeight="Light" Margin="8,159,8,18"/>
-					<TextBox x:Name="txtBipdFragNade" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="8,120.96,0,0" Width="59.17" TextChanged="txtWeapPluginAmmo_TextChanged" MaxLines="1"/>
+					<TextBox HorizontalAlignment="Left" Margin="8,61,0,0" MaxLines="1" x:Name="txtBipdPlasmaNade" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="59" TextChanged="txtWeapPluginClipAmmo_TextChanged" />
+					<CheckBox x:Name="cBBipdInvici" Content="Biped is Invincible" Foreground="#949494" FontSize="13" FontWeight="Light" Margin="8,153,8,31" FontFamily="Segoe UI"/>
+					<TextBox x:Name="txtBipdFragNade" HorizontalAlignment="Left" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="8,115,0,0" Width="59" TextChanged="txtWeapPluginAmmo_TextChanged" MaxLines="1"/>
 				</Grid>
+				<Grid x:Name="vehiPlugin" Margin="177,80,0,-3.243">
+					<Label x:Name="subHeading1_Copy4" Content="vehicle settings;" Margin="0,8,106,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Right" Width="120" Height="29" VerticalAlignment="Top" />
+					<CheckBox x:Name="cBVehiInvici" Content="Vehicle is Invincible" Foreground="#949494" FontSize="13" FontWeight="Light" Margin="8,41,8,136" FontFamily="Segoe UI"/>
+				</Grid>
+				<Label x:Name="lblParentIdent" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,25,17,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" />
+				<Image x:Name="btnParent" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnParent_IsMouseDirectlyOverChanged" MouseDown="btnParent_MouseDown" MouseUp="btnParent_MouseUp" Margin="181,27,0,0" HorizontalAlignment="Left" Width="91.762" Height="20.911" VerticalAlignment="Top" />
+				<TextBlock Height="19" HorizontalAlignment="Left" Margin="181,29,0,0" x:Name="lblParent" Text="PARENT" VerticalAlignment="Top" Width="91.762" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnParent_IsMouseDirectlyOverChanged" MouseDown="btnParent_MouseDown" MouseUp="btnParent_MouseUp" FontWeight="Bold" TextAlignment="Center" />
+				<Image x:Name="btnChildren" Stretch="Fill" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnChildren_IsMouseDirectlyOverChanged" MouseDown="btnChildren_MouseDown" MouseUp="btnChildren_MouseUp" Margin="181,56,0,0" HorizontalAlignment="Left" Width="91.762" Height="21" VerticalAlignment="Top" />
+				<TextBlock Height="19" HorizontalAlignment="Left" Margin="181,57.75,0,0" x:Name="lblChildren" Text="CHILDREN" VerticalAlignment="Top" Width="91.762" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnChildren_IsMouseDirectlyOverChanged" MouseDown="btnChildren_MouseDown" MouseUp="btnChildren_MouseUp" FontWeight="Bold" TextAlignment="Center" />
+				<Label x:Name="lblNumChildren" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,54,17,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Right" Width="100" />
 			</Grid>
 		</Grid>
 	</ControlsMetro:MetroContentControl>

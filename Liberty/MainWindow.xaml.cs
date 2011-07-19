@@ -42,8 +42,8 @@ namespace Liberty
             step0_1.ExecuteMethodLocal += new EventHandler<Controls.MessageEventArgs>(ParentWPF_fileException);
             step2.ExecuteMethod += new EventHandler(ParentWPF_bipdSwapAlert);
             step4.ExecuteMethod += new EventHandler(ParentWPF_massCordMove);
-            /*step4.ExecuteMethod2 += new EventHandler(ParentWPF_replaceObject);
-            step4.ExecuteMethod3 += new EventHandler(ParentWPF_childObjects);*/
+            step4.ExecuteMethod2 += new EventHandler(ParentWPF_replaceObject);
+            step4.ExecuteMethod3 += new EventHandler(ParentWPF_childObjects);
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
 
             settingsPanel.Visibility = System.Windows.Visibility.Hidden;
@@ -79,7 +79,7 @@ namespace Liberty
             loadDialog(4, e.Message, null);
         }
 
-        /*protected void ParentWPF_replaceObject(object sender, EventArgs e)
+        protected void ParentWPF_replaceObject(object sender, EventArgs e)
         {
             loadDialog(9, "Select an object to replace \"" + classInfo.storage.fileInfoStorage.replaceObjectName + "\":", "REPLACE OBJECT");
         }
@@ -87,7 +87,7 @@ namespace Liberty
         protected void ParentWPF_childObjects(object sender, EventArgs e)
         {
             loadDialog(9, "Select a child object to edit:", "EDIT CHILD OBJECT");
-        }*/
+        }
 
         private void Grid_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -207,6 +207,11 @@ namespace Liberty
                     }
                     else
                     {
+                        // Load ascension taglist
+                        string excepLoadTag = classInfo.nameLookup.loadAscensionTaglist();
+                        if (excepLoadTag != null)
+                            loadDialog(4, excepLoadTag, null);
+
                         step1.loadData();
                         step++;
                         progressBar.updateStage(step);
@@ -222,12 +227,13 @@ namespace Liberty
                             TreeViewItem node5 = new TreeViewItem() { Header = "efsc" };
                             TreeViewItem node6 = new TreeViewItem() { Header = "eqip" };
                             TreeViewItem node7 = new TreeViewItem() { Header = "mach" };
-                            TreeViewItem node8 = new TreeViewItem() { Header = "scen" };
-                            TreeViewItem node9 = new TreeViewItem() { Header = "ssce" };
-                            TreeViewItem node10 = new TreeViewItem() { Header = "term" };
-                            TreeViewItem node11 = new TreeViewItem() { Header = "vehi" };
-                            TreeViewItem node12 = new TreeViewItem() { Header = "weap" };
-                            TreeViewItem node13 = new TreeViewItem() { Header = "unknown" };
+                            TreeViewItem node8 = new TreeViewItem() { Header = "proj" };
+                            TreeViewItem node9 = new TreeViewItem() { Header = "scen" };
+                            TreeViewItem node10 = new TreeViewItem() { Header = "ssce" };
+                            TreeViewItem node11 = new TreeViewItem() { Header = "term" };
+                            TreeViewItem node12 = new TreeViewItem() { Header = "vehi" };
+                            TreeViewItem node13 = new TreeViewItem() { Header = "weap" };
+                            TreeViewItem node14 = new TreeViewItem() { Header = "unknown" };
 
                             step4.tVObjects.Items.Clear();
                             step4.tVObjects.Items.Add(node1);
@@ -243,6 +249,7 @@ namespace Liberty
                             step4.tVObjects.Items.Add(node11);
                             step4.tVObjects.Items.Add(node12);
                             step4.tVObjects.Items.Add(node13);
+                            step4.tVObjects.Items.Add(node14);
                         }
                     }
                     break;
@@ -393,13 +400,13 @@ namespace Liberty
                     msgBoxOpt.Owner = this;
                     msgBoxOpt.ShowDialog();
                     break;
-                /*case 9:
+                case 9:
                     Controls.listboxWindow listbox = new Controls.listboxWindow();
                     listbox.lblTitle.Text = title.ToUpper();
                     listbox.lblSubInfo.Text = message;
                     listbox.Owner = this;
                     listbox.ShowDialog();
-                    break;*/
+                    break;
             }
             recMask.Visibility = System.Windows.Visibility.Hidden;
         }
