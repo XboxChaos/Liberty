@@ -28,11 +28,11 @@
 	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" x:Name="btnSoft" VerticalAlignment="Top" Width="71" FontWeight="Bold" FontSize="11" Foreground="#FF000000" MouseEnter="btnSoft_MouseEnter" MouseLeave="btnSoft_MouseLeave" MouseDown="btnSoft_MouseDown" MouseUp="btnSoft_MouseUp"/>
 	    <Label Content="THEMES" Height="29" HorizontalAlignment="Left" Margin="93,26,0,0" x:Name="btnTheme" VerticalAlignment="Top" Width="52" FontWeight="Normal" FontSize="11" Foreground="#FF868686" MouseEnter="btnTheme_MouseEnter" MouseLeave="btnTheme_MouseLeave" MouseDown="btnTheme_MouseDown" MouseUp="btnTheme_MouseUp"/>
 	
-		<StackPanel Name="softwarePanel" VerticalAlignment="Top" Width="615" Margin="0,30,0,0" Height="320">
+		<StackPanel x:Name="softwarePanel" VerticalAlignment="Top" Width="615" Margin="0,30,0,0" Height="320">
 			<Child:appSettings x:Name="softCode" />
 		</StackPanel>
 		
-		<StackPanel Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
+		<StackPanel x:Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
 			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
 		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,13,1.19" />

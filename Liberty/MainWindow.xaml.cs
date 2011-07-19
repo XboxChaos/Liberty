@@ -20,6 +20,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using Microsoft.Win32;
 using Liberty.classInfo.storage;
+using Liberty.classInfo.storage.settings;
 
 namespace Liberty
 {
@@ -99,35 +100,44 @@ namespace Liberty
                 loadDialog(4, ex.ToString(), null);
             }
 
-            try
+            if (applicationSettings.checkUpdatesOL)
             {
-                Dns.GetHostEntry("xeraxic.com");
-                WebClient wb = new WebClient();
-                string downloadedInfo = wb.DownloadString(new Uri("http://xeraxic.com/downloads/checkVersionInfo.php?appName=Liberty&proDesc=1"));
-                downloadedInfo = downloadedInfo.Replace("\r", "");
-                string[] updateData = downloadedInfo.Split('\n');
-                int svrBuild = Convert.ToInt16(updateData[0].Replace(".", ""));
-                int pcBuild = Convert.ToInt16(Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
-
-                int i = 0;
-                string descData = "";
-                foreach (string line in updateData)
+                try
                 {
-                    if (i == 0) { }
-                    else { descData += line + "\n"; }
-                    i++;
+                    Dns.GetHostEntry("xeraxic.com");
+                    WebClient wb = new WebClient();
+                    string downloadedInfo = wb.DownloadString(new Uri("http://xeraxic.com/downloads/checkVersionInfo.php?appName=Liberty&proDesc=1"));
+                    downloadedInfo = downloadedInfo.Replace("\r", "");
+                    string[] updateData = downloadedInfo.Split('\n');
+                    int svrBuild = Convert.ToInt16(updateData[0].Replace(".", ""));
+                    int pcBuild = Convert.ToInt16(Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
+
+                    int i = 0;
+                    string descData = "";
+                    foreach (string line in updateData)
+                    {
+                        if (i == 0) { }
+                        else { descData += line + "\n"; }
+                        i++;
+                    }
+                    if (applicationSettings.showChangeLog)
+                    {
+                        if (svrBuild > pcBuild) { loadDialog(3, descData, null); }
+                    }
+                    else
+                    {
+                        if (svrBuild > pcBuild) { loadDialog(2, null, null); }
+                    }
+
+                    btnCFU.MouseDown += new MouseButtonEventHandler(btnCFU_MouseDown); btnCFU.MouseEnter += new MouseEventHandler(btnCFU_MouseEnter); btnCFU.MouseLeave += new MouseEventHandler(btnCFU_MouseLeave); btnCFU.MouseUp += new MouseButtonEventHandler(btnCFU_MouseUp);
                 }
-
-                if (svrBuild > pcBuild) { loadDialog(3, descData, null); }
-
-                btnCFU.MouseDown += new MouseButtonEventHandler(btnCFU_MouseDown); btnCFU.MouseEnter += new MouseEventHandler(btnCFU_MouseEnter); btnCFU.MouseLeave += new MouseEventHandler(btnCFU_MouseLeave); btnCFU.MouseUp += new MouseButtonEventHandler(btnCFU_MouseUp);
-            }
-            catch (SocketException)
-            {
-            }
-            catch (Exception ex)
-            {
-                loadDialog(4, ex.ToString(), null);
+                catch (SocketException)
+                {
+                }
+                catch (Exception ex)
+                {
+                    loadDialog(4, ex.ToString(), null);
+                }
             }
 
             string excepLoadTag = classInfo.nameLookup.loadTaglist();
@@ -397,7 +407,7 @@ namespace Liberty
         #region uncleanBullshitforWFP
         private void FormFadeOut_Completed(object sender, EventArgs e)
         {
-            this.Close();
+            classInfo.applicationExtra.closeApplication();
         }
 
         private void headerThumb_DragDelta(object sender, DragDeltaEventArgs e)
@@ -558,6 +568,7 @@ namespace Liberty
             btnSettings.Foreground = (Brush)bc.ConvertFrom("#FF868686");
 
             settingsPanel.Visibility = System.Windows.Visibility.Visible;
+            settingsMain.load();
         }
         #endregion
 

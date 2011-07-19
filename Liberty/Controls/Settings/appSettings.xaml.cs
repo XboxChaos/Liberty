@@ -70,13 +70,13 @@ namespace Liberty.Controls.Settings
                 key.SetValue("appMsgDll", applicationExtra.settingsConvertBoolToInt(LNScheckDLL));
                 key.SetValue("appEstEgg", applicationExtra.settingsConvertBoolToInt(LNSenableEggs));
                 key.SetValue("appAssFileType", applicationExtra.settingsConvertBoolToInt(LNSausFileType));
-                key.SetValue("updChnLog", LNSsplashTime.Value);
+                key.SetValue("appSplashTime", (int)LNSsplashTime.Value, RegistryValueKind.DWord);
 
                 // Taglist
                 key.SetValue("appDLTagLst", applicationExtra.settingsConvertBoolToInt(TLTdlLatestTaglst));
                 key.SetValue("appTgLstNoMem", applicationExtra.settingsConvertBoolToInt(TLTtaglstNoMem));
                 key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
-                key.SetValue("appTglstFromAsc", TLTAsvTagLstDirec.Text);
+                key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
         }
 
         #region uncleanWPFshit

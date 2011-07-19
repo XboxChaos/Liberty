@@ -19,13 +19,16 @@ namespace Liberty.eggData
 
         public static void downloadEgg()
         {
-            try
+            if (classInfo.storage.settings.applicationSettings.enableEasterEggs)
             {
-                WebClient wb = new WebClient();
-                File.Delete(eggDirectory());
-                wb.DownloadFileAsync(new Uri("http://www.xeraxic.com/downloads/0/haloreachliberty//egg/01/egg1.mp3"), eggDirectory());
+                try
+                {
+                    WebClient wb = new WebClient();
+                    File.Delete(eggDirectory());
+                    wb.DownloadFileAsync(new Uri("http://www.xeraxic.com/downloads/0/haloreachliberty//egg/01/egg1.mp3"), eggDirectory());
+                }
+                catch { }
             }
-            catch { }
         }
 
         public static string eggDirectory()

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Liberty.classInfo.storage.settings;
+using System.IO;
 
 namespace Liberty.classInfo
 {
@@ -11,7 +13,32 @@ namespace Liberty.classInfo
         {
             try
             {
-                classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(classInfo.applicationExtra.downloadTaglist());
+                if (applicationSettings.getLatestTagLst)
+                {
+                    if (applicationSettings.storeTaglistNoMem)
+                    {
+                        string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
+                        File.WriteAllText(applicationExtra.downloadTaglist(), temp + "taglst.tgl");
+                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl");
+                    }
+                    else
+                    {
+                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(applicationExtra.downloadTaglist());
+                    }
+                }
+                else
+                {
+                    if (applicationSettings.storeTaglistNoMem)
+                    {
+                        string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
+                        File.WriteAllText(Liberty.Properties.Resources.taglist, temp + "taglst.tgl");
+                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl");
+                    }
+                    else
+                    {
+                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(Liberty.Properties.Resources.taglist);
+                    }
+                }
                 return null;
             }
             catch (Exception exception)
