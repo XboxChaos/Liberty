@@ -564,21 +564,39 @@ namespace Liberty.Controls
         #endregion
 
         #region btnDelete
+        private void recursiveDelete(Reach.GameObject obj)
+        {
+            Reach.GameObject current = obj.FirstCarried;
+            while (current != null)
+            {
+                Reach.GameObject next = current.NextCarried;
+                if (current.TagGroup == Reach.TagGroup.Bipd)
+                    current.Drop();
+                else
+                    recursiveDelete(current);
+                current = next;
+            }
+
+            // Remove the TreeViewItem
+            TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
+            TreeViewItem parent = (TreeViewItem)tvi.Parent;
+            parent.Items.Remove(tvi);
+
+            obj.Delete(false);
+        }
+
         private void btnDelete_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
             btnDelete.Source = new BitmapImage(source);
 
-            Reach.GameObject currentObject = classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex];
-            currentObject.Delete();
-
-            // Remove the TreeViewItem
             TreeViewItem tvi = objectItems[currentChunkIndex];
             TreeViewItem parent = (TreeViewItem)tvi.Parent;
             int currentPos = parent.Items.IndexOf(tvi);
-            parent.Items.RemoveAt(currentPos);
 
-            // Select a nearby one
+            recursiveDelete(classInfo.storage.fileInfoStorage.saveData.Objects[currentChunkIndex]);
+
+            // Select a nearby item
             if (currentPos == parent.Items.Count)
                 currentPos--;
             if (currentPos >= 0)

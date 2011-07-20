@@ -27,7 +27,7 @@
 	        <Label Name="subHeading1" Content="extra tweaks;" Margin="0,75,0,238" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" />
 	        <CheckBox Name="checkAllMaxAmmo" Content="Max Ammo to all loaded Weapons" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,101,0,221" HorizontalAlignment="Left" Width="211" d:LayoutOverrides="HorizontalAlignment"/>
 	        <Label x:Name="lblStartingMsg" Content="custom game start message:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,124.178,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="168" />
-	        <TextBox Margin="203,123.089,22,0" MaxLines="1" x:Name="txtStartingMsg" Text="Modded with Liberty 1.8.0.0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="449" >
+	        <TextBox Margin="203,123.089,22,0" MaxLines="1" x:Name="txtStartingMsg" Text="Modded with Liberty 1.8.0.0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="400" >
 	        	<TextBox.Background>
 	        		<SolidColorBrush Color="White"/>
 	        	</TextBox.Background>
