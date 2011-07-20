@@ -44,8 +44,8 @@ namespace Liberty.classInfo
             // Application
             applicationSettings.displaySplash = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appDisSplash", 1));
             applicationSettings.checkDLL = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appMsgDll", 1));
-            applicationSettings.enableEasterEggs = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appEstEgg", 1));
-            applicationSettings.ausFileType = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appAssFileType", 1));
+            applicationSettings.enableEasterEggs = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appEstEgg", 0));
+            applicationSettings.ausFileType = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appAssFileType", 0));
             applicationSettings.splashTimer = (int)keyApp.GetValue("appSplashTime", 5);
 
             // Taglist

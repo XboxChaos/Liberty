@@ -41,9 +41,6 @@ namespace Liberty
                 SplashScreen splash = new SplashScreen();
                 splash.ShowDialog();
             }
-
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
         }
     }
 }
