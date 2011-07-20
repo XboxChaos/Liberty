@@ -51,7 +51,7 @@ namespace Liberty.classInfo
             // Taglist
             applicationSettings.getLatestTagLst = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appDLTagLst", 1));
             applicationSettings.storeTaglistNoMem = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTgLstNoMem", 1));
-            applicationSettings.extTaglistFrmAsc = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTglstFromAsc", 1));
+            applicationSettings.extTaglistFrmAsc = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTglstFromAsc", 0));
             applicationSettings.extTaglistFromAscDirec = (string)keyApp.GetValue("appTglstFromAscDirec", "");
         }
 
