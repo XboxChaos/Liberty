@@ -14,7 +14,7 @@
 		<Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
     
 	
-		<StackPanel x:Name="updateSettings" Margin="183,40,-18,40" Visibility="Hidden">
+		<StackPanel x:Name="updateSettings" Margin="183,40,-18,40">
 			<Label x:Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
 			<Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
 			
@@ -23,7 +23,7 @@
 			<CheckBox x:Name="UPSshowChangeLog" Content="Show change log when Liberty checks for updates." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 		</StackPanel>
 		
-		<StackPanel x:Name="launchSettings" Margin="183,40,-18,40" Visibility="Hidden">
+		<StackPanel x:Name="launchSettings" Margin="183,40,-18,40">
 			<Label x:Name="LNSheader" Content="Change launch settings of Liberty" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
 			<Label x:Name="LNSsubheader" Content="Change the default setting of what liberty initalizes on launch." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
 			
@@ -38,23 +38,23 @@
 			
 			<CheckBox x:Name="LNSenableEggs" Content="Enable Easter Eggs." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 			
-			<CheckBox x:Name="LNSausFileType" Content="Assosiate all files with no extension to open with Liberty." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
+			<CheckBox x:Name="LNSausFileType" Content="Associate all files with no extension to open with Liberty." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 		</StackPanel>
 		
-		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" Visibility="Visible">
+		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" Visibility="Visible" d:IsHidden="True">
 			<Label x:Name="TLTheader" Content="Change Taglist Settings" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
 			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
 			
 			<Label x:Name="TLTprt1Header" Content="Basic Taglist Options;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
 			<CheckBox x:Name="TLTdlLatestTaglst" Content="Download taglist from the internet if you are connected." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
-			<CheckBox x:Name="TLTtaglstNoMem" Content="Save Taglist to temporary directory, not read from memory. " FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
+			<CheckBox x:Name="TLTtaglstNoMem" Content="Save taglist to temporary directory, not read from memory. " FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 			
 			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
 			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
 			
 			<TextBox IsReadOnly="True" Background="White" Name="TLTAsvTagLstDirec" Margin="10,5,150,0"/>
-			<Image x:Name="btnFind" Height="21" Margin="310,-24,0,0" HorizontalAlignment="Left" Stretch="Fill" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" />
-			<TextBlock Height="19" HorizontalAlignment="Left" Margin="310,-22,0,0" x:Name="lblFind" Text="FIND" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
+			<Image x:Name="btnFind" Height="21" Margin="310,-24,0,-1" HorizontalAlignment="Left" Stretch="Fill" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" />
+			<TextBlock Height="19" HorizontalAlignment="Left" Margin="310,-22,0,-1" x:Name="lblFind" Text="FIND" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
 		</StackPanel>
 		
 		
