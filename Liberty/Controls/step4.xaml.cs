@@ -371,6 +371,7 @@ namespace Liberty.Controls
 
                             // Replace button
                             if ((currentObject.TagGroup == Reach.TagGroup.Weap ||
+                                currentObject.TagGroup == Reach.TagGroup.Vehi ||
                                 currentObject.TagGroup == Reach.TagGroup.Eqip) &&
                                 ((TreeViewItem)SelectedItem.Parent).Items.Count > 1)
                             {
@@ -575,7 +576,7 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[currentChunkIndex];
             TreeViewItem parent = (TreeViewItem)tvi.Parent;
             int currentPos = parent.Items.IndexOf(tvi);
-            parent.Items.Remove(tvi);
+            parent.Items.RemoveAt(currentPos);
 
             // Select a nearby one
             if (currentPos == parent.Items.Count)
@@ -617,6 +618,21 @@ namespace Liberty.Controls
         #endregion
 
         #region btnReplace
+        private void fixTreeForVehicleReplacement(Reach.GameObject obj)
+        {
+            Reach.GameObject current = obj.FirstCarried;
+            while (current != null)
+            {
+                if (current.TagGroup != Reach.TagGroup.Bipd)
+                    fixTreeForVehicleReplacement(current);
+                current = current.NextCarried;
+            }
+
+            TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
+            TreeViewItem parent = (TreeViewItem)tvi.Parent;
+            parent.Items.Remove(tvi);
+        }
+
         private void btnReplace_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
@@ -645,7 +661,9 @@ namespace Liberty.Controls
                 TreeViewItem newItem = (TreeViewItem)selectedItem.Tag;
                 Reach.GameObject oldObj = classInfo.storage.fileInfoStorage.saveData.Objects[(int)tvi.Tag];
                 Reach.GameObject newObj = classInfo.storage.fileInfoStorage.saveData.Objects[(int)newItem.Tag];
-                oldObj.ReplaceWith(newObj);
+                if (oldObj.TagGroup == Reach.TagGroup.Vehi)
+                    fixTreeForVehicleReplacement(oldObj);
+                oldObj.ReplaceWith(newObj, true);
 
                 newItem.IsSelected = true;
                 parent.Items.Remove(tvi);

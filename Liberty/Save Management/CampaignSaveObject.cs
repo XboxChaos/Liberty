@@ -300,24 +300,27 @@ namespace Liberty.Reach
         /// The old object will be deleted.
         /// </summary>
         /// <param name="newObj">The object to replace this object with.</param>
-        public virtual void ReplaceWith(GameObject newObj)
+        public virtual void ReplaceWith(GameObject newObj, bool deleteCarried)
         {
-            // Move the new object to our position
-            newObj.X = X;
-            newObj.Y = Y;
-            newObj.Z = Z;
-            newObj.PhysicsEnabled = PhysicsEnabled;
+            if (newObj != null)
+            {
+                // Move the new object to our position
+                newObj.X = X;
+                newObj.Y = Y;
+                newObj.Z = Z;
+                newObj.PhysicsEnabled = PhysicsEnabled;
 
-            // Adjust flags
-            newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (_flags & ObjectFlags.NotCarried);
+                // Adjust flags
+                newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (_flags & ObjectFlags.NotCarried);
+            }
 
             // Replace!
             if (_carrier != null)
                 _carrier.ReplaceCarriedObject(this, newObj);
-            else
+            else if (newObj != null && newObj.Carrier != null)
                 newObj.Drop();
 
-            Delete();
+            Delete(deleteCarried);
         }
 
         /// <summary>
@@ -725,7 +728,7 @@ namespace Liberty.Reach
 
             if (oldObj != null && oldObj.Carrier == this)
                 oldObj.Drop();
-            if (newObj != null)
+            if (newObj != null && newObj.Carrier != this)
                 PickUpObject(newObj);
         }
 
@@ -856,9 +859,168 @@ namespace Liberty.Reach
     }
 
     /// <summary>
+    /// Implements a consistent weapon interface for objects that can carry and use weapons.
+    /// </summary>
+    public class WeaponUser : HlmtObject
+    {
+        /// <summary>
+        /// Constructs a new WeaponUser.
+        /// </summary>
+        /// <param name="reader">The SaveReader to read from.</param>
+        /// <param name="entry">The object entry data.</param>
+        internal WeaponUser(Liberty.SaveIO.SaveReader reader, ObjectEntry entry)
+            : base(reader, entry)
+        {
+        }
+
+        /// <summary>
+        /// Changes one of the weapons that this object is holding.
+        /// </summary>
+        /// <param name="index">The zero-based weapon index (0 = 1st weapon, 3 = 4th weapon)</param>
+        /// <param name="newWeapon">The new weapon. Use null to mean "no weapon."</param>
+        public void SetWeapon(int index, WeaponObject newWeapon)
+        {
+            if (index < 0 || index >= _weapons.Length)
+                throw new IndexOutOfRangeException("WeaponUsers can only hold 4 weapons at a time.");
+
+            if (newWeapon != null)
+            {
+                if (_weapons[index] != null)
+                    _weapons[index].ReplaceWith(newWeapon, false);
+                else
+                    PickUpObject(newWeapon);
+            }
+
+            _weapons[index] = newWeapon;
+        }
+
+        /// <summary>
+        /// Returns one of the weapons that this object is holding.
+        /// </summary>
+        /// <param name="index">The zero-based weapon index (0 = 1st weapon, 3 = 4th weapon)</param>
+        /// <returns>The weapon at the specified index. Can be null if no weapon is in the specified slot.</returns>
+        public WeaponObject GetWeapon(int index)
+        {
+            if (index < 0 || index >= _weapons.Length)
+                throw new IndexOutOfRangeException("WeaponUsers can only hold 4 weapons at a time.");
+
+            return _weapons[index];
+        }
+
+        /// <summary>
+        /// The first weapon that this WeaponUser is holding. Can be null.
+        /// </summary>
+        public WeaponObject PrimaryWeapon
+        {
+            get { return _weapons[0]; }
+            set { SetWeapon(0, value); }
+        }
+
+        /// <summary>
+        /// The second weapon that this WeaponUser is holding. Can be null.
+        /// </summary>
+        public WeaponObject SecondaryWeapon
+        {
+            get { return _weapons[1]; }
+            set { SetWeapon(1, value); }
+        }
+
+        /// <summary>
+        /// The third weapon that this WeaponUser is holding. Can be null.
+        /// </summary>
+        public WeaponObject TertiaryWeapon
+        {
+            get { return _weapons[2]; }
+            set { SetWeapon(2, value); }
+        }
+
+        /// <summary>
+        /// The fourth weapon that this WeaponUser is holding. Can be null.
+        /// </summary>
+        public WeaponObject QuarternaryWeapon
+        {
+            get { return _weapons[3]; }
+            set { SetWeapon(3, value); }
+        }
+
+        protected override void DoLoad(SaveIO.SaveReader reader, long start)
+        {
+            base.DoLoad(reader, start);
+
+            reader.Seek(start + 0x348, SeekOrigin.Begin);
+            for (int i = 0; i < 4; i++)
+                _weaponId[i] = (ushort)(reader.ReadUInt32() & 0xFFFF);
+        }
+
+        protected override void DoUpdate(SaveIO.SaveWriter writer, long start)
+        {
+            base.DoUpdate(writer, start);
+
+            // Fill null spots in the weapons list
+            int j = 0;
+            WeaponObject[] newList = new WeaponObject[_weapons.Length];
+            for (int i = 0; i < _weapons.Length; i++)
+            {
+                if (_weapons[i] != null)
+                    newList[j++] = _weapons[i];
+            }
+            _weapons = newList;
+
+            // Now write it out
+            writer.Seek(start + 0x348, SeekOrigin.Begin);
+            for (int i = 0; i < _weapons.Length; i++)
+            {
+                if (_weapons[i] != null)
+                    writer.WriteUInt32(_weapons[i].ID);
+                else
+                    writer.WriteUInt32(0xFFFFFFFF);
+            }
+        }
+
+        internal override void ResolveObjectRefs(List<GameObject> objects)
+        {
+            base.ResolveObjectRefs(objects);
+
+            for (int i = 0; i < _weaponId.Length; i++)
+            {
+                if (_weaponId[i] != 0xFFFF)
+                    _weapons[i] = objects[(int)_weaponId[i]] as WeaponObject;
+            }
+        }
+
+        protected override void OnDropUsedObject(GameObject obj)
+        {
+            base.OnDropUsedObject(obj);
+
+            for (int i = 0; i < _weapons.Length; i++)
+            {
+                if (_weapons[i] == obj)
+                    _weapons[i] = null;
+            }
+        }
+
+        protected override void OnReplaceUsedObject(GameObject oldObj, GameObject newObj)
+        {
+            base.OnReplaceUsedObject(oldObj, newObj);
+
+            if (oldObj != null)
+            {
+                for (int i = 0; i < _weapons.Length; i++)
+                {
+                    if (_weapons[i] == oldObj)
+                        _weapons[i] = newObj as WeaponObject;
+                }
+            }
+        }
+
+        private ushort[] _weaponId = new ushort[4];
+        private WeaponObject[] _weapons = new WeaponObject[4];
+    }
+
+    /// <summary>
     /// A BIPD object.
     /// </summary>
-    public class BipedObject : HlmtObject
+    public class BipedObject : WeaponUser
     {
         /// <summary>
         /// Constructs a new BipedObject.
@@ -868,44 +1030,6 @@ namespace Liberty.Reach
         internal BipedObject(Liberty.SaveIO.SaveReader reader, ObjectEntry entry)
             : base(reader, entry)
         {
-        }
-
-        /// <summary>
-        /// The primary weapon that the biped is holding. Can be null.
-        /// </summary>
-        public WeaponObject PrimaryWeapon
-        {
-            get
-            {
-                return _primaryWeapon;
-            }
-            set
-            {
-                if (_primaryWeapon != null)
-                    _primaryWeapon.ReplaceWith(value);
-                else
-                    PickUpObject(value);
-                _primaryWeapon = value;
-            }
-        }
-
-        /// <summary>
-        /// The secondary weapon that the biped is holding. Can be null.
-        /// </summary>
-        public WeaponObject SecondaryWeapon
-        {
-            get
-            {
-                return _secondaryWeapon;
-            }
-            set
-            {
-                if (_secondaryWeapon != null)
-                    _secondaryWeapon.ReplaceWith(value);
-                else
-                    PickUpObject(value);
-                _secondaryWeapon = value;
-            }
         }
 
         /// <summary>
@@ -946,11 +1070,21 @@ namespace Liberty.Reach
             set
             {
                 if (_armorAbility != null)
-                    _armorAbility.ReplaceWith(value);
+                    _armorAbility.ReplaceWith(value, false);
                 else
                     PickUpObject(value);
                 _armorAbility = value;
             }
+        }
+
+        /// <summary>
+        /// The index of the seat that this biped is sitting in.
+        /// Can be 0xFFFF if not in a vehicle.
+        /// </summary>
+        public ushort Seat
+        {
+            get { return _seatIndex; }
+            set { _seatIndex = value; }
         }
 
         /// <summary>
@@ -987,10 +1121,9 @@ namespace Liberty.Reach
             reader.Seek(start + 0x1BC, SeekOrigin.Begin);
             _actorId = reader.ReadUInt32();
 
-            // Weapons
-            reader.Seek(start + 0x348, SeekOrigin.Begin);
-            _primaryWeaponId = (ushort)(reader.ReadUInt32() & 0xFFFF);
-            _secondaryWeaponId = (ushort)(reader.ReadUInt32() & 0xFFFF);
+            // Vehicle seat?
+            reader.Seek(start + 0x32E, SeekOrigin.Begin);
+            _seatIndex = reader.ReadUInt16();
 
             // Equipment
             reader.Seek(start + 0x36E, SeekOrigin.Begin);
@@ -1022,24 +1155,9 @@ namespace Liberty.Reach
             else
                 writer.WriteUInt32(0xFFFFFFFF);
 
-            // If there is no primary weapon, move the secondary weapon into its slot
-            if (_primaryWeapon == null)
-            {
-                _primaryWeapon = _secondaryWeapon;
-                _secondaryWeapon = null;
-            }
-
-            // Weapons
-            writer.Seek(start + 0x348, SeekOrigin.Begin);
-            if (_primaryWeapon != null)
-                writer.WriteUInt32(_primaryWeapon.ID);
-            else
-                writer.WriteUInt32(0xFFFFFFFF);
-
-            if (_secondaryWeapon != null)
-                writer.WriteUInt32(_secondaryWeapon.ID);
-            else
-                writer.WriteUInt32(0xFFFFFFFF);
+            // Vehicle seat
+            writer.Seek(start + 0x32E, SeekOrigin.Begin);
+            writer.WriteUInt16(_seatIndex);
 
             // Armor ability
             writer.Seek(start + 0x36C, SeekOrigin.Begin);
@@ -1067,10 +1185,6 @@ namespace Liberty.Reach
         {
             base.ResolveObjectRefs(objects);
 
-            if (_primaryWeaponId != 0xFFFF)
-                _primaryWeapon = (WeaponObject)objects[(int)_primaryWeaponId];
-            if (_secondaryWeaponId != 0xFFFF)
-                _secondaryWeapon = (WeaponObject)objects[(int)_secondaryWeaponId];
             if (_armorAbilityId != 0xFFFF)
                 _armorAbility = (EquipmentObject)objects[(int)_armorAbilityId];
         }
@@ -1083,6 +1197,7 @@ namespace Liberty.Reach
                     _currentVehicleId = 0xFFFFFFFF;
                 if (_controlledVehicleId == Carrier.ID)
                     _controlledVehicleId = 0xFFFFFFFF;
+                _seatIndex = 0xFFFF;
             }
 
             base.Drop();
@@ -1092,16 +1207,13 @@ namespace Liberty.Reach
         {
             base.OnDropUsedObject(obj);
 
-            if (_primaryWeapon == obj)
-                _primaryWeapon = null;
-            else if (_secondaryWeapon == obj)
-                _secondaryWeapon = null;
-            else if (_armorAbility == obj)
+            if (_armorAbility == obj)
                 _armorAbility = null;
         }
 
-        public override void ReplaceWith(GameObject newObj)
+        public override void ReplaceWith(GameObject newObj, bool deleteCarried)
         {
+            ushort seat = _seatIndex;
             BipedObject newBiped = newObj as BipedObject;
             if (newBiped != null)
             {
@@ -1109,7 +1221,9 @@ namespace Liberty.Reach
                 newBiped._controlledVehicleId = _controlledVehicleId;
             }
 
-            base.ReplaceWith(newObj);
+            base.ReplaceWith(newObj, deleteCarried);
+
+            newBiped._seatIndex = seat;
         }
 
         protected override void OnReplaceUsedObject(GameObject oldObj, GameObject newObj)
@@ -1118,10 +1232,6 @@ namespace Liberty.Reach
 
             if (oldObj != null)
             {
-                if (_primaryWeapon == oldObj)
-                    _primaryWeapon = newObj as WeaponObject;
-                if (_secondaryWeapon == oldObj)
-                    _secondaryWeapon = newObj as WeaponObject;
                 if (_armorAbility == oldObj)
                     _armorAbility = newObj as EquipmentObject;
 
@@ -1135,10 +1245,8 @@ namespace Liberty.Reach
             }
         }
 
-        private ushort _primaryWeaponId;
-        private ushort _secondaryWeaponId;
-        private WeaponObject _primaryWeapon = null;
-        private WeaponObject _secondaryWeapon = null;
+        private ushort _seatIndex;
+
         private ushort _armorAbilityId;
         private EquipmentObject _armorAbility = null;
 
@@ -1253,16 +1361,17 @@ namespace Liberty.Reach
             _weaponFlags |= WeaponFlags.Carried;
         }
 
-        public override void ReplaceWith(GameObject newObj)
+        public override void ReplaceWith(GameObject newObj, bool deleteCarried)
         {
             GameObject user = _user;
             if (Carrier == null && _user != null)
                 ReplaceUsedObject(_user, this, newObj);
 
             WeaponObject newWeapon = newObj as WeaponObject;
-            newWeapon._weaponFlags = _weaponFlags;
+            if (newWeapon != null)
+                newWeapon._weaponFlags = _weaponFlags;
 
-            base.ReplaceWith(newObj);
+            base.ReplaceWith(newObj, deleteCarried);
 
             if (newWeapon != null)
                 newWeapon._user = user;
@@ -1344,7 +1453,7 @@ namespace Liberty.Reach
     /// <summary>
     /// A vehicle object.
     /// </summary>
-    public class VehicleObject : HlmtObject
+    public class VehicleObject : WeaponUser
     {
         /// <summary>
         /// Constructs a new VehicleObject.
@@ -1410,7 +1519,7 @@ namespace Liberty.Reach
                 _controller = newObj;
         }
 
-        public override void ReplaceWith(GameObject newObj)
+        public override void ReplaceWith(GameObject newObj, bool deleteCarried)
         {
             GameObject driver = _driver;
             GameObject controller = _controller;
@@ -1440,7 +1549,15 @@ namespace Liberty.Reach
                 current = next;
             }
 
-            base.ReplaceWith(newObj);
+            if (newObj.Carrier != null && newObj.Carrier.TagGroup == TagGroup.Vehi)
+            {
+                // The new vehicle is a turret, so hack around the base ReplaceWith and just delete us
+                Delete(deleteCarried);
+            }
+            else
+            {
+                base.ReplaceWith(newObj, deleteCarried);
+            }
 
             // Adjust pointers
             VehicleObject newVehicle = newObj as VehicleObject;

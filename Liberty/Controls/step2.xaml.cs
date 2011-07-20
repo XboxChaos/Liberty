@@ -37,6 +37,7 @@ namespace Liberty.Controls
         public void loadData()
         {
             checkInvincible.IsChecked = classInfo.loadPackageData.isPlayerInvincible();
+            checkNoPhysics.IsEnabled = (classInfo.storage.fileInfoStorage.saveData.Player.Biped.Carrier == null);
 
             float[] playerCords = classInfo.loadPackageData.getPlayerCords();
 
@@ -48,7 +49,7 @@ namespace Liberty.Controls
             cBWeapTransfer.IsEnabled = false;
             cBBipeds.Items.Clear();
             Reach.BipedObject currentBiped = classInfo.storage.fileInfoStorage.saveData.Player.Biped;
-            if (currentBiped.Vehicle == null)
+            //if (currentBiped.Vehicle == null)
             {
                 // Calculate a list of available bipeds
                 SortedSet<Reach.BipedObject> availableBipeds = new SortedSet<Reach.BipedObject>(new mapIdentComparer());
@@ -72,7 +73,7 @@ namespace Liberty.Controls
                 }
                 cBBipeds.IsEnabled = true;
             }
-            else
+            /*else
             {
                 // Add a dummy item
                 cBBipeds.IsEnabled = false;
@@ -82,7 +83,7 @@ namespace Liberty.Controls
                 cBBipeds.Items.Add(item);
                 originalBipdItem = 0;
                 cBBipeds.SelectedIndex = 0;
-            }
+            }*/
         }
 
         public void saveData()

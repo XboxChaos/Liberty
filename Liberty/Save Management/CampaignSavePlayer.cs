@@ -48,17 +48,6 @@ namespace Liberty.Reach
             ushort bipedId = reader.ReadUInt16();
             _biped = (BipedObject)objectList[(int)bipedId];
 
-            // Primary weapon
-            /*reader.Seek(0x30, SeekOrigin.Current);
-            uint primaryWeaponId = reader.ReadUInt32() & 0xFFFF;
-            if (primaryWeaponId != 0xFFFF)
-                _primaryWeapon = (WeaponObject)objectList[(int)primaryWeaponId];
-
-            // Secondary weapon
-            uint secondaryWeaponId = reader.ReadUInt32() & 0xFFFF;
-            if (secondaryWeaponId != 0xFFFF)
-                _secondaryWeapon = (WeaponObject)objectList[(int)secondaryWeaponId];*/
-
             // Read gamertag
             reader.Seek(0xB0, SeekOrigin.Begin);
             _gamertag = reader.ReadUTF16();
@@ -91,10 +80,9 @@ namespace Liberty.Reach
                     newBiped.FragGrenades = _biped.FragGrenades;
                     newBiped.PlasmaGrenades = _biped.PlasmaGrenades;
                 }
-                newBiped.Drop();
-                /*if (_biped.Carrier != null)
-                    _biped.Carrier.ReplaceCarriedObject(_biped, newBiped);*/
-                _biped.Delete(true);
+                /*newBiped.Drop();
+                _biped.Delete(true);*/
+                _biped.ReplaceWith(newBiped, true);
                 _biped = newBiped;
             }
         }
