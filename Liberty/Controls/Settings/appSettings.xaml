@@ -50,11 +50,11 @@
 			<CheckBox x:Name="TLTtaglstNoMem" Content="Save Taglist to temporary directory, not read from memory. " FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 			
 			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
-			<CheckBox x:Name="TLTExtAscTaglst" Content="Use taglists from Ascention aswell, to increase number of named tags." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
+			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
 			
 			<TextBox IsReadOnly="True" Background="White" Name="TLTAsvTagLstDirec" Margin="10,5,150,0"/>
 			<Image x:Name="btnFind" Height="21" Margin="310,-24,0,0" HorizontalAlignment="Left" Stretch="Fill" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" />
-			<TextBlock Height="19" HorizontalAlignment="Left" Margin="330.676,-18,0,0" x:Name="lblFind" Text="FIND" Width="33" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+			<TextBlock Height="19" HorizontalAlignment="Left" Margin="310,-22,0,0" x:Name="lblFind" Text="FIND" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
 		</StackPanel>
 		
 		
