@@ -36,10 +36,10 @@
 			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
 		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,13,1.19" />
-		<TextBlock Height="19" HorizontalAlignment="Left" Margin="553,0,0,-1" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+		<TextBlock Height="19" HorizontalAlignment="Left" Margin="526,0,0,1" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
 		
 		<Image x:Name="btnBack" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" Margin="0,0,97,1.19" />
-		<TextBlock Height="19" HorizontalAlignment="Left" Margin="454,0,0,-1" x:Name="lblBack" Text="CANCEL" VerticalAlignment="Bottom" Width="51" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+		<TextBlock Height="19" HorizontalAlignment="Left" Margin="442,0,0,1" x:Name="lblBack" Text="CANCEL" VerticalAlignment="Bottom" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
 	</Grid>
 </ControlsMetro:MetroContentControl>
 </UserControl>
