@@ -4,7 +4,7 @@
         Title="SplashScreen" Height="151" Width="441" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize">
     <Grid Height="151" Width="441">
     	<Grid.Background>
-    		<ImageBrush ImageSource="splash.png"/>
+    		<ImageBrush ImageSource="Images/splash.png"/>
     	</Grid.Background>
     </Grid>
 </Window>
