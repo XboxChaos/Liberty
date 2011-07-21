@@ -15,9 +15,6 @@ using System.Windows.Controls.Primitives;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
 using Microsoft.Win32;
 using Liberty.classInfo.storage;
 using Liberty.classInfo.storage.settings;
@@ -46,9 +43,31 @@ namespace Liberty
             step4.ExecuteMethod3 += new EventHandler(ParentWPF_childObjects);
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
 
+            btnCFU.MouseDown += new MouseButtonEventHandler(btnCFU_MouseDown);
+            btnCFU.MouseEnter += new MouseEventHandler(btnCFU_MouseEnter);
+            btnCFU.MouseLeave += new MouseEventHandler(btnCFU_MouseLeave);
+            btnCFU.MouseUp += new MouseButtonEventHandler(btnCFU_MouseUp);
+
             settingsPanel.Visibility = System.Windows.Visibility.Hidden;
             btnSettings.Visibility = System.Windows.Visibility.Visible;
             lblDevider3.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        private void mainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            App app = (App)Application.Current;
+
+            // loadDialog won't work properly until the window has been loaded
+            if (app.initException != null)
+                loadDialog(4, app.initException, null);
+
+            if (app.svrBuild > app.pcBuild)
+            {
+                if (applicationSettings.showChangeLog)
+                    loadDialog(3, app.descData, null);
+                else
+                    loadDialog(2, null, null);
+            }
         }
 
         protected void ParentWPF_bipdSwapAlert(object sender, EventArgs e)
@@ -87,76 +106,23 @@ namespace Liberty
             loadDialog(9, "Select a child object to edit:", "EDIT CHILD OBJECT");
         }
 
-        private void Grid_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            try
-            {
-                classInfo.applicationExtra.cleanUpOldSaves();
-            }
-            catch (Exception ex)
-            {
-                loadDialog(4, ex.ToString(), null);
-            }
-
-            if (applicationSettings.checkUpdatesOL)
-            {
-                try
-                {
-                    Dns.GetHostEntry("xeraxic.com");
-                    WebClient wb = new WebClient();
-                    string downloadedInfo = wb.DownloadString(new Uri("http://xeraxic.com/downloads/checkVersionInfo.php?appName=Liberty&proDesc=1"));
-                    downloadedInfo = downloadedInfo.Replace("\r", "");
-                    string[] updateData = downloadedInfo.Split('\n');
-                    int svrBuild = Convert.ToInt16(updateData[0].Replace(".", ""));
-                    int pcBuild = Convert.ToInt16(Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
-
-                    int i = 0;
-                    string descData = "";
-                    foreach (string line in updateData)
-                    {
-                        if (i == 0) { }
-                        else { descData += line + "\n"; }
-                        i++;
-                    }
-                    if (applicationSettings.showChangeLog)
-                    {
-                        if (svrBuild > pcBuild) { loadDialog(3, descData, null); }
-                    }
-                    else
-                    {
-                        if (svrBuild > pcBuild) { loadDialog(2, null, null); }
-                    }
-
-                    btnCFU.MouseDown += new MouseButtonEventHandler(btnCFU_MouseDown); btnCFU.MouseEnter += new MouseEventHandler(btnCFU_MouseEnter); btnCFU.MouseLeave += new MouseEventHandler(btnCFU_MouseLeave); btnCFU.MouseUp += new MouseButtonEventHandler(btnCFU_MouseUp);
-                }
-                catch (SocketException)
-                {
-                }
-                catch (Exception ex)
-                {
-                    loadDialog(4, ex.ToString(), null);
-                }
-            }
-
-            string excepLoadTag = classInfo.nameLookup.loadTaglist();
-            if (excepLoadTag != null)
-                loadDialog(4, excepLoadTag, null);
-        }
-
         private void goForward()
         {
-            step0.Visibility = System.Windows.Visibility.Hidden;
-            step0_1.Visibility = System.Windows.Visibility.Hidden;
-            step0_2.Visibility = System.Windows.Visibility.Hidden;
-            step1.Visibility = System.Windows.Visibility.Hidden;
-            step2.Visibility = System.Windows.Visibility.Hidden;
-            step3.Visibility = System.Windows.Visibility.Hidden;
-            step4.Visibility = System.Windows.Visibility.Hidden;
-            step4_0.Visibility = System.Windows.Visibility.Hidden;
-            step5.Visibility = System.Windows.Visibility.Hidden;
+            if (step != 8)
+            {
+                step0.Visibility = System.Windows.Visibility.Hidden;
+                step0_1.Visibility = System.Windows.Visibility.Hidden;
+                step0_2.Visibility = System.Windows.Visibility.Hidden;
+                step1.Visibility = System.Windows.Visibility.Hidden;
+                step2.Visibility = System.Windows.Visibility.Hidden;
+                step3.Visibility = System.Windows.Visibility.Hidden;
+                step4.Visibility = System.Windows.Visibility.Hidden;
+                step4_0.Visibility = System.Windows.Visibility.Hidden;
+                step5.Visibility = System.Windows.Visibility.Hidden;
 
-            btnBack.Visibility = System.Windows.Visibility.Visible;
-            lblBack.Visibility = System.Windows.Visibility.Visible;
+                btnBack.Visibility = System.Windows.Visibility.Visible;
+                lblBack.Visibility = System.Windows.Visibility.Visible;
+            }
 
             switch (step)
             {

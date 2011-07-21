@@ -9,44 +9,35 @@ namespace Liberty.classInfo
 {
     class nameLookup
     {
-        public static string loadTaglist()
+        public static void loadTaglist()
         {
-            try
+            if (applicationSettings.getLatestTagLst)
             {
-                if (applicationSettings.getLatestTagLst)
+                if (applicationSettings.storeTaglistNoMem)
                 {
-                    if (applicationSettings.storeTaglistNoMem)
-                    {
-                        string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
-                        Directory.CreateDirectory(temp);
-                        File.WriteAllText(temp + "taglst.tgl", applicationExtra.downloadTaglist());
-                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl", Util.TagListMode.Liberty);
-                    }
-                    else
-                    {
-                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(applicationExtra.downloadTaglist());
-                    }
+                    string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
+                    Directory.CreateDirectory(temp);
+                    File.WriteAllText(temp + "taglst.tgl", applicationExtra.downloadTaglist());
+                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl", Util.TagListMode.Liberty);
                 }
                 else
                 {
-                    if (applicationSettings.storeTaglistNoMem)
-                    {
-                        string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
-                        Directory.CreateDirectory(temp);
-                        File.WriteAllText(temp + "taglst.tgl", Liberty.Properties.Resources.taglist);
-                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl", Util.TagListMode.Liberty);
-                    }
-                    else
-                    {
-                        classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(Liberty.Properties.Resources.taglist);
-                    }
+                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(applicationExtra.downloadTaglist());
                 }
-
-                return null;
             }
-            catch (Exception exception)
+            else
             {
-                return exception.ToString();
+                if (applicationSettings.storeTaglistNoMem)
+                {
+                    string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
+                    Directory.CreateDirectory(temp);
+                    File.WriteAllText(temp + "taglst.tgl", Liberty.Properties.Resources.taglist);
+                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl", Util.TagListMode.Liberty);
+                }
+                else
+                {
+                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(Liberty.Properties.Resources.taglist);
+                }
             }
         }
 

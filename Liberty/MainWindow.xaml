@@ -8,7 +8,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         Title="Liberty" Height="477" Width="635"
 		ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None"
-		Background="{x:Null}" WindowStartupLocation="CenterScreen">
+		Background="{x:Null}" WindowStartupLocation="CenterScreen"
+        IsVisibleChanged="mainWindow_IsVisibleChanged">
 				<Window.Resources>
 			        <ResourceDictionary>
 			            <ResourceDictionary.MergedDictionaries>
@@ -49,7 +50,7 @@
 				</Window.Triggers>
 				
 	<ControlsMetro:MetroContentControl IsTabStop="False">
-		<Grid Loaded="Grid_Loaded">
+		<Grid>
 	        <Rectangle Name="recMask" Fill="White" Margin="10,10,10,10" Stroke="Black" Opacity="0.60" Visibility="Hidden" />
 	        <!--DropShadow-->
 			<Border Margin="10" BorderThickness="0,0,1,1" BorderBrush="#FFE94F19">
