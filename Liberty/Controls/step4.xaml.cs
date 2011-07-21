@@ -679,9 +679,17 @@ namespace Liberty.Controls
                 TreeViewItem newItem = (TreeViewItem)selectedItem.Tag;
                 Reach.GameObject oldObj = classInfo.storage.fileInfoStorage.saveData.Objects[(int)tvi.Tag];
                 Reach.GameObject newObj = classInfo.storage.fileInfoStorage.saveData.Objects[(int)newItem.Tag];
-                if (oldObj.TagGroup == Reach.TagGroup.Vehi)
-                    fixTreeForVehicleReplacement(oldObj);
-                oldObj.ReplaceWith(newObj, true);
+                if (oldObj == classInfo.storage.fileInfoStorage.saveData.Player.Biped)
+                {
+                    // Use Player.ChangeBiped instead
+                    classInfo.storage.fileInfoStorage.saveData.Player.ChangeBiped(newObj as Reach.BipedObject, true);
+                }
+                else
+                {
+                    if (oldObj.TagGroup == Reach.TagGroup.Vehi)
+                        fixTreeForVehicleReplacement(oldObj);
+                    oldObj.ReplaceWith(newObj, true);
+                }
 
                 newItem.IsSelected = true;
                 parent.Items.Remove(tvi);
