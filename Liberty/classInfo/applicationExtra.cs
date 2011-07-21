@@ -27,6 +27,7 @@ using FATX;
 using System.Windows.Controls;
 using Liberty.classInfo.storage.settings;
 using Microsoft.Win32;
+using System.Windows;
 
 namespace Liberty.classInfo
 {
@@ -66,15 +67,7 @@ namespace Liberty.classInfo
 
         public static void closeApplication()
         {
-            Process[] processes = Process.GetProcesses();
-
-            foreach (Process process in processes)
-            {
-                if (process.ProcessName == "Liberty" || process.ProcessName == "Liberty.vshost")
-                {
-                    process.Kill();
-                }
-            }
+            Application.Current.Shutdown();
         }
 
         public static void cleanUpOldSaves()
