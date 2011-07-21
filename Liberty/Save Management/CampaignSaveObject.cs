@@ -61,8 +61,8 @@ namespace Liberty.Reach
 
     public class WeaponFlags
     {
-        public const uint Carried = 0x3010000U;     // Not entirely sure what each of these flags does, I haven't had time to look into it
-        public const uint NotCarried = 0x4000000U;
+        public const uint InUse = 0x3010000U;     // Not entirely sure what each of these flags does, I haven't had time to look into it
+        public const uint Unused = 0x4000000U;
     }
 
     /// <summary>
@@ -302,23 +302,29 @@ namespace Liberty.Reach
         /// <param name="newObj">The object to replace this object with.</param>
         public virtual void ReplaceWith(GameObject newObj, bool deleteCarried)
         {
-            if (newObj != null)
-            {
-                // Move the new object to our position
-                newObj.X = X;
-                newObj.Y = Y;
-                newObj.Z = Z;
-                newObj.PhysicsEnabled = PhysicsEnabled;
-
-                // Adjust flags
-                newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (_flags & ObjectFlags.NotCarried);
-            }
+            float oldX = _x;
+            float oldY = _y;
+            float oldZ = _z;
+            bool oldPhysics = PhysicsEnabled;
+            uint oldFlags = _flags;
 
             // Replace!
             if (_carrier != null)
                 _carrier.ReplaceCarriedObject(this, newObj);
             else if (newObj != null && newObj.Carrier != null)
                 newObj.Drop();
+
+            if (newObj != null)
+            {
+                // Move the new object to our old position
+                newObj.X = oldX;
+                newObj.Y = oldY;
+                newObj.Z = oldZ;
+                newObj.PhysicsEnabled = oldPhysics;
+
+                // Adjust flags
+                newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (oldFlags & ObjectFlags.NotCarried);
+            }
 
             Delete(deleteCarried);
         }
@@ -1219,6 +1225,8 @@ namespace Liberty.Reach
             {
                 newBiped._currentVehicleId = _currentVehicleId;
                 newBiped._controlledVehicleId = _controlledVehicleId;
+                newBiped._actorId = _actorId;
+                _actorId = 0xFFFFFFFF;
             }
 
             base.ReplaceWith(newObj, deleteCarried);
@@ -1344,8 +1352,8 @@ namespace Liberty.Reach
                 DropUsedObject(_user, this);
 
             _user = null;
-            _weaponFlags &= ~WeaponFlags.Carried;
-            _weaponFlags |= WeaponFlags.NotCarried;
+            _weaponFlags &= ~WeaponFlags.InUse;
+            _weaponFlags |= WeaponFlags.Unused;
 
             base.Drop();
         }
@@ -1357,8 +1365,8 @@ namespace Liberty.Reach
             if (_user == null && (Carrier.TagGroup == TagGroup.Vehi || Carrier.TagGroup == TagGroup.Bipd))
                 _user = Carrier;
 
-            _weaponFlags &= ~WeaponFlags.NotCarried;
-            _weaponFlags |= WeaponFlags.Carried;
+            _weaponFlags &= ~WeaponFlags.Unused;
+            _weaponFlags |= WeaponFlags.InUse;
         }
 
         public override void ReplaceWith(GameObject newObj, bool deleteCarried)
