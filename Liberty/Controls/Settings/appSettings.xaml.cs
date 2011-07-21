@@ -44,13 +44,13 @@ namespace Liberty.Controls.Settings
                 LNSdisplaySplash.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDisSplash", 1));
                 LNScheckDLL.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appMsgDll", 1));
                 LNSenableEggs.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appEstEgg", 1));
-                LNSausFileType.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appAssFileType", 1));
+                LNSausFileType.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appAssFileType", 0));
                 LNSsplashTime.Value = (int)key.GetValue("appSplashTime", 5);
 
                 // Taglist
                 TLTdlLatestTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDLTagLst", 1));
-                TLTtaglstNoMem.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstNoMem", 1));
-                TLTExtAscTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTglstFromAsc", 1));
+                TLTtaglstNoMem.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstNoMem", 0));
+                TLTExtAscTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTglstFromAsc", 0));
                 TLTAsvTagLstDirec.Text = (string)key.GetValue("appTglstFromAscDirec", "");
 
             // Update UI on changes
