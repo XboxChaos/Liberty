@@ -47,10 +47,8 @@ namespace Liberty
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
 
             settingsPanel.Visibility = System.Windows.Visibility.Hidden;
-#if DEBUG
-    btnSettings.Visibility = System.Windows.Visibility.Visible;
-    lblDevider3.Visibility = System.Windows.Visibility.Visible;
-#endif
+            btnSettings.Visibility = System.Windows.Visibility.Visible;
+            lblDevider3.Visibility = System.Windows.Visibility.Visible;
         }
 
         protected void ParentWPF_bipdSwapAlert(object sender, EventArgs e)
