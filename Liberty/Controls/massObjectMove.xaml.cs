@@ -130,11 +130,12 @@ namespace Liberty.Controls
 
             if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "bipd")
             {
-                foreach (Reach.BipedObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
                 {
-                    if (obj != null && !obj.Deleted)
+                    Reach.BipedObject biped = obj as Reach.BipedObject;
+                    if (biped != null && !biped.Deleted)
                     {
-                        if (obj.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
+                        if (biped.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
                         {
                             objectNoNull[___x] = ____x;
                             ___x++;
@@ -145,11 +146,28 @@ namespace Liberty.Controls
             }
             else if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "weap")
             {
-                foreach (Reach.WeaponObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
                 {
-                    if (obj != null && !obj.Deleted)
+                    Reach.WeaponObject weap = obj as Reach.WeaponObject;
+                    if (weap != null && !weap.Deleted)
                     {
-                        if (obj.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
+                        if (weap.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
+                        {
+                            objectNoNull[___x] = ____x;
+                            ___x++;
+                        }
+                    }
+                    ____x++;
+                }
+            }
+            else if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "vehi")
+            {
+                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                {
+                    Reach.VehicleObject vehi = obj as Reach.VehicleObject;
+                    if (vehi != null && !vehi.Deleted)
+                    {
+                        if (vehi.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
                         {
                             objectNoNull[___x] = ____x;
                             ___x++;
