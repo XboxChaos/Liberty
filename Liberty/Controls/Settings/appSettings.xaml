@@ -27,13 +27,13 @@
 			<Label x:Name="LNSheader" Content="Change launch settings of Liberty" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
 			<Label x:Name="LNSsubheader" Content="Change the default setting of what liberty initalizes on launch." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
 			
-			<Label x:Name="LNSprt1Header" Content="Pre-Runtime Settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
+			<Label x:Name="LNSprt1Header" Content="Pre-runtime settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
 			
 			<CheckBox x:Name="LNSdisplaySplash" Content="Display Splash Screen." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
 			<Slider x:Name="LNSsplashTime" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,6,0,0" HorizontalAlignment="Left" Width="110" Minimum="1" SmallChange="1" Value="5" ValueChanged="LNSsplashTime_ValueChanged"/>
 			<Label x:Name="LNSsplashTimelbl" Content="Display Splash for: {0}" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="120,-25,0,0"/>
 			
-			<Label x:Name="LNSprt2Header" Content="Post-Runtime Settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,15,0,0"/>
+			<Label x:Name="LNSprt2Header" Content="Post-runtime settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,15,0,0"/>
 			<CheckBox x:Name="LNScheckDLL" Content="Check for missing DLL's." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 			
 			<CheckBox x:Name="LNSenableEggs" Content="Enable Easter Eggs." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
@@ -42,15 +42,15 @@
 		</StackPanel>
 		
 		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" Visibility="Visible">
-			<Label x:Name="TLTheader" Content="Change Taglist Settings" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
+			<Label x:Name="TLTheader" Content="Change Taglist settings" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
 			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
 			
-			<Label x:Name="TLTprt1Header" Content="Basic Taglist Options;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
+			<Label x:Name="TLTprt1Header" Content="Basic taglist options;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
 			<CheckBox x:Name="TLTdlLatestTaglst" Content="Download taglist from the internet if you are connected." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
 			<CheckBox x:Name="TLTtaglstNoMem" Content="Save taglist to temporary directory, not read from memory. " FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0"/>
 			
 			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0"/>
-			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0"/>
+			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked"/>
 			
 			<TextBox IsReadOnly="True" Background="White" Name="TLTAsvTagLstDirec" Margin="10,5,150,0"/>
 			<Image x:Name="btnFind" Height="21" Margin="310,-24,0,0" HorizontalAlignment="Left" Stretch="Fill" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" />

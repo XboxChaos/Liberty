@@ -43,6 +43,9 @@ namespace Liberty.classInfo
 
         public static string loadAscensionTaglist()
         {
+            if (storage.fileInfoStorage.saveData == null)
+                return null;
+
             try
             {
                 if (applicationSettings.extTaglistFrmAsc && !string.IsNullOrWhiteSpace(applicationSettings.extTaglistFromAscDirec))

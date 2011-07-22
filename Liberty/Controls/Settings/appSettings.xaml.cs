@@ -36,47 +36,53 @@ namespace Liberty.Controls.Settings
             // Load from RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings\\");
                 
-                // Update
-                UPScheckOLHeader.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("updOnLaunch", 1));
-                UPSshowChangeLog.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("updChnLog", 1));
+            // Update
+            UPScheckOLHeader.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("updOnLaunch", 1));
+            UPSshowChangeLog.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("updChnLog", 1));
 
-                // Application
-                LNSdisplaySplash.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDisSplash", 1));
-                LNScheckDLL.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appMsgDll", 1));
-                LNSenableEggs.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appEstEgg", 1));
-                LNSausFileType.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appAssFileType", 0));
-                LNSsplashTime.Value = (int)key.GetValue("appSplashTime", 5);
+            // Application
+            LNSdisplaySplash.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDisSplash", 1));
+            LNScheckDLL.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appMsgDll", 1));
+            LNSenableEggs.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appEstEgg", 1));
+            LNSausFileType.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appAssFileType", 0));
+            LNSsplashTime.Value = (int)key.GetValue("appSplashTime", 5);
 
-                // Taglist
-                TLTdlLatestTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDLTagLst", 1));
-                TLTtaglstNoMem.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstNoMem", 0));
-                TLTExtAscTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTglstFromAsc", 0));
-                TLTAsvTagLstDirec.Text = (string)key.GetValue("appTglstFromAscDirec", "");
+            // Taglist
+            TLTdlLatestTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDLTagLst", 1));
+            TLTtaglstNoMem.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstNoMem", 0));
+            TLTExtAscTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTglstFromAsc", 0));
+            TLTAsvTagLstDirec.Text = (string)key.GetValue("appTglstFromAscDirec", "");
 
             // Update UI on changes
             LNSsplashTimelbl.Content = "Display Splash for: " + LNSsplashTime.Value;
+            TLTAsvTagLstDirec.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
+            btnFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
+            lblFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
         }
         public void saveSettings()
         {
             // Save to RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings");
 
-                // Update
-                key.SetValue("updOnLaunch", applicationExtra.settingsConvertBoolToInt(UPScheckOLHeader));
-                key.SetValue("updChnLog", applicationExtra.settingsConvertBoolToInt(UPSshowChangeLog));
+            // Update
+            key.SetValue("updOnLaunch", applicationExtra.settingsConvertBoolToInt(UPScheckOLHeader));
+            key.SetValue("updChnLog", applicationExtra.settingsConvertBoolToInt(UPSshowChangeLog));
 
-                // Application
-                key.SetValue("appDisSplash", applicationExtra.settingsConvertBoolToInt(LNSdisplaySplash));
-                key.SetValue("appMsgDll", applicationExtra.settingsConvertBoolToInt(LNScheckDLL));
-                key.SetValue("appEstEgg", applicationExtra.settingsConvertBoolToInt(LNSenableEggs));
-                key.SetValue("appAssFileType", applicationExtra.settingsConvertBoolToInt(LNSausFileType));
-                key.SetValue("appSplashTime", (int)LNSsplashTime.Value, RegistryValueKind.DWord);
+            // Application
+            key.SetValue("appDisSplash", applicationExtra.settingsConvertBoolToInt(LNSdisplaySplash));
+            key.SetValue("appMsgDll", applicationExtra.settingsConvertBoolToInt(LNScheckDLL));
+            key.SetValue("appEstEgg", applicationExtra.settingsConvertBoolToInt(LNSenableEggs));
+            key.SetValue("appAssFileType", applicationExtra.settingsConvertBoolToInt(LNSausFileType));
+            key.SetValue("appSplashTime", (int)LNSsplashTime.Value, RegistryValueKind.DWord);
 
-                // Taglist
-                key.SetValue("appDLTagLst", applicationExtra.settingsConvertBoolToInt(TLTdlLatestTaglst));
-                key.SetValue("appTgLstNoMem", applicationExtra.settingsConvertBoolToInt(TLTtaglstNoMem));
-                key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
-                key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
+            // Taglist
+            key.SetValue("appDLTagLst", applicationExtra.settingsConvertBoolToInt(TLTdlLatestTaglst));
+            key.SetValue("appTgLstNoMem", applicationExtra.settingsConvertBoolToInt(TLTtaglstNoMem));
+            key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
+            key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
+
+            if (classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec != TLTAsvTagLstDirec.Text)
+                nameLookup.loadAscensionTaglist();
         }
 
         #region uncleanWPFshit
@@ -167,9 +173,26 @@ namespace Liberty.Controls.Settings
             btnFind.Source = new BitmapImage(source);
 
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "Select the directory where your Ascension taglists are located:";
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+                TLTAsvTagLstDirec.Text = dialog.SelectedPath;
+        }
+        #endregion
 
-            TLTAsvTagLstDirec.Text = dialog.SelectedPath;
+        #region TLTExtAscTaglst
+        private void TLTExtAscTaglst_Checked(object sender, RoutedEventArgs e)
+        {
+            TLTAsvTagLstDirec.IsEnabled = true;
+            btnFind.IsEnabled = true;
+            lblFind.IsEnabled = true;
+        }
+
+        private void TLTExtAscTaglst_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TLTAsvTagLstDirec.IsEnabled = false;
+            btnFind.IsEnabled = false;
+            lblFind.IsEnabled = false;
         }
         #endregion
 

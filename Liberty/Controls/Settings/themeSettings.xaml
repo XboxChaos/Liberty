@@ -14,7 +14,7 @@
 	
 		<StackPanel x:Name="themeSettingsPnl" Margin="183,40,-18,40">
 			<Label x:Name="UPSheader" Content="Nothing to see here, chaps." FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
-			<Label x:Name="UPSsubheader" Content="This feature isn't ready for public eyes to gaize upon it's awesomeness." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
+			<Label x:Name="UPSsubheader" Content="This feature isn't ready for public eyes to gaze upon its awesomeness." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
 		</StackPanel>
 		
 		
