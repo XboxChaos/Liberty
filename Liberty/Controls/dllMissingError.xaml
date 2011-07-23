@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 		x:Class="Liberty.Controls.dllMissingError"
 		x:Name="dllMissing"
-        Title="Liberty - DLLs Missing" Height="298" Width="431"
+        Title="Liberty - DLLs Missing" Height="311" Width="431"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Background="{x:Null}" ShowInTaskbar="False">
 	
     <Window.Triggers>
@@ -52,7 +52,7 @@
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
 	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="DLLs Missing" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-	        		<TextBlock HorizontalAlignment="Left" Margin="42,61,0,0" x:Name="lblSubInfo" Width="347" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Height="148" VerticalAlignment="Top" ><Run Text="One or more of the required DLL files is missing. Please verify that you completely extracted Liberty from its archive and that each of the following files is present:"/><LineBreak/><Run/><LineBreak/><Run Text="-X360.dll"/><LineBreak/><Run Text="-MahApps.Metro.dll"/><LineBreak/><Run Text="-MahApps.Metro.Controls.dll"/><LineBreak/><Run Text="-System.Windows.Interactivity.dll"/><LineBreak/><Run/></TextBlock>
+	        		<TextBlock HorizontalAlignment="Left" Margin="42,61,0,0" x:Name="lblSubInfo" Width="347" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Height="165" VerticalAlignment="Top" ><Run Text="One or more of the required DLL files is missing. Please verify that you completely extracted Liberty from its archive and that each of the following files is present:"/><LineBreak/><Run/><LineBreak/><Run Text="-X360.dll"/><LineBreak/><Run Text="-MahApps.Metro.dll"/><LineBreak/><Run Text="-MahApps.Metro.Controls.dll"/><LineBreak/><Run Text="-System.Windows.Interactivity.dll"/><LineBreak/><Run Text="-Microsoft.Expression.Drawing.dll"/></TextBlock>
 	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
 					
 					
