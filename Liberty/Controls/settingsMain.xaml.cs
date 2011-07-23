@@ -21,7 +21,7 @@ namespace Liberty.Controls
     {
         private bool isApp = true;
         BrushConverter bc = new BrushConverter();
-        FontWeight fw = new FontWeight();
+        //FontWeight fw = new FontWeight();
         public event EventHandler ExecuteMethod;
         protected virtual void OnExecuteMethod() { if (ExecuteMethod != null) ExecuteMethod(this, EventArgs.Empty); }
 
