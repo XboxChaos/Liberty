@@ -51,6 +51,7 @@ namespace Liberty.Reach
     public class ObjectFlags
     {
         public const uint NotCarried = 0x80U;
+        public const uint Active = 0x20000000;
     }
 
     public class PhysicsFlags
@@ -528,6 +529,11 @@ namespace Liberty.Reach
             }
         }
 
+        public bool IsActive
+        {
+            get { return ((_flags & ObjectFlags.Active) == ObjectFlags.Active); }
+        }
+
         /// <summary>
         /// Override this to load any extra properties the object might have.
         /// </summary>
@@ -822,7 +828,7 @@ namespace Liberty.Reach
             reader.Seek(start + 0x110, SeekOrigin.Begin);
             _oldHealthModifier = reader.ReadFloat();
             _oldShieldModifier = reader.ReadFloat();
-            if ((float.IsNaN(_oldHealthModifier) && float.IsNaN(_oldShieldModifier)) || (_oldHealthModifier == 0 && _oldShieldModifier == 0))
+            if (float.IsNaN(_oldHealthModifier) || float.IsNaN(_oldShieldModifier) || (_oldHealthModifier == 0 && _oldShieldModifier == 0))
             {
                 _makeInvincible = true;
                 _canUseOldValues = false;
@@ -838,8 +844,12 @@ namespace Liberty.Reach
             writer.Seek(start + 0x110, SeekOrigin.Begin);
             if (_makeInvincible)
             {
-                writer.WriteUInt32(0x00000000);
-                writer.WriteUInt32(0x00000000);
+                if (_oldHealthModifier != 0)
+                    writer.WriteUInt32(0xFFFFFFFF);
+                else
+                    writer.WriteUInt32(0x00000000);
+                if (_oldShieldModifier != 0)
+                    writer.WriteUInt32(0xFFFFFFFF);
             }
             else
             {
@@ -852,8 +862,12 @@ namespace Liberty.Reach
                 else
                 {
                     // TODO: FIX THIS!!!
-                    writer.WriteUInt32(0x42340000);
-                    writer.WriteUInt32(0x428C0000);
+                    if (_oldHealthModifier != 0)
+                        writer.WriteUInt32(0x42340000);
+                    else
+                        writer.WriteUInt32(0x00000000);
+                    if (_oldShieldModifier != 0)
+                        writer.WriteUInt32(0x428C0000);
                 }
             }
         }

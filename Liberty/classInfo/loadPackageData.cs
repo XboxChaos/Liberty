@@ -209,5 +209,10 @@ namespace Liberty.classInfo
             string[] mapImageArray = map.Split('\\');
             return mapImageArray[mapImageArray.Length - 1];
         }
+
+        public static bool isNoclipEnabled()
+        {
+            return !storage.fileInfoStorage.saveData.Player.Biped.PhysicsEnabled;
+        }
     }
 }

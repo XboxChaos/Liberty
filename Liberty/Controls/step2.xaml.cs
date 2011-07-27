@@ -19,7 +19,9 @@ namespace Liberty.Controls
     public partial class step2 : UserControl
     {
         public event EventHandler ExecuteMethod;
+        public event EventHandler ExecuteMethod2;
         private int originalBipdItem = -1;
+        private bool loading = false;
 
         public step2()
         {
@@ -36,8 +38,10 @@ namespace Liberty.Controls
 
         public void loadData()
         {
+            loading = true;
             checkInvincible.IsChecked = classInfo.loadPackageData.isPlayerInvincible();
             checkNoPhysics.IsEnabled = (classInfo.storage.fileInfoStorage.saveData.Player.Biped.Carrier == null);
+            checkNoPhysics.IsChecked = classInfo.loadPackageData.isNoclipEnabled();
 
             float[] playerCords = classInfo.loadPackageData.getPlayerCords();
 
@@ -55,7 +59,7 @@ namespace Liberty.Controls
                 SortedSet<Reach.BipedObject> availableBipeds = new SortedSet<Reach.BipedObject>(new mapIdentComparer());
                 foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
                 {
-                    if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd && obj.Zone == currentBiped.Zone)
+                    if (obj != null && !obj.Deleted && obj.TagGroup == Reach.TagGroup.Bipd && obj.Zone == currentBiped.Zone && obj.IsActive)
                         availableBipeds.Add((Reach.BipedObject)obj);
                 }
                 foreach (Reach.BipedObject obj in availableBipeds)
@@ -84,6 +88,7 @@ namespace Liberty.Controls
                 originalBipdItem = 0;
                 cBBipeds.SelectedIndex = 0;
             }*/
+            loading = false;
         }
 
         public void saveData()
@@ -105,6 +110,12 @@ namespace Liberty.Controls
         {
             if (ExecuteMethod != null)
                 ExecuteMethod(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnExecuteMethod2()
+        {
+            if (ExecuteMethod != null)
+                ExecuteMethod2(this, EventArgs.Empty);
         }
 
         #region textValidation
@@ -203,13 +214,24 @@ namespace Liberty.Controls
 		
         private void cBBipeds_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (originalBipdItem != cBBipeds.SelectedIndex)
+            if (originalBipdItem != cBBipeds.SelectedIndex && !loading)
             {
                 OnExecuteMethod();
                 if (classInfo.storage.fileInfoStorage.messageOpt) { cBWeapTransfer.IsEnabled = true; }
                 else { cBBipeds.SelectedIndex = originalBipdItem; }
             }
             originalBipdItem = cBBipeds.SelectedIndex;
+        }
+
+        private void checkNoPhysics_Checked(object sender, RoutedEventArgs e)
+        {
+            // hax
+            if (!loading)
+            {
+                OnExecuteMethod2();
+                if (!classInfo.storage.fileInfoStorage.messageOpt)
+                    checkNoPhysics.IsChecked = false;
+            }
         }
     }
 }
