@@ -38,6 +38,7 @@ namespace Liberty
             step0_1.ExecuteMethod += new EventHandler(ParentWPF_messageBoxFATX);
             step0_1.ExecuteMethodLocal += new EventHandler<Controls.MessageEventArgs>(ParentWPF_fileException);
             step2.ExecuteMethod += new EventHandler(ParentWPF_bipdSwapAlert);
+            step2.ExecuteMethod2 += new EventHandler(ParentWPF_noclipAlert);
             step4.ExecuteMethod += new EventHandler(ParentWPF_massCordMove);
             step4.ExecuteMethod2 += new EventHandler(ParentWPF_replaceObject);
             step4.ExecuteMethod3 += new EventHandler(ParentWPF_childObjects);
@@ -74,6 +75,11 @@ namespace Liberty
         {
             if (classInfo.storage.fileInfoStorage.leavingStep2) { loadDialog(5, "http://liberty.codeplex.com/discussions/264198", "CodePlex"); }
             else { loadDialog(8, "Swapping your biped may cause the game to freeze or behave unexpectedly. Your old biped will also be deleted. Continue?", "Biped Swap"); }
+        }
+
+        protected void ParentWPF_noclipAlert(object sender, EventArgs e)
+        {
+            loadDialog(8, "Enabling noclip mode will allow you to float and pass through any object, but it will make the mission impossible to complete. Continue?", "Noclip Mode");
         }
 
         protected void ParentWPF_CloseSettings(object sender, EventArgs e)

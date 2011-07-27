@@ -41,7 +41,7 @@
 			<Image x:Name="btnOpen" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,0,114,154" HorizontalAlignment="Right" Width="61.126" />
             <TextBlock Height="19" HorizontalAlignment="Left" Margin="430,0,0,154" x:Name="lblOpen" Text="YES" VerticalAlignment="Bottom" Width="21.929" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" />
             <Label x:Name="subHeading1_Copy" Content="extras;" Margin="231,192,201,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" />
-            <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom"/>
+            <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom" Checked="checkNoPhysics_Checked"/>
         </Grid>
 	</ControlsMetro:MetroContentControl>
 </UserControl>
