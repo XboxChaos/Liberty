@@ -370,9 +370,17 @@ namespace Liberty.Reach
         /// <summary>
         /// The zone that the object is currently in.
         /// </summary>
-        public uint Zone
+        public ushort Zone
         {
-            get { return _zone; }
+            get
+            {
+                GameObject obj = _carrier;
+                if (obj == null)
+                    return _zone;
+                while (obj._carrier != null)
+                    obj = obj._carrier;
+                return obj._zone;
+            }
         }
 
         /// <summary>
@@ -458,6 +466,11 @@ namespace Liberty.Reach
             set { _boundsW2 = value; }
         }
 
+        public uint Size
+        {
+            get { return _linkData.Size; }
+        }
+
         /// <summary>
         /// The object following this object in memory. Can be null.
         /// </summary>
@@ -531,7 +544,17 @@ namespace Liberty.Reach
 
         public bool IsActive
         {
-            get { return ((_flags & ObjectFlags.Active) == ObjectFlags.Active); }
+            get
+            {
+                return ((_flags & ObjectFlags.Active) == ObjectFlags.Active);
+            }
+            set
+            {
+                if (value)
+                    _flags |= ObjectFlags.Active;
+                else
+                    _flags &= ~ObjectFlags.Active;
+            }
         }
 
         /// <summary>
@@ -552,7 +575,7 @@ namespace Liberty.Reach
             _flags = reader.ReadUInt32();
 
             // Zone?
-            _zone = reader.ReadUInt32();
+            _zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
 
             // Carry info
             _nextCarriedId = (ushort)(reader.ReadUInt32() & 0xFFFF);
@@ -601,7 +624,8 @@ namespace Liberty.Reach
         {
             writer.Seek(start + 0x4, SeekOrigin.Begin);
             writer.WriteUInt32(_flags);
-            writer.WriteUInt32(_zone);
+            writer.WriteUInt16(_zone);
+            writer.Seek(2, SeekOrigin.Current);
             
             if (_nextCarried != null)
                 writer.WriteUInt32(_nextCarried.ID);
@@ -717,7 +741,7 @@ namespace Liberty.Reach
         {
             obj.Drop();
             obj._flags &= ~ObjectFlags.NotCarried;
-            obj._zone = 0xFFFF0000;
+            obj._zone = 0xFFFF;
             obj._carrier = this;
             obj._nextCarried = _firstCarried;
             obj.PhysicsEnabled = false;
@@ -775,7 +799,7 @@ namespace Liberty.Reach
 
         private uint _resourceId;
         private uint _flags;
-        private uint _zone;
+        private ushort _zone;
 
         private ushort _carrierId;
         private GameObject _carrier = null;
@@ -862,12 +886,8 @@ namespace Liberty.Reach
                 else
                 {
                     // TODO: FIX THIS!!!
-                    if (_oldHealthModifier != 0)
-                        writer.WriteUInt32(0x42340000);
-                    else
-                        writer.WriteUInt32(0x00000000);
-                    if (_oldShieldModifier != 0)
-                        writer.WriteUInt32(0x428C0000);
+                    writer.WriteUInt32(0x42340000);
+                    writer.WriteUInt32(0x428C0000);
                 }
             }
         }
@@ -945,24 +965,6 @@ namespace Liberty.Reach
             set { SetWeapon(1, value); }
         }
 
-        /// <summary>
-        /// The third weapon that this WeaponUser is holding. Can be null.
-        /// </summary>
-        public WeaponObject TertiaryWeapon
-        {
-            get { return _weapons[2]; }
-            set { SetWeapon(2, value); }
-        }
-
-        /// <summary>
-        /// The fourth weapon that this WeaponUser is holding. Can be null.
-        /// </summary>
-        public WeaponObject QuarternaryWeapon
-        {
-            get { return _weapons[3]; }
-            set { SetWeapon(3, value); }
-        }
-
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
         {
             base.DoLoad(reader, start);
@@ -977,17 +979,31 @@ namespace Liberty.Reach
             base.DoUpdate(writer, start);
 
             // Fill null spots in the weapons list
-            int j = 0;
+            int numWeapons = 0;
             WeaponObject[] newList = new WeaponObject[_weapons.Length];
             for (int i = 0; i < _weapons.Length; i++)
             {
                 if (_weapons[i] != null)
-                    newList[j++] = _weapons[i];
+                    newList[numWeapons++] = _weapons[i];
             }
             _weapons = newList;
 
-            // Now write it out
-            writer.Seek(start + 0x348, SeekOrigin.Begin);
+            // Write weapon count info
+            writer.Seek(start + 0x340, SeekOrigin.Begin);
+            writer.WriteUInt16((ushort)(numWeapons + 2));
+            if (numWeapons == 0)
+                writer.WriteUInt16(0xFFFF);
+            else
+                writer.WriteUInt16(0x00FF);
+
+            // Write it again?
+            writer.WriteUInt16((ushort)(numWeapons + 2));
+            if (numWeapons == 0)
+                writer.WriteUInt16(0xFFFF);
+            else
+                writer.WriteUInt16(0x00FF);
+
+            // Write the weapon list
             for (int i = 0; i < _weapons.Length; i++)
             {
                 if (_weapons[i] != null)
