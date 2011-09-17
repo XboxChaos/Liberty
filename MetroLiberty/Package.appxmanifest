@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="33eea31a-2267-4752-adbf-23574df93df6" Publisher="CN=alexx.reed" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>MetroLiberty</DisplayName>
+    <PublisherDisplayName>alexx.reed</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+    <Description>MetroLiberty</Description>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="metroliberty.exe" EntryPoint="MetroLiberty.App">
+      <VisualElements DisplayName="Liberty" Logo="Images\Logo.png" SmallLogo="Images\SmallLogo.png" Description="Liberty, just got more Metro." ForegroundText="light" BackgroundColor="#222222" InitialRotationPreference="landscape">
+        <DefaultTile ShortName="Liberty" ShowName="true" />
+        <SplashScreen Image="Images\SplashScreen.png" BackgroundColor="#77bb44" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="defaultWindowsCredentials" />
+    <Capability Name="removableStorage" />
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
