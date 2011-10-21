@@ -71,8 +71,8 @@
 					
 					<TextBox x:Name="lblException" Text="" IsReadOnly="True" Background="{x:Null}" Margin="47,81,25,75" BorderThickness="0" FontSize="13" Foreground="#FF373A3D" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" />
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,200,0,0" Text="If you continue, your save might become corrupt." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
-					<Button x:Name="btnContinue" Content="CONTINUE" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnContinue_Click"/>
-					<Button x:Name="btnExit" Content="EXIT" Margin="0,0,110,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" HorizontalAlignment="Right" Click="btnExit_Click"/>
+					<Button x:Name="btnContinue" Content="Continue" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnContinue_Click"/>
+					<Button x:Name="btnExit" Content="Exit" Margin="0,0,101,27" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnExit_Click"/>
 					
 				</Grid>
 	        </Border>

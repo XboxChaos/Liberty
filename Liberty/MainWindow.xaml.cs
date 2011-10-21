@@ -82,6 +82,11 @@ namespace Liberty
             _firstStep = stepGraph.BuildGraph();
             _stepViewer.ViewNode(_firstStep, _saveEditor);
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
+
+            btnBetaPlayground.Visibility = System.Windows.Visibility.Hidden;
+            #if DEBUG
+            btnBetaPlayground.Visibility = System.Windows.Visibility.Visible;
+            #endif
         }
 
         public void showMessage(string message, string title)
@@ -595,5 +600,11 @@ namespace Liberty
             }
         }
         #endregion
+
+        private void btnBetaPlayground_Click(object sender, RoutedEventArgs e)
+        {
+            stepBeta.Visibility = System.Windows.Visibility.Visible;
+            stepGrid.Visibility = System.Windows.Visibility.Hidden;
+        }
     }
 }

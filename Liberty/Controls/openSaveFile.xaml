@@ -28,7 +28,7 @@
 			<Label x:Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Let's load your save from a file on your computer" Height="28" VerticalAlignment="Top" />
 			<Label x:Name="subHeading1" Content="file selection;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" Height="26" VerticalAlignment="Top" />
 			<TextBlock x:Name="lblFileDirec" Margin="29,139,128,0" d:LayoutOverrides="Width" VerticalAlignment="Top" FontSize="13" FontFamily="Segeo UI" FontWeight="Light" Text="please load a file..." Padding="5" Foreground="#FF949494" TextTrimming="CharacterEllipsis"/>
-			<Button x:Name="btnOpen" Content="OPEN" HorizontalAlignment="Right" Margin="0,141,53,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnOpen_Click"/>
+			<Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Right" Margin="0,141,53,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Click="btnOpen_Click" Width="59"/>
 			
 		</Grid>
 	</MahApps_Metro_Controls:MetroContentControl>

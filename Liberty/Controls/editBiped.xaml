@@ -39,7 +39,7 @@
             <Label Content="Know something we don't? Do you have a named ident that we don't?" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" Margin="11,0,182,150" Name="label1" VerticalAlignment="Bottom" />
             <Label x:Name="subHeading1_Copy" Content="extras;" Margin="231,192,201,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" />
             <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom" Checked="checkNoPhysics_Checked"/>
-            <Button x:Name="btnNameIdent" Content="YES" HorizontalAlignment="Left" Margin="410,164,0,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" Width="61" d:LayoutOverrides="Height" Click="btnNameIdent_Click"/>
+            <Button x:Name="btnNameIdent" Content="Yes" HorizontalAlignment="Left" Margin="410,164,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Width="61" d:LayoutOverrides="Height" Click="btnNameIdent_Click"/>
         </Grid>
 	</ControlsMetro:MetroContentControl>
 </UserControl>

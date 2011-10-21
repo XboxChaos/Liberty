@@ -35,8 +35,8 @@
 		<StackPanel x:Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
 			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
-		<Button x:Name="btnOK" Content="OK" Margin="526,387,0,0" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" HorizontalAlignment="Left" Click="btnOK_Click"/>
-		<Button x:Name="btnCancel" Content="CANCEL" HorizontalAlignment="Left" Margin="442,387,0,0" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnCancel_Click"/>
+		<Button x:Name="btnOK" Content="Okay" Margin="519,379,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnOK_Click" Width="55"/>
+		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="446,379,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnCancel_Click" Width="59"/>
 	</Grid>
 </ControlsMetro:MetroContentControl>
 </UserControl>

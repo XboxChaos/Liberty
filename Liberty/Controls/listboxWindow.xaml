@@ -71,8 +71,8 @@
 					<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="TITLE" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
                     <TextBlock Height="40" HorizontalAlignment="Left" Margin="42,57,0,0" x:Name="lblSubInfo" VerticalAlignment="Top" Width="349" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Text="Placeholder text" />
                     <ListBox x:Name="listObjects" Margin="42,101,18,51" SelectionChanged="listObjects_SelectionChanged" MouseDoubleClick="listObjects_MouseDoubleClick"/>
-                    <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,18,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click" IsEnabled="False"/>
-                    <Button x:Name="btnCancel" Content="CANCEL" Margin="0,0,103,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" HorizontalAlignment="Right" Click="btnCancel_Click"/>
+                    <Button x:Name="btnOK" Content="Okay" HorizontalAlignment="Right" Margin="0,0,18,17" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" IsEnabled="False" Width="50"/>
+                    <Button x:Name="btnCancel" Content="Cancel" Margin="0,0,81,17" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnCancel_Click"/>
                 </Grid>
             </Border>
         </Grid>
