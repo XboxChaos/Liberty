@@ -26,7 +26,7 @@
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Fine Tuning" Height="46" VerticalAlignment="Top" />
 			<Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Edit the data for individual objects in the save" Height="25.911" VerticalAlignment="Bottom" />
 			<Button x:Name="btnDelete" Content="DELETE" HorizontalAlignment="Left" Margin="0,310,0,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnDelete_Click"/>
-			<Button x:Name="btnReplace" Content="REPLACE" HorizontalAlignment="Left" Margin="75,310,0,8" Style="{DynamicResource SecondaryButton}" d:LayoutOverrides="Height" Click="btnReplace_Click"/>
+			<Button x:Name="btnReplace" Content="REPLACE" HorizontalAlignment="Left" Margin="96,310,0,8" Style="{DynamicResource SecondaryButton}" Click="btnReplace_Click"/>
 			<Button x:Name="btnMassMove" Content="MASS MOVE" HorizontalAlignment="Left" Margin="0,0,0,8" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Bottom" Width="92" d:LayoutOverrides="Height" Click="btnMassMove_Click"/>
 	        
 			<TreeView Name="tVObjects" HorizontalAlignment="Left" Margin="0,75,0,35" Width="194" SelectedItemChanged="tVObjects_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="10.667" MaxHeight="229" MinHeight="229" Height="229">
