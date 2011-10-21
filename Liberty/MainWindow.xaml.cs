@@ -555,6 +555,7 @@ namespace Liberty
             {
                 FormFadeOut.Begin();
                 classInfo.applicationExtra.disableInput(this);
+                return;
             }
 
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
