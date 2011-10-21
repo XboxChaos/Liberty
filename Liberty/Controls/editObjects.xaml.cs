@@ -259,7 +259,7 @@ namespace Liberty.Controls
 
         private void changePlugin(TabItem tab)
         {
-            if (tab != currentPlugin)
+            if (tab != currentPlugin || currentPlugin == null)
             {
                 currentPlugin = tab;
                 tabs.Items.Remove(tabBiped);
