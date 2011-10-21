@@ -29,15 +29,10 @@ namespace Liberty.Controls
         {
             InitializeComponent();
 
-            themePanel.Visibility = System.Windows.Visibility.Hidden;
+            themePanel.Visibility = Visibility.Hidden;
         }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            load();
-        }
-
-        public void load()
         {
             softCode.loadSettings();
             themeCode.loadSettings();
@@ -75,8 +70,8 @@ namespace Liberty.Controls
             }
 
             isApp = true;
-            softwarePanel.Visibility = System.Windows.Visibility.Visible;
-            themePanel.Visibility = System.Windows.Visibility.Hidden;
+            softwarePanel.Visibility = Visibility.Visible;
+            themePanel.Visibility = Visibility.Hidden;
         }
         #endregion
 
@@ -111,37 +106,13 @@ namespace Liberty.Controls
             }
 
             isApp = false;
-            themePanel.Visibility = System.Windows.Visibility.Visible;
-            softwarePanel.Visibility = System.Windows.Visibility.Hidden;
+            themePanel.Visibility = Visibility.Visible;
+            softwarePanel.Visibility = Visibility.Hidden;
         }
         #endregion
 
-        #region btnOKwpf
-        private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-        }
-
-        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-
             //Save Code
             softCode.saveSettings();
             themeCode.saveSettings();
@@ -149,38 +120,12 @@ namespace Liberty.Controls
             //Leave Code
             OnExecuteMethod();
         }
-        #endregion
 
-        #region btnBackwpf
-        private void btnBack_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnBack.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnBack.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnBack_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnBack.Source = new BitmapImage(source);
-        }
-
-        private void btnBack_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-            btnBack.Source = new BitmapImage(source);
-            
             //Close code
             OnExecuteMethod();
         }
-        #endregion
         #endregion
     }
 }

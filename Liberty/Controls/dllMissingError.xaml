@@ -51,13 +51,10 @@
 	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
-	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="DLLs Missing" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
+	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="DLLS MISSING" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
 	        		<TextBlock HorizontalAlignment="Left" Margin="42,61,0,0" x:Name="lblSubInfo" Width="347" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" Height="165" VerticalAlignment="Top" ><Run Text="One or more of the required DLL files is missing. Please verify that you completely extracted Liberty from its archive and that each of the following files is present:"/><LineBreak/><Run/><LineBreak/><Run Text="-X360.dll"/><LineBreak/><Run Text="-MahApps.Metro.dll"/><LineBreak/><Run Text="-MahApps.Metro.Controls.dll"/><LineBreak/><Run Text="-System.Windows.Interactivity.dll"/><LineBreak/><Run Text="-Microsoft.Expression.Drawing.dll"/></TextBlock>
-	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-					
-					
-	        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,18,17" d:LayoutOverrides="VerticalAlignment" />
-	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,37,17" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
+	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
+	        		<Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,18,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click"/>
 	        	</Grid>
 	        </Border>
 	    </Grid>

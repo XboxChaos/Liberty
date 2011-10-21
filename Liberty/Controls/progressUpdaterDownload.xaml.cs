@@ -40,6 +40,7 @@ namespace Liberty.Controls
         void wb_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             this.FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
 
         private void FormFadeOut_Completed(object sender, EventArgs e)

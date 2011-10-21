@@ -13,11 +13,12 @@ namespace Liberty.classInfo.storage.settings
         public static bool displaySplash;
         public static bool checkDLL;
         public static bool enableEasterEggs;
-        public static bool ausFileType;
+        public static bool noWarnings;
         public static int splashTimer;
 
         public static bool getLatestTagLst;
         public static bool storeTaglistNoMem;
+        public static bool lookUpObjectTypes;
         public static bool extTaglistFrmAsc;
         public static string extTaglistFromAscDirec;
     }

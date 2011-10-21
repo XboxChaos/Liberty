@@ -28,6 +28,10 @@ using System.Windows.Controls;
 using Liberty.classInfo.storage.settings;
 using Microsoft.Win32;
 using System.Windows;
+using System.Net;
+using System.Windows.Input;
+using System.Globalization;
+using System.Windows.Media;
 
 namespace Liberty.classInfo
 {
@@ -46,12 +50,13 @@ namespace Liberty.classInfo
             applicationSettings.displaySplash = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appDisSplash", 1));
             applicationSettings.checkDLL = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appMsgDll", 1));
             applicationSettings.enableEasterEggs = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appEstEgg", 0));
-            applicationSettings.ausFileType = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appAssFileType", 0));
+            applicationSettings.noWarnings = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appNoWarnings", 0));
             applicationSettings.splashTimer = (int)keyApp.GetValue("appSplashTime", 5);
 
             // Taglist
             applicationSettings.getLatestTagLst = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appDLTagLst", 1));
             applicationSettings.storeTaglistNoMem = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTgLstNoMem", 0));
+            applicationSettings.lookUpObjectTypes = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTgLstUseTypes", 0));
             applicationSettings.extTaglistFrmAsc = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTglstFromAsc", 0));
             applicationSettings.extTaglistFromAscDirec = (string)keyApp.GetValue("appTglstFromAscDirec", "");
         }
@@ -60,6 +65,7 @@ namespace Liberty.classInfo
         {
             try
             {
+                Dns.GetHostEntry("xboxchaos.com");
                 System.Net.WebClient wb = new System.Net.WebClient();
                 return wb.DownloadString("http://xboxchaos.com/reach/liberty/taglist.ini");
             } catch { return Properties.Resources.taglist; }
@@ -91,20 +97,6 @@ namespace Liberty.classInfo
             }
         }
 
-        public static string getTempSaveExtraction(FATX.File x)
-        {
-            Random ran = new Random();
-            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\reachSaveBackup\\" + ran.Next(0, 1000) + "\\";
-            Directory.CreateDirectory(temp);
-            temp = temp + x.Name;
-            bool cancel = false;
-            x.Extract(temp, ref cancel);
-
-            stfsCheck.checkSTFSPackage(temp);
-
-            return temp;
-        }
-
         public static int settingsConvertBoolToInt(CheckBox cb)
         {
             if ((bool)cb.IsChecked)
@@ -119,6 +111,25 @@ namespace Liberty.classInfo
                 return true;
             else
                 return false;
+        }
+
+        public static void disableInput(Window window)
+        {
+            window.IsHitTestVisible = false;
+            window.Focusable = false;
+            window.PreviewKeyDown += disableInput_PreviewKeyDown;
+        }
+
+        private static void disableInput_PreviewKeyDown(object sender, KeyboardEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        public static void fitTextBlock(TextBlock textBlock)
+        {
+            Typeface fontFace = new Typeface(textBlock.FontFamily, textBlock.FontStyle, textBlock.FontWeight, textBlock.FontStretch);
+            FormattedText text = new FormattedText(textBlock.Text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, fontFace, textBlock.FontSize, textBlock.Foreground);
+            textBlock.Width = text.Width;
         }
     }
 }

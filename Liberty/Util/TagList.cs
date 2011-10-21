@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace Liberty.Util
 {
-    enum TagListMode
+    public enum TagListMode
     {
         Liberty,
         Ascension
@@ -16,7 +16,7 @@ namespace Liberty.Util
     /// <summary>
     /// Provides methods for reading INI-style taglists.
     /// </summary>
-    class TagList
+    public class TagList
     {
         /// <summary>
         /// Loads a taglist from a file.

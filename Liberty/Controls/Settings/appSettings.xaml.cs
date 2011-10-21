@@ -21,14 +21,22 @@ namespace Liberty.Controls.Settings
     /// </summary>
     public partial class appSettings : UserControl
     {
+        private MainWindow mainWindow = null;
         BrushConverter bc = new BrushConverter();
 
         public appSettings()
         {
             InitializeComponent();
 
+            this.Loaded += new RoutedEventHandler(appSettings_Loaded);
+
             hideAllTris();
             btnUpdateSettings_MouseDown(null, null);
+        }
+
+        void appSettings_Loaded(object sender, RoutedEventArgs e)
+        {
+            mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
         public void loadSettings()
@@ -42,14 +50,15 @@ namespace Liberty.Controls.Settings
 
             // Application
             LNSdisplaySplash.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDisSplash", 1));
-            LNScheckDLL.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appMsgDll", 1));
+            //LNScheckDLL.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appMsgDll", 1));
             LNSenableEggs.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appEstEgg", 1));
-            LNSausFileType.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appAssFileType", 0));
+            LNSnoWarnings.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appNoWarnings", 0));
             LNSsplashTime.Value = (int)key.GetValue("appSplashTime", 5);
 
             // Taglist
             TLTdlLatestTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDLTagLst", 1));
             TLTtaglstNoMem.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstNoMem", 0));
+            TLTtaglstUseTypes.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstUseTypes", 0));
             TLTExtAscTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTglstFromAsc", 0));
             TLTAsvTagLstDirec.Text = (string)key.GetValue("appTglstFromAscDirec", "");
 
@@ -59,6 +68,7 @@ namespace Liberty.Controls.Settings
             btnFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
             lblFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
         }
+
         public void saveSettings()
         {
             // Save to RegTable
@@ -70,19 +80,24 @@ namespace Liberty.Controls.Settings
 
             // Application
             key.SetValue("appDisSplash", applicationExtra.settingsConvertBoolToInt(LNSdisplaySplash));
-            key.SetValue("appMsgDll", applicationExtra.settingsConvertBoolToInt(LNScheckDLL));
+            //key.SetValue("appMsgDll", applicationExtra.settingsConvertBoolToInt(LNScheckDLL));
             key.SetValue("appEstEgg", applicationExtra.settingsConvertBoolToInt(LNSenableEggs));
-            key.SetValue("appAssFileType", applicationExtra.settingsConvertBoolToInt(LNSausFileType));
+            key.SetValue("appNoWarnings", applicationExtra.settingsConvertBoolToInt(LNSnoWarnings));
             key.SetValue("appSplashTime", (int)LNSsplashTime.Value, RegistryValueKind.DWord);
 
             // Taglist
             key.SetValue("appDLTagLst", applicationExtra.settingsConvertBoolToInt(TLTdlLatestTaglst));
             key.SetValue("appTgLstNoMem", applicationExtra.settingsConvertBoolToInt(TLTtaglstNoMem));
+            key.SetValue("appTgLstUseTypes", applicationExtra.settingsConvertBoolToInt(TLTtaglstUseTypes));
             key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
             key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
 
             if (classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec != TLTAsvTagLstDirec.Text)
-                nameLookup.loadAscensionTaglist();
+                mainWindow.loadTaglists();
+
+            classInfo.storage.settings.applicationSettings.enableEasterEggs = (bool)LNSenableEggs.IsChecked;
+            classInfo.storage.settings.applicationSettings.noWarnings = (bool)LNSnoWarnings.IsChecked;
+            classInfo.storage.settings.applicationSettings.lookUpObjectTypes = (bool)TLTtaglstUseTypes.IsChecked;
         }
 
         #region uncleanWPFshit
@@ -101,8 +116,8 @@ namespace Liberty.Controls.Settings
         {
             hideAllTris();
             hideAllForms();
-            triUpd.Visibility = System.Windows.Visibility.Visible;
-            updateSettings.Visibility = System.Windows.Visibility.Visible;
+            triUpd.Visibility = Visibility.Visible;
+            updateSettings.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -121,8 +136,8 @@ namespace Liberty.Controls.Settings
         {
             hideAllTris();
             hideAllForms();
-            triLaunch.Visibility = System.Windows.Visibility.Visible;
-            launchSettings.Visibility = System.Windows.Visibility.Visible;
+            triLaunch.Visibility = Visibility.Visible;
+            launchSettings.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -141,8 +156,8 @@ namespace Liberty.Controls.Settings
         {
             hideAllTris();
             hideAllForms();
-            triTaglist.Visibility = System.Windows.Visibility.Visible;
-            taglistSettings.Visibility = System.Windows.Visibility.Visible;
+            triTaglist.Visibility = Visibility.Visible;
+            taglistSettings.Visibility = Visibility.Visible;
         }
         #endregion
 
@@ -198,15 +213,15 @@ namespace Liberty.Controls.Settings
 
         void hideAllForms()
         {
-            updateSettings.Visibility = System.Windows.Visibility.Hidden;
-            launchSettings.Visibility = System.Windows.Visibility.Hidden;
-            taglistSettings.Visibility = System.Windows.Visibility.Hidden;
+            updateSettings.Visibility = Visibility.Hidden;
+            launchSettings.Visibility = Visibility.Hidden;
+            taglistSettings.Visibility = Visibility.Hidden;
         }
         void hideAllTris()
         {
-            triLaunch.Visibility = System.Windows.Visibility.Hidden;
-            triTaglist.Visibility = System.Windows.Visibility.Hidden;
-            triUpd.Visibility = System.Windows.Visibility.Hidden;
+            triLaunch.Visibility = Visibility.Hidden;
+            triTaglist.Visibility = Visibility.Hidden;
+            triUpd.Visibility = Visibility.Hidden;
         }
         #endregion
 

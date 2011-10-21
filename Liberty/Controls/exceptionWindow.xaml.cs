@@ -17,80 +17,34 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class exceptionWindow : Window
 	{
-		public exceptionWindow()
+        private bool _exit = false;
+
+		public exceptionWindow(string message)
 		{
 			this.InitializeComponent();
-			
-			// Insert code required on object creation below this point.
+
+            lblException.Text = message;
 		}
 		
-		#region wpfBullshit
-        #region btnOKwpf
-        private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+		private void btnContinue_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-        }
-
-        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-
             FormFadeOut.Begin();
-        }
-        #endregion
-
-        #region btnUpdatewpf
-        private void btnUpdate_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnUpdate.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnUpdate.Source = new BitmapImage(source);
-            }
+            classInfo.applicationExtra.disableInput(this);
         }
 
-        private void btnUpdate_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btnExit_Click(object sender, RoutedEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnUpdate.Source = new BitmapImage(source);
-        }
-
-        private void btnUpdate_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnUpdate.Source = new BitmapImage(source);
-
+            _exit = true;
             FormFadeOut.Begin();
-
-            classInfo.applicationExtra.closeApplication();
+            classInfo.applicationExtra.disableInput(this);
         }
-        #endregion
 
         private void FormFadeOut_Completed(object sender, EventArgs e)
         {
+            if (_exit)
+                classInfo.applicationExtra.closeApplication();
+
             this.Close();
         }
-        #endregion
 	}
 }

@@ -21,31 +21,36 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class progressWindow : Window
 	{
-        System.Threading.Thread Worker;
-        static System.Windows.Threading.DispatcherTimer FrontEnd = new System.Windows.Threading.DispatcherTimer();
-        System.Threading.Thread TimerThread = new System.Threading.Thread(new System.Threading.ThreadStart(FrontEnd.Start));
+        System.Threading.Thread _worker;
+        static System.Windows.Threading.DispatcherTimer _timer = new System.Windows.Threading.DispatcherTimer();
+        System.Threading.Thread _timerThread = new System.Threading.Thread(new System.Threading.ThreadStart(_timer.Start));
 
-        int maxValue = 0;
-        int progressValue = 0;
+        int _maxValue = 0;
+        int _progressValue = 0;
 
-		public progressWindow()
+        selectDevice _deviceSelector;
+        selectSaveOnDevice _saveSelector;
+
+		public progressWindow(selectDevice deviceSelector, selectSaveOnDevice saveSelector)
 		{
 			this.InitializeComponent();
 
-            FrontEnd.Tick +=new EventHandler(FrontEnd_Tick);
-            FrontEnd.Interval = new TimeSpan(0, 0, 0, 0, 100);
+            _deviceSelector = deviceSelector;
+            _saveSelector = saveSelector;
+
+            _timer.Tick += new EventHandler(FrontEnd_Tick);
+            _timer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             System.Threading.ThreadStart ts = delegate { doOveride(); };
-            Worker = new System.Threading.Thread(ts);
-            Worker.Start();
+            _worker = new System.Threading.Thread(ts);
+            _worker.Start();
 		}
 
         bool cancel = false;
 
         public void doOveride()
         {
-            FrontEnd.Start();
-            fileInfoStorage.oldFileInFolder.OverWrite(fileInfoStorage.fileOriginalDirectory, ref progressValue, ref maxValue, ref cancel);
-            fileInfoStorage.xChosenDrive.Close();
+            _timer.Start();
+            _saveSelector.SelectedFile.OverWrite(_saveSelector.ExtractedFilePath, ref _progressValue, ref _maxValue, ref cancel);
         }
 
         void FrontEnd_Tick(object sender, EventArgs e)
@@ -53,16 +58,17 @@ namespace Liberty.Controls
             try
             {
                 // Set the maximium
-                ProgressBarMax((int)maxValue);
+                ProgressBarMax((int)_maxValue);
                 // Set the current value
-                ProgressBarValue((int)progressValue);
+                ProgressBarValue((int)_progressValue);
             }
             catch { }
 
-            if (maxValue == progressValue)
+            if (_maxValue == _progressValue)
             {
-                FrontEnd.Stop();
+                _timer.Stop();
                 this.FormFadeOut.Begin();
+                classInfo.applicationExtra.disableInput(this);
             }
         }
 
@@ -87,7 +93,7 @@ namespace Liberty.Controls
 
         private void progBox_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (maxValue != progressValue)
+            if (_maxValue != _progressValue)
                 e.Cancel = true;
         }
 	}

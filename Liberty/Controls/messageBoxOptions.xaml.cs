@@ -17,75 +17,33 @@ namespace Liberty.Controls
     /// </summary>
     public partial class messageBoxOptions : Window
     {
-        public string msgTitle;
-        public string msgContent;
+        private bool _result = false;
 
-        public messageBoxOptions()
+        public messageBoxOptions(string message, string title)
         {
             this.InitializeComponent();
 
-            //lblTitle.Text = lblTitle.Text.ToUpper();
-            //lblSubInfo.Text = lblSubInfo.Text.ToUpper();
+            lblSubInfo.Text = message;
+            lblTitle.Text = title.ToUpper();
         }
 
-        private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        public bool result
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
+            get { return _result; }
         }
 
-        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-        }
-
-        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-
-            classInfo.storage.fileInfoStorage.messageOpt = true;
-
+            _result = true;
             FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
 
-        private void btnCan_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnCan.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnCan.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnCan_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnCan.Source = new BitmapImage(source);
-        }
-
-        private void btnCan_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnCan.Source = new BitmapImage(source);
-
-            classInfo.storage.fileInfoStorage.messageOpt = false;
-
+            _result = false;
             FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
 
         private void FormFadeOut_Completed(object sender, EventArgs e)

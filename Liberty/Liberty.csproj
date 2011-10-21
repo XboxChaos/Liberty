@@ -52,6 +52,30 @@
   <PropertyGroup>
     <StartupObject>Liberty.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro">
       <HintPath>.\MahApps.Metro.dll</HintPath>
@@ -89,7 +113,6 @@
     </ApplicationDefinition>
     <Compile Include="classInfo\applicationExtra.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
-    <Compile Include="classInfo\savePackageData.cs" />
     <Compile Include="classInfo\SkinningEngine\IO\PathData.cs" />
     <Compile Include="classInfo\SkinningEngine\loadSettings.cs" />
     <Compile Include="classInfo\SkinningEngine\RuntimeStorage.cs" />
@@ -102,6 +125,17 @@
     <Compile Include="Controls\exceptionWindow.xaml.cs">
       <DependentUpon>exceptionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\openSaveFile.xaml.cs">
+      <DependentUpon>openSaveFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reach\ObjectEntry.cs" />
+    <Compile Include="StepUI\BranchStepGraphBuilder.cs" />
+    <Compile Include="StepUI\BranchStepNode.cs" />
+    <Compile Include="StepUI\IWorkStep.cs" />
+    <Compile Include="StepUI\ProgressSetupStep.cs" />
+    <Compile Include="StepUI\IBranchStep.cs" />
+    <Compile Include="StepUI\IStep.cs" />
+    <Compile Include="StepUI\IStepNode.cs" />
     <Compile Include="Controls\leavingLiberty.xaml.cs">
       <DependentUpon>leavingLiberty.xaml</DependentUpon>
     </Compile>
@@ -121,6 +155,9 @@
     <Compile Include="Controls\progressWindow.xaml.cs">
       <DependentUpon>progressWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\resignSave.xaml.cs">
+      <DependentUpon>resignSave.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\settingsMain.xaml.cs">
       <DependentUpon>settingsMain.xaml</DependentUpon>
     </Compile>
@@ -130,15 +167,19 @@
     <Compile Include="Controls\Settings\themeSettings.xaml.cs">
       <DependentUpon>themeSettings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step0_1.xaml.cs">
-      <DependentUpon>step0_1.xaml</DependentUpon>
+    <Compile Include="Controls\selectDevice.xaml.cs">
+      <DependentUpon>selectDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step0_2.xaml.cs">
-      <DependentUpon>step0_2.xaml</DependentUpon>
+    <Compile Include="Controls\selectSaveOnDevice.xaml.cs">
+      <DependentUpon>selectSaveOnDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step4.0.xaml.cs">
-      <DependentUpon>step4.0.xaml</DependentUpon>
+    <Compile Include="Controls\quickTweaks.xaml.cs">
+      <DependentUpon>quickTweaks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StepUI\IStepProgressBar.cs" />
+    <Compile Include="StepUI\ProgressLinkedStep.cs" />
+    <Compile Include="StepUI\StepGraphBuilder.cs" />
+    <Compile Include="StepUI\SimpleStepNode.cs" />
     <Compile Include="eggData\egg1Data.cs" />
     <Compile Include="FATX\EntryTypes.cs" />
     <Compile Include="FATX\Extensions.cs" />
@@ -156,14 +197,28 @@
     <Compile Include="FATX\Write.cs" />
     <Compile Include="IO\SaveReader.cs" />
     <Compile Include="IO\SaveWriter.cs" />
-    <Compile Include="Save Management\CampaignSave.cs" />
-    <Compile Include="Save Management\CampaignSaveChunk.cs" />
-    <Compile Include="Save Management\CampaignSaveObject.cs" />
-    <Compile Include="Save Management\CampaignSavePlayer.cs" />
+    <Compile Include="MathUtil\Convert.cs" />
+    <Compile Include="MathUtil\Vector3.cs" />
+    <Compile Include="Reach\BipedObject.cs" />
+    <Compile Include="Reach\CampaignSave.cs" />
+    <Compile Include="Reach\Chunk.cs" />
+    <Compile Include="Reach\EquipmentObject.cs" />
+    <Compile Include="Reach\HlmtObject.cs" />
+    <Compile Include="Reach\ModelNode.cs" />
+    <Compile Include="Reach\GameObject.cs" />
+    <Compile Include="Reach\GamePlayer.cs" />
+    <Compile Include="Reach\VehicleObject.cs" />
+    <Compile Include="Reach\WeaponObject.cs" />
+    <Compile Include="Reach\WeaponUser.cs" />
     <Compile Include="Security\SaveSHA1.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StepUI\ProgressBarGroup.cs" />
+    <Compile Include="StepUI\StepViewer.cs" />
+    <Compile Include="StepUI\TransferSaveStep.cs" />
+    <Compile Include="StepUI\WorkStepProgressUpdater.cs" />
+    <Compile Include="Util\SaveEditor.cs" />
     <Compile Include="Util\TagList.cs" />
     <Page Include="Controls\aboutBox.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +252,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\openSaveFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\progressStepBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -206,6 +265,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\progressWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\resignSave.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -221,39 +284,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\step0.xaml">
+    <Page Include="Controls\selectMode.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step0_1.xaml">
+    <Page Include="Controls\selectDevice.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step0_2.xaml">
+    <Page Include="Controls\selectSaveOnDevice.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step1.xaml">
+    <Page Include="Controls\verifyFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step2.xaml">
+    <Page Include="Controls\editBiped.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step3.xaml">
+    <Page Include="Controls\editWeapons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step4.0.xaml">
+    <Page Include="Controls\quickTweaks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step4.xaml">
+    <Page Include="Controls\editObjects.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\step5.xaml">
+    <Page Include="Controls\allDone.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -277,8 +340,6 @@
     <Compile Include="classInfo\extraIO.cs" />
     <Compile Include="classInfo\iniClass.cs" />
     <Compile Include="classInfo\loadPackageData.cs" />
-    <Compile Include="classInfo\stfsCheck.cs" />
-    <Compile Include="classInfo\storage\fileInfoStorage.cs" />
     <Compile Include="classInfo\updating.cs" />
     <Compile Include="Controls\aboutBox.xaml.cs">
       <DependentUpon>aboutBox.xaml</DependentUpon>
@@ -289,23 +350,23 @@
     <Compile Include="Controls\progressStepBar.xaml.cs">
       <DependentUpon>progressStepBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step0.xaml.cs">
-      <DependentUpon>step0.xaml</DependentUpon>
+    <Compile Include="Controls\selectMode.xaml.cs">
+      <DependentUpon>selectMode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step1.xaml.cs">
-      <DependentUpon>step1.xaml</DependentUpon>
+    <Compile Include="Controls\verifyFile.xaml.cs">
+      <DependentUpon>verifyFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step2.xaml.cs">
-      <DependentUpon>step2.xaml</DependentUpon>
+    <Compile Include="Controls\editBiped.xaml.cs">
+      <DependentUpon>editBiped.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step3.xaml.cs">
-      <DependentUpon>step3.xaml</DependentUpon>
+    <Compile Include="Controls\editWeapons.xaml.cs">
+      <DependentUpon>editWeapons.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step4.xaml.cs">
-      <DependentUpon>step4.xaml</DependentUpon>
+    <Compile Include="Controls\editObjects.xaml.cs">
+      <DependentUpon>editObjects.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\step5.xaml.cs">
-      <DependentUpon>step5.xaml</DependentUpon>
+    <Compile Include="Controls\allDone.xaml.cs">
+      <DependentUpon>allDone.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\updater.xaml.cs">
       <DependentUpon>updater.xaml</DependentUpon>

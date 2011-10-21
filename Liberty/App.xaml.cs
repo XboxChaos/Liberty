@@ -23,6 +23,7 @@ namespace Liberty
         public string descData = "";
         public int svrBuild = 0;
         public int pcBuild = 0;
+        public Util.TagList tagList = null;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -37,7 +38,7 @@ namespace Liberty
 
             classInfo.applicationExtra.loadApplicationSettings();
 
-            if (applicationSettings.checkDLL && (!File.Exists("X360.dll") || !File.Exists("MahApps.Metro.dll") || !File.Exists("MahApps.Metro.Controls.dll") || !File.Exists("System.Windows.Interactivity.dll") || !File.Exists("Microsoft.Expression.Drawing.dll")))
+            if (!File.Exists("X360.dll") || !File.Exists("MahApps.Metro.dll") || !File.Exists("MahApps.Metro.Controls.dll") || !File.Exists("System.Windows.Interactivity.dll") || !File.Exists("Microsoft.Expression.Drawing.dll"))
             {
                 Controls.dllMissingError dllMissing = new Controls.dllMissingError();
                 dllMissing.ShowDialog();
@@ -97,9 +98,12 @@ namespace Liberty
                 catch (SocketException)
                 {
                 }
+                catch (WebException)
+                {
+                }
             }
 
-            classInfo.nameLookup.loadTaglist();
+            tagList = classInfo.nameLookup.loadTaglist();
         }
     }
 }

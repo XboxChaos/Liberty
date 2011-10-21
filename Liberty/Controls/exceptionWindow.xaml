@@ -64,20 +64,15 @@
 	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
+	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
+					
 	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="EXCEPTION (EX)" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
 	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" x:Name="textBlock2" Text="Details on the Exception are below;" VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
 					
-					<TextBox Name="lblException" Text="" IsReadOnly="True" Background="{x:Null}" Margin="47,81,25,75" BorderThickness="0" FontSize="13" Foreground="#FF373A3D" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" />
-					
-	        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,27" />
-	        		<TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,29,27" x:Name="lblOK" Text="CONTINUE" VerticalAlignment="Bottom" Width="62" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
-	        		
-					<Image Name="btnUpdate" Height="21" Stretch="Fill" VerticalAlignment="Bottom" Source="/Liberty;component/Images/SecondaryButton.png" Margin="0,0,110,27" HorizontalAlignment="Right" Width="71" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
-					<TextBlock Height="19" Margin="0,0,127,27" Name="lblUpdate" Text="EXIT" VerticalAlignment="Bottom" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" FontWeight="Bold" HorizontalAlignment="Right" Width="31" IsMouseDirectlyOverChanged="btnUpdate_IsMouseDirectlyOverChanged" MouseDown="btnUpdate_MouseDown" MouseUp="btnUpdate_MouseUp" />
-					
-					
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,200,0,0" x:Name="textBlock2_Copy" Text="If you continue, your save might become corrupt." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
+					<TextBox x:Name="lblException" Text="" IsReadOnly="True" Background="{x:Null}" Margin="47,81,25,75" BorderThickness="0" FontSize="13" Foreground="#FF373A3D" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" TextWrapping="Wrap" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,200,0,0" Text="If you continue, your save might become corrupt." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
+					<Button x:Name="btnContinue" Content="CONTINUE" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnContinue_Click"/>
+					<Button x:Name="btnExit" Content="EXIT" Margin="0,0,110,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" HorizontalAlignment="Right" Click="btnExit_Click"/>
 					
 				</Grid>
 	        </Border>

@@ -65,16 +65,13 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     
+					<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
+
+
 					<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="TITLE" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
                     <TextBlock Height="80" HorizontalAlignment="Left" Margin="42,57,0,0" x:Name="lblSubInfo" VerticalAlignment="Top" Width="349" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" ><Run Text="Example message, this "/><Run Language="en-gb" Text="is"/><Run Text=" what the user will read when the message box is loaded."/></TextBlock>
-                    <Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-
-
-                    <Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,18,17" d:LayoutOverrides="VerticalAlignment" />
-                    <TextBlock Height="19" HorizontalAlignment="Right" Margin="0,0,36,17" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="26" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" />
-                    
-                    <Image Height="21" HorizontalAlignment="Right" Margin="0,0,103,17" x:Name="btnCan" Source="../Images/SecondaryButton.png" Stretch="Fill" VerticalAlignment="Bottom" Width="71" IsMouseDirectlyOverChanged="btnCan_IsMouseDirectlyOverChanged" MouseDown="btnCan_MouseDown" MouseUp="btnCan_MouseUp"/>
-                    <TextBlock FontFamily="Segoe WP Semibold" FontWeight="Bold" Foreground="#FF373A3D" Height="19" HorizontalAlignment="Right" Margin="0,0,115,17" x:Name="lblCan" Text="CANCEL" VerticalAlignment="Bottom" Width="46" IsMouseDirectlyOverChanged="btnCan_IsMouseDirectlyOverChanged" MouseDown="btnCan_MouseDown" MouseUp="btnCan_MouseUp"/>
+                    <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,18,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click"/>
+                    <Button x:Name="btnCancel" Content="CANCEL" HorizontalAlignment="Right" Margin="0,0,103,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnCancel_Click"/>
                 </Grid>
             </Border>
         </Grid>

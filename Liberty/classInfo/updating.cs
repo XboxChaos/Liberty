@@ -41,8 +41,6 @@ namespace Liberty.classInfo
             ini.IniWriteValue("AppInfo", "appName", "Liberty");
             ini.IniWriteValue("AppInfo", "appVer", Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""));
             ini.IniWriteValue("AppInfo", "appDir", Assembly.GetExecutingAssembly().Location);
-
-            classInfo.storage.fileInfoStorage.updStart = true;
         }
     }
 }

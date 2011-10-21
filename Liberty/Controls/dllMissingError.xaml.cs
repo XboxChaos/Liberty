@@ -22,32 +22,10 @@ namespace Liberty.Controls
 			this.InitializeComponent();
 		}
 		
-		private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+		private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-        }
-
-        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-
             FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
 		
 		private void FormFadeOut_Completed(object sender, EventArgs e)

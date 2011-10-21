@@ -29,14 +29,11 @@ namespace Liberty.classInfo
 {
     class extraIO
     {
-        public static string createNewBackup(FileEntry saveFile)
+        public static string makeTempSaveDir()
         {
             Random ran = new Random();
-            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\reachSaveBackup\\" + ran.Next(0, 1000) + "\\";
+            string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\reachSaveBackup\\" + ran.Next(0, 10000) + "\\";
             Directory.CreateDirectory(temp);
-            temp = temp + "reach.lib";
-            if (!saveFile.Extract(temp))
-                return null;
             return temp;
         }
 
