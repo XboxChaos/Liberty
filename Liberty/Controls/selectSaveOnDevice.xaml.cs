@@ -54,7 +54,7 @@ namespace Liberty.Controls
             set { SetValue(DriveProperty, value); }
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
 			_index = 0;
 			_fileInjectDirec = new Folder[200];
@@ -112,7 +112,7 @@ namespace Liberty.Controls
             cBSaves.SelectedIndex = 0;
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
             int i = cBSaves.SelectedIndex;
             int j = 0;
@@ -127,7 +127,7 @@ namespace Liberty.Controls
                     _extractPath = tempDir + x.Name;
                     x.Extract(_extractPath, ref cancel);
                     
-                    saveEditor.LoadSTFS(_extractPath, tempDir);
+                    saveManager.LoadSTFS(_extractPath, tempDir);
                     _selectedFile = x;
                 }
                 j++;

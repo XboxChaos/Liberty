@@ -38,11 +38,11 @@ namespace Liberty.Controls
             get { return _selectedBranch; }
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
             if ((bool)cBSaveOP.IsChecked)
                 _selectedBranch = EditingMode.EditSaveComputer;

@@ -49,14 +49,14 @@ namespace Liberty.StepUI
             _displayStep.Hide();
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
-            _displayStep.Load(saveEditor);
+            _displayStep.Load(saveManager);
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
-            return _displayStep.Save(saveEditor);
+            return _displayStep.Save(saveManager);
         }
 
         public IStepNode Next

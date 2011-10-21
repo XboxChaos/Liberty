@@ -69,7 +69,7 @@ namespace Liberty.Controls.Settings
             lblFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
         }
 
-        public void saveSettings()
+        public void saveSettings(Util.SaveManager saveManager)
         {
             // Save to RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings");
@@ -92,8 +92,8 @@ namespace Liberty.Controls.Settings
             key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
             key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
 
-            if (classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec != TLTAsvTagLstDirec.Text)
-                mainWindow.loadTaglists();
+            if (classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec != TLTAsvTagLstDirec.Text && saveManager != null)
+                classInfo.nameLookup.loadAscensionTaglist(saveManager);
 
             classInfo.storage.settings.applicationSettings.enableEasterEggs = (bool)LNSenableEggs.IsChecked;
             classInfo.storage.settings.applicationSettings.noWarnings = (bool)LNSnoWarnings.IsChecked;

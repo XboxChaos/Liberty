@@ -24,7 +24,7 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class editObjects : UserControl, StepUI.IStep
 	{
-        private Util.SaveEditor _saveEditor = null;
+        private Reach.CampaignSave _saveData = null;
         private int currentChunkIndex = -1;
         private string currentParentNodeTag = null;
         public TabItem currentPlugin = null;
@@ -51,9 +51,9 @@ namespace Liberty.Controls
             mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
-            _saveEditor = saveEditor;
+            _saveData = saveManager.SaveData;
 
             // Reset selected item
             currentChunkIndex = -1;
@@ -92,11 +92,11 @@ namespace Liberty.Controls
             addTagGroupItem("unknown", "Other");
 
             // Now add everything to the treeview
-            Reach.BipedObject playerBiped = _saveEditor.Biped;
+            Reach.BipedObject playerBiped = _saveData.Player.Biped;
             objectItems.Clear();
             int i = 0;
             bool guessName = classInfo.storage.settings.applicationSettings.lookUpObjectTypes;
-            foreach (Reach.GameObject obj in _saveEditor.Objects)
+            foreach (Reach.GameObject obj in _saveData.Objects)
             {
                 if (obj != null && !obj.Deleted)
                 {
@@ -105,7 +105,7 @@ namespace Liberty.Controls
                     TreeViewItem tvi = new TreeViewItem();
                     tvi.Name = "tVItem" + i.ToString();
 
-                    tvi.Header = "[" + i.ToString() + "] " + saveEditor.IdentifyObject(obj, guessName);
+                    tvi.Header = "[" + i.ToString() + "] " + saveManager.IdentifyObject(obj, guessName);
                     tvi.Tag = i;
 
                     if (objectsAreRelated(playerBiped, obj))
@@ -123,7 +123,7 @@ namespace Liberty.Controls
             }
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
             if (currentChunkIndex != -1)
                 saveValues();
@@ -161,7 +161,7 @@ namespace Liberty.Controls
 
         private void savePluginData()
         {
-            Reach.GameObject obj = _saveEditor.Objects[currentChunkIndex];
+            Reach.GameObject obj = _saveData.Objects[currentChunkIndex];
             switch (obj.TagGroup)
             {
                 case Reach.TagGroup.Bipd:
@@ -185,7 +185,7 @@ namespace Liberty.Controls
         private void saveValues()
         {
             //Save those sexy values
-            Reach.GameObject currentObject = _saveEditor.Objects[currentChunkIndex];
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
             if (textBoxChanged(txtObjectXCord)) currentObject.X = Convert.ToSingle(txtObjectXCord.Text);
             if (textBoxChanged(txtObjectYCord)) currentObject.Y = Convert.ToSingle(txtObjectYCord.Text);
             if (textBoxChanged(txtObjectZCord)) currentObject.Z = Convert.ToSingle(txtObjectZCord.Text);
@@ -303,7 +303,7 @@ namespace Liberty.Controls
                             tabs.Visibility = Visibility.Visible;
 
                             // Info values
-                            Reach.GameObject currentObject = _saveEditor.Objects[currentChunkIndex];
+                            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
                             lblMapIdent.Content = "0x" + currentObject.ID.ToString("X");
                             lblResourceIdent.Content = "0x" + currentObject.MapID.ToString("X");
                             lblFileOffset.Content = "0x" + currentObject.FileOffset.ToString("X");
@@ -469,7 +469,7 @@ namespace Liberty.Controls
                             }
 
                             // Delete button
-                            if (currentObject != _saveEditor.Biped)
+                            if (currentObject != _saveData.Player.Biped)
                                 btnDelete.Visibility = Visibility.Visible;
                             else
                                 btnDelete.Visibility = Visibility.Hidden;
@@ -492,7 +492,7 @@ namespace Liberty.Controls
         {
             Reach.TagGroup tagGroup = classInfo.loadPackageData.convertStringToClass(currentParentNodeTag);
             string tagGroupName = ((string)findTagGroupItem(tagGroup).Header).ToLower();
-            Controls.massObjectMove massCoord = new Controls.massObjectMove(_saveEditor, tagGroup, tagGroupName);
+            Controls.massObjectMove massCoord = new Controls.massObjectMove(_saveData, tagGroup, tagGroupName);
             massCoord.Owner = mainWindow;
             massCoord.ShowDialog();
 
@@ -554,7 +554,7 @@ namespace Liberty.Controls
             TreeViewItem parent = (TreeViewItem)tvi.Parent;
             int currentPos = parent.Items.IndexOf(tvi);
 
-            recursiveDelete(_saveEditor.Objects[currentChunkIndex]);
+            recursiveDelete(_saveData.Objects[currentChunkIndex]);
 
             // Select a nearby item
             if (currentPos == parent.Items.Count)
@@ -615,12 +615,11 @@ namespace Liberty.Controls
             if (selectedItem != null)
             {
                 TreeViewItem newItem = (TreeViewItem)selectedItem.Tag;
-                Reach.GameObject oldObj = _saveEditor.Objects[(int)tvi.Tag];
-                Reach.GameObject newObj = _saveEditor.Objects[(int)newItem.Tag];
-                if (oldObj == _saveEditor.Biped)
+                Reach.GameObject oldObj = _saveData.Objects[(int)tvi.Tag];
+                Reach.GameObject newObj = _saveData.Objects[(int)newItem.Tag];
+                if (oldObj == _saveData.Player.Biped)
                 {
-                    // Use Player.ChangeBiped instead
-                    _saveEditor.SwapBiped(newObj as Reach.BipedObject, true);
+                    _saveData.Player.ChangeBiped(newObj as Reach.BipedObject, true);
                 }
                 else
                 {
@@ -631,7 +630,7 @@ namespace Liberty.Controls
 
                 // Select the new item and bold it if necessary
                 newItem.IsSelected = true;
-                if (objectsAreRelated(newObj, _saveEditor.Biped))
+                if (objectsAreRelated(newObj, _saveData.Player.Biped))
                     newItem.FontWeight = FontWeights.Bold;
 
                 parent.Items.Remove(tvi);
@@ -647,14 +646,14 @@ namespace Liberty.Controls
 
         private void btnParent_Click(object sender, RoutedEventArgs e)
         {
-            Reach.GameObject currentObject = _saveEditor.Objects[currentChunkIndex];
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
             selectItem(objectItems[(int)(currentObject.Carrier.ID & 0xFFFF)]);
         }
         #endregion
 
         private void btnChildren_Click(object sender, RoutedEventArgs e)
         {
-            Reach.GameObject currentObject = _saveEditor.Objects[currentChunkIndex];
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
             Reach.GameObject obj = currentObject.FirstCarried;
 
             if (obj != null && obj.NextCarried == null)
@@ -699,7 +698,7 @@ namespace Liberty.Controls
 
             if (result == true)
             {
-                Reach.GameObject currentObject = _saveEditor.Objects[currentChunkIndex];
+                Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
 
                 // TODO: Wrap this in a class
                 try

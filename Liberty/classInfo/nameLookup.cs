@@ -21,15 +21,18 @@ namespace Liberty.classInfo
             }
         }
 
-        public static string loadAscensionTaglist(Util.SaveEditor saveEditor)
+        public static string loadAscensionTaglist(Util.SaveManager saveManager)
         {
             try
             {
                 if (applicationSettings.extTaglistFrmAsc && !string.IsNullOrWhiteSpace(applicationSettings.extTaglistFromAscDirec))
                 {
-                    string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + saveEditor.MapName + ".taglist";
+                    string mapName = saveManager.SaveData.Map;
+                    mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
+                    string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + mapName + ".taglist";
+                    saveManager.RemoveMapSpecificTaglists();
                     if (File.Exists(fileName))
-                        saveEditor.AddTaglist(Util.TagList.FromFile(fileName, Util.TagListMode.Ascension));
+                        saveManager.AddMapSpecificTaglist(Util.TagList.FromFile(fileName, Util.TagListMode.Ascension));
                 }
 
                 return null;
@@ -38,11 +41,6 @@ namespace Liberty.classInfo
             {
                 return exception.ToString();
             }
-        }
-
-        private static bool objectGuessMakesSense(string name, Reach.GameObject obj)
-        {
-            return true;
         }
     }
 }

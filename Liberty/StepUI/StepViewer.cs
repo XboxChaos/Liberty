@@ -30,33 +30,33 @@ namespace Liberty.StepUI
             get { return (_currentNode != null && _currentNode.Next != null); }
         }
 
-        public void ViewNode(IStepNode node, Util.SaveEditor saveEditor)
+        public void ViewNode(IStepNode node, Util.SaveManager saveManager)
         {
             if (_currentNode != null)
                 _currentNode.Hide();
             _currentNode = node;
-            node.Load(saveEditor);
+            node.Load(saveManager);
             node.Show();
         }
 
-        public bool Forward(Util.SaveEditor saveEditor)
+        public bool Forward(Util.SaveManager saveManager)
         {
             if (_currentNode == null)
                 return false;
-            if (!_currentNode.Save(saveEditor))
+            if (!_currentNode.Save(saveManager))
                 return true;
 
             IStepNode nextNode = _currentNode.Next;
             if (nextNode == null)
                 return false;
-            nextNode.Load(saveEditor);
+            nextNode.Load(saveManager);
             _currentNode.Hide();
             _currentNode = nextNode;
             nextNode.Show();
             return true;
         }
 
-        public bool Back(Util.SaveEditor saveEditor)
+        public bool Back(Util.SaveManager saveManager)
         {
             if (_currentNode == null)
                 return false;
@@ -66,7 +66,7 @@ namespace Liberty.StepUI
                 return false;
             _currentNode.Hide();
             _currentNode = previousNode;
-            _currentNode.Load(saveEditor);
+            _currentNode.Load(saveManager);
             _currentNode.Show();
             return true;
         }

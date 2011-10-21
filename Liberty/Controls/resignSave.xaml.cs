@@ -20,7 +20,7 @@ namespace Liberty
 	public partial class resignSave : UserControl, StepUI.IStep
 	{
         private MainWindow _mainWindow = null;
-        private Util.SaveEditor _saveEditor;
+        private Util.SaveManager _saveManager;
 
 		public resignSave()
 		{
@@ -34,12 +34,12 @@ namespace Liberty
             _mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
-            _saveEditor = saveEditor;
+            _saveManager = saveManager;
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
             return true;
         }
@@ -69,7 +69,7 @@ namespace Liberty
             {
                 try
                 {
-                    _saveEditor.LoadSTFS(ofd.FileName, classInfo.extraIO.makeTempSaveDir());
+                    _saveManager.LoadSTFS(ofd.FileName, classInfo.extraIO.makeTempSaveDir());
                     lblFileDirec.Content = ofd.FileName;
                 }
                 catch (Exception ex)
