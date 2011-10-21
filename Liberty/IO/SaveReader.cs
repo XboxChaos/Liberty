@@ -38,6 +38,8 @@ namespace Liberty.SaveIO
         public SaveReader(Stream stream)
         {
             _stream = stream;
+            _position = _stream.Position;
+            _length = _stream.Length;
         }
 
         /// <summary>
@@ -53,6 +55,7 @@ namespace Liberty.SaveIO
         /// </summary>
         public byte ReadByte()
         {
+            _position++;
             return (byte)_stream.ReadByte();
         }
 
@@ -61,19 +64,8 @@ namespace Liberty.SaveIO
         /// </summary>
         public sbyte ReadSByte()
         {
+            _position++;
             return (sbyte)_stream.ReadByte();
-        }
-
-        /// <summary>
-        /// Returns the next available byte in the underlying stream, or -1 if none
-        /// The position will be left unchanged.
-        /// </summary>
-        public int PeekChar()
-        {
-            long startPos = _stream.Position;
-            int result = _stream.ReadByte();
-            _stream.Position = startPos;
-            return result;
         }
 
         /// <summary>
@@ -81,6 +73,7 @@ namespace Liberty.SaveIO
         /// </summary>
         public ushort ReadUInt16()
         {
+            _position += 2;
             _stream.Read(_buffer, 0, 2);
             return (ushort)((_buffer[0] << 8) | _buffer[1]);
         }
@@ -90,6 +83,7 @@ namespace Liberty.SaveIO
         /// </summary>
         public short ReadInt16()
         {
+            _position += 2;
             _stream.Read(_buffer, 0, 2);
             return (short)((_buffer[0] << 8) | _buffer[1]);
         }
@@ -99,6 +93,7 @@ namespace Liberty.SaveIO
         /// </summary>
         public uint ReadUInt32()
         {
+            _position += 4;
             _stream.Read(_buffer, 0, 4);
             return (uint)((_buffer[0] << 24) | (_buffer[1] << 16) | (_buffer[2] << 8) | _buffer[3]);
         }
@@ -108,6 +103,7 @@ namespace Liberty.SaveIO
         /// </summary>
         public int ReadInt32()
         {
+            _position += 4;
             _stream.Read(_buffer, 0, 4);
             return (int)((_buffer[0] << 24) | (_buffer[1] << 16) | (_buffer[2] << 8) | _buffer[3]);
         }
@@ -144,7 +140,7 @@ namespace Liberty.SaveIO
         /// <returns>The float value that was read.</returns>
         public float ReadFloat()
         {
-            _stream.Read(_buffer, 0, 4);
+            _position += _stream.Read(_buffer, 0, 4);
             if (BitConverter.IsLittleEndian)
             {
                 // Is there a faster way to do this?
@@ -165,7 +161,24 @@ namespace Liberty.SaveIO
         /// <param name="origin">The origin to seek from.</param>
         public void Seek(long offset, SeekOrigin origin)
         {
-            _stream.Seek(offset, origin);
+            // Update the position cache
+            switch (origin)
+            {
+                case SeekOrigin.Begin:
+                    _position = offset;
+                    break;
+
+                case SeekOrigin.Current:
+                    _position += offset;
+                    break;
+
+                case SeekOrigin.End:
+                    _position = _length - offset;
+                    break;
+            }
+
+            // Just jump straight to the new position
+            _stream.Seek(_position, SeekOrigin.Begin);
         }
 
         /// <summary>
@@ -179,6 +192,7 @@ namespace Liberty.SaveIO
             while (true)
             {
                 ch = _stream.ReadByte();
+                _position++;
                 if (ch == 0 || ch == -1)
                     break;
                 result += (char)ch;
@@ -198,7 +212,7 @@ namespace Liberty.SaveIO
             string result;
             fixed (sbyte* str = chars)
             {
-                _stream.Read((byte[])(Array)chars, 0, (int)size);
+                _position += _stream.Read((byte[])(Array)chars, 0, (int)size);
                 result = new string(str);
             }
             return result;
@@ -215,6 +229,7 @@ namespace Liberty.SaveIO
             while (true)
             {
                 ch = (_stream.ReadByte() << 8) | _stream.ReadByte();
+                _position += 2;
                 if (ch == 0)
                 {
                     // TODO: check for -1
@@ -225,6 +240,11 @@ namespace Liberty.SaveIO
             return result;
         }
 
+        public void ReadBlock(byte[] output, int offset, int size)
+        {
+            _position += _stream.Read(output, offset, size);
+        }
+
         /// <summary>
         /// Returns whether or not we are at the end of the stream.
         /// </summary>
@@ -232,19 +252,35 @@ namespace Liberty.SaveIO
         {
             get
             {
-                return (_stream.Position == _stream.Length);
+                return (_position >= _length);
             }
         }
 
         /// <summary>
-        /// The stream that this SaveReader is based off of.
+        /// Returns the current position of the reader.
         /// </summary>
-        public Stream BaseStream
+        public long Position
         {
-            get { return _stream; }
+            get
+            {
+                return _position;
+            }
+        }
+
+        /// <summary>
+        /// Returns the total length of the stream.
+        /// </summary>
+        public long Length
+        {
+            get
+            {
+                return _length;
+            }
         }
 
         private Stream _stream = null;
         private byte[] _buffer = new byte[8];
+        private long _position = 0;
+        private long _length = 0;
     }
 }

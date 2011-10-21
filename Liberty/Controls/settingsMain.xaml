@@ -35,11 +35,8 @@
 		<StackPanel x:Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
 			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
-		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,13,1.19" />
-		<TextBlock Height="19" HorizontalAlignment="Left" Margin="526,0,0,1" x:Name="lblOK" Text="OK" VerticalAlignment="Bottom" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
-		
-		<Image x:Name="btnBack" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" Margin="0,0,97,1.19" />
-		<TextBlock Height="19" HorizontalAlignment="Left" Margin="442,0,0,1" x:Name="lblBack" Text="CANCEL" VerticalAlignment="Bottom" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnBack_IsMouseDirectlyOverChanged" MouseDown="btnBack_MouseDown" MouseUp="btnBack_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
+		<Button x:Name="btnOK" Content="OK" Margin="526,387,0,0" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" HorizontalAlignment="Left" Click="btnOK_Click"/>
+		<Button x:Name="btnCancel" Content="CANCEL" HorizontalAlignment="Left" Margin="442,387,0,0" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnCancel_Click"/>
 	</Grid>
 </ControlsMetro:MetroContentControl>
 </UserControl>

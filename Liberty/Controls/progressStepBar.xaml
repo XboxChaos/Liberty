@@ -19,8 +19,8 @@
 			        </ResourceDictionary>
 			    </UserControl.Resources>
     <Grid>
-        <Rectangle Name="progressBarSub" Margin="35,35,35,20" Fill="#FFD1D1D1" Stroke="#FFD1D1D1" />
-        <Rectangle Name="progressBar" Margin="34,34,524,19" Fill="#FF868686" Stroke="#FF868686"/>
+        <Rectangle Name="progressBarSub" Margin="35,35,0,20" Fill="#FFD1D1D1" Stroke="#FFD1D1D1" HorizontalAlignment="Left" Width="565" />
+        <Rectangle Name="progressBar" Margin="35,34,0,19" Fill="#FF868686" Stroke="#FF868686" HorizontalAlignment="Left" Width="77"/>
         <!--COLOR GUIDE;
         Selected Header;   #FF868686
         Unselected Header; #FFD4D2D2
@@ -38,12 +38,6 @@
         Step7: 136
         Step8: 35
         -->
-
-        <Label Content="PREPARATION" Height="22" HorizontalAlignment="Left" Margin="28,11,0,0" Name="lblProgress1" VerticalAlignment="Top" Width="69" FontWeight="SemiBold" FontSize="9" Foreground="#FF868686" />
-        <Label Content="CON SELECTION" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="22" HorizontalAlignment="Left" Margin="122,11,0,0" Name="lblProgress2" VerticalAlignment="Top" Width="82" />
-        <Label Content="CHARACTER DATA" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="21" Margin="236,11,263,0" Name="lblProgress3" VerticalAlignment="Top" />
-		<Label Content="WEAPON DATA" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="21" HorizontalAlignment="Right" Margin="0,11,182,0" Name="lblProgress4" VerticalAlignment="Top" Width="88" />
-		<Label Content="FINE TUNING" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="21" HorizontalAlignment="Right" Margin="0,11,99,0" Name="lblProgress5" VerticalAlignment="Top" Width="73" />
-        <Label Content="FINISHED" FontSize="9" FontWeight="SemiBold" Foreground="#FFD4D2D2" Height="28" HorizontalAlignment="Right" Margin="0,11,26,0" Name="lblProgress6" VerticalAlignment="Top" Width="53" />
+        <Grid x:Name="gridItems" Margin="35,11,0,26" HorizontalAlignment="Left" Width="565"/>
     </Grid>
 </UserControl>

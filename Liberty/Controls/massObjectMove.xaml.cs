@@ -17,12 +17,48 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class massObjectMove : Window
 	{
-		public massObjectMove()
+        private Util.SaveEditor _saveEditor = null;
+        private float _moveX = 0, _moveY = 0, _moveZ = 0;
+        private bool _result = false;
+        private Reach.TagGroup _tagGroup;
+
+		public massObjectMove(Util.SaveEditor saveEditor, Reach.TagGroup tagGroup, string tagGroupName)
 		{
 			this.InitializeComponent();
 
-            lblSubHeader1.Text = lblSubHeader1.Text.Replace("{0}", classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType));
+            _saveEditor = saveEditor;
+            _tagGroup = tagGroup;
+            lblSubHeader1.Text = lblSubHeader1.Text.Replace("{0}", tagGroupName);
+
+            if (classInfo.storage.settings.applicationSettings.noWarnings)
+            {
+                Thickness newMargin = coordBoxes.Margin;
+                newMargin.Top -= Math.Round(lblWarning.Height / 2);
+                coordBoxes.Margin = newMargin;
+
+                lblWarning.Visibility = Visibility.Hidden;
+            }
 		}
+
+        public float moveX
+        {
+            get { return _moveX; }
+        }
+
+        public float moveY
+        {
+            get { return _moveY; }
+        }
+
+        public float moveZ
+        {
+            get { return _moveZ; }
+        }
+
+        public bool result
+        {
+            get { return _result; }
+        }
 		
 		#region textValidation
         private void txtPlayerXCord_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -87,50 +123,26 @@ namespace Liberty.Controls
         #endregion
 		
 		#region wpfBullshit
-        #region btnOKwpf
-        private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-        }
-
-        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-
-            FormFadeOut.Begin();
-
             float _x = Convert.ToSingle(txtPlayerXCord.Text);
             float _y = Convert.ToSingle(txtPlayerYCord.Text);
             float _z = Convert.ToSingle(txtPlayerZCord.Text);
 
-            classInfo.storage.fileInfoStorage._massCordX = _x;
-            classInfo.storage.fileInfoStorage._massCordY = _y;
-            classInfo.storage.fileInfoStorage._massCordZ = _z;
+            _moveX = _x;
+            _moveY = _y;
+            _moveZ = _z;
 
-            int x = classInfo.storage.fileInfoStorage.saveData.Objects.Count;
+            int x = _saveEditor.Objects.Count;
             int[] objectNoNull = new int[x];
             int ___x = 0;
             int ____x = 0;
 
-            if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "bipd")
+            // Xerax: I don't understand the point of these if statements; they all look the same.
+            // -- AMD
+            /*if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "bipd")
             {
-                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                foreach (Reach.GameObject obj in _saveData.Objects)
                 {
                     Reach.BipedObject biped = obj as Reach.BipedObject;
                     if (biped != null && !biped.Deleted)
@@ -146,7 +158,7 @@ namespace Liberty.Controls
             }
             else if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "weap")
             {
-                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                foreach (Reach.GameObject obj in _saveData.Objects)
                 {
                     Reach.WeaponObject weap = obj as Reach.WeaponObject;
                     if (weap != null && !weap.Deleted)
@@ -162,7 +174,7 @@ namespace Liberty.Controls
             }
             else if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "vehi")
             {
-                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                foreach (Reach.GameObject obj in _saveData.Objects)
                 {
                     Reach.VehicleObject vehi = obj as Reach.VehicleObject;
                     if (vehi != null && !vehi.Deleted)
@@ -176,13 +188,13 @@ namespace Liberty.Controls
                     ____x++;
                 }
             }
-            else
+            else*/
             {
-                foreach (Reach.GameObject obj in classInfo.storage.fileInfoStorage.saveData.Objects)
+                foreach (Reach.GameObject obj in _saveEditor.Objects)
                 {
                     if (obj != null && !obj.Deleted)
                     {
-                        if (obj.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
+                        if (obj.TagGroup == _tagGroup)
                         {
                             objectNoNull[___x] = ____x;
                             ___x++;
@@ -204,9 +216,9 @@ namespace Liberty.Controls
                 {
                     for (int i = 0; i < __x; i++)
                     {
-                        classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].X = _x;
-                        classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].Y = _y;
-                        classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].Z = _z;
+                        _saveEditor.Objects[objectNoNull[__z]].X = _x;
+                        _saveEditor.Objects[objectNoNull[__z]].Y = _y;
+                        _saveEditor.Objects[objectNoNull[__z]].Z = _z;
                         _x = _x + (float)0.2;
                         _y = _y + (float)0.2;
                         _y++;
@@ -214,9 +226,9 @@ namespace Liberty.Controls
                         __z++;
                         for (int j = 0; j < (__x / 2); j++)
                         {
-                            classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].X = _x;
-                            classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].Y = _y;
-                            classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].Z = _z;
+                            _saveEditor.Objects[objectNoNull[__z]].X = _x;
+                            _saveEditor.Objects[objectNoNull[__z]].Y = _y;
+                            _saveEditor.Objects[objectNoNull[__z]].Z = _z;
                             _x = _x + (float)0.2;
                             _y = _y + (float)0.2;
 
@@ -231,50 +243,54 @@ namespace Liberty.Controls
                 int __z = 0;
                 for (int k = 0; k < ___x; k++)
                 {
-                    classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].X = _x;
-                    classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].Y = _y;
-                    classInfo.storage.fileInfoStorage.saveData.Objects[objectNoNull[__z]].Z = _z;
+                    _saveEditor.Objects[objectNoNull[__z]].X = _x;
+                    _saveEditor.Objects[objectNoNull[__z]].Y = _y;
+                    _saveEditor.Objects[objectNoNull[__z]].Z = _z;
                     __z++;
                     k++;
                 }
             }
-        }
-        #endregion
 
-        #region btnUpdatewpf
-        private void btnUpdate_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnUpdate.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnUpdate.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnUpdate_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnUpdate.Source = new BitmapImage(source);
-        }
-
-        private void btnUpdate_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnUpdate.Source = new BitmapImage(source);
-
+            _result = true;
             FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
-        #endregion
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            _result = false;
+            FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
+        }
 
         private void FormFadeOut_Completed(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #region textValidation
+        private void ValidateFloat(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox == null)
+                return;
+
+            if (textBox.Text != "")
+            {
+                float value;
+                if (!float.TryParse(textBox.Text, out value))
+                {
+                    int line = textBox.Text.Length - 1;
+                    textBox.Text = textBox.Text.Remove(line, 1);
+                    textBox.Select(line, 0);
+                }
+            }
+            else
+            {
+                textBox.Text = "0";
+            }
+        }
         #endregion
-	}
+        #endregion
+    }
 }

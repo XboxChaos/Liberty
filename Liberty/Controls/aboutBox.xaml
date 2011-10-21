@@ -5,7 +5,7 @@
 		xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
 		x:Class="Liberty.Controls.aboutBox"
 		x:Name="about"
-        Title="Liberty - About" Height="316" Width="470"
+        Title="Liberty - About" Height="335" Width="470"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True" Background="{x:Null}" ShowInTaskbar="False">
 	
 		<Window.Resources>
@@ -65,32 +65,30 @@
         			</LinearGradientBrush>
         		</Grid.Background>
         		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="LIBERTY {0}" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,55,0,0" x:Name="textBlock2" Text="Developers;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-				
-				
-        		<Image x:Name="btnOK" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Bottom" Width="71" Source="../Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" Margin="0,0,25,27" />
-        		<TextBlock Margin="378,0,44,27" x:Name="lblOK" Text="OK" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnOK_IsMouseDirectlyOverChanged" MouseDown="btnOK_MouseDown" MouseUp="btnOK_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" Height="19" VerticalAlignment="Bottom" />
+        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,55,0,0" Text="Developers;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
         		
 				
-				<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,78,0,0" x:Name="textBlock2_Copy" Text="AMD" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,97,0,0" x:Name="textBlock2_Copy1" Text="Xerax" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,116,0,0" x:Name="textBlock2_Copy2" Text="Thunder" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,135,0,0" x:Name="textBlock2_Copy3" Text="XenonDev" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="209,55,0,0" x:Name="textBlock2_Copy4" Text="Special Thanks To;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,131,0,0" x:Name="textBlock2_Copy5" Text="Bloodraptor" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,150,0,0" x:Name="textBlock2_Copy6" Text="DeadCanadian
+				<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,78,0,0" Text="AMD" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,97,0,0" Text="Xerax" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,116,0,0" Text="Thunder" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,135,0,0" Text="XenonDev" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="209,55,0,0" Text="Special Thanks To;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" Text="Whirligig" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,93,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" Text="FlamingRabbit" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,112,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" ><Run Language="en-gb" Text="clkxu5"/></TextBlock>
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,131,0,0" Text="ManBearPig06" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
+        		<TextBlock HorizontalAlignment="Left" Margin="245,150,0,142" Text="Bloodraptor" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,169,0,0" Text="DeadCanadian
                            " VerticalAlignment="Top" Width="188" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,169,0,0" x:Name="textBlock2_Copy7" Text="Ascension Developers" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,188,0,0" x:Name="textBlock2_Copy8" Text="Xbox Chaos Community" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,207,0,0" x:Name="textBlock2_Copy9" Text="TeamViewer" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,226,0,0" x:Name="textBlock2_Copy10" Text="Bungie" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,165,0,0" x:Name="textBlock2_Copy11" Text="Links;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,188,0,0" Text="Ascension Developers" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,207,0,0" Text="Xbox Chaos Community" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
+        		<TextBlock HorizontalAlignment="Left" Margin="245,226,0,0" Text="TeamViewer" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" Height="19" VerticalAlignment="Top" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,245,0,0" Text="Bungie" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,165,0,0" Text="Links;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,188,0,0" x:Name="lblXboxChaos" Text="Xbox Chaos" VerticalAlignment="Top" Width="71" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXboxChaos_MouseUp" Cursor="Hand" />
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,207,0,0" x:Name="lblXeraxic" Text="Xeraxic" VerticalAlignment="Top" Width="45" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXeraxic_MouseUp" Cursor="Hand" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,93,0,0" x:Name="textBlock2_Copy12" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" ><Run Language="en-gb" Text="clkxu5"/></TextBlock>
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,112,0,0" x:Name="textBlock2_Copy13" Text="ManBearPig06" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,74,0,0" x:Name="textBlock2_Copy14" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" Text="FlamingRabbit" />
+                <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click"/>
         	</Grid>
         </Border>
     </Grid>

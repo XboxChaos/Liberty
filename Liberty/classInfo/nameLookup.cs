@@ -9,51 +9,27 @@ namespace Liberty.classInfo
 {
     class nameLookup
     {
-        public static void loadTaglist()
+        public static Util.TagList loadTaglist()
         {
             if (applicationSettings.getLatestTagLst)
             {
-                if (applicationSettings.storeTaglistNoMem)
-                {
-                    string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
-                    Directory.CreateDirectory(temp);
-                    File.WriteAllText(temp + "taglst.tgl", applicationExtra.downloadTaglist());
-                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl", Util.TagListMode.Liberty);
-                }
-                else
-                {
-                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(applicationExtra.downloadTaglist());
-                }
+                return Util.TagList.FromString(applicationExtra.downloadTaglist());
             }
             else
             {
-                if (applicationSettings.storeTaglistNoMem)
-                {
-                    string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\taglist\\";
-                    Directory.CreateDirectory(temp);
-                    File.WriteAllText(temp + "taglst.tgl", Liberty.Properties.Resources.taglist);
-                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromFile(temp + "taglst.tgl", Util.TagListMode.Liberty);
-                }
-                else
-                {
-                    classInfo.storage.fileInfoStorage.tagList = Util.TagList.FromString(Liberty.Properties.Resources.taglist);
-                }
+                return Util.TagList.FromString(Liberty.Properties.Resources.taglist);
             }
         }
 
-        public static string loadAscensionTaglist()
+        public static string loadAscensionTaglist(Util.SaveEditor saveEditor)
         {
-            if (storage.fileInfoStorage.saveData == null)
-                return null;
-
             try
             {
                 if (applicationSettings.extTaglistFrmAsc && !string.IsNullOrWhiteSpace(applicationSettings.extTaglistFromAscDirec))
                 {
-                    string mapName = loadPackageData.getMapName(storage.fileInfoStorage.saveData.Map);
-                    string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + mapName + ".taglist";
+                    string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + saveEditor.MapName + ".taglist";
                     if (File.Exists(fileName))
-                        storage.fileInfoStorage.ascTagList = Util.TagList.FromFile(fileName, Util.TagListMode.Ascension);
+                        saveEditor.AddTaglist(Util.TagList.FromFile(fileName, Util.TagListMode.Ascension));
                 }
 
                 return null;
@@ -64,29 +40,9 @@ namespace Liberty.classInfo
             }
         }
 
-        public static string translate(uint ident)
+        private static bool objectGuessMakesSense(string name, Reach.GameObject obj)
         {
-            string mapName = loadPackageData.getMapName(storage.fileInfoStorage.saveData.Map);
-            if (storage.fileInfoStorage.tagList != null)
-            {
-                string name = storage.fileInfoStorage.tagList.Translate(mapName, ident);
-                if (name != null)
-                    return name;
-            }
-
-            if (storage.fileInfoStorage.ascTagList != null)
-            {
-                string name = storage.fileInfoStorage.ascTagList.Translate(mapName, ident);
-                if (name != null)
-                {
-                    if (name.StartsWith("objects\\"))
-                        return name.Substring(8);
-                    else
-                        return name;
-                }
-            }
-            
-            return "0x" + ident.ToString("X");
+            return true;
         }
     }
 }

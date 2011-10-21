@@ -60,19 +60,19 @@ namespace Liberty.Controls.Settings
         private void btnThemeSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
-            triThem.Visibility = System.Windows.Visibility.Visible;
-            themeSettingsPnl.Visibility = System.Windows.Visibility.Visible;
+            triThem.Visibility = Visibility.Visible;
+            themeSettingsPnl.Visibility = Visibility.Visible;
         }
         #endregion
         #endregion
 
         void hideAllForms()
         {
-            themeSettingsPnl.Visibility = System.Windows.Visibility.Hidden;
+            themeSettingsPnl.Visibility = Visibility.Hidden;
         }
         void hideAllTris()
         {
-            triThem.Visibility = System.Windows.Visibility.Hidden;
+            triThem.Visibility = Visibility.Hidden;
         }
     }
 }

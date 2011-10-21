@@ -17,75 +17,35 @@ namespace Liberty.Controls
     /// </summary>
     public partial class listboxWindow : Window
     {
-        public listboxWindow()
+        private ListBoxItem _selectedItem = null;
+
+        public listboxWindow(List<ListBoxItem> items)
         {
             this.InitializeComponent();
 
-            foreach (ListBoxItem item in classInfo.storage.fileInfoStorage.listboxItems)
+            foreach (ListBoxItem item in items)
                 listObjects.Items.Add(item);
-
-            btnOK.IsEnabled = false;
-            lblOK.IsEnabled = false;
         }
 
-        private void btnOK_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        public ListBoxItem selectedItem
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnOK.Source = new BitmapImage(source);
-            }
+            get { return _selectedItem; }
         }
 
-        private void btnOK_MouseDown(object sender, MouseButtonEventArgs e)
+        private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-        }
-
-        private void btnOK_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnOK.Source = new BitmapImage(source);
-
-            classInfo.storage.fileInfoStorage.selectedListboxItem = (ListBoxItem)listObjects.SelectedItem;
+            _selectedItem = (ListBoxItem)listObjects.SelectedItem;
 
             FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
 
-        private void btnCan_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnCan.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnCan.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnCan_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnCan.Source = new BitmapImage(source);
-        }
-
-        private void btnCan_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnCan.Source = new BitmapImage(source);
-
-            classInfo.storage.fileInfoStorage.selectedListboxItem = null;
+            _selectedItem = null;
 
             FormFadeOut.Begin();
+            classInfo.applicationExtra.disableInput(this);
         }
 
         private void FormFadeOut_Completed(object sender, EventArgs e)
@@ -96,15 +56,9 @@ namespace Liberty.Controls
         private void listObjects_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count >= 1)
-            {
                 btnOK.IsEnabled = true;
-                lblOK.IsEnabled = true;
-            }
             else
-            {
                 btnOK.IsEnabled = false;
-                lblOK.IsEnabled = false;
-            }
         }
 
         private void listObjects_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -114,8 +68,9 @@ namespace Liberty.Controls
             {
                 if (((ListBoxItem)listObjects.SelectedItem).IsMouseOver)
                 {
-                    classInfo.storage.fileInfoStorage.selectedListboxItem = (ListBoxItem)listObjects.SelectedItem;
+                    _selectedItem = (ListBoxItem)listObjects.SelectedItem;
                     FormFadeOut.Begin();
+                    classInfo.applicationExtra.disableInput(this);
                 }
             }
         }
