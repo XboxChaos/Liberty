@@ -23,29 +23,28 @@ namespace Liberty.Controls
 			this.InitializeComponent();
 		}
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
-            lblGamertag.Content = saveEditor.Gamertag;
-            lblServiceTag.Content = saveEditor.ServiceTag;
-            lblMapName.Text = saveEditor.MissionName + " (" + saveEditor.MapName + ")";
-            lblDifficulty.Content = saveEditor.Difficulty.ToString();
+            Reach.CampaignSave saveData = saveManager.SaveData;
+            lblGamertag.Content = saveData.Gamertag;
+            lblServiceTag.Content = saveData.ServiceTag;
+            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " (" + saveData.Map + ")";
+            lblDifficulty.Content = saveData.Difficulty.ToString();
 
             // Try to load the mission image
             try
             {
-                var source = new Uri(@"/Liberty;component/Images/mapImages/" + saveEditor.MapName + ".jpg", UriKind.Relative);
+                string mapName = saveData.Map;
+                mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
+                var source = new Uri(@"/Liberty;component/Images/mapImages/" + mapName + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
             }
             catch { }
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
-            // Load taglists
-            App app = (App)Application.Current;
-            saveEditor.UnloadTaglists();
-            saveEditor.AddTaglist(app.tagList);
-            classInfo.nameLookup.loadAscensionTaglist(saveEditor);
+            classInfo.nameLookup.loadAscensionTaglist(saveManager);
             return true;
         }
 

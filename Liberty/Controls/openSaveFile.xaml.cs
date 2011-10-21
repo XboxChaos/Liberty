@@ -20,7 +20,7 @@ namespace Liberty.Controls
 	public partial class openSaveFile : UserControl, StepUI.IStep
 	{
         private MainWindow _mainWindow = null;
-        private Util.SaveEditor _saveEditor = null;
+        private Util.SaveManager _saveManager = null;
         private bool _loaded;
 
 		public openSaveFile()
@@ -35,15 +35,15 @@ namespace Liberty.Controls
             _mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
-            _loaded = saveEditor.Loaded;
+            _loaded = saveManager.Loaded;
             if (!_loaded)
                 lblFileDirec.Text = "please load a file...";
-            _saveEditor = saveEditor;
+            _saveManager = saveManager;
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
             return _loaded;
         }
@@ -68,7 +68,7 @@ namespace Liberty.Controls
             {
                 try
                 {
-                    _saveEditor.LoadSTFS(ofd.FileName, classInfo.extraIO.makeTempSaveDir());
+                    _saveManager.LoadSTFS(ofd.FileName, classInfo.extraIO.makeTempSaveDir());
                     lblFileDirec.Text = ofd.FileName;
                     _loaded = true;
                 }

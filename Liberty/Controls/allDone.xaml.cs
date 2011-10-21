@@ -23,7 +23,7 @@ namespace Liberty.Controls
 			this.InitializeComponent();
 		}
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
             //if (classInfo.storage.fileInfoStorage.saveIsLocal)
             {
@@ -37,7 +37,7 @@ namespace Liberty.Controls
             }*/
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
             return true;
         }

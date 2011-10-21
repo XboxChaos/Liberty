@@ -17,16 +17,16 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class massObjectMove : Window
 	{
-        private Util.SaveEditor _saveEditor = null;
+        private Reach.CampaignSave _saveData = null;
         private float _moveX = 0, _moveY = 0, _moveZ = 0;
         private bool _result = false;
         private Reach.TagGroup _tagGroup;
 
-		public massObjectMove(Util.SaveEditor saveEditor, Reach.TagGroup tagGroup, string tagGroupName)
+		public massObjectMove(Reach.CampaignSave saveData, Reach.TagGroup tagGroup, string tagGroupName)
 		{
 			this.InitializeComponent();
 
-            _saveEditor = saveEditor;
+            _saveData = saveData;
             _tagGroup = tagGroup;
             lblSubHeader1.Text = lblSubHeader1.Text.Replace("{0}", tagGroupName);
 
@@ -133,7 +133,7 @@ namespace Liberty.Controls
             _moveY = _y;
             _moveZ = _z;
 
-            int x = _saveEditor.Objects.Count;
+            int x = _saveData.Objects.Count;
             int[] objectNoNull = new int[x];
             int ___x = 0;
             int ____x = 0;
@@ -190,7 +190,7 @@ namespace Liberty.Controls
             }
             else*/
             {
-                foreach (Reach.GameObject obj in _saveEditor.Objects)
+                foreach (Reach.GameObject obj in _saveData.Objects)
                 {
                     if (obj != null && !obj.Deleted)
                     {
@@ -216,9 +216,9 @@ namespace Liberty.Controls
                 {
                     for (int i = 0; i < __x; i++)
                     {
-                        _saveEditor.Objects[objectNoNull[__z]].X = _x;
-                        _saveEditor.Objects[objectNoNull[__z]].Y = _y;
-                        _saveEditor.Objects[objectNoNull[__z]].Z = _z;
+                        _saveData.Objects[objectNoNull[__z]].X = _x;
+                        _saveData.Objects[objectNoNull[__z]].Y = _y;
+                        _saveData.Objects[objectNoNull[__z]].Z = _z;
                         _x = _x + (float)0.2;
                         _y = _y + (float)0.2;
                         _y++;
@@ -226,9 +226,9 @@ namespace Liberty.Controls
                         __z++;
                         for (int j = 0; j < (__x / 2); j++)
                         {
-                            _saveEditor.Objects[objectNoNull[__z]].X = _x;
-                            _saveEditor.Objects[objectNoNull[__z]].Y = _y;
-                            _saveEditor.Objects[objectNoNull[__z]].Z = _z;
+                            _saveData.Objects[objectNoNull[__z]].X = _x;
+                            _saveData.Objects[objectNoNull[__z]].Y = _y;
+                            _saveData.Objects[objectNoNull[__z]].Z = _z;
                             _x = _x + (float)0.2;
                             _y = _y + (float)0.2;
 
@@ -243,9 +243,9 @@ namespace Liberty.Controls
                 int __z = 0;
                 for (int k = 0; k < ___x; k++)
                 {
-                    _saveEditor.Objects[objectNoNull[__z]].X = _x;
-                    _saveEditor.Objects[objectNoNull[__z]].Y = _y;
-                    _saveEditor.Objects[objectNoNull[__z]].Z = _z;
+                    _saveData.Objects[objectNoNull[__z]].X = _x;
+                    _saveData.Objects[objectNoNull[__z]].Y = _y;
+                    _saveData.Objects[objectNoNull[__z]].Z = _z;
                     __z++;
                     k++;
                 }

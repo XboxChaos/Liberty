@@ -221,7 +221,8 @@
     <Compile Include="StepUI\StepViewer.cs" />
     <Compile Include="StepUI\TransferSaveStep.cs" />
     <Compile Include="StepUI\WorkStepProgressUpdater.cs" />
-    <Compile Include="Util\SaveEditor.cs" />
+    <Compile Include="Util\EditorSupport.cs" />
+    <Compile Include="Util\SaveManager.cs" />
     <Compile Include="Util\TagList.cs" />
     <Page Include="Controls\aboutBox.xaml">
       <Generator>MSBuild:Compile</Generator>

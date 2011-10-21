@@ -24,9 +24,9 @@ namespace Liberty.Controls
 			this.InitializeComponent();
 		}
 		
-		public void Load(Util.SaveEditor saveEditor)
+		public void Load(Util.SaveManager saveManager)
 		{
-            string message = saveEditor.CheckpointText;
+            string message = saveManager.SaveData.Message;
             if (message == "Checkpoint... done")
             {
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -35,14 +35,13 @@ namespace Liberty.Controls
             txtStartingMsg.Text = message;
 		}
 		
-		public bool Save(Util.SaveEditor saveEditor)
+		public bool Save(Util.SaveManager saveManager)
 		{
             if ((bool)checkAllMaxAmmo.IsChecked)
-                saveEditor.AllWeaponsMaxAmmo();
+                Util.EditorSupport.AllWeaponsMaxAmmo(saveManager.SaveData);
+            saveManager.SaveData.Message = txtStartingMsg.Text;
 
-            saveEditor.CheckpointText = txtStartingMsg.Text;
-
-            saveEditor.SaveChanges(Properties.Resources.KV);
+            saveManager.SaveChanges(Properties.Resources.KV);
             return true;
 		}
 

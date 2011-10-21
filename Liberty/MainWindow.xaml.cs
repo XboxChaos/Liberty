@@ -30,7 +30,7 @@ namespace Liberty
     {
 		BrushConverter bc = new BrushConverter();
         //private int step = -1;
-        private Util.SaveEditor _saveEditor = new Util.SaveEditor();
+        private Util.SaveManager _saveManager = new Util.SaveManager();
         private StepViewer _stepViewer = null;
         private StepUI.IStepNode _firstStep;
 
@@ -39,6 +39,7 @@ namespace Liberty
             InitializeComponent();
 
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
+            settingsMain.SaveManager = _saveManager;
             settingsPanel.Visibility = Visibility.Hidden;
 
             // Set up the step viewer
@@ -80,7 +81,7 @@ namespace Liberty
             stepGraph.AddGroup("FINISHED");
 
             _firstStep = stepGraph.BuildGraph();
-            _stepViewer.ViewNode(_firstStep, _saveEditor);
+            _stepViewer.ViewNode(_firstStep, _saveManager);
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
 
             btnBetaPlayground.Visibility = System.Windows.Visibility.Hidden;
@@ -138,20 +139,6 @@ namespace Liberty
                 return true;
         }
 
-        public string loadTaglists()
-        {
-            if (_saveEditor != null && _saveEditor.Loaded)
-            {
-                _saveEditor.UnloadTaglists();
-                _saveEditor.AddTaglist(((App)Application.Current).tagList);
-                return classInfo.nameLookup.loadAscensionTaglist(_saveEditor);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         private void about()
         {
             recMask.Visibility = Visibility.Visible;
@@ -207,6 +194,8 @@ namespace Liberty
                 else
                     checkForUpdates();
             }
+
+            _saveManager.AddGenericTaglist(app.tagList);
         }
 
         protected void ParentWPF_CloseSettings(object sender, EventArgs e)
@@ -556,7 +545,7 @@ namespace Liberty
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            if (!_stepViewer.Forward(_saveEditor))
+            if (!_stepViewer.Forward(_saveManager))
             {
                 FormFadeOut.Begin();
                 classInfo.applicationExtra.disableInput(this);
@@ -569,7 +558,7 @@ namespace Liberty
                 btnBack.Content = "RESTART";
                 if (stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
                 {
-                    string argument = @"/select, " + _saveEditor.STFSPath;
+                    string argument = @"/select, " + _saveManager.STFSPath;
                     Process.Start("explorer.exe", argument);
                 }
             }
@@ -580,13 +569,13 @@ namespace Liberty
             if (!_stepViewer.CanGoForward)
             {
                 // Restart
-                _saveEditor = new Util.SaveEditor();
-                _stepViewer.ViewNode(_firstStep, _saveEditor);
+                _saveManager.Close();
+                _stepViewer.ViewNode(_firstStep, _saveManager);
                 btnBack.Content = "BACK";
             }
             else
             {
-                _stepViewer.Back(_saveEditor);
+                _stepViewer.Back(_saveManager);
             }
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
         }

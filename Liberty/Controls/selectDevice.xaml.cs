@@ -44,12 +44,12 @@ namespace Liberty.Controls
         public readonly DependencyProperty SelectedDeviceProperty =
             DependencyProperty.Register("SelectedDevice", typeof(FATX.FATXDrive), typeof(selectDevice));
 
-		public void Load(Util.SaveEditor saveEditor)
+		public void Load(Util.SaveManager saveManager)
 		{
             updateFATX();
 		}
 		
-		public bool Save(Util.SaveEditor saveEditor)
+		public bool Save(Util.SaveManager saveManager)
 		{
             if (cBStorageType.SelectedIndex == -1)
             {

@@ -23,49 +23,52 @@ namespace Liberty.Controls
             this.InitializeComponent();
         }
 
-        public void Load(Util.SaveEditor saveEditor)
+        public void Load(Util.SaveManager saveManager)
         {
-            if (saveEditor.PlayerHasPrimaryWeapon)
+            Reach.CampaignSave saveData = saveManager.SaveData;
+            if (saveData.Player.PrimaryWeapon != null)
             {
                 gridPrimary.Visibility = Visibility.Visible;
-                txtPrimaryAmmo.Text = saveEditor.PrimaryWeaponAmmo.ToString();
-                txtPrimaryClip.Text = saveEditor.PrimaryWeaponClip.ToString();
+                txtPrimaryAmmo.Text = saveData.Player.PrimaryWeapon.Ammo.ToString();
+                txtPrimaryClip.Text = saveData.Player.PrimaryWeapon.ClipAmmo.ToString();
             }
             else
             {
                 gridPrimary.Visibility = Visibility.Collapsed;
             }
 
-            if (saveEditor.PlayerHasSecondaryWeapon)
+            if (saveData.Player.SecondaryWeapon != null)
             {
                 gridSecondary.Visibility = Visibility.Visible;
-                txtSecondaryAmmo.Text = saveEditor.SecondaryWeaponAmmo.ToString();
-                txtSecondaryClip.Text = saveEditor.SecondaryWeaponClip.ToString();
+                txtSecondaryAmmo.Text = saveData.Player.SecondaryWeapon.Ammo.ToString();
+                txtSecondaryClip.Text = saveData.Player.SecondaryWeapon.ClipAmmo.ToString();
             }
             else
             {
                 gridSecondary.Visibility = Visibility.Collapsed;
             }
 
-            txtFragNades.Text = saveEditor.FragGrenades.ToString();
-            txtPlasmaNades.Text = saveEditor.PlasmaGrenades.ToString();
+            txtFragNades.Text = saveData.Player.Biped.FragGrenades.ToString();
+            txtPlasmaNades.Text = saveData.Player.Biped.PlasmaGrenades.ToString();
         }
 
-        public bool Save(Util.SaveEditor saveEditor)
+        public bool Save(Util.SaveManager saveManager)
         {
-            if (saveEditor.PlayerHasPrimaryWeapon)
+            Reach.CampaignSave saveData = saveManager.SaveData;
+            if (saveData.Player.PrimaryWeapon != null)
             {
-                saveEditor.PrimaryWeaponAmmo = Convert.ToInt16(txtPrimaryAmmo.Text);
-                saveEditor.PrimaryWeaponClip = Convert.ToInt16(txtPrimaryClip.Text);
-            }
-            if (saveEditor.PlayerHasSecondaryWeapon)
-            {
-                saveEditor.SecondaryWeaponAmmo = Convert.ToInt16(txtSecondaryAmmo.Text);
-                saveEditor.SecondaryWeaponClip = Convert.ToInt16(txtSecondaryClip.Text);
+                saveData.Player.PrimaryWeapon.Ammo = Convert.ToInt16(txtPrimaryAmmo.Text);
+                saveData.Player.PrimaryWeapon.ClipAmmo = Convert.ToInt16(txtPrimaryClip.Text);
             }
 
-            saveEditor.FragGrenades = Convert.ToSByte(txtFragNades.Text);
-            saveEditor.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);
+            if (saveData.Player.SecondaryWeapon != null)
+            {
+                saveData.Player.SecondaryWeapon.Ammo = Convert.ToInt16(txtSecondaryAmmo.Text);
+                saveData.Player.SecondaryWeapon.ClipAmmo = Convert.ToInt16(txtSecondaryClip.Text);
+            }
+
+            saveData.Player.Biped.FragGrenades = Convert.ToSByte(txtFragNades.Text);
+            saveData.Player.Biped.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);
 
             return true;
         }
