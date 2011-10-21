@@ -330,9 +330,9 @@ namespace Liberty.Controls
                             if (currentObject.Carrier != null)
                             {
                                 if (currentObject.TagGroup == Reach.TagGroup.Bipd && currentObject.Carrier.TagGroup == Reach.TagGroup.Vehi)
-                                    btnParent.Content = "VEHICLE";
+                                    btnParent.Content = "Vehicle";
                                 else
-                                    btnParent.Content = "CARRIER";
+                                    btnParent.Content = "Carrier";
                                 lblParentIdent.Text = (string)objectItems[(int)(currentObject.Carrier.ID & 0xFFFF)].Header;
                                 carriedBy.Visibility = Visibility.Visible;
                             }
