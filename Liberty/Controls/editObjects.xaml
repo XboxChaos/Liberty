@@ -25,7 +25,7 @@
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Fine Tuning" Height="46" VerticalAlignment="Top" />
 			<Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Edit the data for individual objects in the save" Height="25.911" VerticalAlignment="Bottom" />
-            <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="0,310,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="96" Click="btnDelete_Click" Height="23"/>
+            <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="0,308,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="96" Click="btnDelete_Click" Height="25"/>
             <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="101,307,0,6" Style="{DynamicResource MetroSecondaryButton}" Width="92" Click="btnReplace_Click"/>
 			<Button x:Name="btnMassMove" Content="Mass Move" HorizontalAlignment="Left" Margin="0,0,0,6" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="96" Click="btnMassMove_Click"/>
 	        
