@@ -120,8 +120,8 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
-	<Style x:Key="SecondaryButton" TargetType="Button">
+
+    <Style x:Key="SecondaryButton" TargetType="Button">
 		<Setter Property="BorderBrush" Value="{x:Null}"/>
 		<Setter Property="Width" Value="71"/>
 		<Setter Property="Height" Value="21"/>

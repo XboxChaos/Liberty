@@ -88,7 +88,7 @@
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,165,0,0" Text="Links;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,188,0,0" x:Name="lblXboxChaos" Text="Xbox Chaos" VerticalAlignment="Top" Width="71" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXboxChaos_MouseUp" Cursor="Hand" />
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,207,0,0" x:Name="lblXeraxic" Text="Xeraxic" VerticalAlignment="Top" Width="45" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXeraxic_MouseUp" Cursor="Hand" />
-                <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click"/>
+                <Button x:Name="btnOK" Content="I'VE SEEN ENOUGH" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click" Width="123"/>
         	</Grid>
         </Border>
     </Grid>
