@@ -99,8 +99,13 @@
 			<Label x:Name="btnSettings" Content="SETTINGS" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,322,0" HorizontalAlignment="Right" Width="47.919" MouseEnter="btnSettings_MouseEnter" MouseLeave="btnSettings_MouseLeave" MouseDown="btnSettings_MouseDown" MouseUp="btnSettings_MouseUp" Height="22.5" VerticalAlignment="Top"/>
 			<Label x:Name="lblDevider3" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="303,9,0,0" Height="22.583" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" />
 			<Child:progressStepBar x:Name="progressBar" HorizontalAlignment="Center" Width="635" Height="56" Margin="0,38,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height" />
-			<Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
-				<Child:selectMode x:Name="stepSelectMode" Visibility="Hidden"/>
+            
+            <Grid x:Name="stepBeta" Margin="40,85,0,0" Height="339" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
+                <Child:BetaPlayground Visibility="Visible" />
+            </Grid>
+            
+            <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
+                <Child:selectMode x:Name="stepSelectMode" Visibility="Hidden"/>
 				<Child:openSaveFile x:Name="stepOpenFile" Visibility="Hidden"/>
                 <Child:selectDevice x:Name="stepSelectDevice" Visibility="Hidden"/>
                 <Child:selectSaveOnDevice x:Name="stepSelectSave" Visibility="Hidden" Drive="{Binding ElementName=stepSelectDevice, Path=SelectedDevice}"/>
@@ -111,10 +116,11 @@
                 <Child:quickTweaks x:Name="stepTweaks" Visibility="Hidden"/>
                 <Child:allDone x:Name="stepAllDone" Visibility="Hidden"/>
 			</Grid>
-			<Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,25,29" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click"/>
-	        <Button x:Name="btnBack" Content="BACK" HorizontalAlignment="Right" Margin="0,0,109,29" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnBack_Click"/>
-	    
-			<MediaElement x:Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
+			<Button x:Name="btnOK" Content="Okay" HorizontalAlignment="Right" Margin="0,0,25,29" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="69"/>
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Right" Margin="0,0,109,29" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnBack_Click" Width="69"/>
+
+            <Button x:Name="btnBetaPlayground" Content="Beta" HorizontalAlignment="Right" Margin="0,0,524,28" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnBetaPlayground_Click" Width="69"/>
+            <MediaElement x:Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
 			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>
 		
 			<StackPanel x:Name="settingsPanel" Width="610" Height="410" Margin="13,40,0,0" VerticalAlignment="Top" Background="#FFFFFFFF" HorizontalAlignment="Left" d:IsHidden="True">

@@ -29,7 +29,7 @@
 			<Label x:Name="subHeading1_1" Content="get save from profile;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="159" Height="29.822" VerticalAlignment="Top" />
 			<Label x:Name="lblaboutDevice" Foreground="#949494" Content="Select your save:" HorizontalAlignment="Left" Height="26.911" VerticalAlignment="Top" Width="114" Margin="24,137,0,0" />
 			<ComboBox x:Name="cBSaves" Margin="138,140,40,0" Height="23" VerticalAlignment="Top" />
-			<Button x:Name="btnRefresh" Content="REFRESH" HorizontalAlignment="Right" Margin="0,171,40,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnRefresh_Click"/>
+			<Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Right" Margin="0,171,40,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Click="btnRefresh_Click" Width="67"/>
 		</Grid>
 		
 	</ControlsMetro:MetroContentControl>

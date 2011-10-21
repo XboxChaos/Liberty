@@ -119,6 +119,9 @@
     <Compile Include="classInfo\storage\settings\applicationSettings.cs" />
     <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
     <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
+    <Compile Include="Controls\BetaPlayground.xaml.cs">
+      <DependentUpon>BetaPlayground.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\dllMissingError.xaml.cs">
       <DependentUpon>dllMissingError.xaml</DependentUpon>
     </Compile>
@@ -223,6 +226,9 @@
     <Page Include="Controls\aboutBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\BetaPlayground.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\dllMissingError.xaml">
       <Generator>MSBuild:Compile</Generator>

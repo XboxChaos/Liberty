@@ -72,8 +72,8 @@
 					
 					
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="48,82,0,0" Text="Are you sure? Your save and progress won't be affected." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="Normal" Foreground="#FF373A3D" />
-					<Button x:Name="btnStay" Content="STAY" Margin="0,0,113,21" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" HorizontalAlignment="Right" Click="btnStay_Click"/>
-					<Button x:Name="btnLeave" Content="LEAVE" HorizontalAlignment="Right" Margin="0,0,28,21" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnLeave_Click"/>
+					<Button x:Name="btnStay" Content="Stay" Margin="0,0,93,21" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnStay_Click"/>
+					<Button x:Name="btnLeave" Content="Leave" HorizontalAlignment="Right" Margin="0,0,28,21" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnLeave_Click"/>
 					
 				</Grid>
 	        </Border>

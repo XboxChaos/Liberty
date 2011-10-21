@@ -84,11 +84,101 @@
 		<GradientStop Color="#FFEAEAEA" Offset="0"/>
 		<GradientStop Color="#FFD4D4D4" Offset="1"/>
 	</LinearGradientBrush>-->
-	
-	<ImageBrush x:Key="ButtonNormalBackground" ImageSource="/Liberty;component/Images/SecondaryButton.png"/>
-	<ImageBrush x:Key="ButtonHoverBackground" ImageSource="/Liberty;component/Images/Button-onhover.png"/>
-	
-	<Style x:Key="PrimaryButton" TargetType="{x:Type Button}">
+
+    <Style x:Key="MetroPrimaryButton" TargetType="Button">
+        <Setter Property="Background" Value="#eeeeee"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="10,5,10,5"/>
+        <Setter Property="BorderBrush" Value="#FFE94F19"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                    </Grid>
+
+                    <!--Each state sets a brush on the Border in the template -->
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true" SourceName="Grid" />
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsEnabled" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="#ffffff"/>
+                            <Setter Property="Background" Value="#666666" TargetName="Border"/>
+                            <Setter Property="BorderBrush" Value="#666666" TargetName="Border"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Foreground" Value="#ffffff"/>
+                            <Setter Property="Background" Value="#333333" TargetName="Border"/>
+                            <Setter Property="BorderBrush" Value="#333333" TargetName="Border"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="12"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true"/>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="BorderBrush" Value="#7f222222" TargetName="Border"/>
+                            <Setter Property="Foreground" Value="#7f222222"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="MetroSecondaryButton" TargetType="Button">
+        <Setter Property="Background" Value="#eeeeee"/>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="10,5,10,5"/>
+        <Setter Property="BorderBrush" Value="#cccccc"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                    </Grid>
+
+                    <!--Each state sets a brush on the Border in the template -->
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true" SourceName="Grid" />
+                                <Condition Property="IsPressed" Value="false" />
+                                <Condition Property="IsEnabled" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="#ffffff"/>
+                            <Setter Property="Background" Value="#666666" TargetName="Border"/>
+                            <Setter Property="BorderBrush" Value="#666666" TargetName="Border"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Foreground" Value="#ffffff"/>
+                            <Setter Property="Background" Value="#333333" TargetName="Border"/>
+                            <Setter Property="BorderBrush" Value="#333333" TargetName="Border"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="12"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true"/>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="BorderBrush" Value="#7f222222" TargetName="Border"/>
+                            <Setter Property="Foreground" Value="#7f222222"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ImageBrush x:Key="ButtonNormalBackground" ImageSource="/Liberty;component/Images/SecondaryButton.png"/>
+    <ImageBrush x:Key="ButtonHoverBackground" ImageSource="/Liberty;component/Images/Button-onhover.png"/>
+    <Style x:Key="PrimaryButton" TargetType="{x:Type Button}">
 		<Setter Property="BorderBrush" Value="{x:Null}"/>
 		<Setter Property="Width" Value="71"/>
 		<Setter Property="Height" Value="21"/>
@@ -120,7 +210,6 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-
     <Style x:Key="SecondaryButton" TargetType="Button">
 		<Setter Property="BorderBrush" Value="{x:Null}"/>
 		<Setter Property="Width" Value="71"/>

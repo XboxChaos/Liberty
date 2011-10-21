@@ -67,8 +67,8 @@
 	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="UPDATE AVAILABLE" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
 	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" Text="New Build Infomation;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
 					<TextBox x:Name="lblBuildChanges" Margin="54,84,38,57.5" TextWrapping="Wrap" Text="**buildChanges**" Width="217" Height="194" Background="#00000000" BorderBrush="#00CCCCCC" BorderThickness="0" SelectionBrush="#003399FF" FontWeight="Normal" Foreground="#FF373A3D" IsReadOnly="True" IsReadOnlyCaretVisible="True" Cursor="Arrow" VerticalScrollBarVisibility="Auto"/>
-					<Button x:Name="btnUpdate" Content="UPDATE" Margin="0,0,108,18" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" HorizontalAlignment="Right" Click="btnUpdate_Click"/>
-					<Button x:Name="btnIgnore" Content="IGNORE" HorizontalAlignment="Right" Margin="0,0,25,18" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnIgnore_Click"/>
+					<Button x:Name="btnUpdate" Content="Update" Margin="0,0,103,18" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnUpdate_Click" Width="65"/>
+					<Button x:Name="btnIgnore" Content="Ignore" HorizontalAlignment="Right" Margin="0,0,25,18" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnIgnore_Click" Width="62"/>
 					
 				</Grid>
 	        </Border>

@@ -70,8 +70,8 @@
 
 					<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="TITLE" VerticalAlignment="Top" Width="307" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
                     <TextBlock Height="80" HorizontalAlignment="Left" Margin="42,57,0,0" x:Name="lblSubInfo" VerticalAlignment="Top" Width="349" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" ><Run Text="Example message, this "/><Run Language="en-gb" Text="is"/><Run Text=" what the user will read when the message box is loaded."/></TextBlock>
-                    <Button x:Name="btnOK" Content="OK" HorizontalAlignment="Right" Margin="0,0,18,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnOK_Click"/>
-                    <Button x:Name="btnCancel" Content="CANCEL" HorizontalAlignment="Right" Margin="0,0,103,17" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnCancel_Click"/>
+                    <Button x:Name="btnOK" Content="Okay" HorizontalAlignment="Right" Margin="0,0,18,17" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="55"/>
+                    <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,94,17" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnCancel_Click"/>
                 </Grid>
             </Border>
         </Grid>

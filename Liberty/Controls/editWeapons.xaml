@@ -24,61 +24,61 @@
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Weapon Customization" Height="46" VerticalAlignment="Top" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Weapons.. Grenades.. It's up to you." Height="25.911" VerticalAlignment="Top" />
 
-            <TabControl x:Name="tabs" Margin="20,61,-4,-2" Style="{DynamicResource SimpleTabControl}">
+            <TabControl x:Name="tabs" Margin="8,59,8,0" Style="{DynamicResource SimpleTabControl}">
                 <TabItem x:Name="tabWeap" Header="WEAPONS" Style="{DynamicResource SimpleTabItem}">
                     <Grid>
-                        <Grid x:Name="gridPrimary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="128">
+                        <Grid x:Name="gridPrimary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="117">
                             <Label Content="primary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
 
                             <Label Content="weapon name: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="34,28,0,0" HorizontalAlignment="Left" Width="122" Height="25" VerticalAlignment="Top" />
-                            <ComboBox Name="cbPrimaryWeapName" Height="27" Margin="131,27,4,74" />
+                            <ComboBox Name="cbPrimaryWeapName" Margin="131,27,4,64" />
                             
-                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="7,68,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
-                            <TextBox Margin="132,66,0,0" MaxLines="1" x:Name="txtPrimaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-                            <Button x:Name="btnMaxPrimaryClip" Content="MAX" HorizontalAlignment="Right" Margin="0,68,2,0" Style="{DynamicResource SecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Height="22"/>
-                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="29,96,120,0" Height="24" VerticalAlignment="Top" />
-                            <TextBox x:Name="txtPrimaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,94,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-                            <Button x:Name="btnMaxPrimaryAmmo" Content="MAX" HorizontalAlignment="Right" Margin="0,96,2,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
+                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,59,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
+                            <TextBox Margin="132,57,0,0" MaxLines="1" x:Name="txtPrimaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
+                            <Button x:Name="btnMaxPrimaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Width="71"/>
+                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="30,88,119,0" Height="24" VerticalAlignment="Top" />
+                            <TextBox x:Name="txtPrimaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,87,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60" RenderTransformOrigin="0.489,0.5"/>
+                            <Button x:Name="btnMaxPrimaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,87,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
                         </Grid>
-                        <Grid x:Name="gridSecondary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Margin="0,128,0,0">
+                        <Grid x:Name="gridSecondary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Margin="0,121,0,0">
                             <Label Content="secondary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
 
                             <Label Content="weapon name: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="34,28,0,0" HorizontalAlignment="Left" Width="122" Height="25" VerticalAlignment="Top" />
-                            <ComboBox Name="cbSecondaryWeapName" Height="27" Margin="131,27,4,74" />
+                            <ComboBox Name="cbSecondaryWeapName" Height="25" Margin="131,27,4,74" />
 
-                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="7,68,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
-                            <TextBox Margin="132,66,0,0" MaxLines="1" x:Name="txtSecondaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-                            <Button x:Name="btnMaxSecondaryClip" Content="MAX" HorizontalAlignment="Right" Margin="0,68,2,0" Style="{DynamicResource SecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Height="22"/>
-                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="29,96,120,0" Height="24" VerticalAlignment="Top" />
-                            <TextBox x:Name="txtSecondaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,94,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-                            <Button x:Name="btnMaxSecondaryAmmo" Content="MAX" HorizontalAlignment="Right" Margin="0,96,2,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
+                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,58,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
+                            <TextBox Margin="131,57,0,0" MaxLines="1" x:Name="txtSecondaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
+                            <Button x:Name="btnMaxSecondaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,57,5,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxPrimaryClip_Click" Width="71" VerticalAlignment="Top"/>
+                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="30,88,119,0" Height="24" VerticalAlignment="Top" />
+                            <TextBox x:Name="txtSecondaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="131,87,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
+                            <Button x:Name="btnMaxSecondaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,87,5,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
                         </Grid>
 
-                        <Grid x:Name="gridTertiary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Margin="283,0,0,0">
+                        <Grid x:Name="gridTertiary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="117" Margin="283,0,0,0">
                             <Label Content="tertiary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
 
                             <Label Content="weapon name: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="34,28,0,0" HorizontalAlignment="Left" Width="122" Height="25" VerticalAlignment="Top" />
-                            <ComboBox Name="cbTertiaryWeapName" Height="27" Margin="131,27,4,74" />
+                            <ComboBox Name="cbTertiaryWeapName" Margin="131,27,4,64" />
 
-                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="7,68,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
-                            <TextBox Margin="132,66,0,0" MaxLines="1" x:Name="txtTertiaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-                            <Button x:Name="btnMaxTertiaryClip" Content="MAX" HorizontalAlignment="Right" Margin="0,68,2,0" Style="{DynamicResource SecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Height="22"/>
-                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="29,96,120,0" Height="24" VerticalAlignment="Top" />
-                            <TextBox x:Name="txtTertiaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,94,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-                            <Button x:Name="btnMaxTertiaryAmmo" Content="MAX" HorizontalAlignment="Right" Margin="0,96,2,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
+                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,58,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
+                            <TextBox Margin="132,57,0,0" MaxLines="1" x:Name="txtTertiaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"  />
+                            <Button x:Name="btnMaxTertiaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,57,1,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Width="71"/>
+                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="30,88,119,0" Height="24" VerticalAlignment="Top" />
+                            <TextBox x:Name="txtTertiaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,87,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
+                            <Button x:Name="btnMaxTertiaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,87,1,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click" RenderTransformOrigin="0.455,0.564"/>
                         </Grid>
-                        <Grid x:Name="gridForth" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Margin="283,128,0,0">
+                        <Grid x:Name="gridForth" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="128" Margin="283,121,0,0">
                             <Label Content="forth weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
 
                             <Label Content="weapon name: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="34,28,0,0" HorizontalAlignment="Left" Width="122" Height="25" VerticalAlignment="Top" />
                             <ComboBox Name="cbForthWeapName" Height="27" Margin="131,27,4,74" />
 
-                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="7,68,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
-                            <TextBox Margin="132,66,0,0" MaxLines="1" x:Name="txtForthClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-                            <Button x:Name="btnMaxForthClip" Content="MAX" HorizontalAlignment="Right" Margin="0,68,2,0" Style="{DynamicResource SecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Height="22"/>
-                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="29,96,120,0" Height="24" VerticalAlignment="Top" />
-                            <TextBox x:Name="txtForthAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,94,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-                            <Button x:Name="btnMaxForthAmmo" Content="MAX" HorizontalAlignment="Right" Margin="0,96,2,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
+                            <Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="8,58,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
+                            <TextBox Margin="132,57,0,0" MaxLines="1" x:Name="txtForthClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
+                            <Button x:Name="btnMaxForthClip" Content="Max" HorizontalAlignment="Right" Margin="0,57,4,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxPrimaryClip_Click" VerticalAlignment="Top" Width="71"/>
+                            <Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="30,87,119,0" Height="24" VerticalAlignment="Top" />
+                            <TextBox x:Name="txtForthAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,87,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
+                            <Button x:Name="btnMaxForthAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,87,4,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryAmmo_Click"/>
                         </Grid>
                     </Grid>
                 </TabItem>
@@ -88,11 +88,11 @@
                             <Label Content="fragmentation grenades;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="#FF373A3D" Height="26.267" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187.17" />
                             <Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,27,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="93" />
                             <TextBox x:Name="txtFragNades" TextWrapping="Wrap" VerticalAlignment="Top" Margin="128,27,78,0" TextChanged="txtFragNadeCount_TextChanged" MaxLines="1"/>
-                            <Button x:Name="btnMaxFragNades" Content="MAX" HorizontalAlignment="Left" Margin="194,29,0,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnMaxFragNades_Click"/>
+                            <Button x:Name="btnMaxFragNades" Content="Max" HorizontalAlignment="Left" Margin="194,27,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnMaxFragNades_Click"/>
                             <Label Content="plasma grenades;" Margin="0,92,112,0" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="#FF373A3D" Height="26.267" VerticalAlignment="Top" />
                             <Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,119,0,0" HorizontalAlignment="Left" Width="93" Height="24.911" VerticalAlignment="Top" />
                             <TextBox x:Name="txtPlasmaNades" TextWrapping="Wrap" Text="" Margin="128,119,0,0" VerticalAlignment="Top" TextChanged="txtPlasmaNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="59.17"/>
-                            <Button x:Name="btnMaxPlasmaNades" Content="MAX" HorizontalAlignment="Left" Margin="194,121,0,0" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnMaxPlasmaNades_Click"/>
+                            <Button x:Name="btnMaxPlasmaNades" Content="Max" HorizontalAlignment="Left" Margin="194,119,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="Height" Click="btnMaxPlasmaNades_Click"/>
                         </Grid>
                     </Grid>
                 </TabItem>
