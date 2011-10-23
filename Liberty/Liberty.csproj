@@ -224,6 +224,10 @@
     <Compile Include="Util\EditorSupport.cs" />
     <Compile Include="Util\SaveManager.cs" />
     <Compile Include="Util\TagList.cs" />
+    <Content Include="Themes\Accents\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Page Include="Controls\aboutBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -385,12 +389,39 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Simple Styles.xaml">
+    <Page Include="MetroControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SplashScreen.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Green.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Lime.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Pink.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Red.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Accents\Silver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Colour\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Colour\Light.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

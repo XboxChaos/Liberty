@@ -6,13 +6,11 @@
              mc:Ignorable="d" 
 	         d:DesignWidth="585" d:DesignHeight="339">
     <Grid>
-        <Button Content="Primary Button" HorizontalAlignment="Left" Margin="8,0,0,287" Style="{DynamicResource PrimaryButton}" VerticalAlignment="Bottom" Width="114" d:LayoutOverrides="Height"/>
-        <Button Content="Secondary Button" HorizontalAlignment="Left" Margin="8,0,0,312" Style="{DynamicResource SecondaryButton}" VerticalAlignment="Bottom" Width="114" d:LayoutOverrides="Height"/>
-        <Button Content="Beta Metro Primary Button" HorizontalAlignment="Left" Margin="153,0,0,305" Style="{DynamicResource MetroButtonPrimary}" VerticalAlignment="Bottom" Width="190"/>
-        <Button Content="Beta Metro Secondary Button" HorizontalAlignment="Left" Margin="153,0,0,275" Style="{DynamicResource MetroButtonSecondary}" VerticalAlignment="Bottom" Width="190"/>
+        <Button Content="Metro Primary Button" HorizontalAlignment="Left" Margin="8,0,0,305" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Width="190"/>
+        <Button Content="Metro Secondary Button" HorizontalAlignment="Left" Margin="8,0,0,275" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="190"/>
 
-        <Button Content="Beta Metro Primary Button" IsEnabled="False" HorizontalAlignment="Left" Margin="153,0,0,227" Style="{DynamicResource MetroButtonPrimary}" VerticalAlignment="Bottom" Width="190"/>
-        <Button Content="Beta Metro Secondary Button" IsEnabled="False" HorizontalAlignment="Left" Margin="153,0,0,197" Style="{DynamicResource MetroButtonSecondary}" VerticalAlignment="Bottom" Width="190"/>
+        <Button Content="Metro Primary Button" IsEnabled="False" HorizontalAlignment="Left" Margin="8,0,0,227" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Width="190"/>
+        <Button Content="Metro Secondary Button" IsEnabled="False" HorizontalAlignment="Left" Margin="8,0,0,197" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="190"/>
 
     </Grid>
 </UserControl>

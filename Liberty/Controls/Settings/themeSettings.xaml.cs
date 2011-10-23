@@ -28,6 +28,14 @@ namespace Liberty.Controls.Settings
 
             hideAllTris();
             btnThemeSettings_MouseDown(null, null);
+
+            themeSettingsPnl.Visibility = System.Windows.Visibility.Visible;
+            themeSettingsPnlBeta.Visibility = System.Windows.Visibility.Hidden;
+
+#if DEBUG
+            themeSettingsPnl.Visibility = System.Windows.Visibility.Hidden;
+            themeSettingsPnlBeta.Visibility = System.Windows.Visibility.Visible;
+#endif
         }
 
         public void loadSettings()
@@ -35,14 +43,95 @@ namespace Liberty.Controls.Settings
             // Load from RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\themeSettings\\");
 
-            
+            int accentColour = (int)key.GetValue("accentColour", 1);
+            int themeColour = (int)key.GetValue("themeColour", 1);
+
+            rbAccent1.IsChecked = false;
+            rbAccent2.IsChecked = false;
+            rbAccent3.IsChecked = false;
+            rbAccent4.IsChecked = false;
+            rbAccent5.IsChecked = false;
+            rbAccent6.IsChecked = false;
+            rbAccent7.IsChecked = false;
+            rbAccent8.IsChecked = false;
+
+            rbLightTheme.IsChecked = false;
+            rbDarkTheme.IsChecked = false;
+
+            switch (themeColour)
+            {
+                case 1:
+                    rbLightTheme.IsChecked = true;
+                    break;
+                case 2:
+                    rbDarkTheme.IsChecked = true;
+                    break;
+            }
+
+            switch (accentColour)
+            {
+                case 1:
+                    rbAccent1.IsChecked = true;
+                    break;
+                case 2:
+                    rbAccent2.IsChecked = true;
+                    break;
+                case 3:
+                    rbAccent3.IsChecked = true;
+                    break;
+                case 4:
+                    rbAccent4.IsChecked = true;
+                    break;
+                case 5:
+                    rbAccent5.IsChecked = true;
+                    break;
+                case 6:
+                    rbAccent6.IsChecked = true;
+                    break;
+                case 7:
+                    rbAccent7.IsChecked = true;
+                    break;
+                case 8:
+                    rbAccent8.IsChecked = true;
+                    break;
+                default:
+                    rbAccent1.IsChecked = true;
+                    break;
+            }
         }
         public void saveSettings()
         {
             // Save to RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\themeSettings");
+            int AccentColour = 1;
+            int ThemeColour = 1;
 
-            
+            if (rbAccent1.IsChecked == true)
+                AccentColour = 1;
+            else if (rbAccent2.IsChecked == true)
+                AccentColour = 2;
+            else if (rbAccent3.IsChecked == true)
+                AccentColour = 3;
+            else if (rbAccent4.IsChecked == true)
+                AccentColour = 4;
+            else if (rbAccent5.IsChecked == true)
+                AccentColour = 5;
+            else if (rbAccent6.IsChecked == true)
+                AccentColour = 6;
+            else if (rbAccent7.IsChecked == true)
+                AccentColour = 7;
+            else if (rbAccent8.IsChecked == true)
+                AccentColour = 8;
+
+            if (rbLightTheme.IsChecked == true)
+                ThemeColour = 1;
+            else if (rbDarkTheme.IsChecked == true)
+                ThemeColour = 2;
+
+            key.SetValue("accentColour", AccentColour);
+            key.SetValue("themeColour", ThemeColour);
+
+            classInfo.applicationExtra.loadApplicationSettings();
         }
 
         #region uncleanWPFshit
