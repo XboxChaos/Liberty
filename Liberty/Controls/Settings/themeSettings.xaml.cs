@@ -28,14 +28,6 @@ namespace Liberty.Controls.Settings
 
             hideAllTris();
             btnThemeSettings_MouseDown(null, null);
-
-            themeSettingsPnl.Visibility = System.Windows.Visibility.Visible;
-            themeSettingsPnlBeta.Visibility = System.Windows.Visibility.Hidden;
-
-#if DEBUG
-            themeSettingsPnl.Visibility = System.Windows.Visibility.Hidden;
-            themeSettingsPnlBeta.Visibility = System.Windows.Visibility.Visible;
-#endif
         }
 
         public void loadSettings()

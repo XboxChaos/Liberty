@@ -10,14 +10,8 @@
     	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="1"/>
             
 		<Label x:Name="btnThemeSettings" MouseEnter="btnThemeSettings_MouseEnter" MouseLeave="btnThemeSettings_MouseLeave" MouseDown="btnThemeSettings_MouseDown" Content="THEME SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
-    
-	
-		<StackPanel x:Name="themeSettingsPnl" Margin="183,40,-18,40" Visibility="Hidden">
-			<Label x:Name="UPSheader" Content="Nothing to see here, chaps." FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D"/>
-			<Label x:Name="UPSsubheader" Content="This feature isn't ready for public eyes to gaze upon its awesomeness." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0"/>
-		</StackPanel>
 
-        <Grid x:Name="themeSettingsPnlBeta" Margin="183,40,0,40" Visibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Auto">
+        <Grid x:Name="themeSettingsPnl" Margin="183,40,0,40" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <Label x:Name="BUPSheader" Content="Accent Theme Settings." FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,0,0,208"/>
             <Label x:Name="BUPSsubheader" Content="Make Liberty your own, (in a sexual way)." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,21,0,193"/>
 
