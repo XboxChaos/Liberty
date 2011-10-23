@@ -21,5 +21,8 @@ namespace Liberty.classInfo.storage.settings
         public static bool lookUpObjectTypes;
         public static bool extTaglistFrmAsc;
         public static string extTaglistFromAscDirec;
+
+        public static int AccentColour;
+        public static int ThemeColour;
     }
 }

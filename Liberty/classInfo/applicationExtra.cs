@@ -59,6 +59,67 @@ namespace Liberty.classInfo
             applicationSettings.lookUpObjectTypes = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTgLstUseTypes", 0));
             applicationSettings.extTaglistFrmAsc = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("appTglstFromAsc", 0));
             applicationSettings.extTaglistFromAscDirec = (string)keyApp.GetValue("appTglstFromAscDirec", "");
+
+            // Themes
+            applicationSettings.AccentColour = (int)keyTheme.GetValue("accentColour", 1);
+            applicationSettings.ThemeColour = (int)keyTheme.GetValue("themeColour", 1);
+
+            updateAccent();
+            updateTheme();
+        }
+
+        public static void updateTheme()
+        {
+            ResourceDictionary rd;
+            switch (applicationSettings.AccentColour)
+            {
+                case 1:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Light.xaml", UriKind.Relative) };
+                    break;
+                case 2:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Dark.xaml", UriKind.Relative) };
+                    break;
+                default:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Light.xaml", UriKind.Relative) };
+                    break;
+            }
+        }
+
+        public static void updateAccent()
+        {
+            ResourceDictionary rd;
+            switch (applicationSettings.AccentColour)
+            {
+                case 1:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Orange.xaml", UriKind.Relative) };
+                    break;
+                case 2:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Blue.xaml", UriKind.Relative) };
+                    break;
+                case 3:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Purple.xaml", UriKind.Relative) };
+                    break;
+                case 4:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Pink.xaml", UriKind.Relative) };
+                    break;
+                case 5:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Red.xaml", UriKind.Relative) };
+                    break;
+                case 6:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Green.xaml", UriKind.Relative) };
+                    break;
+                case 7:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Lime.xaml", UriKind.Relative) };
+                    break;
+                case 8:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Silver.xaml", UriKind.Relative) };
+                    break;
+                default:
+                    rd = new ResourceDictionary { Source = new Uri("Themes/Accents/Orange.xaml", UriKind.Relative) };
+                    break;
+            }
+
+            App.Current.Resources.MergedDictionaries.Add(rd);
         }
 
         public static string downloadTaglist()

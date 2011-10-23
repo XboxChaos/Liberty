@@ -6,9 +6,7 @@
 			 xmlns:local="clr-namespace:Liberty.Controls.Settings"
 			 xmlns:Child="clr-namespace:Liberty.Controls.Settings"
 			 xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
-             mc:Ignorable="d" 
-			 
-             d:DesignHeight="410" d:DesignWidth="610" Loaded="UserControl_Loaded">
+             mc:Ignorable="d" Loaded="UserControl_Loaded">
 	
 				<UserControl.Resources>
 			        <ResourceDictionary>
@@ -35,8 +33,8 @@
 		<StackPanel x:Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
 			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
-		<Button x:Name="btnOK" Content="Okay" Margin="519,379,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnOK_Click" Width="55"/>
-		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="446,379,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnCancel_Click" Width="59"/>
+            <Button x:Name="btnOK" Content="Okay" Margin="0,0,109,29" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnOK_Click" Width="69"/>
+            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,25,29" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnCancel_Click" Width="69"/>
 	</Grid>
 </ControlsMetro:MetroContentControl>
 </UserControl>

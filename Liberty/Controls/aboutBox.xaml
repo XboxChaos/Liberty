@@ -5,7 +5,7 @@
 		xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
 		x:Class="Liberty.Controls.aboutBox"
 		x:Name="about"
-        Title="Liberty - About" Height="335" Width="470"
+        Title="Liberty - About" Height="353" Width="470"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True" Background="{x:Null}" ShowInTaskbar="False">
 	
 		<Window.Resources>

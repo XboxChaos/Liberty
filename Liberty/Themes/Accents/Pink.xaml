@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="AccentPColour" R="#dd" G="#1f" B="#8f"/>
+    <SolidColorBrush x:Key="AccentColour" Color="#dd1f8f"/>
+    <LinearGradientBrush x:Key="AccentGradient" EndPoint="0,1" StartPoint="0,0">
+        <GradientStop Color="#dd1f8f" Offset="0.0"/>
+        <GradientStop Color="#f58c20" Offset="1.0"/>
+    </LinearGradientBrush>
+    
+</ResourceDictionary>

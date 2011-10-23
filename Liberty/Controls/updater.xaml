@@ -68,7 +68,7 @@
 	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" x:Name="textBlock2" Text="This Build;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
 	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
 					<Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Right" Margin="0,0,100,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" IsEnabled="False" Click="btnUpdate_Click" Width="70"/>
-					<Button x:Name="btnOK" Content="Okay" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="58"/>
+					<Button x:Name="btnOK" Content="Leave" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="58"/>
 					
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,81,0,0" x:Name="lblBuildVer1" Text="Build Version: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
 					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,81,0,0" x:Name="lblBuildVer" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
