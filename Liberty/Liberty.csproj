@@ -117,6 +117,9 @@
     <Compile Include="Controls\dllMissingError.xaml.cs">
       <DependentUpon>dllMissingError.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\editGrenades.xaml.cs">
+      <DependentUpon>editGrenades.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\exceptionWindow.xaml.cs">
       <DependentUpon>exceptionWindow.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\dllMissingError.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\editGrenades.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

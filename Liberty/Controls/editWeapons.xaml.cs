@@ -47,9 +47,6 @@ namespace Liberty.Controls
             {
                 gridSecondary.Visibility = Visibility.Collapsed;
             }
-
-            txtFragNades.Text = saveData.Player.Biped.FragGrenades.ToString();
-            txtPlasmaNades.Text = saveData.Player.Biped.PlasmaGrenades.ToString();
         }
 
         public bool Save(Util.SaveManager saveManager)
@@ -66,9 +63,6 @@ namespace Liberty.Controls
                 saveData.Player.SecondaryWeapon.Ammo = Convert.ToInt16(txtSecondaryAmmo.Text);
                 saveData.Player.SecondaryWeapon.ClipAmmo = Convert.ToInt16(txtSecondaryClip.Text);
             }
-
-            saveData.Player.Biped.FragGrenades = Convert.ToSByte(txtFragNades.Text);
-            saveData.Player.Biped.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);
 
             return true;
         }
@@ -187,58 +181,6 @@ namespace Liberty.Controls
 
             if (txtSecondaryWeapAmmo.Text == "") { txtSecondaryWeapAmmo.Text = "0"; }*/
         }
-
-        private void txtFragNadeCount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            /*if (txtFragNadeCount.Text == "") { }
-            else
-            {
-                try
-                {
-                    int validate = int.Parse(txtFragNadeCount.Text);
-
-                    if (validate > 127)
-                    {
-                        txtFragNadeCount.Text = "127";
-                    }
-
-                }
-                catch
-                {
-                    int line = txtFragNadeCount.Text.Length - 1;
-                    txtFragNadeCount.Text = txtFragNadeCount.Text.Remove(line, 1);
-                    txtFragNadeCount.Select(line, 0);
-                }
-            }
-
-            if (txtFragNadeCount.Text == "") { txtFragNadeCount.Text = "0"; }*/
-        }
-
-        private void txtPlasmaNadeCount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            /*if (txtPlasmaNadeCount.Text == "") { }
-            else
-            {
-                try
-                {
-                    int validate = int.Parse(txtPlasmaNadeCount.Text);
-
-                    if (validate > 127)
-                    {
-                        txtPlasmaNadeCount.Text = "127";
-                    }
-
-                }
-                catch
-                {
-                    int line = txtPlasmaNadeCount.Text.Length - 1;
-                    txtPlasmaNadeCount.Text = txtPlasmaNadeCount.Text.Remove(line, 1);
-                    txtPlasmaNadeCount.Select(line, 0);
-                }
-            }
-
-            if (txtPlasmaNadeCount.Text == "") { txtPlasmaNadeCount.Text = "0"; }*/
-        }
         #endregion
 
         private void btnMaxPrimaryClip_Click(object sender, RoutedEventArgs e)
@@ -259,16 +201,6 @@ namespace Liberty.Controls
         private void btnMaxSecondaryAmmo_Click(object sender, RoutedEventArgs e)
         {
             txtSecondaryAmmo.Text = "32767";
-        }
-
-        private void btnMaxFragNades_Click(object sender, RoutedEventArgs e)
-        {
-            txtFragNades.Text = "127";
-        }
-
-        private void btnMaxPlasmaNades_Click(object sender, RoutedEventArgs e)
-        {
-            txtPlasmaNades.Text = "127";
         }
     }
 }

@@ -99,6 +99,7 @@
                 <Child:verifyFile x:Name="stepVerifyFile" Visibility="Hidden"/>
                 <Child:editBiped x:Name="stepBiped" Visibility="Hidden"/>
                 <Child:editWeapons x:Name="stepWeapons" Visibility="Hidden"/>
+                <local1:editGrenades x:Name="stepGrenades" Margin="0" Visibility="Hidden"/>
                 <Child:editObjects x:Name="stepObjects" d:LayoutOverrides="Width, Height" Visibility="Hidden"/>
                 <Child:quickTweaks x:Name="stepTweaks" Visibility="Hidden"/>
                 <Child:allDone x:Name="stepAllDone" Visibility="Hidden"/>

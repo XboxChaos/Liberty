@@ -55,6 +55,7 @@ namespace Liberty
             editSaveOnComputer.AddStep(stepVerifyFile, "SAVE SELECTION");
             editSaveOnComputer.AddStep(stepBiped, "CHARACTER DATA");
             editSaveOnComputer.AddStep(stepWeapons, "WEAPON DATA");
+            editSaveOnComputer.AddStep(stepGrenades, "WEAPON DATA");
             editSaveOnComputer.AddStep(stepObjects, "OBJECT DATA");
             editSaveOnComputer.AddStep(stepTweaks, "OBJECT DATA");
             editSaveOnComputer.AddStep(stepAllDone, "FINISHED");
@@ -66,6 +67,7 @@ namespace Liberty
             editSaveOnDevice.AddStep(stepVerifyFile, "SAVE SELECTION");
             editSaveOnDevice.AddStep(stepBiped, "CHARACTER DATA");
             editSaveOnDevice.AddStep(stepWeapons, "WEAPON DATA");
+            editSaveOnDevice.AddStep(stepGrenades, "WEAPON DATA");
             editSaveOnDevice.AddStep(stepObjects, "OBJECT DATA");
             editSaveOnDevice.AddStep(stepTweaks, "OBJECT DATA");
             TransferSaveStep stepTransfer = new TransferSaveStep(this, stepSelectDevice, stepSelectSave);
@@ -84,10 +86,11 @@ namespace Liberty
             _stepViewer.ViewNode(_firstStep, _saveManager);
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
 
-            btnBetaPlayground.Visibility = System.Windows.Visibility.Hidden;
-            #if DEBUG
+#if DEBUG
             btnBetaPlayground.Visibility = System.Windows.Visibility.Visible;
-            #endif
+#else
+            btnBetaPlayground.Visibility = System.Windows.Visibility.Hidden;
+#endif
         }
 
         public void showMessage(string message, string title)
