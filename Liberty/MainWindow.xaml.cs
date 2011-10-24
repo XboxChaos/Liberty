@@ -450,22 +450,19 @@ namespace Liberty
         #region btnAboutwpf
         private void btnAbout_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-        	btnAbout.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
+            btnAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
 
         private void btnAbout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-        	btnAbout.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
 
-        private void btnAbout_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-        	btnAbout.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
-        }
+        private void btnAbout_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
 
         private void btnAbout_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-        	btnAbout.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
 
             about();
         }
@@ -474,22 +471,19 @@ namespace Liberty
         #region btnCFUwpf
         private void btnCFU_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
+            btnCFU.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
 
         private void btnCFU_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnCFU.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
 
-        private void btnCFU_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
-        }
+        private void btnCFU_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
 
         private void btnCFU_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnCFU.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
 
             checkForUpdates();
         }
@@ -498,22 +492,19 @@ namespace Liberty
         #region btnBugReportwpf
         private void btnBugReport_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
+            btnBugReport.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
 
         private void btnBugReport_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnBugReport.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
 
-        private void btnBugReport_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
-        }
+        private void btnBugReport_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
 
         private void btnBugReport_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnBugReport.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
 
             showLeavingDialog("http://liberty.codeplex.com/workitem/list/basic", "CodePlex");
         }
@@ -522,22 +513,19 @@ namespace Liberty
         #region btnSettingswpf
         private void btnSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
+            btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
 
         private void btnSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
 
-        private void btnSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
-        }
+        private void btnSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
 
         private void btnSettings_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom("#FF868686");
+            btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
 
             settingsPanel.Visibility = Visibility.Visible;
         }
@@ -555,7 +543,7 @@ namespace Liberty
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
             if (!_stepViewer.CanGoForward)
             {
-                btnBack.Content = "RESTART";
+                btnBack.Content = "Restart";
                 if (stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
                 {
                     string argument = @"/select, " + _saveManager.STFSPath;
@@ -571,7 +559,7 @@ namespace Liberty
                 // Restart
                 _saveManager.Close();
                 _stepViewer.ViewNode(_firstStep, _saveManager);
-                btnBack.Content = "BACK";
+                btnBack.Content = "Back";
             }
             else
             {

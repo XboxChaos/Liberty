@@ -3,21 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-			 xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+			 
              mc:Ignorable="d" 
              d:DesignHeight="56" d:DesignWidth="635">
-	
-				<UserControl.Resources>
-			        <ResourceDictionary>
-			            <ResourceDictionary.MergedDictionaries>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-			                
-							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-			            </ResourceDictionary.MergedDictionaries>
-			        </ResourceDictionary>
-			    </UserControl.Resources>
+
     <Grid>
         <Rectangle Name="progressBarSub" Margin="35,35,0,20" Fill="#FFD1D1D1" Stroke="#FFD1D1D1" HorizontalAlignment="Left" Width="565" />
         <Rectangle Name="progressBar" Margin="35,34,0,19" Fill="#FF868686" Stroke="#FF868686" HorizontalAlignment="Left" Width="77"/>

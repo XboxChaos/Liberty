@@ -8,18 +8,7 @@
 	x:Class="Liberty.Controls.openSaveFile"
 	x:Name="UserControl"
 	d:DesignWidth="640" d:DesignHeight="480" Width="585" Height="339">
-	<UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-                
-				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-	<MahApps_Metro_Controls:MetroContentControl IsTabStop="False">
+
 		<Grid x:Name="LayoutRoot">
 			<Grid.RowDefinitions>
 				<RowDefinition/>
@@ -31,5 +20,5 @@
 			<Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Right" Margin="0,141,53,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Click="btnOpen_Click" Width="59"/>
 			
 		</Grid>
-	</MahApps_Metro_Controls:MetroContentControl>
+	
 </UserControl>

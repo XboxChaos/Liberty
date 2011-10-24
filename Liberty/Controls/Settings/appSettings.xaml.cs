@@ -65,8 +65,7 @@ namespace Liberty.Controls.Settings
             // Update UI on changes
             LNSsplashTimelbl.Content = "Display Splash for: " + LNSsplashTime.Value;
             TLTAsvTagLstDirec.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
-            btnFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
-            lblFind.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
+            btnfindTaglist.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
         }
 
         public void saveSettings(Util.SaveManager saveManager)
@@ -104,14 +103,12 @@ namespace Liberty.Controls.Settings
         #region btnUpdate
         private void btnUpdateSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnUpdateSettings.Foreground = (Brush)bc.ConvertFrom("#828689");
+            btnUpdateSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
-
         private void btnUpdateSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnUpdateSettings.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            btnUpdateSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
-
         private void btnUpdateSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
@@ -124,14 +121,12 @@ namespace Liberty.Controls.Settings
         #region btnLaunch
         private void btnLaunchSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnLaunchSettings.Foreground = (Brush)bc.ConvertFrom("#828689");
+            btnLaunchSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
-
         private void btnLaunchSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnLaunchSettings.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            btnLaunchSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
-
         private void btnLaunchSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
@@ -144,14 +139,12 @@ namespace Liberty.Controls.Settings
         #region btnTaglist
         private void btnTaglistSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnTaglistSettings.Foreground = (Brush)bc.ConvertFrom("#828689");
+            btnTaglistSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
-
         private void btnTaglistSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnTaglistSettings.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            btnTaglistSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
-
         private void btnTaglistSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
@@ -161,53 +154,17 @@ namespace Liberty.Controls.Settings
         }
         #endregion
 
-        #region brnTaglistFind
-        private void btnFind_IsMouseDirectlyOverChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if ((bool)e.NewValue)
-            {
-                var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-                btnFind.Source = new BitmapImage(source);
-            }
-            else
-            {
-                var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-                btnFind.Source = new BitmapImage(source);
-            }
-        }
-
-        private void btnFind_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/SecondaryButton.png", UriKind.Relative);
-            btnFind.Source = new BitmapImage(source);
-        }
-
-        private void btnFind_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            var source = new Uri(@"/Liberty;component/Images/Button-onhover.png", UriKind.Relative);
-            btnFind.Source = new BitmapImage(source);
-
-            var dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.Description = "Select the directory where your Ascension taglists are located:";
-            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-            if (result == System.Windows.Forms.DialogResult.OK)
-                TLTAsvTagLstDirec.Text = dialog.SelectedPath;
-        }
-        #endregion
-
         #region TLTExtAscTaglst
         private void TLTExtAscTaglst_Checked(object sender, RoutedEventArgs e)
         {
             TLTAsvTagLstDirec.IsEnabled = true;
-            btnFind.IsEnabled = true;
-            lblFind.IsEnabled = true;
+            btnfindTaglist.IsEnabled = true;
         }
 
         private void TLTExtAscTaglst_Unchecked(object sender, RoutedEventArgs e)
         {
             TLTAsvTagLstDirec.IsEnabled = false;
-            btnFind.IsEnabled = false;
-            lblFind.IsEnabled = false;
+            btnfindTaglist.IsEnabled = false;
         }
         #endregion
 
@@ -231,6 +188,15 @@ namespace Liberty.Controls.Settings
         {
             if (LNSsplashTimelbl != null)
                 LNSsplashTimelbl.Content = "Display Splash for: " + (int)Math.Round(e.NewValue);
+        }
+
+        private void btnfindTaglist_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "Select the directory where your Ascension taglists are located:";
+            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+            if (result == System.Windows.Forms.DialogResult.OK)
+                TLTAsvTagLstDirec.Text = dialog.SelectedPath;
         }
     }
 }

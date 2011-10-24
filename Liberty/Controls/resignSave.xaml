@@ -3,11 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:MahApps_Metro_Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+
 	x:Class="Liberty.resignSave"
 	x:Name="stepResignSave"
 	d:DesignWidth="640" d:DesignHeight="480" mc:Ignorable="d" Width="585" Height="339">
-	<MahApps_Metro_Controls:MetroContentControl IsTabStop="False">
+
 		<Grid x:Name="LayoutRoot">
 			<Grid.RowDefinitions>
 				<RowDefinition/>
@@ -20,5 +20,5 @@
 			<TextBlock Height="19" HorizontalAlignment="Left" Margin="480,143,0,0" x:Name="lblOpen" Text="OPEN" VerticalAlignment="Top" Width="33" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" Visibility="Hidden" />
 			
 		</Grid>
-	</MahApps_Metro_Controls:MetroContentControl>
+	
 </UserControl>

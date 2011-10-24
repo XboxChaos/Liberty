@@ -77,12 +77,6 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MahApps.Metro">
-      <HintPath>.\MahApps.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="MahApps.Metro.Controls">
-      <HintPath>.\MahApps.Metro.Controls.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,9 +107,7 @@
     </ApplicationDefinition>
     <Compile Include="classInfo\applicationExtra.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
-    <Compile Include="classInfo\SkinningEngine\IO\PathData.cs" />
-    <Compile Include="classInfo\SkinningEngine\loadSettings.cs" />
-    <Compile Include="classInfo\SkinningEngine\RuntimeStorage.cs" />
+    <Compile Include="classInfo\AccentCodebase\AccentStorage.cs" />
     <Compile Include="classInfo\storage\settings\applicationSettings.cs" />
     <Compile Include="classInfo\storage\settings\appRuntimeSettings.cs" />
     <Compile Include="classInfo\storage\settings\appVisualSettings.cs" />
