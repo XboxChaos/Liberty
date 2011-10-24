@@ -6,4 +6,7 @@
     <SolidColorBrush x:Key="AccentTextLight" Color="#949494" />
     <SolidColorBrush x:Key="AccentBG" Color="White" />
     <SolidColorBrush x:Key="AccentControlsBG" Color="Black" />
+
+    <Color x:Key="ThemeGradient0" A="#FF" R="#FF" G="#FF" B="#FF"/>
+    <Color x:Key="ThemeGradient1" A="#FF" R="#F1" G="#F1" B="#F1"/>
 </ResourceDictionary>
