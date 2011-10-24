@@ -71,13 +71,20 @@ namespace Liberty.classInfo
         public static void updateTheme()
         {
             ResourceDictionary rd;
-            switch (applicationSettings.AccentColour)
+            switch (applicationSettings.ThemeColour)
             {
                 case 1:
                     rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Light.xaml", UriKind.Relative) };
                     break;
                 case 2:
                     rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Dark.xaml", UriKind.Relative) };
+
+                    classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark = "#FFCCCCCC";
+                    classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid = "#FF868686";
+                    classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextLight = "#FF949494";
+                    classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentControlsBG = "#FF2D2D2D";
+                    classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentBG = "#FF333333";
+
                     break;
                 default:
                     rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Light.xaml", UriKind.Relative) };

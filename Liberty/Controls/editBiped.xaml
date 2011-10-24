@@ -3,23 +3,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	
     mc:Ignorable="d"
 	x:Class="Liberty.Controls.editBiped"
 	x:Name="stepEditBiped"
 	d:DesignWidth="585" d:DesignHeight="339">
-			<UserControl.Resources>
-			        <ResourceDictionary>
-			            <ResourceDictionary.MergedDictionaries>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-			                
-							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-			            </ResourceDictionary.MergedDictionaries>
-			        </ResourceDictionary>
-			    </UserControl.Resources>
-	<ControlsMetro:MetroContentControl IsTabStop="False">
+	
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Biped Customization" Margin="0,0,0,292" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="First of all, let's change your biped infomation." Height="25.911" VerticalAlignment="Top" />
@@ -41,5 +30,5 @@
             <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom" Checked="checkNoPhysics_Checked"/>
             <Button x:Name="btnNameIdent" Content="Yes" HorizontalAlignment="Left" Margin="410,164,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Width="61" d:LayoutOverrides="Height" Click="btnNameIdent_Click"/>
         </Grid>
-	</ControlsMetro:MetroContentControl>
+
 </UserControl>

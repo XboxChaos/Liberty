@@ -94,7 +94,7 @@
     </Style>
 
     <!--Metro RadioButton-->
-    <Style x:Key="{x:Type RadioButton}" TargetType="RadioButton">
+    <!--<Style x:Key="{x:Type RadioButton}" TargetType="RadioButton">
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Background" Value="{DynamicResource AccentBG}"/>
         <Setter Property="Foreground" Value="{DynamicResource AccentTextDark}"/>
@@ -230,7 +230,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
     
     <!--Metro TabControl-->
 	<Style x:Key="MetroTabControl" TargetType="{x:Type TabControl}">
@@ -300,12 +300,13 @@
 	</Style>
 
     <!--Metro Textbox-->
-    <!--<Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
+    <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="MinHeight" Value="26"/>
         <Setter Property="Background" Value="{DynamicResource AccentControlsBG}"/>
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BorderBrush" Value="#FFCCCCCC"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentTextDark}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentTextMid}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -416,5 +417,29 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
+    </Style>
+            
+    
+    <!--Metro Settings Sidebar-->
+    <Style x:Key="settingsSidebar" TargetType="{x:Type Label}">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="8"/>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource AccentTextMid}"/>
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="{DynamicResource AccentTextLight}"/>
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource AccentTextDark}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

@@ -3,25 +3,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	
     mc:Ignorable="d"
 	x:Class="Liberty.Controls.editObjects"
 	x:Name="stepEditObjects"
-	d:DesignWidth="585" d:DesignHeight="339">
-				<UserControl.Resources>
-			        <ResourceDictionary>
-			            <ResourceDictionary.MergedDictionaries>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-			                
-							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-			            </ResourceDictionary.MergedDictionaries>
-			        </ResourceDictionary>
-			    </UserControl.Resources>
+	d:DesignWidth="585" d:DesignHeight="339">	
 	
-	
-	<ControlsMetro:MetroContentControl IsTabStop="False">
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Fine Tuning" Height="46" VerticalAlignment="Top" />
 			<Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Edit the data for individual objects in the save" Height="25.911" VerticalAlignment="Bottom" />
@@ -34,8 +21,8 @@
 			    </TreeViewItem>			
 				</TreeView>
 			<TextBlock x:Name="instructions" Margin="202,75,17,0" TextWrapping="Wrap" FontFamily="Segeo UI" FontWeight="Light" Foreground="#FF949494" Padding="0,0,5,5" d:IsHidden="True"><Run Text="Nothing is selected. If you would like to edit, delete, or replace an object, select it from the list on the left. Otherwise, just click OK."/><LineBreak/><Run/><LineBreak/><Run Text="Object names in "/><Run FontWeight="Bold" Text="bold"/><Run Text=" are related to your player biped (weapons, armour ability, etc.), and object names inside parentheses are guessed names (if name guessing is enabled in the Settings)."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to mass move all of the objects in a group, select the group name, click Mass Move, and then enter the new coordinates."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to replace an object with another one (for example, to swap your weapons), first select the object that you want to be replaced (e.g. your current weapon). Then, click Replace and select the new object from the list that appears."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to delete an object, simply select it and then press Delete."/></TextBlock>
-			<TabControl x:Name="tabs" Margin="202,75,8,0" Style="{DynamicResource SimpleTabControl}">
-				<TabItem x:Name="tabInfo" Header="INFO" Style="{DynamicResource SimpleTabItem}">
+			<TabControl x:Name="tabs" Margin="202,75,8,0" Style="{DynamicResource MetroTabControl}">
+				<TabItem x:Name="tabInfo" Header="INFO" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy" Content="object information;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" Padding="5,0,5,5" HorizontalAlignment="Left" Width="139" d:LayoutOverrides="HorizontalAlignment" />
 						<Label x:Name="lblGamertag_Copy3" Content="Datum Index:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="16,25,0,0" HorizontalAlignment="Left" Width="89" Height="24.911" VerticalAlignment="Top" />
@@ -74,7 +61,7 @@
 						<TextBox MaxLines="1" x:Name="txtObjectScale" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="94.042" Margin="0,0,14,9" d:LayoutOverrides="HorizontalAlignment, GridBox" VerticalAlignment="Bottom" />
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabBiped" Header="BIPED" Style="{DynamicResource SimpleTabItem}">
+				<TabItem x:Name="tabBiped" Header="BIPED" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy3" Content="biped properties;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="120" Height="29" VerticalAlignment="Top" Padding="5,0,5,5" />
 						<Label x:Name="lblPrimaryClipAmmo1" Content="plasma grenades: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="16,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="122" />
@@ -87,7 +74,7 @@
 						<Button x:Name="btnBipdFragMax" Content="Max" HorizontalAlignment="Right" Margin="0,55,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnBipdFragMax_Click"/>
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabWeapon" Header="WEAPON" Style="{DynamicResource SimpleTabItem}">
+				<TabItem x:Name="tabWeapon" Header="WEAPON" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy2" Content="weapon properties;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="134" Height="29" VerticalAlignment="Top" Padding="5,0,5,5" />
 						<Label x:Name="lblPrimaryClipAmmo" Content="weapon clip ammo:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="16,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="122" />
@@ -99,13 +86,13 @@
                         <Button x:Name="btnPrimaryMaxWeaponAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,55,98,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnPrimaryMaxWeaponAmmo_Click"/>
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabVehicle" Header="VEHICLE" Style="{DynamicResource SimpleTabItem}">
+				<TabItem x:Name="tabVehicle" Header="VEHICLE" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy4" Content="vehicle properties;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="133" d:LayoutOverrides="HorizontalAlignment" Padding="5,0,5,5" />
 						<CheckBox x:Name="cBVehiInvici" Content="Invincible" Foreground="#949494" FontSize="13" FontWeight="Light" Margin="21,30,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="135" Height="24" VerticalAlignment="Top"/>
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabWeapons" Header="WEAPONS" Style="{DynamicResource SimpleTabItem}">
+				<TabItem x:Name="tabWeapons" Header="WEAPONS" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy7" Content="carried weapons;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" Padding="5,0,5,5" HorizontalAlignment="Left" Width="139" d:LayoutOverrides="HorizontalAlignment" />
 						<ListBox x:Name="listWeapons" Margin="21,25,131,115" SelectionChanged="listWeapons_SelectionChanged"/>
@@ -116,7 +103,7 @@
 						</StackPanel>
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource SimpleTabItem}">
+				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy1" Content="node selection;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" Padding="5,0,5,5" HorizontalAlignment="Left" Width="109" d:LayoutOverrides="HorizontalAlignment" />
 						<ListBox x:Name="listNodes" Margin="21,25,180,63" SelectionChanged="listNodes_SelectionChanged" Width="174" Height="152"/>
@@ -140,5 +127,5 @@
 				</TabItem>
 			</TabControl>
 		</Grid>
-	</ControlsMetro:MetroContentControl>
+
 </UserControl>

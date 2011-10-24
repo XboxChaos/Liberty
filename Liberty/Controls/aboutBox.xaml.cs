@@ -23,7 +23,7 @@ namespace Liberty.Controls
 		{
 			InitializeComponent();
 
-            lblTitle.Text = lblTitle.Text.Replace("{0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            lblTitle.Text = String.Format(lblTitle.Text, Assembly.GetExecutingAssembly().GetName().Version.ToString());
 		}
 
 		private void lblXboxChaos_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -38,8 +38,8 @@ namespace Liberty.Controls
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            FormFadeOut.Begin();
             classInfo.applicationExtra.disableInput(this);
+            FormFadeOut.Begin();
         }
 
         private void FormFadeOut_Completed(object sender, EventArgs e)

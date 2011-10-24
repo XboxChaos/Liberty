@@ -3,25 +3,11 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+	
     mc:Ignorable="d"
 	x:Class="Liberty.Controls.selectSaveOnDevice"
 	x:Name="stepSelectSaveOnDevice"
-	d:DesignWidth="585" d:DesignHeight="339">
-
-	<UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-                
-				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
-	<ControlsMetro:MetroContentControl IsTabStop="False">
+	d:DesignWidth="585" d:DesignHeight="339">	
 		
 		<Grid x:Name="LayoutRoot">
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Edit Save on External Storage Device" Height="45" VerticalAlignment="Top" />
@@ -32,5 +18,5 @@
 			<Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Right" Margin="0,171,40,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Click="btnRefresh_Click" Width="67"/>
 		</Grid>
 		
-	</ControlsMetro:MetroContentControl>
+
 </UserControl>

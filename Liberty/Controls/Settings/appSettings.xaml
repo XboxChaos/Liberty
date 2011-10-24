@@ -8,56 +8,54 @@
              Width="615" Height="320">
     <Grid>
     	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="0.5"/>
-            
-		<Label x:Name="btnUpdateSettings" MouseEnter="btnUpdateSettings_MouseEnter" MouseLeave="btnUpdateSettings_MouseLeave" MouseDown="btnUpdateSettings_MouseDown" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
-		<Label x:Name="btnLaunchSettings" MouseEnter="btnLaunchSettings_MouseEnter" MouseLeave="btnLaunchSettings_MouseLeave" MouseDown="btnLaunchSettings_MouseDown" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,74,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
-		<Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
-    
+
+        <Label x:Name="btnUpdateSettings" MouseEnter="btnUpdateSettings_MouseEnter" MouseLeave="btnUpdateSettings_MouseLeave" MouseDown="btnUpdateSettings_MouseDown" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
+        <Label x:Name="btnLaunchSettings" MouseEnter="btnLaunchSettings_MouseEnter" MouseLeave="btnLaunchSettings_MouseLeave" MouseDown="btnLaunchSettings_MouseDown" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,74,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
+        <Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
 	
 		<StackPanel x:Name="updateSettings" Margin="183,40,-18,40" d:IsHidden="True">
-			<Label x:Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D" Height="34"/>
-			<Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0" Height="25"/>
+			<Label x:Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" FontWeight="SemiBold" Height="34"/>
+			<Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." FontSize="11" FontWeight="SemiBold" Margin="0,-10,0,0" Height="25"/>
 			
-			<Label x:Name="UPSprt1Header" Content="Basic updater settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0" Height="25"/>
-			<CheckBox x:Name="UPScheckOLHeader" Content="Check for updates on application launch." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Height="14"/>
-			<CheckBox x:Name="UPSshowChangeLog" Content="Show change log when Liberty checks for updates." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0" Height="14"/>
+			<Label x:Name="UPSprt1Header" Content="Basic updater settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
+			<CheckBox x:Name="UPScheckOLHeader" Content="Check for updates on application launch." FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="10,2,0,0" Height="14"/>
+			<CheckBox x:Name="UPSshowChangeLog" Content="Show change log when Liberty checks for updates." FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="10,5,0,0" Height="14"/>
 		</StackPanel>
 		
 		<StackPanel x:Name="launchSettings" Margin="183,40,-18,40" d:IsHidden="True">
-			<Label x:Name="LNSheader" Content="Change launch settings of Liberty" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D" Height="34"/>
-			<Label x:Name="LNSsubheader" Content="Change Liberty's splash screen and runtime settings." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0" Height="25"/>
+			<Label x:Name="LNSheader" Content="Change launch settings of Liberty" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
+			<Label x:Name="LNSsubheader" Content="Change Liberty's splash screen and runtime settings." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
 			
-			<Label x:Name="LNSprt1Header" Content="Splash settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0" Height="25"/>
+			<Label x:Name="LNSprt1Header" Content="Splash settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
 			
-			<CheckBox x:Name="LNSdisplaySplash" Content="Display Splash Screen." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Height="14"/>
-			<Slider x:Name="LNSsplashTime" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,6,0,0" HorizontalAlignment="Left" Width="110" Minimum="1" SmallChange="1" Value="5" ValueChanged="LNSsplashTime_ValueChanged"/>
-			<Label x:Name="LNSsplashTimelbl" Content="Display Splash for: {0}" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="120,-24,0,0" Height="25"/>
+			<CheckBox x:Name="LNSdisplaySplash" Content="Display Splash Screen." FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+			<Slider x:Name="LNSsplashTime" FontSize="10" FontWeight="SemiBold" Margin="10,6,0,0" HorizontalAlignment="Left" Width="110" Minimum="1" SmallChange="1" Value="5" ValueChanged="LNSsplashTime_ValueChanged"/>
+			<Label x:Name="LNSsplashTimelbl" Content="Display Splash for: {0}" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="120,-24,0,0" Height="25"/>
 			
-			<Label x:Name="LNSprt2Header" Content="Post-runtime settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,15,0,0" Height="25"/>
+			<Label x:Name="LNSprt2Header" Content="Post-runtime settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,15,0,0" Height="25"/>
 			
-			<CheckBox x:Name="LNSenableEggs" Content="Enable easter eggs." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0" Height="14"/>
-			<CheckBox x:Name="LNSnoWarnings" Content="Don't show warning dialogs for unsafe actions." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0" Height="14"/>
+			<CheckBox x:Name="LNSenableEggs" Content="Enable easter eggs." FontSize="10" FontWeight="SemiBold" Margin="10,5,0,0" Height="14"/>
+			<CheckBox x:Name="LNSnoWarnings" Content="Don't show warning dialogs for unsafe actions." FontSize="10" FontWeight="SemiBold" Margin="10,5,0,0" Height="14"/>
 		</StackPanel>
 		
 		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" Visibility="Visible">
-			<Label x:Name="TLTheader" Content="Change Taglist settings" FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D" Height="34"/>
-			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,-10,0,0" Height="25"/>
+			<Label x:Name="TLTheader" Content="Change Taglist settings" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
+			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
 			
-			<Label x:Name="TLTprt1Header" Content="Basic taglist options;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0" Height="25"/>
-			<CheckBox x:Name="TLTdlLatestTaglst" Content="Download taglist from the internet if you are connected." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Height="14"/>
-			<CheckBox x:Name="TLTtaglstNoMem" Content="Save taglist to temporary directory, not read from memory. " FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0" Height="14" Visibility="Collapsed"/>
-			<CheckBox x:Name="TLTtaglstUseTypes" Content="Attempt to &quot;guess&quot; unknown object names." FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,5,0,0" Height="14"/>
+			<Label x:Name="TLTprt1Header" Content="Basic taglist options;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
+			<CheckBox x:Name="TLTdlLatestTaglst" Content="Download taglist from the internet if you are connected." FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+			<CheckBox x:Name="TLTtaglstNoMem" Content="Save taglist to temporary directory, not read from memory. " FontSize="10" FontWeight="SemiBold" Margin="10,5,0,0" Height="14" Visibility="Collapsed"/>
+			<CheckBox x:Name="TLTtaglstUseTypes" Content="Attempt to &quot;guess&quot; unknown object names." FontSize="10" FontWeight="SemiBold" Margin="10,5,0,0" Height="14"/>
 			
-			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,10,0,0" Height="25"/>
-			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked" Height="14"/>
+			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
+			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked" Height="14"/>
 			
-			<TextBox IsReadOnly="True" Background="White" Name="TLTAsvTagLstDirec" Margin="10,5,150,0" Height="22"/>
-			<Image x:Name="btnFind" Height="21" Margin="310,-23,0,0" HorizontalAlignment="Left" Stretch="Fill" Width="71" Source="/Liberty;component/Images/SecondaryButton.png" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" />
-			<TextBlock Height="19" HorizontalAlignment="Left" Margin="310,-21,0,0" x:Name="lblFind" Text="FIND" Width="71" Foreground="#FF373A3D" IsMouseDirectlyOverChanged="btnFind_IsMouseDirectlyOverChanged" MouseDown="btnFind_MouseDown" MouseUp="btnFind_MouseUp" FontFamily="Segoe WP Semibold" FontWeight="Bold" TextAlignment="Center" />
-		</StackPanel>
-		
-		
-    	<ed:RegularPolygon Name="triUpd" Fill="#FF000000" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,65,0,0" PointCount="3" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+			<TextBox IsReadOnly="True" Background="White" Name="TLTAsvTagLstDirec" Margin="10,9,150,0" Height="22"/>
+
+            <Button x:Name="btnfindTaglist" Content="Find" Style="{DynamicResource MetroPrimaryButton}" Width="71" Margin="310,-28,0,0" HorizontalAlignment="Left" Click="btnfindTaglist_Click"/>
+        </StackPanel>
+
+        <ed:RegularPolygon Name="triUpd" Fill="#FF000000" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,65,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>
@@ -67,7 +65,7 @@
     			</TransformGroup>
     		</ed:RegularPolygon.RenderTransform>
     	</ed:RegularPolygon>
-    	<ed:RegularPolygon x:Name="triLaunch" Fill="#FF000000" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,83.682,0,0" PointCount="3" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+        <ed:RegularPolygon x:Name="triLaunch" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,83.682,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>
@@ -77,7 +75,7 @@
     			</TransformGroup>
     		</ed:RegularPolygon.RenderTransform>
     	</ed:RegularPolygon>
-    	<ed:RegularPolygon x:Name="triTaglist" Fill="#FF000000" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,101.649,0,0" PointCount="3" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+        <ed:RegularPolygon x:Name="triTaglist" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,101.649,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>

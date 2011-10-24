@@ -130,12 +130,12 @@ namespace Liberty.Controls.Settings
         #region btnUpdate
         private void btnThemeSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnThemeSettings.Foreground = (Brush)bc.ConvertFrom("#828689");
+            btnThemeSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
         }
 
         private void btnThemeSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnThemeSettings.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+            btnThemeSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
         }
 
         private void btnThemeSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

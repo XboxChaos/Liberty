@@ -7,21 +7,21 @@
              mc:Ignorable="d" 
              Width="615" Height="320">
     <Grid>
-    	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="1"/>
-            
-		<Label x:Name="btnThemeSettings" MouseEnter="btnThemeSettings_MouseEnter" MouseLeave="btnThemeSettings_MouseLeave" MouseDown="btnThemeSettings_MouseDown" Content="THEME SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="#FF000000" />
+    	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="0.5"/>
+
+        <Label x:Name="btnThemeSettings" MouseEnter="btnThemeSettings_MouseEnter" MouseLeave="btnThemeSettings_MouseLeave" MouseDown="btnThemeSettings_MouseDown" Content="THEME SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
 
         <Grid x:Name="themeSettingsPnl" Margin="183,40,0,40" ScrollViewer.VerticalScrollBarVisibility="Auto">
-            <Label x:Name="BUPSheader" Content="Accent Theme Settings." FontSize="18" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,0,0,208"/>
-            <Label x:Name="BUPSsubheader" Content="Make Liberty your own, (in a sexual way)." FontSize="11" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="0,21,0,193"/>
+            <Label x:Name="BUPSheader" Content="Accent Theme Settings." FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,0,0,208"/>
+            <Label x:Name="BUPSsubheader" Content="Make Liberty your own, (in a sexual way)." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,21,0,193"/>
 
-            <Label x:Name="TLTprt1Header" Content="Colour Theme;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="8,51,-8,164" Height="25"/>
+            <Label x:Name="TLTprt1Header" Content="Colour Theme;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="8,51,-8,164" Height="25"/>
             <StackPanel Height="37" Margin="8,76,-8,127">
-                <RadioButton x:Name="rbLightTheme" IsChecked="True" IsEnabled="False" Content="Light Theme (black text on white)" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbDarkTheme" IsChecked="False" IsEnabled="False" Content="Dark Theme (white text on black)" FontSize="10" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbLightTheme" IsChecked="True" IsEnabled="True" Content="Light Theme (black text on white)" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbDarkTheme" IsChecked="False" IsEnabled="True" Content="Dark Theme (white text on black)" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
             </StackPanel>
 
-            <Label x:Name="TLTprt2Header" Content="Accent Theme;" FontSize="11.5" FontWeight="SemiBold" Foreground="#FF373A3D" Margin="8,118,-8,97" Height="25"/>
+            <Label x:Name="TLTprt2Header" Content="Accent Theme;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="8,118,-8,97" Height="25"/>
             <StackPanel Height="146" Margin="8,145,-8,-51">
                 <RadioButton x:Name="rbAccent1" IsChecked="True" Content="Liberty Orange" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
                 <RadioButton x:Name="rbAccent2" IsChecked="False" Content="Blue" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
@@ -35,7 +35,7 @@
         </Grid>
 
 
-        <ed:RegularPolygon Name="triThem" Fill="#FF000000" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,65,0,0" PointCount="3" Stretch="Fill" Stroke="Black" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+        <ed:RegularPolygon Name="triThem" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,65,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>

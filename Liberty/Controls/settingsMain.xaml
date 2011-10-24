@@ -5,25 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:Liberty.Controls.Settings"
 			 xmlns:Child="clr-namespace:Liberty.Controls.Settings"
-			 xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+			 
              mc:Ignorable="d" Loaded="UserControl_Loaded">
-	
-				<UserControl.Resources>
-			        <ResourceDictionary>
-			            <ResourceDictionary.MergedDictionaries>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-			                
-							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-			            </ResourceDictionary.MergedDictionaries>
-			        </ResourceDictionary>
-			    </UserControl.Resources>
-<ControlsMetro:MetroContentControl>
+
     <Grid>
     	<Label Content="settings" Height="45" HorizontalAlignment="Left" Margin="18,-11,0,0" Name="lblSettingsHeader" VerticalAlignment="Top" Width="109" FontWeight="Light" FontSize="23" Foreground="#FF868686" />
     
-	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" x:Name="btnSoft" VerticalAlignment="Top" Width="71" FontWeight="Bold" FontSize="11" Foreground="#FF000000" MouseEnter="btnSoft_MouseEnter" MouseLeave="btnSoft_MouseLeave" MouseDown="btnSoft_MouseDown" MouseUp="btnSoft_MouseUp"/>
+	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" x:Name="btnSoft" VerticalAlignment="Top" Width="71" FontWeight="Bold" FontSize="11" Foreground="{DynamicResource AccentTextDark}" MouseEnter="btnSoft_MouseEnter" MouseLeave="btnSoft_MouseLeave" MouseDown="btnSoft_MouseDown" MouseUp="btnSoft_MouseUp"/>
 	    <Label Content="THEMES" Height="29" HorizontalAlignment="Left" Margin="93,26,0,0" x:Name="btnTheme" VerticalAlignment="Top" Width="52" FontWeight="Normal" FontSize="11" Foreground="#FF868686" MouseEnter="btnTheme_MouseEnter" MouseLeave="btnTheme_MouseLeave" MouseDown="btnTheme_MouseDown" MouseUp="btnTheme_MouseUp"/>
 	
 		<StackPanel x:Name="softwarePanel" VerticalAlignment="Top" Width="615" Margin="0,30,0,0" Height="320">
@@ -36,5 +24,4 @@
             <Button x:Name="btnOK" Content="Okay" Margin="0,0,109,29" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnOK_Click" Width="69"/>
             <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,0,25,29" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnCancel_Click" Width="69"/>
 	</Grid>
-</ControlsMetro:MetroContentControl>
 </UserControl>

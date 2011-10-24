@@ -2,23 +2,11 @@
    		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-		xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
+		
 		x:Class="Liberty.Controls.aboutBox"
 		x:Name="about"
         Title="Liberty - About" Height="353" Width="470"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True" Background="{x:Null}" ShowInTaskbar="False">
-	
-		<Window.Resources>
-			        <ResourceDictionary>
-			            <ResourceDictionary.MergedDictionaries>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-			                
-							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-			            </ResourceDictionary.MergedDictionaries>
-			        </ResourceDictionary>
-			    </Window.Resources>
 	
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
@@ -47,12 +35,12 @@
         </EventTrigger>
 </Window.Triggers>
 
-<ControlsMetro:MetroContentControl>
+
 	<Grid>
         <!--DropShadow-->
         <Border Margin="10,10,12,33">
             <Border.Effect>
-                <DropShadowEffect Color="Black"
+                <DropShadowEffect Color="{DynamicResource AccentPColour}"
 					Direction="315"
 					BlurRadius="15"
 					ShadowDepth="3" />
@@ -60,37 +48,52 @@
         	<Grid Margin="0,0,0,-19">
         		<Grid.Background>
         			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        				<GradientStop Color="White" Offset="0" />
-        				<GradientStop Color="#FFF1F1F1" Offset="1" />
+        				<GradientStop Color="{DynamicResource ThemeGradient0}" Offset="0" />
+                        <GradientStop Color="{DynamicResource ThemeGradient1}" Offset="1" />
         			</LinearGradientBrush>
         		</Grid.Background>
-        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="LIBERTY {0}" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,55,0,0" Text="Developers;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		
-				
-				<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,78,0,0" Text="AMD" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,97,0,0" Text="Xerax" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,116,0,0" Text="Thunder" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,135,0,0" Text="XenonDev" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="209,55,0,0" Text="Special Thanks To;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" Text="Whirligig" d:LayoutOverrides="VerticalAlignment" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,93,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" Text="FlamingRabbit" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,112,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" ><Run Language="en-gb" Text="clkxu5"/></TextBlock>
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,131,0,0" Text="ManBearPig06" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-        		<TextBlock HorizontalAlignment="Left" Margin="245,150,0,142" Text="Bloodraptor" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,169,0,0" Text="DeadCanadian
-                           " VerticalAlignment="Top" Width="188" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,188,0,0" Text="Ascension Developers" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,207,0,0" Text="Xbox Chaos Community" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock HorizontalAlignment="Left" Margin="245,226,0,0" Text="TeamViewer" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" Height="19" VerticalAlignment="Top" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,245,0,0" Text="Bungie" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,165,0,0" Text="Links;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,188,0,0" x:Name="lblXboxChaos" Text="Xbox Chaos" VerticalAlignment="Top" Width="71" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXboxChaos_MouseUp" Cursor="Hand" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,207,0,0" x:Name="lblXeraxic" Text="Xeraxic" VerticalAlignment="Top" Width="45" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXeraxic_MouseUp" Cursor="Hand" />
+                <TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblTitle" Text="LIBERTY {0}" VerticalAlignment="Top" Width="400" Foreground="{DynamicResource AccentTextDark}" FontSize="20" FontWeight="SemiBold" />
+
+                <StackPanel Height="108" HorizontalAlignment="Left" Margin="83.667,-32,0,0" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment" >
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource AccentGradient0}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource AccentGradient1}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                </StackPanel>
+
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="33,55,0,0" Text="Developers;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+
+
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,78,0,0" Text="AMD" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,97,0,0" Text="Xerax" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,116,0,0" Text="Thunder" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,135,0,0" Text="XenonDev" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="209,55,0,0" Text="Special Thanks To;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Text="Whirligig" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,93,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" Text="FlamingRabbit" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,112,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" ><Run Language="en-gb" Text="clkxu5"/></TextBlock>
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,131,0,0" Text="ManBearPig06" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
+        		<TextBlock HorizontalAlignment="Left" Margin="245,150,0,142" Text="Bloodraptor" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,169,0,0" Text="DeadCanadian" VerticalAlignment="Top" Width="188" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,188,0,0" Text="Ascension Developers" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,207,0,0" Text="Xbox Chaos Community" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock HorizontalAlignment="Left" Margin="245,226,0,0" Text="TeamViewer" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Height="19" VerticalAlignment="Top" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,245,0,0" Text="Bungie" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,165,0,0" Text="Links;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,188,0,0" x:Name="lblXboxChaos" Text="Xbox Chaos" VerticalAlignment="Top" Width="71" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXboxChaos_MouseUp" Cursor="Hand" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,207,0,0" x:Name="lblXeraxic" Text="Xeraxic" VerticalAlignment="Top" Width="45" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXeraxic_MouseUp" Cursor="Hand" />
                 <Button x:Name="btnOK" Content="I've Seen Enough" HorizontalAlignment="Right" Margin="0,0,25,17" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="132"/>
         	</Grid>
         </Border>
     </Grid>
-</ControlsMetro:MetroContentControl>
 </Window>

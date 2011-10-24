@@ -69,7 +69,7 @@ namespace Liberty.Controls
         {
             if (!isApp)
             {
-                btnSoft.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+                btnSoft.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
                 btnSoft.FontWeight = FontWeights.ExtraBold;
 
                 btnTheme.FontWeight = FontWeights.Normal;
@@ -105,7 +105,7 @@ namespace Liberty.Controls
         {
             if (isApp)
             {
-                btnTheme.Foreground = (Brush)bc.ConvertFrom("#FF000000");
+                btnTheme.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
                 btnTheme.FontWeight = FontWeights.ExtraBold;
 
                 btnSoft.FontWeight = FontWeights.Normal;

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:local="clr-namespace:Liberty.Controls"
 		xmlns:Child="clr-namespace:Liberty.Controls"
-		xmlns:ControlsMetro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro.Controls"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local1="clr-namespace:Liberty" x:Class="Liberty.MainWindow"
 		x:Name="mainWindow"
         mc:Ignorable="d"
@@ -11,18 +10,7 @@
 		ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None"
 		Background="{x:Null}" WindowStartupLocation="CenterScreen"
         IsVisibleChanged="mainWindow_IsVisibleChanged">
-				<Window.Resources>
-			        <ResourceDictionary>
-			            <ResourceDictionary.MergedDictionaries>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colours.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
-			                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
-			                
-							<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml"/>
-			            </ResourceDictionary.MergedDictionaries>
-			        </ResourceDictionary>
-			    </Window.Resources>
-				
+
 				<Window.Triggers>
 				        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
 				            <BeginStoryboard>
@@ -50,9 +38,8 @@
 				        </EventTrigger>
 				</Window.Triggers>
 				
-	<ControlsMetro:MetroContentControl IsTabStop="False">
+	
 		<Grid>
-	        <Rectangle x:Name="recMask" Fill="White" Margin="10,10,10,10" Stroke="Black" Opacity="0.60" Visibility="Hidden" />
 	        <!--DropShadow-->
             <Border Margin="10" BorderThickness="0,0,1,1" BorderBrush="{DynamicResource AccentColour}">
 				<Border.Effect>
@@ -61,7 +48,7 @@
 						BlurRadius="12"
 						ShadowDepth="1" />
 				</Border.Effect>
-				<Grid x:Name="formBackground" Background="#FFFFFFFF" />
+				<Grid x:Name="formBackground" Background="{DynamicResource AccentBG}" />
 			</Border>
 			
 			<Border 
@@ -91,20 +78,20 @@
 	            </Grid>
 			</Border>
 
-	        <Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,261.376,0" HorizontalAlignment="Right" Width="66.138" MouseEnter="btnBugReport_MouseEnter" MouseLeave="btnBugReport_MouseLeave" MouseDown="btnBugReport_MouseDown" MouseUp="btnBugReport_MouseUp" Height="22.5" VerticalAlignment="Top"/>
-	        <Label x:Name="lblDevider2" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="0,9,257,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top" />
-	        <Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,177.514,0" HorizontalAlignment="Right" Width="88" Height="22.5" VerticalAlignment="Top" MouseDown="btnCFU_MouseDown" MouseEnter="btnCFU_MouseEnter" MouseLeave="btnCFU_MouseLeave" MouseUp="btnCFU_MouseUp"/>
-			<Label x:Name="lblDevider" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="0,9.201,171.998,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top"/>
-	        <Label x:Name="btnAbout" Content="ABOUT" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.193,143,0" HorizontalAlignment="Right" Width="37" Height="22.5" VerticalAlignment="Top" MouseEnter="btnAbout_MouseEnter" MouseLeave="btnAbout_MouseLeave" MouseDown="btnAbout_MouseDown" MouseUp="btnAbout_MouseUp"/>
-			<Label x:Name="btnSettings" Content="SETTINGS" FontWeight="SemiBold" FontSize="8" Foreground="#FF868686" Margin="0,11.11,322,0" HorizontalAlignment="Right" Width="47.919" MouseEnter="btnSettings_MouseEnter" MouseLeave="btnSettings_MouseLeave" MouseDown="btnSettings_MouseDown" MouseUp="btnSettings_MouseUp" Height="22.5" VerticalAlignment="Top"/>
-			<Label x:Name="lblDevider3" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="#FF868686" Margin="303,9,0,0" Height="22.583" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" />
+        <Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,11.11,261.376,0" HorizontalAlignment="Right" Width="66.138" MouseEnter="btnBugReport_MouseEnter" MouseLeave="btnBugReport_MouseLeave" MouseDown="btnBugReport_MouseDown" MouseUp="btnBugReport_MouseUp" Height="22.5" VerticalAlignment="Top"/>
+	        <Label x:Name="lblDevider2" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="0,9,257,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top" />
+	        <Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,11.11,177.514,0" HorizontalAlignment="Right" Width="88" Height="22.5" VerticalAlignment="Top" MouseDown="btnCFU_MouseDown" MouseEnter="btnCFU_MouseEnter" MouseLeave="btnCFU_MouseLeave" MouseUp="btnCFU_MouseUp"/>
+			<Label x:Name="lblDevider" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="0,9.201,171.998,0" HorizontalAlignment="Right" Width="13" Height="22.583" VerticalAlignment="Top"/>
+	        <Label x:Name="btnAbout" Content="ABOUT" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,11.193,143,0" HorizontalAlignment="Right" Width="37" Height="22.5" VerticalAlignment="Top" MouseEnter="btnAbout_MouseEnter" MouseLeave="btnAbout_MouseLeave" MouseDown="btnAbout_MouseDown" MouseUp="btnAbout_MouseUp"/>
+			<Label x:Name="btnSettings" Content="SETTINGS" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,11.11,322,0" HorizontalAlignment="Right" Width="47.919" MouseEnter="btnSettings_MouseEnter" MouseLeave="btnSettings_MouseLeave" MouseDown="btnSettings_MouseDown" MouseUp="btnSettings_MouseUp" Height="22.5" VerticalAlignment="Top"/>
+			<Label x:Name="lblDevider3" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="303,9,0,0" Height="22.583" VerticalAlignment="Top" HorizontalAlignment="Left" Width="13" />
 			<Child:progressStepBar x:Name="progressBar" HorizontalAlignment="Center" Width="635" Height="56" Margin="0,38,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height" />
-            
-            <Grid x:Name="stepBeta" Margin="40,85,0,0" Height="339" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
+
+        <Grid x:Name="stepBeta" Margin="40,85,0,0" Background="{x:Null}" Height="339" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
                 <Child:BetaPlayground Visibility="Visible" />
             </Grid>
             
-            <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
+            <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" Background="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
                 <Child:selectMode x:Name="stepSelectMode" Visibility="Hidden"/>
 				<Child:openSaveFile x:Name="stepOpenFile" Visibility="Hidden"/>
                 <Child:selectDevice x:Name="stepSelectDevice" Visibility="Hidden"/>
@@ -122,10 +109,11 @@
             <Button x:Name="btnBetaPlayground" Content="Beta" HorizontalAlignment="Right" Margin="0,0,524,28" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnBetaPlayground_Click" Width="69"/>
             <MediaElement x:Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
 			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>
-		
-			<StackPanel x:Name="settingsPanel" Margin="13,40,10,10" VerticalAlignment="Stretch" Background="#FFFFFFFF" HorizontalAlignment="Left" d:IsHidden="True" Width="622">
+
+        <StackPanel x:Name="settingsPanel" Margin="13,40,10,10" VerticalAlignment="Stretch" Background="{DynamicResource AccentBG}" HorizontalAlignment="Left" d:IsHidden="True" Width="622">
 				<Child:settingsMain Margin="0,0,0,0"  x:Name="settingsMain" Height="414" />
 			</StackPanel>
-		</Grid>
-	</ControlsMetro:MetroContentControl>
+
+        <Rectangle x:Name="recMask" Fill="{DynamicResource AccentBG}" Margin="10,10,10,10" Stroke="{DynamicResource AccentBG}" Opacity="0.60" Visibility="Hidden" />
+    </Grid>
 </Window>

@@ -1,8 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
+<!--Aaron, if you change these, don't forget to change them in
+    classinfo->AccentCodebase->AccentStorage aswell.--> 
+    
+    
     <SolidColorBrush x:Key="AccentTextDark" Color="#cccccc" />
-    <SolidColorBrush x:Key="AccentTextMid" Color="#D4D2D2" />
+    <SolidColorBrush x:Key="AccentTextMid" Color="#868686" />
     <SolidColorBrush x:Key="AccentTextLight" Color="#949494" />
     <SolidColorBrush x:Key="AccentBG" Color="#333333" />
     <SolidColorBrush x:Key="AccentControlsBG" Color="#2D2D2D" />
