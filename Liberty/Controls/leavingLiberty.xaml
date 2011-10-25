@@ -40,7 +40,7 @@
 	        <!--DropShadow-->
 	        <Border Margin="10,10,12,33">
 	            <Border.Effect>
-	                <DropShadowEffect Color="Black"
+	                <DropShadowEffect Color="{DynamicResource AccentPColour}"
 						Direction="315"
 						BlurRadius="15"
 						ShadowDepth="3" />
@@ -48,18 +48,33 @@
 	        	<Grid>
 	        		<Grid.Background>
 	        			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-	        				<GradientStop Color="White" Offset="0" />
-	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient0}" Offset="0" />
+                            <GradientStop Color="{DynamicResource ThemeGradient1}" Offset="1" />
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
-	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
+                <StackPanel Height="108" HorizontalAlignment="Left" Margin="83.667,-32,0,0" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment" >
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource AccentGradient0}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource AccentGradient1}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                </StackPanel>
+
+
+                <TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="LEAVING LIBERTY" VerticalAlignment="Top" Width="400" Foreground="{DynamicResource AccentTextDark}" FontSize="20" FontWeight="SemiBold" />
+	        		<TextBlock x:Name="message" Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" Text="You're now leaving Liberty, and going to {0}." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
 					
 					
-	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="LEAVING LIBERTY" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-	        		<TextBlock x:Name="message" Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" Text="You're now leaving Liberty, and going to {0}." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-					
-					
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="48,82,0,0" Text="Are you sure? Your save and progress won't be affected." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="Normal" Foreground="#FF373A3D" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="48,82,0,0" Text="Are you sure? Your save and progress won't be affected." VerticalAlignment="Top" Width="400" TextWrapping="Wrap" FontSize="13" FontWeight="Normal" Foreground="{DynamicResource AccentTextDark}" />
 					<Button x:Name="btnStay" Content="Stay" Margin="0,0,93,21" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnStay_Click"/>
 					<Button x:Name="btnLeave" Content="Leave" HorizontalAlignment="Right" Margin="0,0,28,21" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnLeave_Click"/>
 					

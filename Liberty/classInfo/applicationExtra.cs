@@ -90,6 +90,8 @@ namespace Liberty.classInfo
                     rd = new ResourceDictionary { Source = new Uri("Themes/Colour/Light.xaml", UriKind.Relative) };
                     break;
             }
+
+            App.Current.Resources.MergedDictionaries.Add(rd);
         }
 
         public static void updateAccent()

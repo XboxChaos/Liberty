@@ -23,7 +23,7 @@ namespace Liberty.Controls
 		public leavingLiberty(string siteName, string url)
 		{
 			this.InitializeComponent();
-            message.Text = message.Text.Replace("{0}", siteName);
+            message.Text = String.Format(message.Text, siteName);
             _url = url;
 		}
 		

@@ -40,7 +40,7 @@
 	        <!--DropShadow-->
 	        <Border Margin="10,10,12,33">
 	            <Border.Effect>
-	                <DropShadowEffect Color="Black"
+	                <DropShadowEffect Color="{DynamicResource AccentPColour}"
 						Direction="315"
 						BlurRadius="15"
 						ShadowDepth="3" />
@@ -48,30 +48,47 @@
 	        	<Grid>
 	        		<Grid.Background>
 	        			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-	        				<GradientStop Color="White" Offset="0" />
-	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient0}" Offset="0" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient1}" Offset="1" />
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
-	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="UPDATE" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" x:Name="textBlock2" Text="This Build;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" x:Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-					<Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Right" Margin="0,0,100,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" IsEnabled="False" Click="btnUpdate_Click" Width="70"/>
+	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="UPDATE" VerticalAlignment="Top" Width="400" Foreground="{DynamicResource AccentTextDark}" FontSize="20" FontWeight="SemiBold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" x:Name="textBlock2" Text="This Build;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+
+                <StackPanel Height="108" HorizontalAlignment="Left" Margin="83.667,-32,0,0" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment" >
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource AccentGradient0}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource AccentGradient1}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                </StackPanel>
+
+                <Button x:Name="btnUpdate" Content="Update" HorizontalAlignment="Right" Margin="0,0,100,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" IsEnabled="False" Click="btnUpdate_Click" Width="70"/>
 					<Button x:Name="btnOK" Content="Leave" HorizontalAlignment="Right" Margin="0,0,25,27" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="58"/>
 					
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,81,0,0" x:Name="lblBuildVer1" Text="Build Version: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,81,0,0" x:Name="lblBuildVer" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,100,0,0" x:Name="lblBuildHash1" Text="Build Hash: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,100,0,0" x:Name="lblBuildHash" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,119,0,0" x:Name="lblBuildDate1" Text="Build Date: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,119,0,0" x:Name="lblBuildDate" Text="xx/xx/xxxx" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,81,0,0" x:Name="lblBuildVer1" Text="Build Version: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,81,0,0" x:Name="lblBuildVer" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,100,0,0" x:Name="lblBuildHash1" Text="Build Hash: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,100,0,0" x:Name="lblBuildHash" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,119,0,0" x:Name="lblBuildDate1" Text="Build Date: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,119,0,0" x:Name="lblBuildDate" Text="xx/xx/xxxx" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" />
 					
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,141,0,0" x:Name="textBlock2_Copy" Text="Server Build;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,164,0,0" x:Name="lblSvrBuildVer1" Text="Build Version: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,164,0,0" x:Name="lblSvrBuildVer" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,183,0,0" x:Name="lblSvrBuildHash1" Text="Build Hash: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,183,0,0" x:Name="lblSvrBuildHash" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,202,0,0" x:Name="lblSvrBuildNewer1" Text="Newer Build: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,202,0,0" x:Name="lblSvrBuildNewer" Text="yes" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,141,0,0" x:Name="textBlock2_Copy" Text="Server Build;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,164,0,0" x:Name="lblSvrBuildVer1" Text="Build Version: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,164,0,0" x:Name="lblSvrBuildVer" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,183,0,0" x:Name="lblSvrBuildHash1" Text="Build Hash: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,183,0,0" x:Name="lblSvrBuildHash" Text="x.x.x.x" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,202,0,0" x:Name="lblSvrBuildNewer1" Text="Newer Build: " VerticalAlignment="Top" Width="81" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="145,202,0,0" x:Name="lblSvrBuildNewer" Text="yes" VerticalAlignment="Top" Width="278" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" />
 					
 				</Grid>
 	        </Border>

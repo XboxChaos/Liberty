@@ -10,10 +10,10 @@
 	d:DesignWidth="585" d:DesignHeight="339">	
 		
 		<Grid x:Name="LayoutRoot">
-			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Edit Save on External Storage Device" Height="45" VerticalAlignment="Top" />
-			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Let's select which save you want to edit" Height="28" VerticalAlignment="Top" />
-			<Label x:Name="subHeading1_1" Content="get save from profile;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="159" Height="29.822" VerticalAlignment="Top" />
-			<Label x:Name="lblaboutDevice" Foreground="#949494" Content="Select your save:" HorizontalAlignment="Left" Height="26.911" VerticalAlignment="Top" Width="114" Margin="24,137,0,0" />
+			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Edit Save on External Storage Device" Height="45" VerticalAlignment="Top" />
+			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Let's select which save you want to edit" Height="28" VerticalAlignment="Top" />
+			<Label x:Name="subHeading1_1" Content="get save from profile;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="159" Height="29.822" VerticalAlignment="Top" />
+			<Label x:Name="lblaboutDevice" Foreground="{DynamicResource AccentTextLight}" Content="Select your save:" HorizontalAlignment="Left" Height="26.911" VerticalAlignment="Top" Width="114" Margin="24,137,0,0" />
 			<ComboBox x:Name="cBSaves" Margin="138,140,40,0" Height="23" VerticalAlignment="Top" />
 			<Button x:Name="btnRefresh" Content="Refresh" HorizontalAlignment="Right" Margin="0,171,40,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Click="btnRefresh_Click" Width="67"/>
 		</Grid>

@@ -10,24 +10,24 @@
 	d:DesignWidth="585" d:DesignHeight="339">
 	
 		<Grid x:Name="LayoutRoot">
-			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Biped Customization" Margin="0,0,0,292" />
-			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="First of all, let's change your biped infomation." Height="25.911" VerticalAlignment="Top" />
-			
-			<Label Name="subHeading1" Content="biped infomation;" Margin="0,61,0,252" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
-			<Label Name="lblGamertag" Content="current biped: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,87,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
+        <Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Biped Customization" Margin="0,0,0,292" />
+        <Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="First of all, let's change your biped infomation." Height="25.911" VerticalAlignment="Top" />
+
+        <Label Name="subHeading1" Content="biped infomation;" Margin="0,61,0,252" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
+        <Label Name="lblGamertag" Content="current biped: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,87,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
             <ComboBox Name="cBBipeds" VerticalAlignment="Top" Margin="131,88,0,0" Height="23" HorizontalAlignment="Left" Width="120" SelectionChanged="cBBipeds_SelectionChanged" />
-            <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,142,0,0" HorizontalAlignment="Left" Width="418" Height="18.161" VerticalAlignment="Top"/>
-            <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,192,0,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="153" />
+            <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light"  Margin="37,142,0,0" HorizontalAlignment="Left" Width="418" Height="18.161" VerticalAlignment="Top"/>
+        <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,192,0,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
 	        <Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,93" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
 	        <Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,65" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
 	        <Label x:Name="lblGamertag_Copy2" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,38" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
 	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,93" MaxLines="1" x:Name="txtPlayerXCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerXCord_TextChanged" />
 	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,65" MaxLines="1" x:Name="txtPlayerYCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerYCord_TextChanged" />
 	        <TextBox HorizontalAlignment="Left" Margin="59,0,0,37" MaxLines="1" x:Name="txtPlayerZCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerZCord_TextChanged" />
-	        <CheckBox x:Name="cBWeapTransfer" Content="Transfer my weapons and armour ability to my new biped" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="37,118,0,0" HorizontalAlignment="Left" Width="418" Height="16.161" VerticalAlignment="Top" IsEnabled="False" />
-            <Label Content="Know something we don't? Do you have a named ident that we don't?" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="26.267" Margin="11,0,182,150" Name="label1" VerticalAlignment="Bottom" />
-            <Label x:Name="subHeading1_Copy" Content="extras;" Margin="231,192,201,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" />
-            <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494"  Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom" Checked="checkNoPhysics_Checked"/>
+	        <CheckBox x:Name="cBWeapTransfer" Content="Transfer my weapons and armour ability to my new biped" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Margin="37,118,0,0" HorizontalAlignment="Left" Width="418" Height="16.161" VerticalAlignment="Top" IsEnabled="False" />
+        <Label Content="Know something we don't? Do you have a named ident that we don't?" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="26.267" Margin="11,0,182,150" Name="label1" VerticalAlignment="Bottom" />
+        <Label x:Name="subHeading1_Copy" Content="extras;" Margin="231,192,201,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" />
+            <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom" Checked="checkNoPhysics_Checked"/>
             <Button x:Name="btnNameIdent" Content="Yes" HorizontalAlignment="Left" Margin="410,164,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Width="61" d:LayoutOverrides="Height" Click="btnNameIdent_Click"/>
         </Grid>
 

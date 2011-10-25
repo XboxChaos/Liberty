@@ -14,8 +14,8 @@
         <Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
 	
 		<StackPanel x:Name="updateSettings" Margin="183,40,-18,40" d:IsHidden="True">
-			<Label x:Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" FontWeight="SemiBold" Height="34"/>
-			<Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." FontSize="11" FontWeight="SemiBold" Margin="0,-10,0,0" Height="25"/>
+			<Label x:Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" Foreground="{DynamicResource AccentTextDark}" FontWeight="SemiBold" Height="34"/>
+            <Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." Foreground="{DynamicResource AccentTextDark}" FontSize="11" FontWeight="SemiBold" Margin="0,-10,0,0" Height="25"/>
 			
 			<Label x:Name="UPSprt1Header" Content="Basic updater settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
 			<CheckBox x:Name="UPScheckOLHeader" Content="Check for updates on application launch." FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="10,2,0,0" Height="14"/>
@@ -50,7 +50,7 @@
 			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
 			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked" Height="14"/>
 			
-			<TextBox IsReadOnly="True" Background="White" Name="TLTAsvTagLstDirec" Margin="10,9,150,0" Height="22"/>
+			<TextBox IsReadOnly="True" Name="TLTAsvTagLstDirec" Margin="10,9,150,0" Height="22"/>
 
             <Button x:Name="btnfindTaglist" Content="Find" Style="{DynamicResource MetroPrimaryButton}" Width="71" Margin="310,-28,0,0" HorizontalAlignment="Left" Click="btnfindTaglist_Click"/>
         </StackPanel>
