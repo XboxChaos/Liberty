@@ -28,7 +28,7 @@ namespace Liberty.Controls
 
             _saveData = saveData;
             _tagGroup = tagGroup;
-            lblSubHeader1.Text = lblSubHeader1.Text.Replace("{0}", tagGroupName);
+            lblSubHeader1.Text = String.Format(lblSubHeader1.Text, tagGroupName);
 
             if (classInfo.storage.settings.applicationSettings.noWarnings)
             {

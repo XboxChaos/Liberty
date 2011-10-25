@@ -4,8 +4,17 @@
     <SolidColorBrush x:Key="AccentTextDark" Color="#373A3D" />
     <SolidColorBrush x:Key="AccentTextMid" Color="#D4D2D2" />
     <SolidColorBrush x:Key="AccentTextLight" Color="#949494" />
-    <SolidColorBrush x:Key="AccentBG" Color="White" />
-    <SolidColorBrush x:Key="AccentControlsBG" Color="Black" />
+    <SolidColorBrush x:Key="AccentBG" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="AccentControlsBG" Color="#FFF5F5F5" />
+    <SolidColorBrush x:Key="AccentControlStickoutBG" Color="#3D3D3D"/>
+
+    <Color x:Key="AccentPControlStickoutBG" A="#FF" R="#3d" G="#3d" B="#3d"/>
+    <Color x:Key="AccentAlt" A="#FF" R="#00" G="#00" B="#00"/>
+    <SolidColorBrush x:Key="AccentAltS" Color="#FF000000"/>
+    <SolidColorBrush x:Key="AccentHighlight" Color="#FF086F9E"/>
+
+    <SolidColorBrush x:Key="AccentControlMiddleBG" Color="#5b5b5b"/>
+    <Color x:Key="AccentPDark" A="#FF" R="#37" G="#3A" B="#3D"/>
 
     <Color x:Key="ThemeGradient0" A="#FF" R="#FF" G="#FF" B="#FF"/>
     <Color x:Key="ThemeGradient1" A="#FF" R="#F1" G="#F1" B="#F1"/>

@@ -12,12 +12,12 @@
 			<Grid.RowDefinitions>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
-			<Label x:Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="#949494" Content="Re-Sign Save File" Height="45" VerticalAlignment="Top" />
-			<Label x:Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Content="Not implemented yet, leech." Height="26" VerticalAlignment="Top" />
-			<Label x:Name="subHeading1" Content="file selection;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="#FF373A3D" HorizontalAlignment="Left" Width="107" Height="26" VerticalAlignment="Top" Visibility="Hidden" />
-			<Label x:Name="lblFileDirec" Content="please load a file..." FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Height="24.911" VerticalAlignment="Top" Margin="29,140,128,0" Visibility="Hidden" />
+			<Label x:Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Re-Sign Save File" Height="45" VerticalAlignment="Top" />
+			<Label x:Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Not implemented yet, leech." Height="26" VerticalAlignment="Top" />
+			<Label x:Name="subHeading1" Content="file selection;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="107" Height="26" VerticalAlignment="Top" Visibility="Hidden" />
+			<Label x:Name="lblFileDirec" Content="please load a file..." FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="24.911" VerticalAlignment="Top" Margin="29,140,128,0" Visibility="Hidden" />
 			<Image x:Name="btnOpen" Height="21" HorizontalAlignment="Right" Stretch="Fill" VerticalAlignment="Top" Width="71" Source="/Liberty;component/Images/Button-onhover.png" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" Margin="0,141,53,0" Visibility="Hidden" />
-			<TextBlock Height="19" HorizontalAlignment="Left" Margin="480,143,0,0" x:Name="lblOpen" Text="OPEN" VerticalAlignment="Top" Width="33" Foreground="#FF373A3D" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" Visibility="Hidden" />
+			<TextBlock Height="19" HorizontalAlignment="Left" Margin="480,143,0,0" x:Name="lblOpen" Text="OPEN" VerticalAlignment="Top" Width="33" Foreground="{DynamicResource AccentTextDark}" FontFamily="Segoe WP Semibold" IsMouseDirectlyOverChanged="btnOpen_IsMouseDirectlyOverChanged" MouseDown="btnOpen_MouseDown" MouseUp="btnOpen_MouseUp" FontWeight="Bold" Visibility="Hidden" />
 			
 		</Grid>
 	

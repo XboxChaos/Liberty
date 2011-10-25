@@ -40,7 +40,7 @@
 	        <!--DropShadow-->
 	        <Border Margin="10,10,12,33">
 	            <Border.Effect>
-	                <DropShadowEffect Color="Black"
+	                <DropShadowEffect Color="{DynamicResource AccentPColour}"
 						Direction="315"
 						BlurRadius="15"
 						ShadowDepth="3" />
@@ -48,14 +48,31 @@
 	        	<Grid>
 	        		<Grid.Background>
 	        			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-	        				<GradientStop Color="White" Offset="0" />
-	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient0}" Offset="0" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient1}" Offset="1" />
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
-	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="UPDATE AVAILABLE" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" Text="New Build Infomation;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
-					<TextBox x:Name="lblBuildChanges" Margin="54,84,38,57.5" TextWrapping="Wrap" Text="**buildChanges**" Width="217" Height="194" Background="#00000000" BorderBrush="#00CCCCCC" BorderThickness="0" SelectionBrush="#003399FF" FontWeight="Normal" Foreground="#FF373A3D" IsReadOnly="True" IsReadOnlyCaretVisible="True" Cursor="Arrow" VerticalScrollBarVisibility="Auto"/>
+
+                <StackPanel Height="108" HorizontalAlignment="Left" Margin="83.667,-32,0,0" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment" >
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource AccentGradient0}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource AccentGradient1}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                </StackPanel>
+
+                <TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="UPDATE AVAILABLE" VerticalAlignment="Top" Width="400" Foreground="{DynamicResource AccentTextDark}" FontSize="20" FontWeight="SemiBold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" Text="New Build Infomation;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+					<TextBox x:Name="lblBuildChanges" Margin="54,84,38,57.5" TextWrapping="Wrap" Text="**buildChanges**" Width="217" Height="194" Background="#00000000" BorderBrush="#00CCCCCC" BorderThickness="0" SelectionBrush="#003399FF" FontWeight="Normal" Foreground="{DynamicResource AccentTextDark}" IsReadOnly="True" IsReadOnlyCaretVisible="True" Cursor="Arrow" VerticalScrollBarVisibility="Auto"/>
 					<Button x:Name="btnUpdate" Content="Update" Margin="0,0,103,18" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnUpdate_Click" Width="65"/>
 					<Button x:Name="btnIgnore" Content="Ignore" HorizontalAlignment="Right" Margin="0,0,25,18" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnIgnore_Click" Width="62"/>
 					

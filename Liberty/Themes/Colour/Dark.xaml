@@ -9,7 +9,16 @@
     <SolidColorBrush x:Key="AccentTextLight" Color="#949494" />
     <SolidColorBrush x:Key="AccentBG" Color="#333333" />
     <SolidColorBrush x:Key="AccentControlsBG" Color="#2D2D2D" />
+    <SolidColorBrush x:Key="AccentControlStickoutBG" Color="#FFbcbcbc"/>
 
+    <Color x:Key="AccentPControlStickoutBG" A="#FF" R="#bc" G="#bc" B="#bc"/>
+    <Color x:Key="AccentAlt" A="#FF" R="#FF" G="#FF" B="#FF"/>
+    <SolidColorBrush x:Key="AccentAltS" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="AccentHighlight" Color="#FF086F9E"/>
+
+    <SolidColorBrush x:Key="AccentControlMiddleBG" Color="#dadada"/>
+    <Color x:Key="AccentPDark" A="#FF" R="#cc" G="#cc" B="#cc"/>
+    
     <Color x:Key="ThemeGradient0" A="#FF" R="#3d" G="#3d" B="#3d"/>
     <Color x:Key="ThemeGradient1" A="#FF" R="#2d" G="#2d" B="#2d"/>
 </ResourceDictionary>

@@ -40,7 +40,7 @@
 	        <!--DropShadow-->
 	        <Border Margin="10,10,12,33">
 	            <Border.Effect>
-	                <DropShadowEffect Color="Black"
+	                <DropShadowEffect Color="{DynamicResource AccentPColour}"
 						Direction="315"
 						BlurRadius="15"
 						ShadowDepth="3" />
@@ -48,23 +48,40 @@
 	        	<Grid>
 	        		<Grid.Background>
 	        			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-	        				<GradientStop Color="White" Offset="0" />
-	        				<GradientStop Color="#FFF1F1F1" Offset="1" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient0}" Offset="0" />
+	        				<GradientStop Color="{DynamicResource ThemeGradient1}" Offset="1" />
 	        			</LinearGradientBrush>
 	        		</Grid.Background>
-	        		<Image Height="6" HorizontalAlignment="Left" Margin="33,20,0,0" Stretch="Fill" VerticalAlignment="Top" Width="108" Source="/Liberty;component/Images/TopBar.png" />
-	        		<TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="MASS OBJECT MOVE" VerticalAlignment="Top" Width="400" Foreground="#FF373A3D" FontSize="20" FontWeight="SemiBold" />
-	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" x:Name="lblSubHeader1" Text="This will move all {0} to a certain position." VerticalAlignment="Top" Width="415" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
-					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,77,0,0" x:Name="lblWarning" Text="It may make the mission impossible to complete." VerticalAlignment="Top" Width="334" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="VerticalAlignment" />
+
+                <StackPanel Height="108" HorizontalAlignment="Left" Margin="83.667,-32,0,0" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="VerticalAlignment" >
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource AccentGradient0}" Offset="0"/>
+                            <GradientStop Color="{DynamicResource AccentGradient1}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                </StackPanel>
+
+                <TextBlock Height="34" HorizontalAlignment="Left" Margin="33,23,0,0" x:Name="lblHeader" Text="MASS OBJECT MOVE" VerticalAlignment="Top" Width="400" Foreground="{DynamicResource AccentTextDark}" FontSize="20" FontWeight="SemiBold" />
+	        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,58,0,0" x:Name="lblSubHeader1" Text="This will move all {0} to a certain position." VerticalAlignment="Top" Width="415" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
+					<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,77,0,0" x:Name="lblWarning" Text="It may make the mission impossible to complete." VerticalAlignment="Top" Width="334" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
 					<Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Right" Margin="0,0,28,21" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnEdit_Click" Width="49"/>
 					<Button x:Name="btnCancel" Content="Cancel" Margin="0,0,93,21" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnCancel_Click"/>
 					<CheckBox x:Name="cBAdvancedAlgo" Content="Prevent objects from spawning inside of each other" Height="20" Margin="33,0,41,55" VerticalAlignment="Bottom" FontFamily="Segeo UI" FontSize="13" IsChecked="True"/>
 					<Grid x:Name="coordBoxes" Margin="73,101,0,0" Height="81.884" VerticalAlignment="Top" HorizontalAlignment="Left" Width="199.17">
-						<TextBlock Height="19" HorizontalAlignment="Left" Margin="0,3,0,0" Text="X Coordinate: " VerticalAlignment="Top" Width="93" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
+						<TextBlock Height="19" HorizontalAlignment="Left" Margin="0,3,0,0" Text="X Coordinate: " VerticalAlignment="Top" Width="93" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
 						<TextBox x:Name="txtPlayerXCord" TextWrapping="Wrap" Margin="97,0,0,0" TextChanged="ValidateFloat" VerticalAlignment="Top" Text="0" VerticalContentAlignment="Center"/>
-						<TextBlock Height="19" HorizontalAlignment="Left" Margin="0,31,0,0" Text="Y Coordinate: " VerticalAlignment="Top" Width="93" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
+						<TextBlock Height="19" HorizontalAlignment="Left" Margin="0,31,0,0" Text="Y Coordinate: " VerticalAlignment="Top" Width="93" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
 						<TextBox x:Name="txtPlayerYCord" TextWrapping="Wrap" Margin="97,28,0,0" VerticalAlignment="Top" TextChanged="ValidateFloat" Text="0" VerticalContentAlignment="Center"/>
-						<TextBlock Height="19" HorizontalAlignment="Left" Margin="0,59,0,0" Text="Z Coordinate: " VerticalAlignment="Top" Width="93" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="#FF373A3D" d:LayoutOverrides="HorizontalAlignment" />
+						<TextBlock Height="19" HorizontalAlignment="Left" Margin="0,59,0,0" Text="Z Coordinate: " VerticalAlignment="Top" Width="93" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
 						<TextBox x:Name="txtPlayerZCord" TextWrapping="Wrap" Margin="97,0,0,0" TextChanged="ValidateFloat" VerticalAlignment="Bottom" Text="0" VerticalContentAlignment="Center"/>
 					
 					</Grid>
