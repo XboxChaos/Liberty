@@ -231,7 +231,6 @@
     </Style>
 
     <!--Metro Checkbox-->
-    <!--CheckBox Style-->
     <Style TargetType="CheckBox">
         <Setter Property="FontFamily" Value="SegoeUI"/>
         <Setter Property="FontSize" Value="12"/>
@@ -456,6 +455,36 @@
 		</Setter>
 	</Style>
 
+    <!--Metro Combobox-->
+    <!--<Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+        <Setter Property="Background" Value="{DynamicResource AccentControlsBG}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AccentTextLight}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentTextMid}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid x:Name="Grid" Background="{x:Null}">
+                        <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="BorderBrush" Value="#7f222222" />
+                            <Setter Property="Foreground" Value="#7f222222"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+
     <!--Metro Textbox-->
     <Style x:Key="{x:Type TextBox}" TargetType="{x:Type TextBox}">
         <Setter Property="BorderThickness" Value="1"/>
@@ -571,6 +600,16 @@
                             </Grid>
                         </Border>
                     </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource AccentTextMid}"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -594,6 +633,212 @@
 						Value="{DynamicResource VerticalScrollBar}" />
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!--Metro Slider-->
+    <Style TargetType="Slider">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Value" Value="0"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentTextDark}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid x:Name="Root">
+                        <Grid.Resources>
+                            <ControlTemplate x:Key="RepeatButtonTemplate">
+                                <Grid x:Name="Root" Opacity="0"/>
+                            </ControlTemplate>
+                        </Grid.Resources>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="HorizontalTrackRectangleDisabledOverlay">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ThumbDisabledOverlay">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="0" Storyboard.TargetProperty="Visibility" Storyboard.TargetName="VerticalTrackRectangleDisabledOverlay">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ThumbDisabledOverlayVertical">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="HorizontalTrackRectangleDisabledOverlay_Copy">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="VerticalTrackRectangleDisabledOverlay_Copy">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Unfocused"/>
+                                <VisualState x:Name="Focused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid x:Name="HorizontalTemplate" Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Track x:Name="PART_Track" Grid.ColumnSpan="3" Grid.Column="0" Height="18" >
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource HorizontalTrackLargeDecrease}"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource HorizontalTrackLargeDecrease}"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb x:Name="HorizontalThumb" Grid.Column="1" Height="10" IsTabStop="True" Width="4" Style="{StaticResource HorizontalSliderThumb}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TickPlacement" Value="TopLeft">
+                            <Setter Property="Style" TargetName="HorizontalThumb" Value="{StaticResource HorizontalSliderThumb}"/>
+                        </Trigger>
+                        <Trigger Property="TickPlacement" Value="BottomRight">
+                            <Setter Property="Style" TargetName="HorizontalThumb" Value="{StaticResource HorizontalSliderThumb}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Metro Progressbar-->
+    <Style TargetType="ProgressBar">
+        <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource AccentTextMid}"/>
+        <Setter Property="Maximum" Value="100"/>
+        <Setter Property="Height" Value="10"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource AccentControlsBG}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid x:Name="Root">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Determinate"/>
+                                <VisualState x:Name="Indeterminate">
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="IndeterminateRoot">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Duration="00:00:00" Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DeterminateRoot">
+                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Collapsed</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(LinearGradientBrush.Transform).(TransformGroup.Children)[0].X" Storyboard.TargetName="IndeterminateGradientFill">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                                            <SplineDoubleKeyFrame KeyTime="00:00:.35" Value="20"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="PART_Track" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}"/>
+                        <Grid x:Name="ProgressBarRootGrid">
+                            <Grid x:Name="IndeterminateRoot" Visibility="Collapsed">
+                                <Rectangle x:Name="IndeterminateSolidFill" Margin="{TemplateBinding BorderThickness}" Opacity="1" RenderTransformOrigin="0.5,0.5" StrokeThickness="0" Fill="{DynamicResource BrandingBrush}"/>
+                                <Rectangle x:Name="IndeterminateGradientFill" Margin="{TemplateBinding BorderThickness}" Opacity="0.7" StrokeThickness="1">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0,1" MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="20,1">
+                                            <LinearGradientBrush.Transform>
+                                                <TransformGroup>
+                                                    <TranslateTransform X="0"/>
+                                                    <SkewTransform AngleX="-30"/>
+                                                </TransformGroup>
+                                            </LinearGradientBrush.Transform>
+                                            <GradientStop Color="{DynamicResource ProgressIndeterminateColor1}" Offset="0"/>
+                                            <GradientStop Color="{DynamicResource ProgressIndeterminateColor2}" Offset="0.651"/>
+                                            <GradientStop Color="{DynamicResource ProgressIndeterminateColor3}" Offset="0.093"/>
+                                            <GradientStop Color="{DynamicResource ProgressIndeterminateColor4}" Offset="0.548"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                            <Grid x:Name="DeterminateRoot" Margin="1">
+                                <Border x:Name="PART_Indicator" Background="{DynamicResource BrandingBrush}" HorizontalAlignment="Left" Margin="-1">
+                                    <Rectangle x:Name="GradientFill" Opacity="0.7" Visibility="Collapsed">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0,1" MappingMode="Absolute" SpreadMethod="Repeat" StartPoint="20,1">
+                                                <LinearGradientBrush.Transform>
+                                                    <TransformGroup>
+                                                        <TranslateTransform X="0"/>
+                                                        <SkewTransform AngleX="-30"/>
+                                                    </TransformGroup>
+                                                </LinearGradientBrush.Transform>
+                                                <GradientStop Color="{DynamicResource ProgressIndeterminateColor1}" Offset="0"/>
+                                                <GradientStop Color="{DynamicResource ProgressIndeterminateColor2}" Offset="0.651"/>
+                                                <GradientStop Color="{DynamicResource ProgressIndeterminateColor3}" Offset="0.093"/>
+                                                <GradientStop Color="{DynamicResource ProgressIndeterminateColor4}" Offset="0.548"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Border>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Orientation" Value="Vertical">
+                            <Setter Property="LayoutTransform" TargetName="Root">
+                                <Setter.Value>
+                                    <RotateTransform Angle="-90"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsIndeterminate" Value="true">
+                            <Setter Property="Visibility" TargetName="IndeterminateRoot" Value="Visible"/>
+                            <Setter Property="Visibility" TargetName="DeterminateRoot" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1"/>
     </Style>
 
     <!--Below here, is the pits of Hell (Apple). Do not venture below-->
@@ -928,9 +1173,9 @@
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                         <Grid x:Name="ThumbVisual" Margin="1,0,1,0">
-                            <Rectangle x:Name="Background" StrokeThickness="1" Fill="{DynamicResource ThumbBrush}" />
-                            <Rectangle x:Name="MouseOverRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource BlackBrush}" />
-                            <Rectangle x:Name="PressedRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource BlackBrush}" />
+                            <Rectangle x:Name="Background" StrokeThickness="1" Fill="{DynamicResource AccentTextDark}" />
+                            <Rectangle x:Name="MouseOverRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource AccentAltS}" />
+                            <Rectangle x:Name="PressedRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource AccentAltS}" />
                         </Grid>
                     </Grid>
                 </ControlTemplate>
@@ -980,4 +1225,64 @@
             </Grid>
         </Grid>
     </ControlTemplate>
+
+    <Style x:Key="HorizontalTrackLargeDecrease" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Grid x:Name="Root" Margin="0,-1,0,0">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver"/>
+                                <VisualState x:Name="Pressed"/>
+                                <VisualState x:Name="Disabled"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle Height="3" Margin="0,1,0,0" Fill="{DynamicResource AccentTextLight}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="HorizontalSliderThumb" TargetType="Thumb">
+        <Setter Property="Background" Value="{StaticResource AccentControlsBG}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard/>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard/>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="DisabledVisualElement">
+                                            <SplineDoubleKeyFrame KeyTime="0" Value=".55"/>
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused"/>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border Background="{DynamicResource AccentControlStickoutBG}" BorderThickness="0,0,1,0" BorderBrush="{DynamicResource AccentControlStickoutBG}" />
+                        <Rectangle x:Name="DisabledVisualElement" Fill="{DynamicResource DisabledWhiteColorBrush}" IsHitTestVisible="false" Opacity="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

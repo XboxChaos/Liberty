@@ -12,5 +12,15 @@
         <Button Content="Metro Primary Button" IsEnabled="False" HorizontalAlignment="Left" Margin="8,0,0,227" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Width="190"/>
         <Button Content="Metro Secondary Button" IsEnabled="False" HorizontalAlignment="Left" Margin="8,0,0,197" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="190"/>
 
+        <ProgressBar IsIndeterminate="False" Value="50" Maximum="100" Minimum="0" Margin="8,166,387,156" />
+        <ProgressBar IsIndeterminate="True" Margin="8,187,387,135" />
+        
+        <ComboBox Margin="8,264,255,41" SelectedIndex="0" >
+            <ComboBox.Items>
+                <ComboBoxItem>One</ComboBoxItem>
+                <ComboBoxItem>Two</ComboBoxItem>
+                <ComboBoxItem>Three</ComboBoxItem>
+            </ComboBox.Items>
+        </ComboBox>
     </Grid>
 </UserControl>

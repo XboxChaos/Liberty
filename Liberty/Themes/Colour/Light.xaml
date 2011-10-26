@@ -18,4 +18,14 @@
 
     <Color x:Key="ThemeGradient0" A="#FF" R="#FF" G="#FF" B="#FF"/>
     <Color x:Key="ThemeGradient1" A="#FF" R="#F1" G="#F1" B="#F1"/>
+
+    <Color x:Key="ProgressIndeterminateColor1">#33878787</Color>
+    <Color x:Key="ProgressIndeterminateColor2">#33959595</Color>
+    <Color x:Key="ProgressIndeterminateColor3">#4C000000</Color>
+    <Color x:Key="ProgressIndeterminateColor4">#4C000000</Color>
+
+    <LinearGradientBrush x:Key="BrandingBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5">
+        <GradientStop Color="#FF086F9E" Offset="0"/>
+        <GradientStop Color="#FF5FC316" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

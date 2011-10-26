@@ -14,11 +14,21 @@
     <Color x:Key="AccentPControlStickoutBG" A="#FF" R="#bc" G="#bc" B="#bc"/>
     <Color x:Key="AccentAlt" A="#FF" R="#FF" G="#FF" B="#FF"/>
     <SolidColorBrush x:Key="AccentAltS" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="AccentHighlight" Color="#FF086F9E"/>
+    <SolidColorBrush x:Key="AccentHighlight" Color="{DynamicResource AccentPColour}"/>
 
     <SolidColorBrush x:Key="AccentControlMiddleBG" Color="#dadada"/>
     <Color x:Key="AccentPDark" A="#FF" R="#cc" G="#cc" B="#cc"/>
     
     <Color x:Key="ThemeGradient0" A="#FF" R="#3d" G="#3d" B="#3d"/>
     <Color x:Key="ThemeGradient1" A="#FF" R="#2d" G="#2d" B="#2d"/>
+
+    <Color x:Key="ProgressIndeterminateColor1">#33878787</Color>
+    <Color x:Key="ProgressIndeterminateColor2">#33959595</Color>
+    <Color x:Key="ProgressIndeterminateColor3">#4C000000</Color>
+    <Color x:Key="ProgressIndeterminateColor4">#4C000000</Color>
+
+    <LinearGradientBrush x:Key="BrandingBrush" EndPoint="0.001,0.5" StartPoint="1.002,0.5">
+        <GradientStop Color="#FF086F9E" Offset="0"/>
+        <GradientStop Color="#FF5FC316" Offset="1"/>
+    </LinearGradientBrush>
 </ResourceDictionary>
