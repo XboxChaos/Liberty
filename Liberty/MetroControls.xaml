@@ -639,7 +639,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Path Data="F1 M 511.047,352.682L 511.047,342.252L 517.145,347.467L 511.047,352.682 Z " Height="6" Stretch="Uniform" Width="4">
                             <Path.Fill>
-                                <SolidColorBrush Color="{DynamicResource AccentControlMiddleBG}"/>
+                                <SolidColorBrush Color="{DynamicResource AccentPDark}"/>
                             </Path.Fill>
                         </Path>
                         <Path x:Name="HoverPath" Data="F1 M 511.047,352.682L 511.047,342.252L 517.145,347.467L 511.047,352.682 Z " Height="6" Stretch="Uniform" Width="4" UseLayoutRounding="False" Opacity="0" Margin="1,1,0,0">
@@ -687,7 +687,7 @@
                         </VisualStateManager.VisualStateGroups>
                         <Path Data="F1 M 110.692,342.252L 110.692,352.682L 104.594,347.467L 110.692,342.252 Z " Height="6" Stretch="Uniform" Width="4">
                             <Path.Fill>
-                                <SolidColorBrush Color="{DynamicResource AccentControlMiddleBG}"/>
+                                <SolidColorBrush Color="{DynamicResource AccentPDark}"/>
                             </Path.Fill>
                         </Path>
                         <Path x:Name="HoverPath" Data="F1 M 110.692,342.252L 110.692,352.682L 104.594,347.467L 110.692,342.252 Z " Height="6" Stretch="Uniform" Width="4" UseLayoutRounding="False" Opacity="0" Margin="0,1,0,0">
@@ -735,8 +735,8 @@
                         </VisualStateManager.VisualStateGroups>
                         <Grid x:Name="ThumbVisual" Margin="0,1,0,1">
                             <Rectangle x:Name="Background" StrokeThickness="1" Fill="{DynamicResource AccentTextDark}" />
-                            <Rectangle x:Name="MouseOverRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource AccentAlt}" />
-                            <Rectangle x:Name="PressedRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource AccentAlt}" />
+                            <Rectangle x:Name="MouseOverRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource AccentAltS}" />
+                            <Rectangle x:Name="PressedRectangle" StrokeThickness="1" Opacity="0" Fill="{DynamicResource AccentAltS}" />
                         </Grid>
                     </Grid>
                 </ControlTemplate>
