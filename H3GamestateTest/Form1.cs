@@ -53,15 +53,14 @@ namespace H3GamestateTest
                 streamReader.Seek(0x46A0F4 + (16 * i), SeekOrigin.Begin);
 
                 LinkObjectTable linkObj = new LinkObjectTable();
+                linkObj.MahOffsat = stream.Position;
                 linkObj.DatumSaltIndex = streamReader.ReadUInt16();
-                linkObj.Unk1 = streamReader.ReadUInt16();
+                linkObj.Unk1 = (byte)streamReader.ReadByte();
                 linkObj.TagGroup = (byte)streamReader.ReadByte();
-                linkObj.Unk3 = (byte)streamReader.ReadByte();
+                linkObj.Unk3 = streamReader.ReadUInt16();
                 linkObj.Unk4 = streamReader.ReadUInt16();
                 linkObj.PoolOffset = streamReader.ReadUInt32();
                 linkObj.Unk6 = streamReader.ReadUInt32();
-
-                linkObj.MahOffsat = stream.Position;
 
                 linkObjects.Add(linkObj);
             }
@@ -115,9 +114,9 @@ namespace H3GamestateTest
             public Int64 MahOffsat { get; set; }
 
             public UInt16 DatumSaltIndex { get; set; }
-            public UInt16 Unk1 { get; set; }
+            public byte Unk1 { get; set; }
             public byte TagGroup { get; set; }
-            public byte Unk3 { get; set; }
+            public UInt16 Unk3 { get; set; }
             public UInt16 Unk4 { get; set; }
             public UInt32 PoolOffset { get; set; }
             public UInt32 Unk6 { get; set; }
@@ -153,21 +152,6 @@ namespace H3GamestateTest
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void derpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("ye");
@@ -177,7 +161,9 @@ namespace H3GamestateTest
         {
             H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
 
-            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") + gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") + gameObj.linkedData.Unk6.ToString("X");
+            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
+                gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") +
+                gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.Unk6.ToString("X");
 
             MessageBox.Show("Chunk linked Bytedata;\n\n" + byteData);
         }
@@ -196,7 +182,9 @@ namespace H3GamestateTest
         {
             H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
 
-            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") + gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") + gameObj.linkedData.Unk6.ToString("X");
+            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
+                gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") +
+                gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.Unk6.ToString("X"); 
             Clipboard.SetText(byteData);
 
             toolStripStatusLabel2.Text = "Added linked bytedata to Clipboard...";

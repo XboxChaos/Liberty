@@ -38,28 +38,28 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openLinkedByteDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.addPoolOffsetToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addLinkedChunkOffsetToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addByteDataToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addIdentToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.derpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openLinkedByteDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addPoolOffsetToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.addByteDataToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.derpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addIdentToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addLinkedChunkOffsetToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -83,7 +83,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(384, 224);
+            this.tabPage2.Size = new System.Drawing.Size(583, 353);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Weap Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -124,7 +124,7 @@
             this.textBox1.Location = new System.Drawing.Point(98, 36);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(504, 20);
+            this.textBox1.Size = new System.Drawing.Size(718, 20);
             this.textBox1.TabIndex = 4;
             // 
             // button2
@@ -145,6 +145,72 @@
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(206, 399);
             this.treeView1.TabIndex = 6;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openLinkedByteDataToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.addPoolOffsetToClipboardToolStripMenuItem,
+            this.addLinkedChunkOffsetToClipboardToolStripMenuItem,
+            this.addByteDataToClipboardToolStripMenuItem,
+            this.addIdentToClipboardToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.derpToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(277, 148);
+            // 
+            // openLinkedByteDataToolStripMenuItem
+            // 
+            this.openLinkedByteDataToolStripMenuItem.Name = "openLinkedByteDataToolStripMenuItem";
+            this.openLinkedByteDataToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.openLinkedByteDataToolStripMenuItem.Text = "Open Linked Byte Data";
+            this.openLinkedByteDataToolStripMenuItem.Click += new System.EventHandler(this.openLinkedByteDataToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(273, 6);
+            // 
+            // addPoolOffsetToClipboardToolStripMenuItem
+            // 
+            this.addPoolOffsetToClipboardToolStripMenuItem.Name = "addPoolOffsetToClipboardToolStripMenuItem";
+            this.addPoolOffsetToClipboardToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.addPoolOffsetToClipboardToolStripMenuItem.Text = "Add ObjectPool offset to Clipboard";
+            this.addPoolOffsetToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addPoolOffsetToClipboardToolStripMenuItem_Click);
+            // 
+            // addLinkedChunkOffsetToClipboardToolStripMenuItem
+            // 
+            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Name = "addLinkedChunkOffsetToClipboardToolStripMenuItem";
+            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Text = "Add Linked Chunk Offset to Clipboard";
+            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addLinkedChunkOffsetToClipboardToolStripMenuItem_Click);
+            // 
+            // addByteDataToClipboardToolStripMenuItem
+            // 
+            this.addByteDataToClipboardToolStripMenuItem.Name = "addByteDataToClipboardToolStripMenuItem";
+            this.addByteDataToClipboardToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.addByteDataToClipboardToolStripMenuItem.Text = "Add ByteData to Clipboard";
+            this.addByteDataToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addByteDataToClipboardToolStripMenuItem_Click);
+            // 
+            // addIdentToClipboardToolStripMenuItem
+            // 
+            this.addIdentToClipboardToolStripMenuItem.Name = "addIdentToClipboardToolStripMenuItem";
+            this.addIdentToClipboardToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.addIdentToClipboardToolStripMenuItem.Text = "Add Ident to Clipboard";
+            this.addIdentToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addIdentToClipboardToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(273, 6);
+            // 
+            // derpToolStripMenuItem
+            // 
+            this.derpToolStripMenuItem.Name = "derpToolStripMenuItem";
+            this.derpToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
+            this.derpToolStripMenuItem.Text = "Derp?";
+            this.derpToolStripMenuItem.Click += new System.EventHandler(this.derpToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -197,72 +263,6 @@
             this.splitContainer1.SplitterDistance = 206;
             this.splitContainer1.TabIndex = 10;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openLinkedByteDataToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.addPoolOffsetToClipboardToolStripMenuItem,
-            this.addLinkedChunkOffsetToClipboardToolStripMenuItem,
-            this.addByteDataToClipboardToolStripMenuItem,
-            this.addIdentToClipboardToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.derpToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(277, 170);
-            // 
-            // openLinkedByteDataToolStripMenuItem
-            // 
-            this.openLinkedByteDataToolStripMenuItem.Name = "openLinkedByteDataToolStripMenuItem";
-            this.openLinkedByteDataToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.openLinkedByteDataToolStripMenuItem.Text = "Open Linked Byte Data";
-            this.openLinkedByteDataToolStripMenuItem.Click += new System.EventHandler(this.openLinkedByteDataToolStripMenuItem_Click);
-            // 
-            // addPoolOffsetToClipboardToolStripMenuItem
-            // 
-            this.addPoolOffsetToClipboardToolStripMenuItem.Name = "addPoolOffsetToClipboardToolStripMenuItem";
-            this.addPoolOffsetToClipboardToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.addPoolOffsetToClipboardToolStripMenuItem.Text = "Add ObjectPool offset to Clipboard";
-            this.addPoolOffsetToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addPoolOffsetToClipboardToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(224, 6);
-            // 
-            // addByteDataToClipboardToolStripMenuItem
-            // 
-            this.addByteDataToClipboardToolStripMenuItem.Name = "addByteDataToClipboardToolStripMenuItem";
-            this.addByteDataToClipboardToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.addByteDataToClipboardToolStripMenuItem.Text = "Add ByteData to Clipboard";
-            this.addByteDataToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addByteDataToClipboardToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(224, 6);
-            // 
-            // derpToolStripMenuItem
-            // 
-            this.derpToolStripMenuItem.Name = "derpToolStripMenuItem";
-            this.derpToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.derpToolStripMenuItem.Text = "Derp?";
-            this.derpToolStripMenuItem.Click += new System.EventHandler(this.derpToolStripMenuItem_Click);
-            // 
-            // addIdentToClipboardToolStripMenuItem
-            // 
-            this.addIdentToClipboardToolStripMenuItem.Name = "addIdentToClipboardToolStripMenuItem";
-            this.addIdentToClipboardToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.addIdentToClipboardToolStripMenuItem.Text = "Add Ident to Clipboard";
-            this.addIdentToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addIdentToClipboardToolStripMenuItem_Click);
-            // 
-            // addLinkedChunkOffsetToClipboardToolStripMenuItem
-            // 
-            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Name = "addLinkedChunkOffsetToClipboardToolStripMenuItem";
-            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Size = new System.Drawing.Size(276, 22);
-            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Text = "Add Linked Chunk Offset to Clipboard";
-            this.addLinkedChunkOffsetToClipboardToolStripMenuItem.Click += new System.EventHandler(this.addLinkedChunkOffsetToClipboardToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,6 +277,7 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -284,7 +285,6 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
