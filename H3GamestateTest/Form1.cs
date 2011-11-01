@@ -23,6 +23,8 @@ namespace H3GamestateTest
         public Form1()
         {
             InitializeComponent();
+
+            toolStripStatusLabel2.Text = "Load Halo 3 Gamestate Gamesave...";
         }
 
         void loadSave()
@@ -59,6 +61,8 @@ namespace H3GamestateTest
                 linkObj.PoolOffset = streamReader.ReadUInt32();
                 linkObj.Unk6 = streamReader.ReadUInt32();
 
+                linkObj.MahOffsat = stream.Position;
+
                 linkObjects.Add(linkObj);
             }
 
@@ -78,25 +82,38 @@ namespace H3GamestateTest
 
             foreach (LinkObjectTable linkedObjects in linkObjects)
             {
-                if (!((IList<int>)IdentParents).Contains((int)linkedObjects.TagGroup))
+                //if (!((IList<int>)IdentParents).Contains((int)linkedObjects.TagGroup))
                 {
                     if (!linkedObjects.PoolOffset.Equals(0))
                     {
                         streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset, SeekOrigin.Begin);
-
                         H3GameObject h3g = new H3GameObject();
+
+                        h3g.linkedData = linkedObjects;
                         h3g.GameIdent = streamReader.ReadUInt32();
-                        h3g.tmp = (byte)linkedObjects.TagGroup;
 
                         gameObjects.Add(h3g);
                     }
                 }
             }
+
+            foreach (H3GameObject gameObj in gameObjects)
+            {
+                TreeNode node = new TreeNode();
+                node.Text = gameObj.GameIdent.ToString("X") + " - " + gameObj.linkedData.PoolOffset.ToString("X") + " - " + gameObj.linkedData.TagGroup.ToString();
+                node.Tag = gameObj;
+
+                treeView1.Nodes.Add(node);
+            }
+
+            toolStripStatusLabel2.Text = "Loaded gamestate file... hehe :3";
         }
 
 
         public class LinkObjectTable
         {
+            public Int64 MahOffsat { get; set; }
+
             public UInt16 DatumSaltIndex { get; set; }
             public UInt16 Unk1 { get; set; }
             public byte TagGroup { get; set; }
@@ -107,7 +124,8 @@ namespace H3GamestateTest
         }
         public class H3GameObject
         {
-            public byte tmp { get; set; }
+            public LinkObjectTable linkedData { get; set; }
+
             public UInt32 GameIdent { get; set; }
             public float BoundingBoxX1 { get; set; }
             public float BoundingBoxY1 { get; set; }
@@ -133,6 +151,75 @@ namespace H3GamestateTest
                 textBox1.Text = ofd.FileName;
                 loadSave();
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void derpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ye");
+        }
+
+        private void openLinkedByteDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+
+            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") + gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") + gameObj.linkedData.Unk6.ToString("X");
+
+            MessageBox.Show("Chunk linked Bytedata;\n\n" + byteData);
+        }
+
+        private void addPoolOffsetToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+
+            string byteData = gameObj.linkedData.PoolOffset.ToString("X");
+            Clipboard.SetText(byteData);
+
+            toolStripStatusLabel2.Text = "Added objectpool offset to Clipboard...";
+        }
+
+        private void addByteDataToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+
+            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") + gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") + gameObj.linkedData.Unk6.ToString("X");
+            Clipboard.SetText(byteData);
+
+            toolStripStatusLabel2.Text = "Added linked bytedata to Clipboard...";
+        }
+
+        private void addIdentToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+
+            string byteData = gameObj.GameIdent.ToString("X");
+            Clipboard.SetText(byteData);
+
+            toolStripStatusLabel2.Text = "Added gameIdent to Clipboard...";
+        }
+
+        private void addLinkedChunkOffsetToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+
+            string byteData = gameObj.linkedData.MahOffsat.ToString("X");
+            Clipboard.SetText(byteData);
+
+            toolStripStatusLabel2.Text = "Added linked chunk offset to Clipboard...";
         }
     }
 }
