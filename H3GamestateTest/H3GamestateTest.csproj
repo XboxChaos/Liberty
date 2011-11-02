@@ -55,6 +55,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="IO\iniClass.cs" />
     <Compile Include="IO\SaveReader.cs" />
     <Compile Include="IO\SaveWriter.cs" />
     <Compile Include="Program.cs" />
