@@ -52,7 +52,7 @@ namespace H3GamestateTest
             InitializeComponent();
 
 #if DEBUG
-            iniFolderPath = @"H:\Computer Science\x360\halo3\json\";
+            iniFolderPath = @"E:\Computer Science\x360\halo3\json\";
 #endif
 
             toolStripStatusLabel2.Text = "Load Halo 3 Gamestate Gamesave...";
@@ -167,9 +167,12 @@ namespace H3GamestateTest
                 {
                     if (!linkedObjects.PoolOffset.Equals(0))
                     {
-                        streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset, SeekOrigin.Begin);
                         H3GameObject h3g = new H3GameObject();
+                        streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset - 16, SeekOrigin.Begin);
+                        h3g.objectSizeWithLink = streamReader.ReadUInt32();
+                        h3g.objectDatumIndex = streamReader.ReadUInt32();
 
+                        streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset, SeekOrigin.Begin);
                         h3g.linkedData = linkedObjects;
                         h3g.GameIdent = streamReader.ReadUInt32();
 
@@ -275,6 +278,9 @@ namespace H3GamestateTest
         public class H3GameObject
         {
             public LinkObjectTable linkedData { get; set; }
+
+            public UInt32 objectSizeWithLink { get; set; }
+            public UInt32 objectDatumIndex { get; set; }
 
             public UInt32 GameIdent { get; set; }
             public float BoundingBoxX1 { get; set; }
