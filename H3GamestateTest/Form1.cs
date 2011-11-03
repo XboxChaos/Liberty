@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Liberty.SaveIO;
+using H3GamestateTest.IO;
 
 namespace H3GamestateTest
 {
@@ -55,6 +56,30 @@ namespace H3GamestateTest
 #endif
 
             toolStripStatusLabel2.Text = "Load Halo 3 Gamestate Gamesave...";
+            listView1.ColumnClick += new ColumnClickEventHandler(listView1_ColumnClick);
+        }
+
+        void listView1_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            NativeWinRT.ListViewSorter Sorter = new NativeWinRT.ListViewSorter();
+            listView1.ListViewItemSorter = Sorter;
+            if (!(listView1.ListViewItemSorter is NativeWinRT.ListViewSorter))
+                return;
+            Sorter = (NativeWinRT.ListViewSorter)listView1.ListViewItemSorter;
+
+            if (Sorter.LastSort == e.Column)
+            {
+                if (listView1.Sorting == SortOrder.Ascending)
+                    listView1.Sorting = SortOrder.Descending;
+                else
+                    listView1.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                listView1.Sorting = SortOrder.Descending;
+            }
+            Sorter.ByColumn = e.Column;
+
         }
 
         void loadSave()
@@ -116,7 +141,10 @@ namespace H3GamestateTest
                 linkObj.PoolOffset = streamReader.ReadUInt32();
                 linkObj.Unk6 = streamReader.ReadUInt32();
 
-                linkObjects.Add(linkObj);
+                streamReader.Seek(0x4721F4 + linkObj.PoolOffset, SeekOrigin.Begin);
+                UInt32 gid = streamReader.ReadUInt32();
+                if (gid != 0x0)
+                    linkObjects.Add(linkObj);
             }
 
             IdentParents[0] = 0;
@@ -173,14 +201,17 @@ namespace H3GamestateTest
                                 h3g.bipedData = null;
                                 break;
                             case (byte)TagGroup.Bipd:
-                                //H3BipedObject h3b = new H3BipedObject();
-                                //streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset + 0x23A, SeekOrigin.Begin);
-                                //h3b.ExternalAmmo = streamReader.ReadInt16();
-                                //streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset + 0x23E, SeekOrigin.Begin);
-                                //h3b.ClipAmmo = streamReader.ReadInt16();
+                                H3BipedObject h3b = new H3BipedObject();
+                                streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset + 0x17C, SeekOrigin.Begin);
+                                h3b.PlayerIndex = streamReader.ReadUInt16();
 
-                                //h3g.bipedData = h3b;
-                                h3g.bipedData = null;
+                                streamReader.Seek(0x4721F4 + linkedObjects.PoolOffset + 0x28C, SeekOrigin.Begin);
+                                h3b.FragNade = (sbyte)streamReader.ReadSByte();
+                                h3b.PlasmaNade = (sbyte)streamReader.ReadSByte();
+                                h3b.SpikeNade = (sbyte)streamReader.ReadSByte();
+                                h3b.FireNade = (sbyte)streamReader.ReadSByte();
+
+                                h3g.bipedData = h3b;
                                 h3g.weaponData = null;
                                 break;
                         }
@@ -191,11 +222,13 @@ namespace H3GamestateTest
 
             foreach (H3GameObject gameObj in gameObjects)
             {
-                TreeNode node = new TreeNode();
-                node.Text = gameObj.GameIdent.ToString("X") + " - " + gameObj.linkedData.PoolOffset.ToString("X") + " - " + gameObj.linkedData.TagGroup.ToString();
-                node.Tag = gameObj;
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = trueTaglist.IniReadValue(gamestateHeader.trueMapName, gameObj.GameIdent.ToString("X"));
+                lvi.SubItems.Add(gameObj.GameIdent.ToString("X"));
+                lvi.SubItems.Add(gameObj.linkedData.TagGroup.ToString());
+                lvi.Tag = gameObj;
 
-                treeView1.Nodes.Add(node);
+                listView1.Items.Add(lvi);
             }
 
             toolStripStatusLabel2.Text = "Loaded gamestate file... hehe :3";
@@ -225,6 +258,20 @@ namespace H3GamestateTest
             public UInt32 PoolOffset { get; set; }
             public UInt32 Unk6 { get; set; }
         }
+        public class H3PlayerObject
+        {
+            public UInt16 DatumSaltIndex { get; set; }
+            //public UInt32 BipedOject { get; set; }
+            public string Gamertag1 { get; set; }
+            public string ServiceTag1 { get; set; }
+
+            public string Gamertag2 { get; set; }
+            public string Gamertag3 { get; set; }
+
+            public string ServiceTag2 { get; set; }
+
+            public string Gamertag4 { get; set; }
+        }
         public class H3GameObject
         {
             public LinkObjectTable linkedData { get; set; }
@@ -250,6 +297,7 @@ namespace H3GamestateTest
         }
         public class H3BipedObject
         {
+            public UInt16 PlayerIndex { get; set; }
             public sbyte FragNade { get; set; }
             public sbyte PlasmaNade { get; set; }
             public sbyte SpikeNade { get; set; }
@@ -259,7 +307,7 @@ namespace H3GamestateTest
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Halo 3 gamesave (mmiof.bmf)|*.bmf";
+            ofd.Filter = "Halo 3 gamesave (mmiof.bmf)|*.*";
             ofd.Title = "Open Halo 3 gamesave";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -274,7 +322,7 @@ namespace H3GamestateTest
         }
         private void openLinkedByteDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+            H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
             string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
                 gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") +
@@ -284,7 +332,7 @@ namespace H3GamestateTest
         }
         private void addPoolOffsetToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+            H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
             string byteData = gameObj.linkedData.PoolOffset.ToString("X");
             Clipboard.SetText(byteData);
@@ -293,7 +341,7 @@ namespace H3GamestateTest
         }
         private void addByteDataToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+            H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
             string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
                 gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") +
@@ -303,7 +351,7 @@ namespace H3GamestateTest
         }
         private void addIdentToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+            H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
             string byteData = gameObj.GameIdent.ToString("X");
             Clipboard.SetText(byteData);
@@ -312,7 +360,7 @@ namespace H3GamestateTest
         }
         private void addLinkedChunkOffsetToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            H3GameObject gameObj = (H3GameObject)treeView1.SelectedNode.Tag;
+            H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
             string byteData = gameObj.linkedData.MahOffsat.ToString("X");
             Clipboard.SetText(byteData);
@@ -320,13 +368,13 @@ namespace H3GamestateTest
             toolStripStatusLabel2.Text = "Added linked chunk offset to Clipboard...";
         }
 
-        private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (e.Node != null)
+            try
             {
                 // Do screwy .net stuff
-                TreeNode node = (TreeNode)e.Node;
-                H3GameObject obj = (H3GameObject)node.Tag;
+                ListViewItem lvi = (ListViewItem)listView1.SelectedItems[0];
+                H3GameObject obj = (H3GameObject)lvi.Tag;
 
                 // Load Data to Frontend
 
@@ -348,6 +396,10 @@ namespace H3GamestateTest
                 txtPosX.Text = Convert.ToString(obj.PositionX);
                 txtPosY.Text = Convert.ToString(obj.PositionY);
                 txtPosZ.Text = Convert.ToString(obj.PositionZ);
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }
