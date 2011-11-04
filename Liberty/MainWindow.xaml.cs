@@ -206,178 +206,6 @@ namespace Liberty
             settingsPanel.Visibility = Visibility.Hidden;
         }
 
-        /*private void goForward()
-        {
-            if (step != 8)
-            {
-                step0.Visibility = Visibility.Hidden;
-                step0_1.Visibility = Visibility.Hidden;
-                step0_2.Visibility = Visibility.Hidden;
-                step1.Visibility = Visibility.Hidden;
-                step2.Visibility = Visibility.Hidden;
-                step3.Visibility = Visibility.Hidden;
-                step4.Visibility = Visibility.Hidden;
-                step4_0.Visibility = Visibility.Hidden;
-                step5.Visibility = Visibility.Hidden;
-                resignSave.Visibility = Visibility.Hidden;
-
-                btnBack.Visibility = Visibility.Visible;
-                lblBack.Visibility = Visibility.Visible;
-                btnOK.Visibility = Visibility.Visible;
-                lblOK.Visibility = Visibility.Visible;
-            }
-
-            switch (step)
-            {
-                case -1:
-                    step++;
-                    progressBar.updateStage(step);
-                    btnBack.Visibility = Visibility.Hidden;
-                    lblBack.Visibility = Visibility.Hidden;
-                    step0.Visibility = Visibility.Visible;
-                    break;
-                case 0:
-                    step0.saveData();
-                    step++;
-                    progressBar.updateStage(step);
-                    step0_1.loadData();
-                    step0_1.Visibility = Visibility.Visible;
-                    break;
-                case 1:
-                    if (fileInfoStorage.saveIsLocal)
-                    {
-                        step++;
-                        goForward();
-                    }
-                    else
-                    {
-                        if (step0_1.saveData())
-                        {
-                            progressBar.updateStage(++step);
-                            step0_2.loadData();
-                            step0_2.Visibility = Visibility.Visible;
-                        }
-                        else
-                        {
-                            step0_1.Visibility = Visibility.Visible;
-                        }
-                    }
-                    break;
-                case 2:
-                    if (!fileInfoStorage.saveIsLocal)
-                        step0_2.saveData();
-                    if (fileInfoStorage.fileExtractDirectory == null)
-                    {
-                        showMessage("You must select a valid Halo: Reach campaign save before you can continue.", "Error");
-                        step -= 2;
-                        goForward();
-                    }
-                    else
-                    {
-                        step1.loadData(saveData);
-                        step++;
-                        progressBar.updateStage(step);
-                        btnBack.IsEnabled = true;
-                        step1.Visibility = Visibility.Visible;
-                    }
-                    break;
-                case 3:
-                    if (fileInfoStorage.resigningSave)
-                    {
-                        // Show the save resigner
-                        resignSave.loadData();
-                        step = 9;
-                        progressBar.updateStage(step);
-                        btnBack.IsEnabled = true;
-                        resignSave.Visibility = Visibility.Visible;
-                        btnOK.Visibility = Visibility.Hidden;
-                        lblOK.Visibility = Visibility.Hidden;
-                    }
-                    else
-                    {
-                        // Load the ascension taglist
-                        string excepLoadTag = loadAscensionTaglist();
-                        if (excepLoadTag != null)
-                            showException(excepLoadTag);
-
-                        step2.loadData(saveData);
-                        step++;
-                        progressBar.updateStage(step);
-                        btnBack.IsEnabled = true;
-                        step2.Visibility = Visibility.Visible;
-                    }
-                    break;
-                case 4:
-                    step2.saveData(saveData);
-                    step3.loadData();
-                    step++;
-                    progressBar.updateStage(step);
-                    btnBack.IsEnabled = true;
-                    step3.Visibility = Visibility.Visible;
-                    break;
-                case 5:
-                    bool error = step3.saveData();
-                    if (error)
-                    {
-                        step4.loadData(saveData);
-                        step++;
-                        progressBar.updateStage(step);
-                        btnBack.IsEnabled = true;
-                        step4.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        showMessage("Please make sure you have filled in each ammo/grenade count textbox.", "Error");
-                        step--;
-                        goForward();
-                    }
-                    break;
-                case 6:
-                    step4.saveData();
-                    step4_0.loadData(saveData);
-                    step++;
-                    progressBar.updateStage(step);
-                    step4_0.Visibility = Visibility.Visible;
-                    break;
-                case 7:
-                    {
-                        step4_0.saveData(saveData);
-                        string ex = step5.loadData();
-                        if (!fileInfoStorage.saveIsLocal)
-                            transferSave();
-                        if (ex != "yes")
-                            showException(ex);
-                        step++;
-                        progressBar.updateStage(step);
-                        btnBack.Visibility = Visibility.Hidden;
-                        lblBack.Visibility = Visibility.Hidden;
-                        step5.Visibility = Visibility.Visible;
-                    }
-                    break;
-                case 8:
-                    if (fileInfoStorage.saveIsLocal)
-                    {
-                        string argument = @"/select, " + fileInfoStorage.fileOriginalDirectory;
-                        Process.Start("explorer.exe", argument);
-                    }
-                    this.FormFadeOut.Begin();
-                    break;
-                case 9:
-                    {
-                        resignSave.saveData();
-                        string ex = step5.loadData();
-                        if (ex != "yes")
-                            showException(ex);
-                        step = 8;
-                        progressBar.updateStage(step);
-                        btnBack.Visibility = Visibility.Hidden;
-                        lblBack.Visibility = Visibility.Hidden;
-                        step5.Visibility = Visibility.Visible;
-                    }
-                    break;
-            }
-        }*/
-
         #region uncleanBullshitforWFP
         private void FormFadeOut_Completed(object sender, EventArgs e)
         {
@@ -546,6 +374,7 @@ namespace Liberty
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
             if (!_stepViewer.CanGoForward)
             {
+                btnOK.Content = "Close";
                 btnBack.Content = "Restart";
                 if (stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
                 {
@@ -562,6 +391,7 @@ namespace Liberty
                 // Restart
                 _saveManager.Close();
                 _stepViewer.ViewNode(_firstStep, _saveManager);
+                btnOK.Content = "Next";
                 btnBack.Content = "Back";
             }
             else

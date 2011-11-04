@@ -26,44 +26,21 @@ namespace Liberty.Controls
         public void Load(Util.SaveManager saveManager)
         {
             Reach.CampaignSave saveData = saveManager.SaveData;
-            if (saveData.Player.PrimaryWeapon != null)
-            {
-                gridPrimary.Visibility = Visibility.Visible;
-                txtPrimaryAmmo.Text = saveData.Player.PrimaryWeapon.Ammo.ToString();
-                txtPrimaryClip.Text = saveData.Player.PrimaryWeapon.ClipAmmo.ToString();
-            }
-            else
-            {
-                gridPrimary.Visibility = Visibility.Collapsed;
-            }
-
-            if (saveData.Player.SecondaryWeapon != null)
-            {
-                gridSecondary.Visibility = Visibility.Visible;
-                txtSecondaryAmmo.Text = saveData.Player.SecondaryWeapon.Ammo.ToString();
-                txtSecondaryClip.Text = saveData.Player.SecondaryWeapon.ClipAmmo.ToString();
-            }
-            else
-            {
-                gridSecondary.Visibility = Visibility.Collapsed;
-            }
+            Reach.BipedObject playerBiped = saveData.Player.Biped;
+            loadWeapon(playerBiped.PrimaryWeapon, gridPrimary, txtPrimaryAmmo, txtPrimaryClip);
+            loadWeapon(playerBiped.SecondaryWeapon, gridSecondary, txtSecondaryAmmo, txtSecondaryClip);
+            loadWeapon(playerBiped.TertiaryWeapon, gridTertiary, txtTertiaryAmmo, txtTertiaryClip);
+            loadWeapon(playerBiped.QuaternaryWeapon, gridQuaternary, txtQuaternaryAmmo, txtQuaternaryClip);
         }
 
         public bool Save(Util.SaveManager saveManager)
         {
             Reach.CampaignSave saveData = saveManager.SaveData;
-            if (saveData.Player.PrimaryWeapon != null)
-            {
-                saveData.Player.PrimaryWeapon.Ammo = Convert.ToInt16(txtPrimaryAmmo.Text);
-                saveData.Player.PrimaryWeapon.ClipAmmo = Convert.ToInt16(txtPrimaryClip.Text);
-            }
-
-            if (saveData.Player.SecondaryWeapon != null)
-            {
-                saveData.Player.SecondaryWeapon.Ammo = Convert.ToInt16(txtSecondaryAmmo.Text);
-                saveData.Player.SecondaryWeapon.ClipAmmo = Convert.ToInt16(txtSecondaryClip.Text);
-            }
-
+            Reach.BipedObject playerBiped = saveData.Player.Biped;
+            saveWeapon(playerBiped.PrimaryWeapon, txtPrimaryAmmo, txtPrimaryClip);
+            saveWeapon(playerBiped.SecondaryWeapon, txtSecondaryAmmo, txtSecondaryClip);
+            saveWeapon(playerBiped.TertiaryWeapon, txtTertiaryAmmo, txtTertiaryClip);
+            saveWeapon(playerBiped.QuaternaryWeapon, txtQuaternaryAmmo, txtQuaternaryClip);
             return true;
         }
 
@@ -75,6 +52,29 @@ namespace Liberty.Controls
         public void Hide()
         {
             Visibility = Visibility.Hidden;
+        }
+
+        private void loadWeapon(Reach.WeaponObject weapon, Grid grid, TextBox ammoBox, TextBox clipBox)
+        {
+            if (weapon != null)
+            {
+                grid.IsEnabled = true;
+                ammoBox.Text = weapon.Ammo.ToString();
+                clipBox.Text = weapon.ClipAmmo.ToString();
+            }
+            else
+            {
+                grid.IsEnabled = false;
+            }
+        }
+
+        private void saveWeapon(Reach.WeaponObject weapon, TextBox ammoBox, TextBox clipBox)
+        {
+            if (weapon != null)
+            {
+                weapon.Ammo = Convert.ToInt16(ammoBox.Text);
+                weapon.ClipAmmo = Convert.ToInt16(clipBox.Text);
+            }
         }
 
         #region textValidation
@@ -201,6 +201,26 @@ namespace Liberty.Controls
         private void btnMaxSecondaryAmmo_Click(object sender, RoutedEventArgs e)
         {
             txtSecondaryAmmo.Text = "32767";
+        }
+
+        private void btnMaxTertiaryClip_Click(object sender, RoutedEventArgs e)
+        {
+            txtTertiaryClip.Text = "32767";
+        }
+
+        private void btnMaxTertiaryAmmo_Click(object sender, RoutedEventArgs e)
+        {
+            txtTertiaryAmmo.Text = "32767";
+        }
+
+        private void btnMaxQuaternaryClip_Click(object sender, RoutedEventArgs e)
+        {
+            txtQuaternaryClip.Text = "32767";
+        }
+
+        private void btnMaxQuaternaryAmmo_Click(object sender, RoutedEventArgs e)
+        {
+            txtQuaternaryAmmo.Text = "32767";
         }
     }
 }

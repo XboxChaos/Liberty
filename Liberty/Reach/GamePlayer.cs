@@ -60,15 +60,10 @@ namespace Liberty.Reach
             {
                 if (transferWeapons)
                 {
-                    if (newBiped.PrimaryWeapon != null)
-                        newBiped.PrimaryWeapon.Delete();
-                    if (newBiped.SecondaryWeapon != null)
-                        newBiped.SecondaryWeapon.Delete();
                     if (newBiped.ArmorAbility != null)
-                        newBiped.ArmorAbility.Delete();
+                        newBiped.ArmorAbility.Drop();
 
-                    newBiped.PrimaryWeapon = _biped.PrimaryWeapon;
-                    newBiped.SecondaryWeapon = _biped.SecondaryWeapon;
+                    _biped.TransferWeapons(newBiped);
                     newBiped.ArmorAbility = _biped.ArmorAbility;
                     newBiped.FragGrenades = _biped.FragGrenades;
                     newBiped.PlasmaGrenades = _biped.PlasmaGrenades;

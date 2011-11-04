@@ -36,7 +36,6 @@ namespace Liberty.Controls
         private Reach.ModelNode currentNode = null;
         BrushConverter bc = new BrushConverter();
         private MainWindow mainWindow = null;
-        private ListBoxItem[] weaponListItems = new ListBoxItem[4];
 
 		public editObjects()
 		{
@@ -342,34 +341,7 @@ namespace Liberty.Controls
                             }
 
                             // Children button
-                            if (currentObject.FirstCarried != null)
-                            {
-                                int numChildren = 0;
-                                Reach.GameObject obj = currentObject.FirstCarried;
-                                while (obj != null)
-                                {
-                                    numChildren++;
-                                    obj = obj.NextCarried;
-                                }
-                                if (numChildren == 1)
-                                {
-                                    lblNumChildren.FontSize = 8.0 * (96.0 / 72.0);
-                                    lblNumChildren.Padding = new Thickness(5, 6, 5, 5);
-                                    lblNumChildren.Text = (string)objectItems[(int)(currentObject.FirstCarried.ID & 0xFFFF)].Header;
-                                }
-                                else
-                                {
-                                    lblNumChildren.FontSize = 9.75 * (96.0 / 72.0);
-                                    lblNumChildren.Padding = new Thickness(5);
-                                    lblNumChildren.Text = numChildren.ToString() + " objects";
-                                }
-
-                                carrying.Visibility = Visibility.Visible;
-                            }
-                            else
-                            {
-                                carrying.Visibility = Visibility.Collapsed;
-                            }
+                            refreshChildrenButton();
 
                             // "Plugin" stuff
                             switch (currentObject.TagGroup)
@@ -410,30 +382,14 @@ namespace Liberty.Controls
                             }
 
                             // Weapon list
-                            btnViewWeapon.Visibility = Visibility.Collapsed;
                             Reach.WeaponUser weaponUser = currentObject as Reach.WeaponUser;
                             if (weaponUser != null)
                             {
                                 tabWeapons.Visibility = Visibility.Visible;
                                 listWeapons.Items.Clear();
-                                for (int i = 0; i < weaponListItems.Length; i++)
-                                {
-                                    Reach.WeaponObject weapon = weaponUser.GetWeapon(i);
-                                    if (weapon != null)
-                                    {
-                                        ListBoxItem item = new ListBoxItem();
-                                        TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-                                        item.Content = tvi.Header;
-                                        item.FontWeight = tvi.FontWeight;
-                                        item.Tag = weapon;
-                                        listWeapons.Items.Add(item);
-                                        weaponListItems[i] = item;
-                                    }
-                                    else
-                                    {
-                                        weaponListItems[i] = null;
-                                    }
-                                }
+                                foreach (Reach.WeaponObject weapon in weaponUser.Weapons)
+                                    addWeaponToList(weapon);
+                                refreshWeaponButtons();
                             }
                             else
                             {
@@ -484,6 +440,39 @@ namespace Liberty.Controls
                     btnDelete.Visibility = Visibility.Hidden;
                     btnReplace.Visibility = Visibility.Hidden;
                 }
+            }
+        }
+
+        private void refreshChildrenButton()
+        {
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+            if (currentObject.FirstCarried != null)
+            {
+                int numChildren = 0;
+                Reach.GameObject obj = currentObject.FirstCarried;
+                while (obj != null)
+                {
+                    numChildren++;
+                    obj = obj.NextCarried;
+                }
+                if (numChildren == 1)
+                {
+                    lblNumChildren.FontSize = 8.0 * (96.0 / 72.0);
+                    lblNumChildren.Padding = new Thickness(5, 6, 5, 5);
+                    lblNumChildren.Text = (string)objectItems[(int)(currentObject.FirstCarried.ID & 0xFFFF)].Header;
+                }
+                else
+                {
+                    lblNumChildren.FontSize = 9.75 * (96.0 / 72.0);
+                    lblNumChildren.Padding = new Thickness(5);
+                    lblNumChildren.Text = numChildren.ToString() + " objects";
+                }
+
+                carrying.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                carrying.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -859,9 +848,44 @@ namespace Liberty.Controls
         private void listWeapons_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listWeapons.SelectedIndex != -1)
+            {
                 btnViewWeapon.Visibility = Visibility.Visible;
+                btnDropWeapon.Visibility = Visibility.Visible;
+            }
             else
+            {
                 btnViewWeapon.Visibility = Visibility.Collapsed;
+                btnDropWeapon.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void addWeaponToList(Reach.WeaponObject weapon)
+        {
+            ListBoxItem item = new ListBoxItem();
+            TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
+            item.Content = tvi.Header;
+            item.FontWeight = tvi.FontWeight;
+            item.Tag = weapon;
+            listWeapons.Items.Add(item);
+        }
+
+        private void refreshWeaponButtons()
+        {
+            if (listWeapons.Items.Count < 4)
+                btnAddWeapon.Visibility = Visibility.Visible;
+            else
+                btnAddWeapon.Visibility = Visibility.Collapsed;
+
+            if (listWeapons.SelectedIndex != -1)
+            {
+                btnViewWeapon.Visibility = Visibility.Visible;
+                btnDropWeapon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnViewWeapon.Visibility = Visibility.Collapsed;
+                btnDropWeapon.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void btnViewWeapon_Click(object sender, RoutedEventArgs e)
@@ -869,6 +893,52 @@ namespace Liberty.Controls
             ListBoxItem item = (ListBoxItem)listWeapons.SelectedItem;
             Reach.WeaponObject weapon = (Reach.WeaponObject)item.Tag;
             selectItem(objectItems[(int)(weapon.ID & 0xFFFF)]);
+        }
+
+        private void btnDropWeapon_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem item = (ListBoxItem)listWeapons.SelectedItem;
+            Reach.WeaponObject weapon = (Reach.WeaponObject)item.Tag;
+            weapon.Drop();
+
+            listWeapons.Items.Remove(item);
+            refreshChildrenButton();
+            TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
+            tvi.FontWeight = FontWeights.Normal;
+        }
+
+        private void btnAddWeapon_Click(object sender, RoutedEventArgs e)
+        {
+            List<ListBoxItem> listItems = new List<ListBoxItem>();
+            foreach (Reach.GameObject obj in _saveData.Objects)
+            {
+                Reach.WeaponObject weapon = obj as Reach.WeaponObject;
+                if (weapon != null)
+                {
+                    TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = tvi.Header;
+                    item.FontWeight = tvi.FontWeight;
+                    item.Tag = weapon;
+                    listItems.Add(item);
+                }
+            }
+
+            ListBoxItem selectedItem = mainWindow.showListBox("Select a weapon to pick up:", "PICK UP WEAPON", listItems);
+            if (selectedItem != null)
+            {
+                Reach.WeaponUser weaponUser = (Reach.WeaponUser)_saveData.Objects[currentChunkIndex];
+                Reach.WeaponObject weapon = (Reach.WeaponObject)selectedItem.Tag;
+                weaponUser.PickUpWeapon(weapon);
+
+                if (objectsAreRelated(_saveData.Player.Biped, weapon))
+                {
+                    TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
+                    tvi.FontWeight = FontWeights.Bold;
+                }
+                addWeaponToList(weapon);
+                refreshWeaponButtons();
+            }
         }
     }
 }
