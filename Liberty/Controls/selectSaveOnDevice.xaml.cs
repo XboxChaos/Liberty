@@ -63,7 +63,6 @@ namespace Liberty.Controls
             Drive.ReadData();
             Folder[] Partitions;
             Folder contentDirec;
-            string profileID;
 
             if (Drive.IsUSB)
             {
@@ -84,7 +83,6 @@ namespace Liberty.Controls
                     {
                         if (profiles.Name.StartsWith("E"))
                         {
-                            profileID = profiles.Name;
                             foreach (Folder profileContent in profiles.SubFolders(false))
                             {
                                 if (profileContent.Name == "4D53085B")
@@ -96,7 +94,7 @@ namespace Liberty.Controls
                                             if (reachSub2.Name.StartsWith("s"))
                                             {
                                                 ComboBoxItem cbi = new ComboBoxItem();
-                                                cbi.Content = profileID + " - " + reachSub2.Name;
+                                                cbi.Content = reachSub2.GetPackageName() + " - " + reachSub2.Name;
                                                 cbi.Tag = reachSub2;
                                                 _fileInjectDirec[_index++] = reachSub1;
                                                 cBSaves.Items.Add(cbi);
