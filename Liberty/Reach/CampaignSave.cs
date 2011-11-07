@@ -50,10 +50,15 @@ namespace Liberty.Reach
         {
             FileStream stream = new FileStream(mmiofBmfPath, FileMode.Open, FileAccess.Read);
 
-            Verify(stream);
-            Process(stream);
-
-            stream.Close();
+            try
+            {
+                Verify(stream);
+                Process(stream);
+            }
+            finally
+            {
+                stream.Close();
+            }
         }
 
         /// <summary>

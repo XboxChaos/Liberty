@@ -9,6 +9,12 @@
 	x:Name="stepEditObjects"
 	d:DesignWidth="585" d:DesignHeight="339">	
 	
+	<UserControl.Resources>
+		<ContextMenu x:Key="CopyValueMenu">
+			<MenuItem Header="Copy" Command="Copy" CommandTarget="{Binding Path=PlacementTarget, RelativeSource={RelativeSource FindAncestor, AncestorType=ContextMenu}}"/>
+		</ContextMenu>
+	</UserControl.Resources>
+	
 		<Grid x:Name="LayoutRoot">
         <Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Fine Tuning" Height="46" VerticalAlignment="Top" />
         <Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Edit the data for individual objects in the save" Height="25.911" VerticalAlignment="Bottom" />
@@ -29,11 +35,11 @@
 						<Label x:Name="lblGamertag_Copy4" Content="Map Ident: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,54,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="80" />
 						<Label x:Name="lblGamertag_Copy5" Content="File Offset:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,83,0,0" HorizontalAlignment="Left" Width="80" Height="24.911" VerticalAlignment="Top" />
 			
-						<Label x:Name="lblFileOffset" Content="0xABCDEF" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,83,0,0" HorizontalAlignment="Left" Width="103.958" Height="24.911" VerticalAlignment="Top" />
-						<Label x:Name="lblResourceIdent" Content="0x12345678" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,54,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103.958" />
-						<Label x:Name="lblMapIdent" Content="0xDEADBEEF" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103.958" />
+						<Label x:Name="lblFileOffset" Content="0xABCDEF" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,83,0,0" HorizontalAlignment="Left" Width="103.958" Height="24.911" VerticalAlignment="Top" ContextMenu="{StaticResource CopyValueMenu}" />
+						<Label x:Name="lblResourceIdent" Content="0x12345678" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,54,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103.958" ContextMenu="{StaticResource CopyValueMenu}" />
+						<Label x:Name="lblMapIdent" Content="0xDEADBEEF" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="103.958" ContextMenu="{StaticResource CopyValueMenu}"/>
 						<Label x:Name="lblGamertag_Copy13" Content="Mem Address:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,112,0,0" HorizontalAlignment="Left" Width="89" Height="24.822" VerticalAlignment="Top" />
-						<Label x:Name="lblAddr" Content="0xBAADF00D" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,112,0,99.178" HorizontalAlignment="Left" Width="103.958" />
+						<Label x:Name="lblAddr" Content="0xBAADF00D" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="109,112,0,99.178" HorizontalAlignment="Left" Width="103.958" ContextMenu="{StaticResource CopyValueMenu}" />
 						<StackPanel x:Name="carryBtnStack" Margin="16,151,0,0" Orientation="Vertical" HorizontalAlignment="Left" Width="200" VerticalAlignment="Top" Height="70">
 							<Grid x:Name="carriedBy" Height="32" VerticalAlignment="Top" Margin="0,0,0,4">
 								<Button x:Name="btnParent" Content="Carrier" HorizontalAlignment="Left" Margin="5,0,0,0" Style="{DynamicResource MetroSecondaryButton}" Width="75" Height="28" Click="btnParent_Click"/>
@@ -69,6 +75,7 @@
 				
 						<TextBox Margin="166,55,150,0" MaxLines="1" x:Name="txtBipdPlasmaNade" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateByte" />
 						<CheckBox x:Name="cBBipdInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,94,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="210" Height="20.243" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
+						<CheckBox x:Name="cBNightVision" Content="Night vision active" HorizontalAlignment="Left" Margin="21,118,0,0" FontSize="13" FontWeight="Light" FontFamily="Segeo UI" VerticalAlignment="Top"/>
 						<TextBox x:Name="txtBipdFragNade" TextWrapping="Wrap" Text="0" Margin="166,25,150,0" TextChanged="ValidateByte" MaxLines="1" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
 						<Button x:Name="btnBipdPlasmaMax" Content="Max" HorizontalAlignment="Right" Margin="0,55,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnBipdPlasmaMax_Click" Width="71"/>
 						<Button x:Name="btnBipdFragMax" Content="Max" HorizontalAlignment="Right" Margin="0,25,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnBipdFragMax_Click"/>

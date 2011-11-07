@@ -36,6 +36,11 @@ namespace Liberty.Controls
             Process.Start("http://www.xeraxic.com/");
 		}
 
+        private void lblCodePlex_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("http://liberty.codeplex.com/");
+        }
+
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             classInfo.applicationExtra.disableInput(this);
