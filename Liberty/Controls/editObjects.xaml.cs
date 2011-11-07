@@ -42,12 +42,24 @@ namespace Liberty.Controls
 			InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(step4_Loaded);
+
+            CommandBinding copyLabel = new CommandBinding(ApplicationCommands.Copy, copyLabel_Executed);
+            lblMapIdent.CommandBindings.Add(copyLabel);
+            lblResourceIdent.CommandBindings.Add(copyLabel);
+            lblFileOffset.CommandBindings.Add(copyLabel);
+            lblAddr.CommandBindings.Add(copyLabel);
 		}
 
         void step4_Loaded(object sender, RoutedEventArgs e)
         {
             // Grab the parent window
             mainWindow = Window.GetWindow(this) as MainWindow;
+        }
+
+        void copyLabel_Executed(object target, ExecutedRoutedEventArgs e)
+        {
+            Label label = (Label)target;
+            Clipboard.SetData(DataFormats.Text, label.Content);
         }
 
         public void Load(Util.SaveManager saveManager)
@@ -167,6 +179,7 @@ namespace Liberty.Controls
                     objBipd.Invincible = (bool)cBBipdInvici.IsChecked;
                     objBipd.PlasmaGrenades = Convert.ToSByte(txtBipdPlasmaNade.Text);
                     objBipd.FragGrenades = Convert.ToSByte(txtBipdFragNade.Text);
+                    objBipd.NightVision = (bool)cBNightVision.IsChecked;
                     break;
 
                 case Reach.TagGroup.Weap:
@@ -353,6 +366,7 @@ namespace Liberty.Controls
                                     txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
 
                                     cBBipdInvici.IsChecked = objBipd.Invincible;
+                                    cBNightVision.IsChecked = objBipd.NightVision;
 
                                     changePlugin(tabBiped);
                                     break;
@@ -905,6 +919,8 @@ namespace Liberty.Controls
             refreshChildrenButton();
             TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
             tvi.FontWeight = FontWeights.Normal;
+
+            refreshWeaponButtons();
         }
 
         private void btnAddWeapon_Click(object sender, RoutedEventArgs e)

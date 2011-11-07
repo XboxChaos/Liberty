@@ -77,6 +77,24 @@ namespace Liberty.Reach
         }
 
         /// <summary>
+        /// Whether or not night vision is active.
+        /// </summary>
+        public bool NightVision
+        {
+            get
+            {
+                return ((_bipedFlags & BipedFlags.NightVision) != 0);
+            }
+            set
+            {
+                if (value)
+                    _bipedFlags |= BipedFlags.NightVision;
+                else
+                    _bipedFlags &= ~BipedFlags.NightVision;
+            }
+        }
+
+        /// <summary>
         /// This is a low-level placeholder for when proper actor support is added later.
         /// Set this to 0xFFFFFFFF and assign a player to prevent a biped from being AI-controlled.       
         /// </summary>
@@ -110,6 +128,10 @@ namespace Liberty.Reach
             reader.Seek(start + 0x1BC, SeekOrigin.Begin);
             _actorId = reader.ReadUInt32();
 
+            // Biped flags
+            reader.Seek(start + 0x1C4, SeekOrigin.Begin);
+            _bipedFlags = reader.ReadUInt32();
+
             // Vehicle seat?
             reader.Seek(start + 0x32E, SeekOrigin.Begin);
             _seatIndex = reader.ReadUInt16();
@@ -136,6 +158,10 @@ namespace Liberty.Reach
             // Actor
             writer.Seek(start + 0x1BC, SeekOrigin.Begin);
             writer.WriteUInt32(_actorId);
+
+            // Biped flags
+            writer.Seek(start + 0x1C4, SeekOrigin.Begin);
+            writer.WriteUInt32(_bipedFlags);
 
             // Player
             writer.Seek(start + 0x1CC, SeekOrigin.Begin);
@@ -238,6 +264,16 @@ namespace Liberty.Reach
                 }
             }
         }
+
+        /// <summary>
+        /// Constants for _bipedFlags
+        /// </summary>
+        class BipedFlags
+        {
+            public const uint NightVision = 0x1000U;
+        }
+
+        private uint _bipedFlags;
 
         private ushort _seatIndex;
 

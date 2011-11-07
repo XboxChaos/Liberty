@@ -29,7 +29,7 @@ namespace Liberty.Reach
     /// Describes chunk data in an mmiof.bmf file.
     /// </summary>
     /// <seealso cref="Process"/>
-    internal class Chunk
+    public class Chunk
     {
         /// <summary>
         /// A callback used by the EnumEntries method.
@@ -89,7 +89,7 @@ namespace Liberty.Reach
 
         /// <summary>
         /// Enumerates through the entry list and fires a callback for each entry.
-        /// When the callback is fired, the SaveReader will be positioned 2 bytes from the start of the entry.
+        /// When the callback is fired, the SaveReader will be positioned 4 bytes from the start of the entry.
         /// </summary>
         /// <param name="reader">The SaveReader to read from</param>
         /// <param name="callback">The callback to call for each entry</param>
@@ -154,7 +154,7 @@ namespace Liberty.Reach
     /// The file offsets for each possible chunk.
     /// Chunks with the same name are suffixed with a number here, e.g. Contrail1.
     /// </summary>
-    internal enum ChunkOffset
+    public enum ChunkOffset
     {
         MegaloObjects = 0x2debc,
         SimObjectGlue = 0x368c0,
