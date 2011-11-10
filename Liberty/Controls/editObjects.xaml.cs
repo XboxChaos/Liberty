@@ -179,7 +179,6 @@ namespace Liberty.Controls
                     objBipd.Invincible = (bool)cBBipdInvici.IsChecked;
                     objBipd.PlasmaGrenades = Convert.ToSByte(txtBipdPlasmaNade.Text);
                     objBipd.FragGrenades = Convert.ToSByte(txtBipdFragNade.Text);
-                    objBipd.NightVision = (bool)cBNightVision.IsChecked;
                     break;
 
                 case Reach.TagGroup.Weap:
@@ -366,7 +365,6 @@ namespace Liberty.Controls
                                     txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
 
                                     cBBipdInvici.IsChecked = objBipd.Invincible;
-                                    cBNightVision.IsChecked = objBipd.NightVision;
 
                                     changePlugin(tabBiped);
                                     break;
