@@ -75,7 +75,6 @@
 				
 						<TextBox Margin="166,55,150,0" MaxLines="1" x:Name="txtBipdPlasmaNade" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateByte" />
 						<CheckBox x:Name="cBBipdInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,94,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="210" Height="20.243" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
-						<CheckBox x:Name="cBNightVision" Content="Night vision active" HorizontalAlignment="Left" Margin="21,118,0,0" FontSize="13" FontWeight="Light" FontFamily="Segeo UI" VerticalAlignment="Top"/>
 						<TextBox x:Name="txtBipdFragNade" TextWrapping="Wrap" Text="0" Margin="166,25,150,0" TextChanged="ValidateByte" MaxLines="1" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
 						<Button x:Name="btnBipdPlasmaMax" Content="Max" HorizontalAlignment="Right" Margin="0,55,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnBipdPlasmaMax_Click" Width="71"/>
 						<Button x:Name="btnBipdFragMax" Content="Max" HorizontalAlignment="Right" Margin="0,25,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnBipdFragMax_Click"/>
