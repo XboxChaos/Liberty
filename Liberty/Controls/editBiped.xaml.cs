@@ -76,7 +76,8 @@ namespace Liberty.Controls
         public bool Save(Util.SaveManager saveManager)
         {
             Reach.CampaignSave saveData = saveManager.SaveData;
-            saveData.Player.ChangeBiped((Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag, (bool)cBWeapTransfer.IsChecked);
+            Reach.BipedObject selectedBiped = (Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag;
+            saveData.Player.ChangeBiped(selectedBiped, (bool)cBWeapTransfer.IsChecked);
 
             Reach.BipedObject playerBiped = saveData.Player.Biped;
             playerBiped.Invincible = (bool)checkInvincible.IsChecked;

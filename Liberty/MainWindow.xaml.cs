@@ -198,7 +198,8 @@ namespace Liberty
                     checkForUpdates();
             }
 
-            _saveManager.AddGenericTaglist(app.tagList);
+            if (app.tagList != null)
+                _saveManager.AddGenericTaglist(app.tagList);
         }
 
         protected void ParentWPF_CloseSettings(object sender, EventArgs e)

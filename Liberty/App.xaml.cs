@@ -95,10 +95,7 @@ namespace Liberty
                         }
                     }
                 }
-                catch (SocketException)
-                {
-                }
-                catch (WebException)
+                catch
                 {
                 }
             }

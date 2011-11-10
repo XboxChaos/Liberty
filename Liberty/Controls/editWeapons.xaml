@@ -33,10 +33,10 @@
 
 				<Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="8,28,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
 				<TextBox Margin="131,26,0,0" MaxLines="1" x:Name="txtSecondaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-				<Button x:Name="btnMaxSecondaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,26,5,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxSecondaryClip_Click" Width="71" VerticalAlignment="Top"/>
+				<Button x:Name="btnMaxSecondaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,26,2,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxSecondaryClip_Click" Width="71" VerticalAlignment="Top"/>
 				<Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="30,58,119,0" Height="24" VerticalAlignment="Top" />
 				<TextBox x:Name="txtSecondaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="131,57,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-				<Button x:Name="btnMaxSecondaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,5,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxSecondaryAmmo_Click"/>
+				<Button x:Name="btnMaxSecondaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxSecondaryAmmo_Click"/>
 			</Grid>
 			<Grid x:Name="gridTertiary" Width="271" HorizontalAlignment="Left" Margin="283,84,0,0" Height="90" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
 				<Label Content="tertiary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
@@ -46,10 +46,10 @@
 
 				<Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="8,28,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
 				<TextBox Margin="132,26,0,0" MaxLines="1" x:Name="txtTertiaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60"  />
-				<Button x:Name="btnMaxTertiaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,26,1,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxTertiaryClip_Click" VerticalAlignment="Top" Width="71"/>
+				<Button x:Name="btnMaxTertiaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,26,2,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxTertiaryClip_Click" VerticalAlignment="Top" Width="71"/>
 				<Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="30,58,119,0" Height="24" VerticalAlignment="Top" />
 				<TextBox x:Name="txtTertiaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,57,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-				<Button x:Name="btnMaxTertiaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,1,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxTertiaryAmmo_Click" RenderTransformOrigin="0.455,0.564"/>
+				<Button x:Name="btnMaxTertiaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxTertiaryAmmo_Click" RenderTransformOrigin="0.455,0.564"/>
 			</Grid>
 			<Grid x:Name="gridQuaternary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90" Margin="283,180,0,0">
 				<Label Content="quaternary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
@@ -59,10 +59,10 @@
 
 				<Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="8,28,0,0" HorizontalAlignment="Left" Width="122" Height="24" VerticalAlignment="Top" />
 				<TextBox Margin="132,26,0,0" MaxLines="1" x:Name="txtQuaternaryClip" Text="" TextWrapping="Wrap" TextChanged="txtPrimaryWeapClipAmmo_TextChanged" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" />
-				<Button x:Name="btnMaxQuaternaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,26,4,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxQuaternaryClip_Click" VerticalAlignment="Top" Width="71"/>
+				<Button x:Name="btnMaxQuaternaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,26,2,0" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxQuaternaryClip_Click" VerticalAlignment="Top" Width="71"/>
 				<Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="30,58,119,0" Height="24" VerticalAlignment="Top" />
 				<TextBox x:Name="txtQuaternaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,57,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-				<Button x:Name="btnMaxQuaternaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,4,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxQuaternaryAmmo_Click"/>
+				<Button x:Name="btnMaxQuaternaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxQuaternaryAmmo_Click"/>
 			</Grid>
 	    </Grid>
 

@@ -239,6 +239,7 @@ namespace Liberty.Reach
                 newBiped._controlledVehicleId = _controlledVehicleId;
                 newBiped._actorId = _actorId;
                 _actorId = 0xFFFFFFFF;
+                newBiped._bipedFlags = _bipedFlags;
             }
 
             base.ReplaceWith(newObj, deleteCarried);
