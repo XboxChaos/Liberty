@@ -1,6 +1,6 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 11
+﻿Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 10
+
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liberty", "Liberty\Liberty.csproj", "{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLiberty", "MetroLiberty\MetroLiberty.csproj", "{9ED8F43B-2CE2-4951-8636-891313098F86}"
