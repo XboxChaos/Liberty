@@ -1,11 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 10
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 11
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liberty", "Liberty\Liberty.csproj", "{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLiberty", "MetroLiberty\MetroLiberty.csproj", "{9ED8F43B-2CE2-4951-8636-891313098F86}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H3GamestateTest", "H3GamestateTest\H3GamestateTest.csproj", "{BCF7A82D-326B-49C6-AF2E-F94B9ADC423F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCEAGamestateTest", "HCEAGamestateTest\HCEAGamestateTest.csproj", "{1904A7E2-B834-4F72-8215-900DFB1AD72C}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -14,13 +16,16 @@ Global
 		SccLocalPath1 = Liberty
 		SccLocalPath2 = MetroLiberty
 		SccLocalPath3 = H3GamestateTest
-		SccNumberOfProjects = 4
+		SccLocalPath4 = HCEAGamestateTest
+		SccNumberOfProjects = 5
 		SccProjectName1 = Liberty
 		SccProjectName2 = MetroLiberty
 		SccProjectName3 = H3GamestateTest
+		SccProjectName4 = HCEAGamestateTest
 		SccProjectUniqueName1 = Liberty\\Liberty.csproj
 		SccProjectUniqueName2 = MetroLiberty\\MetroLiberty.csproj
 		SccProjectUniqueName3 = H3GamestateTest\\H3GamestateTest.csproj
+		SccProjectUniqueName4 = HCEAGamestateTest\\HCEAGamestateTest.csproj
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs17
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +37,16 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1904A7E2-B834-4F72-8215-900DFB1AD72C}.Release|x86.ActiveCfg = Release|Any CPU
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
