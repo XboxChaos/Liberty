@@ -79,7 +79,6 @@ namespace H3GamestateTest
                 listView1.Sorting = SortOrder.Descending;
             }
             Sorter.ByColumn = e.Column;
-
         }
 
         void loadSave()
