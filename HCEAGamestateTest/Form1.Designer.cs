@@ -47,7 +47,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.derpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -55,10 +54,10 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -78,7 +77,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(644, 288);
+            this.tabPage1.Size = new System.Drawing.Size(703, 376);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Hlmt Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -89,7 +88,7 @@
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.txtGameIdent);
             this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Location = new System.Drawing.Point(340, 12);
+            this.groupBox5.Location = new System.Drawing.Point(30, 24);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(296, 120);
             this.groupBox5.TabIndex = 19;
@@ -217,23 +216,12 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(652, 314);
+            this.tabControl1.Size = new System.Drawing.Size(711, 402);
             this.tabControl1.TabIndex = 8;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(644, 288);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Weap Properties";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // toolStripStatusLabel2
             // 
@@ -246,9 +234,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 407);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 495);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(998, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1087, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
@@ -272,39 +260,38 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(998, 314);
-            this.splitContainer1.SplitterDistance = 342;
+            this.splitContainer1.Size = new System.Drawing.Size(1087, 402);
+            this.splitContainer1.SplitterDistance = 372;
             this.splitContainer1.TabIndex = 13;
             // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
             this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader2});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(342, 314);
+            this.listView1.Size = new System.Drawing.Size(372, 402);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Tag Filename";
-            this.columnHeader1.Width = 218;
+            this.columnHeader1.Text = "Ident";
+            this.columnHeader1.Width = 151;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Ident";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "TagGroup";
+            this.columnHeader2.Text = "TagGroup";
+            this.columnHeader2.Width = 173;
             // 
             // panel1
             // 
@@ -313,7 +300,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(998, 93);
+            this.panel1.Size = new System.Drawing.Size(1087, 93);
             this.panel1.TabIndex = 11;
             // 
             // groupBox1
@@ -324,7 +311,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(5, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(988, 83);
+            this.groupBox1.Size = new System.Drawing.Size(1077, 83);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "WinFS I/O";
@@ -339,11 +326,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Tagname";
+            this.columnHeader3.Width = 98;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 429);
+            this.ClientSize = new System.Drawing.Size(1087, 517);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
@@ -389,7 +381,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem derpToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -397,10 +388,10 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }
 
