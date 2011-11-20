@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtFileOffset = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtTagFilename = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtGameIdent = new System.Windows.Forms.TextBox();
@@ -51,13 +53,17 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnPlayerBiped = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txtChunkSize = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -79,41 +85,63 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(703, 376);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Hlmt Properties";
+            this.tabPage1.Text = "Object Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.txtChunkSize);
+            this.groupBox5.Controls.Add(this.txtFileOffset);
+            this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.txtTagFilename);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.txtGameIdent);
             this.groupBox5.Controls.Add(this.label11);
             this.groupBox5.Location = new System.Drawing.Point(30, 24);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(296, 120);
+            this.groupBox5.Size = new System.Drawing.Size(296, 165);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Game Data";
+            // 
+            // txtFileOffset
+            // 
+            this.txtFileOffset.BackColor = System.Drawing.Color.White;
+            this.txtFileOffset.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFileOffset.Location = new System.Drawing.Point(110, 56);
+            this.txtFileOffset.Name = "txtFileOffset";
+            this.txtFileOffset.Size = new System.Drawing.Size(176, 20);
+            this.txtFileOffset.TabIndex = 9;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 58);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "File Offset";
             // 
             // txtTagFilename
             // 
             this.txtTagFilename.BackColor = System.Drawing.Color.White;
             this.txtTagFilename.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTagFilename.Location = new System.Drawing.Point(18, 77);
+            this.txtTagFilename.Location = new System.Drawing.Point(18, 130);
             this.txtTagFilename.Name = "txtTagFilename";
             this.txtTagFilename.ReadOnly = true;
             this.txtTagFilename.Size = new System.Drawing.Size(268, 20);
             this.txtTagFilename.TabIndex = 7;
-            this.txtTagFilename.Text = "currently unavaiable";
+            this.txtTagFilename.Text = "currently unavailable";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(15, 32);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(62, 13);
+            this.label10.Size = new System.Drawing.Size(55, 13);
             this.label10.TabIndex = 0;
-            this.label10.Text = "Game Ident";
+            this.label10.Text = "Map Ident";
             // 
             // txtGameIdent
             // 
@@ -127,7 +155,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 58);
+            this.label11.Location = new System.Drawing.Point(15, 114);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(105, 13);
             this.label11.TabIndex = 6;
@@ -255,6 +283,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.btnPlayerBiped);
             this.splitContainer1.Panel1.Controls.Add(this.listView1);
             // 
             // splitContainer1.Panel2
@@ -264,34 +293,57 @@
             this.splitContainer1.SplitterDistance = 372;
             this.splitContainer1.TabIndex = 13;
             // 
+            // btnPlayerBiped
+            // 
+            this.btnPlayerBiped.Location = new System.Drawing.Point(0, 375);
+            this.btnPlayerBiped.Name = "btnPlayerBiped";
+            this.btnPlayerBiped.Size = new System.Drawing.Size(138, 23);
+            this.btnPlayerBiped.TabIndex = 1;
+            this.btnPlayerBiped.Text = "Go To Player Biped";
+            this.btnPlayerBiped.UseVisualStyleBackColor = true;
+            this.btnPlayerBiped.Click += new System.EventHandler(this.btnPlayerBiped_Click);
+            // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
+            this.columnHeader4,
             this.columnHeader1,
+            this.columnHeader3,
             this.columnHeader2});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
-            this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
+            this.listView1.LabelWrap = false;
             this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(372, 402);
+            this.listView1.Size = new System.Drawing.Size(372, 369);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
             this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Datum Index";
+            this.columnHeader4.Width = 77;
+            // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Ident";
-            this.columnHeader1.Width = 151;
+            this.columnHeader1.Text = "Map Ident";
+            this.columnHeader1.Width = 64;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Tagname";
+            this.columnHeader3.Width = 142;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "TagGroup";
-            this.columnHeader2.Width = 173;
+            this.columnHeader2.Text = "Size";
+            this.columnHeader2.Width = 84;
             // 
             // panel1
             // 
@@ -326,10 +378,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // columnHeader3
+            // txtChunkSize
             // 
-            this.columnHeader3.Text = "Tagname";
-            this.columnHeader3.Width = 98;
+            this.txtChunkSize.BackColor = System.Drawing.Color.White;
+            this.txtChunkSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChunkSize.Location = new System.Drawing.Point(110, 82);
+            this.txtChunkSize.Name = "txtChunkSize";
+            this.txtChunkSize.Size = new System.Drawing.Size(176, 20);
+            this.txtChunkSize.TabIndex = 10;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Pool Chunk Size";
             // 
             // Form1
             // 
@@ -392,6 +457,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.TextBox txtFileOffset;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnPlayerBiped;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtChunkSize;
     }
 }
 
