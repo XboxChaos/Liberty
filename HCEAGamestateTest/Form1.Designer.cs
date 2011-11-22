@@ -30,7 +30,15 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.weaponPanel = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtWeapClip = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtWeapAmmo = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtChunkSize = new System.Windows.Forms.TextBox();
             this.txtFileOffset = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTagFilename = new System.Windows.Forms.TextBox();
@@ -57,14 +65,21 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.txtChunkSize = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.bipedPanel = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtPlasmaNades = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtFragNades = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
+            this.weaponPanel.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -75,10 +90,14 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.bipedPanel.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.bipedPanel);
+            this.tabPage1.Controls.Add(this.weaponPanel);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -87,6 +106,64 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Object Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // weaponPanel
+            // 
+            this.weaponPanel.Controls.Add(this.groupBox2);
+            this.weaponPanel.Location = new System.Drawing.Point(30, 195);
+            this.weaponPanel.Name = "weaponPanel";
+            this.weaponPanel.Size = new System.Drawing.Size(142, 100);
+            this.weaponPanel.TabIndex = 21;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtWeapClip);
+            this.groupBox2.Controls.Add(this.label4);
+            this.groupBox2.Controls.Add(this.txtWeapAmmo);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(142, 100);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Weapon Data";
+            // 
+            // txtWeapClip
+            // 
+            this.txtWeapClip.BackColor = System.Drawing.Color.White;
+            this.txtWeapClip.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWeapClip.Location = new System.Drawing.Point(57, 56);
+            this.txtWeapClip.Name = "txtWeapClip";
+            this.txtWeapClip.Size = new System.Drawing.Size(65, 20);
+            this.txtWeapClip.TabIndex = 14;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 58);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(24, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Clip";
+            // 
+            // txtWeapAmmo
+            // 
+            this.txtWeapAmmo.BackColor = System.Drawing.Color.White;
+            this.txtWeapAmmo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtWeapAmmo.Location = new System.Drawing.Point(57, 30);
+            this.txtWeapAmmo.Name = "txtWeapAmmo";
+            this.txtWeapAmmo.Size = new System.Drawing.Size(65, 20);
+            this.txtWeapAmmo.TabIndex = 12;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Ammo";
             // 
             // groupBox5
             // 
@@ -104,6 +181,24 @@
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Game Data";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(85, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Pool Chunk Size";
+            // 
+            // txtChunkSize
+            // 
+            this.txtChunkSize.BackColor = System.Drawing.Color.White;
+            this.txtChunkSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtChunkSize.Location = new System.Drawing.Point(110, 82);
+            this.txtChunkSize.Name = "txtChunkSize";
+            this.txtChunkSize.Size = new System.Drawing.Size(176, 20);
+            this.txtChunkSize.TabIndex = 10;
             // 
             // txtFileOffset
             // 
@@ -308,6 +403,7 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader4,
             this.columnHeader1,
+            this.columnHeader5,
             this.columnHeader3,
             this.columnHeader2});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
@@ -334,6 +430,11 @@
             // 
             this.columnHeader1.Text = "Map Ident";
             this.columnHeader1.Width = 64;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Type";
+            this.columnHeader5.Width = 47;
             // 
             // columnHeader3
             // 
@@ -378,23 +479,63 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // txtChunkSize
+            // bipedPanel
             // 
-            this.txtChunkSize.BackColor = System.Drawing.Color.White;
-            this.txtChunkSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtChunkSize.Location = new System.Drawing.Point(110, 82);
-            this.txtChunkSize.Name = "txtChunkSize";
-            this.txtChunkSize.Size = new System.Drawing.Size(176, 20);
-            this.txtChunkSize.TabIndex = 10;
+            this.bipedPanel.Controls.Add(this.groupBox3);
+            this.bipedPanel.Location = new System.Drawing.Point(184, 195);
+            this.bipedPanel.Name = "bipedPanel";
+            this.bipedPanel.Size = new System.Drawing.Size(142, 100);
+            this.bipedPanel.TabIndex = 22;
             // 
-            // label2
+            // groupBox3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 84);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(85, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Pool Chunk Size";
+            this.groupBox3.Controls.Add(this.txtPlasmaNades);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.txtFragNades);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(142, 100);
+            this.groupBox3.TabIndex = 20;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Biped Data";
+            // 
+            // txtPlasmaNades
+            // 
+            this.txtPlasmaNades.BackColor = System.Drawing.Color.White;
+            this.txtPlasmaNades.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPlasmaNades.Location = new System.Drawing.Point(62, 56);
+            this.txtPlasmaNades.Name = "txtPlasmaNades";
+            this.txtPlasmaNades.Size = new System.Drawing.Size(60, 20);
+            this.txtPlasmaNades.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Plasma";
+            // 
+            // txtFragNades
+            // 
+            this.txtFragNades.BackColor = System.Drawing.Color.White;
+            this.txtFragNades.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFragNades.Location = new System.Drawing.Point(62, 30);
+            this.txtFragNades.Name = "txtFragNades";
+            this.txtFragNades.Size = new System.Drawing.Size(60, 20);
+            this.txtFragNades.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Frag";
             // 
             // Form1
             // 
@@ -408,6 +549,9 @@
             this.Name = "Form1";
             this.Text = "Liberty - HCEAGamestate - test";
             this.tabPage1.ResumeLayout(false);
+            this.weaponPanel.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -421,6 +565,9 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.bipedPanel.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,6 +610,19 @@
         private System.Windows.Forms.Button btnPlayerBiped;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtChunkSize;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtWeapClip;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtWeapAmmo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.Panel weaponPanel;
+        private System.Windows.Forms.Panel bipedPanel;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox txtPlasmaNades;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtFragNades;
+        private System.Windows.Forms.Label label6;
     }
 }
 

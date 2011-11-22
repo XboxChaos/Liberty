@@ -14,8 +14,6 @@ namespace HCEAGamestateTest
 {
     public partial class Form1 : Form
     {
-        string iniFolderPath;
-        Liberty.classInfo.iniFile trueTaglist;
         public SaveReader streamReader;
         IList<HCEXObjectEntry> objEntrys = new List<HCEXObjectEntry>();
         IList<HCEXPoolChunk> poolChunks = new List<HCEXPoolChunk>();
@@ -70,7 +68,8 @@ namespace HCEAGamestateTest
                 HCEXObjectEntry objEntry = new HCEXObjectEntry();
                 objEntry.offset = pos;
                 objEntry.DatumIndex = (uint)(streamReader.ReadUInt16() << 16 | i);
-                objEntry.Flags = streamReader.ReadUInt16();
+                objEntry.Flags = streamReader.ReadByte();
+                objEntry.TagGroup = (TagGroup)streamReader.ReadByte();
                 objEntry.Unknown = streamReader.ReadUInt16();
                 objEntry.DataSize = streamReader.ReadUInt16();
                 objEntry.ObjectAddress = streamReader.ReadUInt32();
@@ -89,6 +88,14 @@ namespace HCEAGamestateTest
                     {
                         poolChunk.MapIdent = streamReader.ReadUInt32();
                         poolChunk.objectEntry = objEntry;
+
+                        streamReader.Seek(objEntry.ObjectAddress + 0x2B6, SeekOrigin.Begin);
+                        poolChunk.WeaponAmmo = streamReader.ReadInt16();
+                        poolChunk.WeaponClipAmmo = streamReader.ReadInt16();
+
+                        streamReader.Seek(objEntry.ObjectAddress + 0x31E, SeekOrigin.Begin);
+                        poolChunk.FragNades = streamReader.ReadByte();
+                        poolChunk.PlasmaNades = streamReader.ReadByte();
                     }
                     poolChunks.Add(poolChunk);
                 }
@@ -107,6 +114,7 @@ namespace HCEAGamestateTest
                 ListViewItem lvi = new ListViewItem();
                 lvi.Text = poolChunk.objectEntry.DatumIndex.ToString("X");
                 lvi.SubItems.Add(poolChunk.MapIdent.ToString("X"));
+                lvi.SubItems.Add(poolChunk.objectEntry.TagGroup.ToString());
                 lvi.SubItems.Add("Tagnames coming soon...");//trueTaglist.IniReadValue(gamestateHeader.trueMapName, gameObj.GameIdent.ToString("X"));
                 lvi.SubItems.Add(poolChunk.objectEntry.DataSize.ToString("X")); //Add(gameObj.linkedData.TagGroup.ToString());
                 lvi.Tag = poolChunk;
@@ -132,7 +140,14 @@ namespace HCEAGamestateTest
             ofd.Title = "Open Save File";
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                loadSave(ofd.FileName);
+                try
+                {
+                    loadSave(ofd.FileName);
+                }
+                catch (Exception ex)
+                { 
+                    MessageBox.Show(ex.Message, "HCEAGamestateTest", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -144,6 +159,7 @@ namespace HCEAGamestateTest
                 return;
             Sorter = (NativeWinRT.ListViewSorter)listView1.ListViewItemSorter;
 
+            Sorter.ByColumn = e.Column;
             if (Sorter.LastSort == e.Column)
             {
                 if (listView1.Sorting == SortOrder.Ascending)
@@ -155,14 +171,33 @@ namespace HCEAGamestateTest
             {
                 listView1.Sorting = SortOrder.Descending;
             }
-            Sorter.ByColumn = e.Column;
+        }
+        public enum TagGroup : byte
+        {
+            Bipd = 0,
+            Vehi = 1,
+            Weap = 2,
+            Eqip = 3,
+            Unk4 = 4,
+            Unk5 = 5,
+            Scen = 6,
+            Mach = 7,
+            Ctrl = 8,
+            Lifi = 9,
+            Unk10 = 10,
+            Ssce = 11,
+            Unk12 = 12,
+            Unk13 = 13,
+            Unk14 = 14,
+            Unk15 = 15
         }
         public class HCEXObjectEntry
         {
             public long offset { get; set; }
 
             public UInt32 DatumIndex { get; set; }
-            public UInt16 Flags { get; set; }
+            public Byte Flags { get; set; }
+            public TagGroup TagGroup { get; set; }
             public UInt16 Unknown { get; set; }
             public UInt16 DataSize { get; set; }
             public UInt32 ObjectAddress { get; set; }
@@ -172,6 +207,12 @@ namespace HCEAGamestateTest
         public class HCEXPoolChunk
         {
             public UInt32 MapIdent { get; set; }
+
+            public Int16 WeaponAmmo { get; set; }
+            public Int16 WeaponClipAmmo { get; set; }
+
+            public byte FragNades { get; set; }
+            public byte PlasmaNades { get; set; }
 
             public HCEXObjectEntry objectEntry { get; set; }
         }
@@ -189,6 +230,24 @@ namespace HCEAGamestateTest
                 txtGameIdent.Text = "0x" + obj.MapIdent.ToString("X");
                 txtFileOffset.Text = "0x" + (uncompressedDataStart + obj.objectEntry.ObjectAddress).ToString("X");
                 txtChunkSize.Text = "0x" + obj.objectEntry.DataSize.ToString("X");
+
+                weaponPanel.Visible = false;
+                bipedPanel.Visible = false;
+
+                switch (obj.objectEntry.TagGroup)
+                {
+                    case TagGroup.Weap:
+                        weaponPanel.Visible = true;
+                        txtWeapAmmo.Text = obj.WeaponAmmo.ToString();
+                        txtWeapClip.Text = obj.WeaponClipAmmo.ToString();
+                        break;
+
+                    case TagGroup.Bipd:
+                        bipedPanel.Visible = true;
+                        txtFragNades.Text = obj.FragNades.ToString();
+                        txtPlasmaNades.Text = obj.PlasmaNades.ToString();
+                        break;
+                }
                 //txtTagFilename.Text = trueTaglist.IniReadValue(gamestateHeader.trueMapName, obj.GameIdent.ToString("X"));
 
                 //// Load BoundingBox (max)
@@ -206,7 +265,7 @@ namespace HCEAGamestateTest
                 //txtPosY.Text = Convert.ToString(obj.PositionY);
                 //txtPosZ.Text = Convert.ToString(obj.PositionZ);
             }
-            catch (Exception ex) { }
+            catch { }
         }
 
         private void btnPlayerBiped_Click(object sender, EventArgs e)
