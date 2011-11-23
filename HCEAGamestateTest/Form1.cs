@@ -89,6 +89,10 @@ namespace HCEAGamestateTest
                         poolChunk.MapIdent = streamReader.ReadUInt32();
                         poolChunk.objectEntry = objEntry;
 
+                        streamReader.Seek(objEntry.ObjectAddress + 0xD8, SeekOrigin.Begin);
+                        poolChunk.HealthModifier = streamReader.ReadFloat();
+                        poolChunk.ShieldModifier = streamReader.ReadFloat();
+
                         streamReader.Seek(objEntry.ObjectAddress + 0x2B6, SeekOrigin.Begin);
                         poolChunk.WeaponAmmo = streamReader.ReadInt16();
                         poolChunk.WeaponClipAmmo = streamReader.ReadInt16();
@@ -214,6 +218,9 @@ namespace HCEAGamestateTest
             public byte FragNades { get; set; }
             public byte PlasmaNades { get; set; }
 
+            public float HealthModifier { get; set; }
+            public float ShieldModifier { get; set; }
+
             public HCEXObjectEntry objectEntry { get; set; }
         }
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -246,6 +253,8 @@ namespace HCEAGamestateTest
                         bipedPanel.Visible = true;
                         txtFragNades.Text = obj.FragNades.ToString();
                         txtPlasmaNades.Text = obj.PlasmaNades.ToString();
+                        txtBipedHealth.Text = obj.HealthModifier.ToString();
+                        txtBipedShields.Text = obj.ShieldModifier.ToString();
                         break;
                 }
                 //txtTagFilename.Text = trueTaglist.IniReadValue(gamestateHeader.trueMapName, obj.GameIdent.ToString("X"));

@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.bipedPanel = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtPlasmaNades = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtFragNades = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.weaponPanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtWeapClip = new System.Windows.Forms.TextBox();
@@ -71,13 +77,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.bipedPanel = new System.Windows.Forms.Panel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtPlasmaNades = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.txtFragNades = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.txtBipedShields = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtBipedHealth = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
+            this.bipedPanel.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.weaponPanel.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -90,8 +96,6 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.bipedPanel.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -106,6 +110,68 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Object Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // bipedPanel
+            // 
+            this.bipedPanel.Controls.Add(this.groupBox3);
+            this.bipedPanel.Location = new System.Drawing.Point(184, 195);
+            this.bipedPanel.Name = "bipedPanel";
+            this.bipedPanel.Size = new System.Drawing.Size(173, 152);
+            this.bipedPanel.TabIndex = 22;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtBipedShields);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.txtBipedHealth);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.txtPlasmaNades);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.txtFragNades);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(173, 152);
+            this.groupBox3.TabIndex = 20;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Biped Data";
+            // 
+            // txtPlasmaNades
+            // 
+            this.txtPlasmaNades.BackColor = System.Drawing.Color.White;
+            this.txtPlasmaNades.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtPlasmaNades.Location = new System.Drawing.Point(62, 56);
+            this.txtPlasmaNades.Name = "txtPlasmaNades";
+            this.txtPlasmaNades.Size = new System.Drawing.Size(60, 20);
+            this.txtPlasmaNades.TabIndex = 14;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(15, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 13);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Plasma";
+            // 
+            // txtFragNades
+            // 
+            this.txtFragNades.BackColor = System.Drawing.Color.White;
+            this.txtFragNades.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtFragNades.Location = new System.Drawing.Point(62, 30);
+            this.txtFragNades.Name = "txtFragNades";
+            this.txtFragNades.Size = new System.Drawing.Size(60, 20);
+            this.txtFragNades.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(28, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Frag";
             // 
             // weaponPanel
             // 
@@ -479,63 +545,41 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // bipedPanel
+            // txtBipedShields
             // 
-            this.bipedPanel.Controls.Add(this.groupBox3);
-            this.bipedPanel.Location = new System.Drawing.Point(184, 195);
-            this.bipedPanel.Name = "bipedPanel";
-            this.bipedPanel.Size = new System.Drawing.Size(142, 100);
-            this.bipedPanel.TabIndex = 22;
+            this.txtBipedShields.BackColor = System.Drawing.Color.White;
+            this.txtBipedShields.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBipedShields.Location = new System.Drawing.Point(99, 117);
+            this.txtBipedShields.Name = "txtBipedShields";
+            this.txtBipedShields.Size = new System.Drawing.Size(60, 20);
+            this.txtBipedShields.TabIndex = 18;
             // 
-            // groupBox3
+            // label7
             // 
-            this.groupBox3.Controls.Add(this.txtPlasmaNades);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtFragNades);
-            this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(142, 100);
-            this.groupBox3.TabIndex = 20;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Biped Data";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 119);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "Shield Modifier";
             // 
-            // txtPlasmaNades
+            // txtBipedHealth
             // 
-            this.txtPlasmaNades.BackColor = System.Drawing.Color.White;
-            this.txtPlasmaNades.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtPlasmaNades.Location = new System.Drawing.Point(62, 56);
-            this.txtPlasmaNades.Name = "txtPlasmaNades";
-            this.txtPlasmaNades.Size = new System.Drawing.Size(60, 20);
-            this.txtPlasmaNades.TabIndex = 14;
+            this.txtBipedHealth.BackColor = System.Drawing.Color.White;
+            this.txtBipedHealth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBipedHealth.Location = new System.Drawing.Point(99, 91);
+            this.txtBipedHealth.Name = "txtBipedHealth";
+            this.txtBipedHealth.Size = new System.Drawing.Size(60, 20);
+            this.txtBipedHealth.TabIndex = 16;
             // 
-            // label5
+            // label8
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 58);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 13);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Plasma";
-            // 
-            // txtFragNades
-            // 
-            this.txtFragNades.BackColor = System.Drawing.Color.White;
-            this.txtFragNades.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtFragNades.Location = new System.Drawing.Point(62, 30);
-            this.txtFragNades.Name = "txtFragNades";
-            this.txtFragNades.Size = new System.Drawing.Size(60, 20);
-            this.txtFragNades.TabIndex = 12;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Frag";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 93);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(78, 13);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Health Modifier";
             // 
             // Form1
             // 
@@ -549,6 +593,9 @@
             this.Name = "Form1";
             this.Text = "Liberty - HCEAGamestate - test";
             this.tabPage1.ResumeLayout(false);
+            this.bipedPanel.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.weaponPanel.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -565,9 +612,6 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.bipedPanel.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -623,6 +667,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtFragNades;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtBipedShields;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtBipedHealth;
+        private System.Windows.Forms.Label label8;
     }
 }
 
