@@ -19,6 +19,7 @@ namespace HCEAGamestateTest
         IList<HCEXPoolChunk> poolChunks = new List<HCEXPoolChunk>();
         byte[] uncompressedSaveDate = new byte[0x40A000];
         long uncompressedDataStart;
+        HCEXPoolChunk currentObject = null;
         HCEXPoolChunk playerBiped = null;
         IDictionary<HCEXPoolChunk, ListViewItem> poolChunkLvi = new Dictionary<HCEXPoolChunk, ListViewItem>();
 
@@ -52,9 +53,6 @@ namespace HCEAGamestateTest
             if (stream.Length != 0x40A000)
                 throw new ArgumentException("The file format is invalid: incorrect file size\r\nExpected 0x40A000 but got 0x" + stream.Length.ToString("X"));
 
-            // Load LinkObjects
-            //streamReader.Seek(0x5305C, SeekOrigin.Begin);
-
             streamReader.Seek(0x53090, SeekOrigin.Begin);
             UInt32 baseAddress = streamReader.ReadUInt32();
             UInt32 startAddress = 0x53094;
@@ -87,15 +85,26 @@ namespace HCEAGamestateTest
                     HCEXPoolChunk poolChunk = new HCEXPoolChunk();
                     {
                         poolChunk.MapIdent = streamReader.ReadUInt32();
-                        poolChunk.objectEntry = objEntry;
+                        poolChunk.ObjectEntry = objEntry;
 
                         streamReader.Seek(objEntry.ObjectAddress + 0xD8, SeekOrigin.Begin);
                         poolChunk.HealthModifier = streamReader.ReadFloat();
                         poolChunk.ShieldModifier = streamReader.ReadFloat();
 
+                        streamReader.Seek(objEntry.ObjectAddress + 0x114, SeekOrigin.Begin);
+                        poolChunk.NextCarried = streamReader.ReadUInt32();
+                        poolChunk.FirstCarried = streamReader.ReadUInt32();
+                        poolChunk.Carrier = streamReader.ReadUInt32();
+
                         streamReader.Seek(objEntry.ObjectAddress + 0x2B6, SeekOrigin.Begin);
                         poolChunk.WeaponAmmo = streamReader.ReadInt16();
                         poolChunk.WeaponClipAmmo = streamReader.ReadInt16();
+
+                        streamReader.Seek(objEntry.ObjectAddress + 0x2F8, SeekOrigin.Begin);
+                        poolChunk.PrimaryWeapon = streamReader.ReadUInt32();
+                        poolChunk.SecondaryWeapon = streamReader.ReadUInt32();
+                        poolChunk.TertiaryWeapon = streamReader.ReadUInt32();
+                        poolChunk.QuaternaryWeapon = streamReader.ReadUInt32();
 
                         streamReader.Seek(objEntry.ObjectAddress + 0x31E, SeekOrigin.Begin);
                         poolChunk.FragNades = streamReader.ReadByte();
@@ -116,11 +125,11 @@ namespace HCEAGamestateTest
                     continue;
 
                 ListViewItem lvi = new ListViewItem();
-                lvi.Text = poolChunk.objectEntry.DatumIndex.ToString("X");
+                lvi.Text = poolChunk.ObjectEntry.DatumIndex.ToString("X");
                 lvi.SubItems.Add(poolChunk.MapIdent.ToString("X"));
-                lvi.SubItems.Add(poolChunk.objectEntry.TagGroup.ToString());
-                lvi.SubItems.Add("Tagnames coming soon...");//trueTaglist.IniReadValue(gamestateHeader.trueMapName, gameObj.GameIdent.ToString("X"));
-                lvi.SubItems.Add(poolChunk.objectEntry.DataSize.ToString("X")); //Add(gameObj.linkedData.TagGroup.ToString());
+                lvi.SubItems.Add(poolChunk.ObjectEntry.TagGroup.ToString());
+                lvi.SubItems.Add("Tagnames coming soon...");
+                lvi.SubItems.Add(poolChunk.ObjectEntry.DataSize.ToString("X"));
                 lvi.Tag = poolChunk;
                 poolChunkLvi[poolChunk] = lvi;
 
@@ -135,6 +144,7 @@ namespace HCEAGamestateTest
 
             textBox1.Text = filePath;
             toolStripStatusLabel2.Text = "Loaded gamestate file... hehe :3";
+            splitContainer1.Enabled = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -212,6 +222,10 @@ namespace HCEAGamestateTest
         {
             public UInt32 MapIdent { get; set; }
 
+            public UInt32 NextCarried { get; set; }
+            public UInt32 FirstCarried { get; set; }
+            public UInt32 Carrier { get; set; }
+
             public Int16 WeaponAmmo { get; set; }
             public Int16 WeaponClipAmmo { get; set; }
 
@@ -221,68 +235,125 @@ namespace HCEAGamestateTest
             public float HealthModifier { get; set; }
             public float ShieldModifier { get; set; }
 
-            public HCEXObjectEntry objectEntry { get; set; }
+            public UInt32 PrimaryWeapon { get; set; }
+            public UInt32 SecondaryWeapon { get; set; }
+            public UInt32 TertiaryWeapon { get; set; }
+            public UInt32 QuaternaryWeapon { get; set; }
+
+            public HCEXObjectEntry ObjectEntry { get; set; }
+        }
+        private void ShowCarriedWeapons()
+        {
+            groupCarriedWeapons.Visible = true;
+            txtPrimaryWeap.Text = "0x" + currentObject.PrimaryWeapon.ToString("X");
+            txtSecondaryWeap.Text = "0x" + currentObject.SecondaryWeapon.ToString("X");
+            txtTertiaryWeap.Text = "0x" + currentObject.TertiaryWeapon.ToString("X");
+            txtQuaternaryWeap.Text = "0x" + currentObject.QuaternaryWeapon.ToString("X");
         }
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                // Do screwy .net stuff
-                ListViewItem lvi = listView1.SelectedItems[0];
-                HCEXPoolChunk obj = (HCEXPoolChunk)lvi.Tag;
-
-                // Load Data to Frontend
+                if (listView1.SelectedItems.Count == 0)
+                    return;
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                currentObject = (HCEXPoolChunk)selectedItem.Tag;
 
                 // Load Idents
-                txtGameIdent.Text = "0x" + obj.MapIdent.ToString("X");
-                txtFileOffset.Text = "0x" + (uncompressedDataStart + obj.objectEntry.ObjectAddress).ToString("X");
-                txtChunkSize.Text = "0x" + obj.objectEntry.DataSize.ToString("X");
+                txtDatumIndex.Text = "0x" + currentObject.ObjectEntry.DatumIndex.ToString("X");
+                txtGameIdent.Text = "0x" + currentObject.MapIdent.ToString("X");
+                txtFileOffset.Text = "0x" + (uncompressedDataStart + currentObject.ObjectEntry.ObjectAddress).ToString("X");
+                txtChunkSize.Text = "0x" + currentObject.ObjectEntry.DataSize.ToString("X");
 
-                weaponPanel.Visible = false;
-                bipedPanel.Visible = false;
+                txtFirstChild.Text = "0x" + currentObject.FirstCarried.ToString("X");
+                txtNextChild.Text = "0x" + currentObject.NextCarried.ToString("X");
+                txtCarrier.Text = "0x" + currentObject.Carrier.ToString("X");
 
-                switch (obj.objectEntry.TagGroup)
+                groupWeapon.Visible = false;
+                groupBiped.Visible = false;
+                groupCarriedWeapons.Visible = false;
+
+                switch (currentObject.ObjectEntry.TagGroup)
                 {
                     case TagGroup.Weap:
-                        weaponPanel.Visible = true;
-                        txtWeapAmmo.Text = obj.WeaponAmmo.ToString();
-                        txtWeapClip.Text = obj.WeaponClipAmmo.ToString();
+                        groupWeapon.Visible = true;
+                        txtWeapAmmo.Text = currentObject.WeaponAmmo.ToString();
+                        txtWeapClip.Text = currentObject.WeaponClipAmmo.ToString();
                         break;
 
                     case TagGroup.Bipd:
-                        bipedPanel.Visible = true;
-                        txtFragNades.Text = obj.FragNades.ToString();
-                        txtPlasmaNades.Text = obj.PlasmaNades.ToString();
-                        txtBipedHealth.Text = obj.HealthModifier.ToString();
-                        txtBipedShields.Text = obj.ShieldModifier.ToString();
+                        groupBiped.Visible = true;
+                        txtFragNades.Text = currentObject.FragNades.ToString();
+                        txtPlasmaNades.Text = currentObject.PlasmaNades.ToString();
+                        txtBipedHealth.Text = currentObject.HealthModifier.ToString();
+                        txtBipedShields.Text = currentObject.ShieldModifier.ToString();
+                        ShowCarriedWeapons();
+                        break;
+
+                    case TagGroup.Vehi:
+                        ShowCarriedWeapons();
                         break;
                 }
-                //txtTagFilename.Text = trueTaglist.IniReadValue(gamestateHeader.trueMapName, obj.GameIdent.ToString("X"));
 
-                //// Load BoundingBox (max)
-                //txtBBX1.Text = Convert.ToString(obj.BoundingBoxX1);
-                //txtBBY1.Text = Convert.ToString(obj.BoundingBoxY1);
-                //txtBBZ1.Text = Convert.ToString(obj.BoundingBoxZ1);
-
-                //// Load BoundingBox (min)
-                //txtBBX2.Text = Convert.ToString(obj.BoundingBoxX2);
-                //txtBBY2.Text = Convert.ToString(obj.BoundingBoxY2);
-                //txtBBZ2.Text = Convert.ToString(obj.BoundingBoxZ2);
-
-                //// Load Parent Position
-                //txtPosX.Text = Convert.ToString(obj.PositionX);
-                //txtPosY.Text = Convert.ToString(obj.PositionY);
-                //txtPosZ.Text = Convert.ToString(obj.PositionZ);
+                tabControl1.Enabled = true;
             }
             catch { }
         }
 
-        private void btnPlayerBiped_Click(object sender, EventArgs e)
+        private void SelectChunk(HCEXPoolChunk chunk)
         {
             listView1.Focus();
-            ListViewItem lvi = poolChunkLvi[playerBiped];
+            ListViewItem lvi = poolChunkLvi[chunk];
             lvi.Selected = true;
             lvi.EnsureVisible();
+        }
+
+        private void SelectChunk(uint datumIndex)
+        {
+            int tableIndex = (int)(datumIndex & 0xFFFF);
+            if (tableIndex < 0 || tableIndex > poolChunks.Count)
+                return;
+            SelectChunk(poolChunks[tableIndex]);
+        }
+
+        private void btnPlayerBiped_Click(object sender, EventArgs e)
+        {
+            SelectChunk(playerBiped);
+        }
+
+        private void btnFirstChild_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.FirstCarried);
+        }
+
+        private void btnNextChild_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.NextCarried);
+        }
+
+        private void btnCarrier_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.Carrier);
+        }
+
+        private void btnPrimaryWeap_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.PrimaryWeapon);
+        }
+
+        private void btnSecondaryWeap_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.SecondaryWeapon);
+        }
+
+        private void btnTertiaryWeap_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.TertiaryWeapon);
+        }
+
+        private void btnQuaternaryWeap_Click(object sender, EventArgs e)
+        {
+            SelectChunk(currentObject.QuaternaryWeapon);
         }
     }
 }
