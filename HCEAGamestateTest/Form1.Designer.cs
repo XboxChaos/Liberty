@@ -30,6 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtZCord = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtYCord = new System.Windows.Forms.TextBox();
+            this.txtXCord = new System.Windows.Forms.TextBox();
             this.groupCarriedWeapons = new System.Windows.Forms.GroupBox();
             this.btnQuaternaryWeap = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
@@ -79,7 +86,6 @@
             this.txtGameIdent = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openLinkedByteDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -104,14 +110,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtZCord = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.txtYCord = new System.Windows.Forms.TextBox();
-            this.txtXCord = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupCarriedWeapons.SuspendLayout();
             this.groupBiped.SuspendLayout();
             this.groupWeapon.SuspendLayout();
@@ -126,7 +126,6 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
@@ -145,6 +144,75 @@
             this.tabPage1.Text = "Object Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtZCord);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.label21);
+            this.groupBox2.Controls.Add(this.txtYCord);
+            this.groupBox2.Controls.Add(this.txtXCord);
+            this.groupBox2.Location = new System.Drawing.Point(529, 207);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(197, 113);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Position";
+            // 
+            // txtZCord
+            // 
+            this.txtZCord.BackColor = System.Drawing.Color.White;
+            this.txtZCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZCord.Location = new System.Drawing.Point(71, 80);
+            this.txtZCord.Name = "txtZCord";
+            this.txtZCord.Size = new System.Drawing.Size(116, 20);
+            this.txtZCord.TabIndex = 20;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(15, 82);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(39, 13);
+            this.label19.TabIndex = 19;
+            this.label19.Text = "Z Cord";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(15, 56);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 18;
+            this.label20.Text = "Y Cord";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(15, 30);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(39, 13);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "X Cord";
+            // 
+            // txtYCord
+            // 
+            this.txtYCord.BackColor = System.Drawing.Color.White;
+            this.txtYCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtYCord.Location = new System.Drawing.Point(71, 54);
+            this.txtYCord.Name = "txtYCord";
+            this.txtYCord.Size = new System.Drawing.Size(116, 20);
+            this.txtYCord.TabIndex = 16;
+            // 
+            // txtXCord
+            // 
+            this.txtXCord.BackColor = System.Drawing.Color.White;
+            this.txtXCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtXCord.Location = new System.Drawing.Point(71, 28);
+            this.txtXCord.Name = "txtXCord";
+            this.txtXCord.Size = new System.Drawing.Size(116, 20);
+            this.txtXCord.TabIndex = 15;
+            // 
             // groupCarriedWeapons
             // 
             this.groupCarriedWeapons.Controls.Add(this.btnQuaternaryWeap);
@@ -159,7 +227,7 @@
             this.groupCarriedWeapons.Controls.Add(this.txtSecondaryWeap);
             this.groupCarriedWeapons.Controls.Add(this.label14);
             this.groupCarriedWeapons.Controls.Add(this.txtPrimaryWeap);
-            this.groupCarriedWeapons.Location = new System.Drawing.Point(266, 207);
+            this.groupCarriedWeapons.Location = new System.Drawing.Point(259, 207);
             this.groupCarriedWeapons.Name = "groupCarriedWeapons";
             this.groupCarriedWeapons.Size = new System.Drawing.Size(264, 145);
             this.groupCarriedWeapons.TabIndex = 24;
@@ -644,16 +712,6 @@
             this.textBox1.Size = new System.Drawing.Size(933, 20);
             this.textBox1.TabIndex = 4;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(17, 50);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Resign";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -842,7 +900,6 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(5, 5);
@@ -854,82 +911,13 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(17, 21);
+            this.button1.Location = new System.Drawing.Point(17, 34);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "Open";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtZCord);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.label20);
-            this.groupBox2.Controls.Add(this.label21);
-            this.groupBox2.Controls.Add(this.txtYCord);
-            this.groupBox2.Controls.Add(this.txtXCord);
-            this.groupBox2.Location = new System.Drawing.Point(536, 207);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(197, 113);
-            this.groupBox2.TabIndex = 25;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Position";
-            // 
-            // txtZCord
-            // 
-            this.txtZCord.BackColor = System.Drawing.Color.White;
-            this.txtZCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtZCord.Location = new System.Drawing.Point(71, 80);
-            this.txtZCord.Name = "txtZCord";
-            this.txtZCord.Size = new System.Drawing.Size(116, 20);
-            this.txtZCord.TabIndex = 20;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(15, 82);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(39, 13);
-            this.label19.TabIndex = 19;
-            this.label19.Text = "Z Cord";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(15, 56);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(39, 13);
-            this.label20.TabIndex = 18;
-            this.label20.Text = "Y Cord";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(15, 30);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(39, 13);
-            this.label21.TabIndex = 17;
-            this.label21.Text = "X Cord";
-            // 
-            // txtYCord
-            // 
-            this.txtYCord.BackColor = System.Drawing.Color.White;
-            this.txtYCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtYCord.Location = new System.Drawing.Point(71, 54);
-            this.txtYCord.Name = "txtYCord";
-            this.txtYCord.Size = new System.Drawing.Size(116, 20);
-            this.txtYCord.TabIndex = 16;
-            // 
-            // txtXCord
-            // 
-            this.txtXCord.BackColor = System.Drawing.Color.White;
-            this.txtXCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtXCord.Location = new System.Drawing.Point(71, 28);
-            this.txtXCord.Name = "txtXCord";
-            this.txtXCord.Size = new System.Drawing.Size(116, 20);
-            this.txtXCord.TabIndex = 15;
             // 
             // Form1
             // 
@@ -942,6 +930,8 @@
             this.Name = "Form1";
             this.Text = "Liberty - HCEAGamestate - test";
             this.tabPage1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupCarriedWeapons.ResumeLayout(false);
             this.groupCarriedWeapons.PerformLayout();
             this.groupBiped.ResumeLayout(false);
@@ -963,8 +953,6 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -979,7 +967,6 @@
         private System.Windows.Forms.TextBox txtGameIdent;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem openLinkedByteDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
