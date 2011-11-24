@@ -9,19 +9,12 @@ using System.Text;
 using System.Windows.Forms;
 using HCEAGamestateTest.IO;
 using Liberty.SaveIO;
-using Liberty.Security;
 
 namespace HCEAGamestateTest
 {
     public partial class Form1 : Form
     {
-        public UInt32 cfgCRC;
-        public UInt32 postCFG;
-        public UInt32 postpostCFG;
-        public UInt32 firstStream;
-
         public SaveReader streamReader;
-        public SaveWriter streamWriter;
         IList<HCEXObjectEntry> objEntrys = new List<HCEXObjectEntry>();
         IList<HCEXPoolChunk> poolChunks = new List<HCEXPoolChunk>();
         byte[] uncompressedSaveDate = new byte[0x40A000];
@@ -45,11 +38,6 @@ namespace HCEAGamestateTest
 
             // Load into Aaron's nice Liberty IO
             streamReader = new SaveReader(stream);
-
-            streamReader.Seek(0x08, SeekOrigin.Begin);
-            cfgCRC = streamReader.ReadUInt32();
-            postCFG = streamReader.ReadUInt32();
-            postpostCFG = streamReader.ReadUInt32();
 
             uncompressedDataStart = streamReader.Length - 0x40A000;
             streamReader.Seek(uncompressedDataStart, SeekOrigin.Begin);
@@ -380,11 +368,6 @@ namespace HCEAGamestateTest
         private void btnQuaternaryWeap_Click(object sender, EventArgs e)
         {
             SelectChunk(currentObject.QuaternaryWeapon);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // Resign teh save
         }
     }
 }
