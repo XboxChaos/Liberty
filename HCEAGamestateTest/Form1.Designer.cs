@@ -68,6 +68,8 @@
             this.txtNextChild = new System.Windows.Forms.TextBox();
             this.txtFirstChild = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.txtDatumIndex = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtChunkSize = new System.Windows.Forms.TextBox();
             this.txtFileOffset = new System.Windows.Forms.TextBox();
@@ -102,8 +104,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtDatumIndex = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtZCord = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.txtYCord = new System.Windows.Forms.TextBox();
+            this.txtXCord = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
             this.groupCarriedWeapons.SuspendLayout();
             this.groupBiped.SuspendLayout();
@@ -119,10 +126,12 @@
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupCarriedWeapons);
             this.tabPage1.Controls.Add(this.groupBiped);
             this.tabPage1.Controls.Add(this.groupWeapon);
@@ -131,7 +140,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(703, 376);
+            this.tabPage1.Size = new System.Drawing.Size(736, 376);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Object Properties";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -150,7 +159,7 @@
             this.groupCarriedWeapons.Controls.Add(this.txtSecondaryWeap);
             this.groupCarriedWeapons.Controls.Add(this.label14);
             this.groupCarriedWeapons.Controls.Add(this.txtPrimaryWeap);
-            this.groupCarriedWeapons.Location = new System.Drawing.Point(290, 225);
+            this.groupCarriedWeapons.Location = new System.Drawing.Point(266, 207);
             this.groupCarriedWeapons.Name = "groupCarriedWeapons";
             this.groupCarriedWeapons.Size = new System.Drawing.Size(264, 145);
             this.groupCarriedWeapons.TabIndex = 24;
@@ -280,7 +289,7 @@
             this.groupBiped.Controls.Add(this.label5);
             this.groupBiped.Controls.Add(this.txtFragNades);
             this.groupBiped.Controls.Add(this.label6);
-            this.groupBiped.Location = new System.Drawing.Point(332, 72);
+            this.groupBiped.Location = new System.Drawing.Point(308, 54);
             this.groupBiped.Name = "groupBiped";
             this.groupBiped.Size = new System.Drawing.Size(177, 147);
             this.groupBiped.TabIndex = 20;
@@ -366,7 +375,7 @@
             this.groupWeapon.Controls.Add(this.label4);
             this.groupWeapon.Controls.Add(this.txtWeapAmmo);
             this.groupWeapon.Controls.Add(this.label3);
-            this.groupWeapon.Location = new System.Drawing.Point(332, 24);
+            this.groupWeapon.Location = new System.Drawing.Point(308, 6);
             this.groupWeapon.Name = "groupWeapon";
             this.groupWeapon.Size = new System.Drawing.Size(142, 100);
             this.groupWeapon.TabIndex = 20;
@@ -421,7 +430,7 @@
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txtNextChild);
             this.groupBox4.Controls.Add(this.txtFirstChild);
-            this.groupBox4.Location = new System.Drawing.Point(30, 225);
+            this.groupBox4.Location = new System.Drawing.Point(6, 207);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(247, 113);
             this.groupBox4.TabIndex = 23;
@@ -524,12 +533,30 @@
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.txtGameIdent);
             this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Location = new System.Drawing.Point(30, 24);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(296, 195);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Game Data";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(15, 25);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(67, 13);
+            this.label18.TabIndex = 15;
+            this.label18.Text = "Datum Index";
+            // 
+            // txtDatumIndex
+            // 
+            this.txtDatumIndex.BackColor = System.Drawing.Color.White;
+            this.txtDatumIndex.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDatumIndex.Location = new System.Drawing.Point(110, 23);
+            this.txtDatumIndex.Name = "txtDatumIndex";
+            this.txtDatumIndex.Size = new System.Drawing.Size(176, 20);
+            this.txtDatumIndex.TabIndex = 14;
             // 
             // label2
             // 
@@ -614,18 +641,18 @@
             this.textBox1.Location = new System.Drawing.Point(98, 36);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(883, 20);
+            this.textBox1.Size = new System.Drawing.Size(933, 20);
             this.textBox1.TabIndex = 4;
             // 
             // button2
             // 
-            this.button2.Enabled = false;
             this.button2.Location = new System.Drawing.Point(17, 50);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
-            this.button2.Text = "Save";
+            this.button2.Text = "Resign";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // contextMenuStrip1
             // 
@@ -695,7 +722,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(711, 402);
+            this.tabControl1.Size = new System.Drawing.Size(744, 402);
             this.tabControl1.TabIndex = 8;
             // 
             // toolStripStatusLabel2
@@ -711,7 +738,7 @@
             this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 495);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1087, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1137, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 12;
             this.statusStrip1.Text = "statusStrip1";
@@ -737,8 +764,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(1087, 402);
-            this.splitContainer1.SplitterDistance = 372;
+            this.splitContainer1.Size = new System.Drawing.Size(1137, 402);
+            this.splitContainer1.SplitterDistance = 389;
             this.splitContainer1.TabIndex = 13;
             // 
             // btnPlayerBiped
@@ -770,7 +797,7 @@
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.MultiSelect = false;
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(372, 369);
+            this.listView1.Size = new System.Drawing.Size(389, 369);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -809,7 +836,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(1087, 93);
+            this.panel1.Size = new System.Drawing.Size(1137, 93);
             this.panel1.TabIndex = 11;
             // 
             // groupBox1
@@ -820,7 +847,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(5, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1077, 83);
+            this.groupBox1.Size = new System.Drawing.Size(1127, 83);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "WinFS I/O";
@@ -835,29 +862,80 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // label18
+            // groupBox2
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(15, 25);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(67, 13);
-            this.label18.TabIndex = 15;
-            this.label18.Text = "Datum Index";
+            this.groupBox2.Controls.Add(this.txtZCord);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.label21);
+            this.groupBox2.Controls.Add(this.txtYCord);
+            this.groupBox2.Controls.Add(this.txtXCord);
+            this.groupBox2.Location = new System.Drawing.Point(536, 207);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(197, 113);
+            this.groupBox2.TabIndex = 25;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Position";
             // 
-            // txtDatumIndex
+            // txtZCord
             // 
-            this.txtDatumIndex.BackColor = System.Drawing.Color.White;
-            this.txtDatumIndex.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDatumIndex.Location = new System.Drawing.Point(110, 23);
-            this.txtDatumIndex.Name = "txtDatumIndex";
-            this.txtDatumIndex.Size = new System.Drawing.Size(176, 20);
-            this.txtDatumIndex.TabIndex = 14;
+            this.txtZCord.BackColor = System.Drawing.Color.White;
+            this.txtZCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtZCord.Location = new System.Drawing.Point(71, 80);
+            this.txtZCord.Name = "txtZCord";
+            this.txtZCord.Size = new System.Drawing.Size(116, 20);
+            this.txtZCord.TabIndex = 20;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(15, 82);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(39, 13);
+            this.label19.TabIndex = 19;
+            this.label19.Text = "Z Cord";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(15, 56);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(39, 13);
+            this.label20.TabIndex = 18;
+            this.label20.Text = "Y Cord";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(15, 30);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(39, 13);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "X Cord";
+            // 
+            // txtYCord
+            // 
+            this.txtYCord.BackColor = System.Drawing.Color.White;
+            this.txtYCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtYCord.Location = new System.Drawing.Point(71, 54);
+            this.txtYCord.Name = "txtYCord";
+            this.txtYCord.Size = new System.Drawing.Size(116, 20);
+            this.txtYCord.TabIndex = 16;
+            // 
+            // txtXCord
+            // 
+            this.txtXCord.BackColor = System.Drawing.Color.White;
+            this.txtXCord.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtXCord.Location = new System.Drawing.Point(71, 28);
+            this.txtXCord.Name = "txtXCord";
+            this.txtXCord.Size = new System.Drawing.Size(116, 20);
+            this.txtXCord.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1087, 517);
+            this.ClientSize = new System.Drawing.Size(1137, 517);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.panel1);
@@ -885,6 +963,8 @@
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -967,6 +1047,13 @@
         private System.Windows.Forms.TextBox txtPrimaryWeap;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtDatumIndex;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtZCord;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox txtYCord;
+        private System.Windows.Forms.TextBox txtXCord;
     }
 }
 
