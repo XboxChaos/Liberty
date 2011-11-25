@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Liberty.classInfo.storage;
-using X360.FATX;
 using X360.STFS;
 using X360.Profile;
 using X360.Security;
@@ -25,15 +24,31 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class selectSaveOnDevice : UserControl, StepUI.IStep
 	{
+        private MainWindow _mainWindow = null;
         private Folder[] _fileInjectDirec = new Folder[200];
         private int _index = 0;
         private File _selectedFile = null;
         private string _extractPath = null;
+        private string _tempDir = null;
+        private selectDevice _selectDeviceStep;
 
-		public selectSaveOnDevice()
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+        private Reach.TagListManager _taglistManager;
+
+        public selectSaveOnDevice(selectDevice selectDeviceStep, Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
 		{
+            _selectDeviceStep = selectDeviceStep;
+            _taglistManager = taglistManager;
+            _saveManager = saveManager;
 			this.InitializeComponent();
+
+            Loaded += new RoutedEventHandler(selectSaveOnDevice_Loaded);
 		}
+
+        void selectSaveOnDevice_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mainWindow = Window.GetWindow(this) as MainWindow;
+        }
 
         public File SelectedFile
         {
@@ -45,21 +60,18 @@ namespace Liberty.Controls
             get { return _extractPath; }
         }
 
-        public static readonly DependencyProperty DriveProperty =
-            DependencyProperty.Register("Drive", typeof(FATX.FATXDrive), typeof(selectSaveOnDevice));
-
-        public FATX.FATXDrive Drive
+        public string TempDirectory
         {
-            get { return (FATX.FATXDrive)GetValue(DriveProperty); }
-            set { SetValue(DriveProperty, value); }
+            get { return _tempDir; }
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
 			_index = 0;
 			_fileInjectDirec = new Folder[200];
 			cBSaves.Items.Clear();
-			
+
+            FATXDrive Drive = _selectDeviceStep.SelectedDevice;
             Drive.ReadData();
             Folder[] Partitions;
             Folder contentDirec;
@@ -75,6 +87,7 @@ namespace Liberty.Controls
                 contentDirec = Partitions[2]; //who uses hdd's for modding gamesaves, are you a fucking egit?
             }
 
+            SortedList<string, ComboBoxItem> items = new SortedList<string, ComboBoxItem>();
             foreach (Folder content in contentDirec.SubFolders(false))
             {
                 if (content.Name == "Content")
@@ -85,7 +98,7 @@ namespace Liberty.Controls
                         {
                             foreach (Folder profileContent in profiles.SubFolders(false))
                             {
-                                if (profileContent.Name == "4D53085B")
+                                if (profileContent.Name == "4D53085B" || profileContent.Name == "4D5309B1")
                                 {
                                     foreach (Folder reachSub1 in profileContent.SubFolders(false))
                                     {
@@ -94,10 +107,12 @@ namespace Liberty.Controls
                                             if (reachSub2.Name.StartsWith("s"))
                                             {
                                                 ComboBoxItem cbi = new ComboBoxItem();
-                                                cbi.Content = reachSub2.GetPackageName() + " - " + reachSub2.Name;
+                                                reachSub2.ForceSTFSInfo();
+                                                string text = reachSub2.STFSInformation.TitleName + " - " + reachSub2.GetPackageName() + " - " + reachSub2.Name;
+                                                cbi.Content = text;
                                                 cbi.Tag = reachSub2;
                                                 _fileInjectDirec[_index++] = reachSub1;
-                                                cBSaves.Items.Add(cbi);
+                                                items.Add(text, cbi);
                                             }
                                         }
                                     }
@@ -107,10 +122,12 @@ namespace Liberty.Controls
                     }
                 }
             }
+            foreach (KeyValuePair<string, ComboBoxItem> item in items)
+                cBSaves.Items.Add(item.Value);
             cBSaves.SelectedIndex = 0;
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
             int i = cBSaves.SelectedIndex;
             int j = 0;
@@ -118,15 +135,32 @@ namespace Liberty.Controls
             {
                 if (j == i)
                 {
-                    File x = (File)cbi.Tag;
-                    
-                    bool cancel = false;
-                    string tempDir = classInfo.extraIO.makeTempSaveDir();
-                    _extractPath = tempDir + x.Name;
-                    x.Extract(_extractPath, ref cancel);
-                    
-                    saveManager.LoadSTFS(_extractPath, tempDir);
-                    _selectedFile = x;
+                    try
+                    {
+                        _selectedFile = (File)cbi.Tag;
+                        bool cancel = false;
+                        _tempDir = classInfo.extraIO.makeTempSaveDir();
+                        _extractPath = _tempDir + _selectedFile.Name;
+                        _selectedFile.Extract(_extractPath, ref cancel);
+                        _saveManager.LoadSTFS(_extractPath, _tempDir);
+                        _taglistManager.RemoveMapSpecificTaglists();
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        string message;
+                        if (ex.InnerException != null)
+                            message = ex.InnerException.Message;
+                        else
+                            message = ex.Message;
+
+                        _mainWindow.showMessage(message, "ERROR");
+                        return false;
+                    }
+                    catch (Exception ex)
+                    {
+                        _mainWindow.showException(ex.ToString());
+                        return false;
+                    }
                 }
                 j++;
             }
@@ -146,7 +180,7 @@ namespace Liberty.Controls
 		
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            Load(null);
+            Load();
         }
     }
 }

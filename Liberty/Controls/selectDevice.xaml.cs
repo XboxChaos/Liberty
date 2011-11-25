@@ -23,6 +23,7 @@ namespace Liberty.Controls
 	{
         private MainWindow _mainWindow = null;
         private FATX.FATXDrive[] _physDrives = null;
+        private FATX.FATXDrive _selectedDrive = null;
 
 		public selectDevice()
 		{
@@ -38,18 +39,15 @@ namespace Liberty.Controls
 
         public FATX.FATXDrive SelectedDevice
         {
-            get { return (FATX.FATXDrive)GetValue(SelectedDeviceProperty); }
+            get { return _selectedDrive; }
         }
 
-        public readonly DependencyProperty SelectedDeviceProperty =
-            DependencyProperty.Register("SelectedDevice", typeof(FATX.FATXDrive), typeof(selectDevice));
-
-		public void Load(Util.SaveManager saveManager)
+		public void Load()
 		{
             updateFATX();
 		}
 		
-		public bool Save(Util.SaveManager saveManager)
+		public bool Save()
 		{
             if (cBStorageType.SelectedIndex == -1)
             {
@@ -60,7 +58,7 @@ namespace Liberty.Controls
                 for (int i = 0; i < _physDrives.Length; i++)
                 {
                     if (i == cBStorageType.SelectedIndex)
-                        SetValue(SelectedDeviceProperty, _physDrives[i]);
+                        _selectedDrive = _physDrives[i];
                     else
                         _physDrives[i].Close();
                 }

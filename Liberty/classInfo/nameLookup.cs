@@ -21,7 +21,7 @@ namespace Liberty.classInfo
             }
         }
 
-        public static string loadAscensionTaglist(Util.SaveManager saveManager)
+        public static string loadAscensionTaglist(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
         {
             try
             {
@@ -30,9 +30,9 @@ namespace Liberty.classInfo
                     string mapName = saveManager.SaveData.Map;
                     mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
                     string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + mapName + ".taglist";
-                    saveManager.RemoveMapSpecificTaglists();
+                    taglistManager.RemoveMapSpecificTaglists();
                     if (File.Exists(fileName))
-                        saveManager.AddMapSpecificTaglist(Util.TagList.FromFile(fileName, Util.TagListMode.Ascension));
+                        taglistManager.AddMapSpecificTaglist(Util.TagList.FromFile(fileName, Util.TagListMode.Ascension));
                 }
 
                 return null;

@@ -18,14 +18,17 @@ namespace Liberty.Controls
     /// </summary>
     public partial class editWeapons : UserControl, StepUI.IStep
     {
-        public editWeapons()
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+
+        public editWeapons(Util.SaveManager<Reach.CampaignSave> saveManager)
         {
+            _saveManager = saveManager;
             this.InitializeComponent();
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             Reach.BipedObject playerBiped = saveData.Player.Biped;
             loadWeapon(playerBiped.PrimaryWeapon, gridPrimary, txtPrimaryAmmo, txtPrimaryClip);
             loadWeapon(playerBiped.SecondaryWeapon, gridSecondary, txtSecondaryAmmo, txtSecondaryClip);
@@ -33,9 +36,9 @@ namespace Liberty.Controls
             loadWeapon(playerBiped.QuaternaryWeapon, gridQuaternary, txtQuaternaryAmmo, txtQuaternaryClip);
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             Reach.BipedObject playerBiped = saveData.Player.Biped;
             saveWeapon(playerBiped.PrimaryWeapon, txtPrimaryAmmo, txtPrimaryClip);
             saveWeapon(playerBiped.SecondaryWeapon, txtSecondaryAmmo, txtSecondaryClip);

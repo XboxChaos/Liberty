@@ -29,25 +29,54 @@ namespace Liberty
     public partial class MainWindow : Window
     {
 		BrushConverter bc = new BrushConverter();
-        //private int step = -1;
-        private Util.SaveManager _saveManager = new Util.SaveManager();
+        private Util.SaveManager<Reach.CampaignSave> _reachSaveManager =
+            new Util.SaveManager<Reach.CampaignSave>(path => new Reach.CampaignSave(path));
+        private Reach.TagListManager _reachTaglists = null;
         private StepViewer _stepViewer = null;
         private StepUI.IStepNode _firstStep;
+        selectMode _stepSelectMode = null;
 
         public MainWindow()
         {
             InitializeComponent();
 
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
-            settingsMain.SaveManager = _saveManager;
             settingsPanel.Visibility = Visibility.Hidden;
+
+            _reachTaglists = new Reach.TagListManager(_reachSaveManager);
+
+            // Create steps
+            _stepSelectMode = new selectMode();
+            openSaveFile stepOpenFile = new openSaveFile(_reachSaveManager, _reachTaglists);
+            selectDevice stepSelectDevice = new selectDevice();
+            selectSaveOnDevice stepSelectSave = new selectSaveOnDevice(stepSelectDevice, _reachSaveManager, _reachTaglists);
+            verifyFile stepVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
+            editBiped stepBiped = new editBiped(_reachSaveManager, _reachTaglists);
+            editWeapons stepWeapons = new editWeapons(_reachSaveManager);
+            editGrenades stepGrenades = new editGrenades(_reachSaveManager);
+            editObjects stepObjects = new editObjects(_reachSaveManager, _reachTaglists);
+            quickTweaks stepTweaks = new quickTweaks(_reachSaveManager);
+            allDone stepAllDone = new allDone(_stepSelectMode);
+
+            // Add them
+            addStep(_stepSelectMode);
+            addStep(stepOpenFile);
+            addStep(stepSelectDevice);
+            addStep(stepSelectSave);
+            addStep(stepVerifyFile);
+            addStep(stepBiped);
+            addStep(stepWeapons);
+            addStep(stepGrenades);
+            addStep(stepObjects);
+            addStep(stepTweaks);
+            addStep(stepAllDone);
 
             // Set up the step viewer
             _stepViewer = new StepViewer(stepGrid);
 
             // Start building the step graph
             StepGraphBuilder stepGraph = new StepGraphBuilder(progressBar);
-            stepGraph.AddBranchStep(stepSelectMode, "PREPARATION");
+            stepGraph.AddBranchStep(_stepSelectMode, "PREPARATION");
 
             // Step graph: Edit save on computer
             StepGraphBuilder editSaveOnComputer = stepGraph.StartBranch(selectMode.EditingMode.EditSaveComputer, true);
@@ -83,7 +112,7 @@ namespace Liberty
             stepGraph.AddGroup("FINISHED");
 
             _firstStep = stepGraph.BuildGraph();
-            _stepViewer.ViewNode(_firstStep, _saveManager);
+            _stepViewer.ViewNode(_firstStep);
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
 
 #if DEBUG
@@ -91,6 +120,12 @@ namespace Liberty
 #else
             btnBetaPlayground.Visibility = System.Windows.Visibility.Hidden;
 #endif
+        }
+
+        private void addStep(UIElement step)
+        {
+            step.Visibility = Visibility.Collapsed;
+            stepGrid.Children.Add(step);
         }
 
         public void showMessage(string message, string title)
@@ -199,7 +234,7 @@ namespace Liberty
             }
 
             if (app.tagList != null)
-                _saveManager.AddGenericTaglist(app.tagList);
+                _reachTaglists.AddGenericTaglist(app.tagList);
         }
 
         protected void ParentWPF_CloseSettings(object sender, EventArgs e)
@@ -365,7 +400,7 @@ namespace Liberty
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-            if (!_stepViewer.Forward(_saveManager))
+            if (!_stepViewer.Forward())
             {
                 FormFadeOut.Begin();
                 classInfo.applicationExtra.disableInput(this);
@@ -377,9 +412,9 @@ namespace Liberty
             {
                 btnOK.Content = "Close";
                 btnBack.Content = "Restart";
-                if (stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
+                if (_stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
                 {
-                    string argument = @"/select, " + _saveManager.STFSPath;
+                    string argument = @"/select, " + _reachSaveManager.STFSPath;
                     Process.Start("explorer.exe", argument);
                 }
             }
@@ -390,14 +425,15 @@ namespace Liberty
             if (!_stepViewer.CanGoForward)
             {
                 // Restart
-                _saveManager.Close();
-                _stepViewer.ViewNode(_firstStep, _saveManager);
+                _reachSaveManager.Close();
+                _reachTaglists.RemoveMapSpecificTaglists();
+                _stepViewer.ViewNode(_firstStep);
                 btnOK.Content = "Next";
                 btnBack.Content = "Back";
             }
             else
             {
-                _stepViewer.Back(_saveManager);
+                _stepViewer.Back();
             }
             btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
         }
@@ -414,8 +450,16 @@ namespace Liberty
 
         private void btnBetaPlayground_Click(object sender, RoutedEventArgs e)
         {
-            stepBeta.Visibility = System.Windows.Visibility.Visible;
-            stepGrid.Visibility = System.Windows.Visibility.Hidden;
+            if (stepBeta.Visibility != Visibility.Visible)
+            {
+                stepBeta.Visibility = Visibility.Visible;
+                stepGrid.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                stepBeta.Visibility = Visibility.Hidden;
+                stepGrid.Visibility = Visibility.Visible;
+            }
         }
     }
 }

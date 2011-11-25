@@ -12,8 +12,8 @@ namespace Liberty.StepUI
 
         void Show();
         void Hide();
-        void Load(Util.SaveManager saveManager);
-        bool Save(Util.SaveManager saveManager);
+        void Load();
+        bool Save();
 
         IStepNode Next { get; }
         IStepNode Previous { get; }

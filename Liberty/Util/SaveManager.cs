@@ -11,14 +11,18 @@ namespace Liberty.Util
 {
     /// <summary>
     /// Wraps a CampaignSave and provides functions for loading/saving to STFS packages.
-    /// Also provides functions for managing taglists.
     /// </summary>
-    public class SaveManager
+    public class SaveManager<T> where T : ICampaignSave
     {
+        public SaveManager(Func<string, T> constructSave)
+        {
+            _constructSave = constructSave;
+        }
+
         /// <summary>
         /// The currently loaded campaign save data.
         /// </summary>
-        public Reach.CampaignSave SaveData
+        public T SaveData
         {
             get { return _saveData; }
         }
@@ -33,12 +37,12 @@ namespace Liberty.Util
         }
 
         /// <summary>
-        /// The path to the currently loaded mmiof.bmf file.
-        /// Can be null if no mmiof.bmf file is loaded.
+        /// The path to the currently loaded raw save file.
+        /// Can be null if no raw save file is loaded.
         /// </summary>
-        public string MmiofPath
+        public string RawDataPath
         {
-            get { return _mmiofPath; }
+            get { return _rawPath; }
         }
 
         public bool Loaded
@@ -47,20 +51,19 @@ namespace Liberty.Util
         }
 
         /// <summary>
-        /// Loads the save data from a mmiof.bmf file.
+        /// Loads the save data from a raw file.
         /// </summary>
-        /// <param name="path">The path to the mmiof.bmf file to load.</param>
-        public void LoadMmiof(string path)
+        /// <param name="path">The path to the raw save file to load.</param>
+        public void LoadRaw(string path)
         {
             try
             {
-                _mmiofPath = path;
-                _saveData = new Reach.CampaignSave(path);
-                _mapTaglists.Clear();
+                _rawPath = path;
+                _saveData = _constructSave(path);
             }
             catch (Exception ex)
             {
-                _mmiofPath = null;
+                _rawPath = null;
                 throw new ArgumentException("The save file is invalid.", ex);
             }
         }
@@ -91,9 +94,8 @@ namespace Liberty.Util
                 package = null;
 
                 // Load the mmiof.bmf file into the _saveData object
-                _saveData = new Reach.CampaignSave(newMmiofPath);
-                _mapTaglists.Clear();
-                _mmiofPath = newMmiofPath;
+                _saveData = _constructSave(newMmiofPath);
+                _rawPath = newMmiofPath;
                 _stfsPath = path;
             }
             catch (Exception ex)
@@ -110,7 +112,7 @@ namespace Liberty.Util
         /// </summary>
         public void SaveChanges()
         {
-            _saveData.Update(_mmiofPath);
+            _saveData.Update(_rawPath);
             UpdateSTFS(null);
         }
 
@@ -120,7 +122,7 @@ namespace Liberty.Util
         /// <param name="kvData">The KV data to resign with</param>
         public void SaveChanges(byte[] kvData)
         {
-            _saveData.Update(_mmiofPath);
+            _saveData.Update(_rawPath);
             UpdateSTFS(kvData);
         }
 
@@ -133,81 +135,16 @@ namespace Liberty.Util
             SaveChanges(File.ReadAllBytes(kvPath));
         }
 
+        /// <summary>
+        /// Closes the currently open campaign save.
+        /// </summary>
         public void Close()
         {
-            _saveData = null;
-            _mmiofPath = null;
+            _saveData = default(T);
+            _rawPath = null;
             _stfsPath = null;
-            _mapTaglists.Clear();
         }
-
-        /// <summary>
-        /// Attempts to identify an object in the campaign save.
-        /// </summary>
-        /// <param name="obj">The object to identify</param>
-        /// <param name="guess">Whether or not name guessing should be used (generic taglists only)</param>
-        /// <returns>The object's name</returns>
-        public string IdentifyObject(Reach.GameObject obj, bool guess)
-        {
-            string mapName = _saveData.Map;
-            mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
-
-            // Generic taglists + name guessing
-            foreach (TagList tagList in _genericTaglists)
-            {
-                string name = tagList.Translate(mapName, obj.MapID);
-                if (!string.IsNullOrEmpty(name))
-                    return name;
-
-                if (guess)
-                {
-                    string group = "bytype " + obj.TagGroup.ToString().ToLower();
-                    if (obj.Carrier != null)
-                    {
-                        string groupWithCarry = group + " carriedby " + obj.Carrier.TagGroup.ToString().ToLower();
-                        name = tagList.Translate(groupWithCarry, (uint)obj.Type);
-
-                        if (!string.IsNullOrEmpty(name))
-                            return name;
-                    }
-                    name = tagList.Translate(group, obj.MapID);
-                    if (!string.IsNullOrEmpty(name))
-                        return name;
-                }
-            }
-
-            // Map-specific taglists
-            foreach (TagList tagList in _mapTaglists)
-            {
-                string name = tagList.Translate(mapName, obj.MapID);
-                if (!string.IsNullOrEmpty(name))
-                    return name;
-            }
-
-            // Nothing found, just convert the ID to hex
-            return "0x" + obj.MapID.ToString("X");
-        }
-
-        public void AddGenericTaglist(TagList tagList)
-        {
-            _genericTaglists.Add(tagList);
-        }
-
-        public void AddMapSpecificTaglist(TagList tagList)
-        {
-            _mapTaglists.Add(tagList);
-        }
-
-        public void RemoveGenericTaglists()
-        {
-            _genericTaglists.Clear();
-        }
-
-        public void RemoveMapSpecificTaglists()
-        {
-            _mapTaglists.Clear();
-        }
-
+        
         private void UpdateSTFS(byte[] kvData)
         {
             if (_stfsPath != null)
@@ -218,7 +155,7 @@ namespace Liberty.Util
                     // Re-open the STFS package and inject the new mmiof.bmf
                     package = new STFSPackage(_stfsPath, null);
                     X360.STFS.FileEntry file = package.GetFile("mmiof.bmf");
-                    file.Inject(_mmiofPath);
+                    file.Inject(_rawPath);
 
                     if (kvData != null)
                     {
@@ -239,10 +176,9 @@ namespace Liberty.Util
             }
         }
 
-        private Reach.CampaignSave _saveData = null;
+        private T _saveData;
+        private Func<string, T> _constructSave;
         private string _stfsPath = null;
-        private string _mmiofPath = null;
-        private List<TagList> _genericTaglists = new List<TagList>();
-        private List<TagList> _mapTaglists = new List<TagList>();
+        private string _rawPath = null;
     }
 }

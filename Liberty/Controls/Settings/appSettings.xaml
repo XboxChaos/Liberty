@@ -18,7 +18,7 @@
             <Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." Foreground="{DynamicResource AccentTextDark}" FontSize="11" FontWeight="SemiBold" Margin="0,-10,0,0" Height="25"/>
 			
 			<Label x:Name="UPSprt1Header" Content="Basic updater settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
-			<CheckBox x:Name="UPScheckOLHeader" Content="Check for updates on application launch." Margin="10,2,0,0" />
+			<CheckBox x:Name="UPScheckOLHeader" Content="Check for updates on application launch." Margin="10,2,0,0" Height="16" />
 			<CheckBox x:Name="UPSshowChangeLog" Content="Show change log when Liberty checks for updates." Margin="10,5,0,0" />
 		</StackPanel>
 		
@@ -28,13 +28,13 @@
 			
 			<Label x:Name="LNSprt1Header" Content="Splash settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
 			
-			<CheckBox x:Name="LNSdisplaySplash" Content="Display Splash Screen." Margin="10,2,0,0" />
+			<CheckBox x:Name="LNSdisplaySplash" Content="Display Splash Screen." Margin="10,2,0,0" Height="16" />
 			<Slider x:Name="LNSsplashTime" FontSize="10" FontWeight="SemiBold" Margin="10,6,0,0" HorizontalAlignment="Left" Width="110" Minimum="1" SmallChange="1" Value="5" ValueChanged="LNSsplashTime_ValueChanged"/>
 			<Label x:Name="LNSsplashTimelbl" Content="Display Splash for: {0}" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="120,-24,0,0" Height="25"/>
 			
 			<Label x:Name="LNSprt2Header" Content="Post-runtime settings;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,15,0,0" Height="25"/>
 			
-			<CheckBox x:Name="LNSenableEggs" Content="Enable easter eggs." Margin="10,5,0,0" />
+			<CheckBox x:Name="LNSenableEggs" Content="Enable easter eggs." Margin="10,5,0,0" Height="16" />
 			<CheckBox x:Name="LNSnoWarnings" Content="Don't show warning dialogs for unsafe actions." Margin="10,5,0,0" />
 		</StackPanel>
 		
@@ -43,12 +43,12 @@
 			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
 			
 			<Label x:Name="TLTprt1Header" Content="Basic taglist options;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
-			<CheckBox x:Name="TLTdlLatestTaglst" Content="Download taglist from the internet if you are connected." Margin="10,2,0,0"/>
+			<CheckBox x:Name="TLTdlLatestTaglst" Content="Download taglist from the internet if you are connected." Margin="10,2,0,0" Height="16"/>
 			<CheckBox x:Name="TLTtaglstNoMem" Content="Save taglist to temporary directory, not read from memory. " Margin="10,5,0,0" Visibility="Collapsed"/>
-			<CheckBox x:Name="TLTtaglstUseTypes" Content="Attempt to &quot;guess&quot; unknown object names." Margin="10,5,0,0"/>
+			<CheckBox x:Name="TLTtaglstUseTypes" Content="Attempt to &quot;guess&quot; unknown object names." Margin="10,5,0,0" Height="16"/>
 			
 			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
-			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked" />
+			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked" Height="16" />
 			
 			<TextBox IsReadOnly="True" Name="TLTAsvTagLstDirec" Margin="10,9,150,0" Height="22"/>
 

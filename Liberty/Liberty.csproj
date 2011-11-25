@@ -126,7 +126,9 @@
     <Compile Include="Controls\openSaveFile.xaml.cs">
       <DependentUpon>openSaveFile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ICampaignSave.cs" />
     <Compile Include="Reach\ObjectEntry.cs" />
+    <Compile Include="Reach\TagListManager.cs" />
     <Compile Include="StepUI\BranchStepGraphBuilder.cs" />
     <Compile Include="StepUI\BranchStepNode.cs" />
     <Compile Include="StepUI\IWorkStep.cs" />
@@ -152,9 +154,6 @@
     </Compile>
     <Compile Include="Controls\progressWindow.xaml.cs">
       <DependentUpon>progressWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\resignSave.xaml.cs">
-      <DependentUpon>resignSave.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\settingsMain.xaml.cs">
       <DependentUpon>settingsMain.xaml</DependentUpon>
@@ -217,6 +216,7 @@
     <Compile Include="StepUI\TransferSaveStep.cs" />
     <Compile Include="StepUI\WorkStepProgressUpdater.cs" />
     <Compile Include="Util\EditorSupport.cs" />
+    <Compile Include="Util\GameIdentification.cs" />
     <Compile Include="Util\SaveManager.cs" />
     <Compile Include="Util\TagList.cs" />
     <Content Include="Themes\Accents\Orange.xaml">
@@ -275,10 +275,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\progressWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\resignSave.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -483,6 +479,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />
+    <Folder Include="HCEX\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\splash.png" />
