@@ -24,7 +24,6 @@ namespace Liberty.Controls
         //FontWeight fw = new FontWeight();
         public event EventHandler ExecuteMethod;
         protected virtual void OnExecuteMethod() { if (ExecuteMethod != null) ExecuteMethod(this, EventArgs.Empty); }
-        private Util.SaveManager _saveManager = null;
 
         public settingsMain()
         {
@@ -33,11 +32,8 @@ namespace Liberty.Controls
             themePanel.Visibility = Visibility.Hidden;
         }
 
-        public Util.SaveManager SaveManager
-        {
-            get { return _saveManager; }
-            set { _saveManager = value; }
-        }
+        public Util.SaveManager<Reach.CampaignSave> SaveManager { get; set; }
+        public Reach.TagListManager TagListManager { get; set; }
 
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
@@ -121,7 +117,7 @@ namespace Liberty.Controls
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             //Save Code
-            softCode.saveSettings(_saveManager);
+            softCode.saveSettings(SaveManager, TagListManager);
             themeCode.saveSettings();
 
             //Leave Code

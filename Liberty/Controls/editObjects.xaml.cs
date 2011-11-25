@@ -24,6 +24,8 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class editObjects : UserControl, StepUI.IStep
 	{
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+        private Reach.TagListManager _taglistManager;
         private Reach.CampaignSave _saveData = null;
         private int currentChunkIndex = -1;
         private string currentParentNodeTag = null;
@@ -37,8 +39,10 @@ namespace Liberty.Controls
         BrushConverter bc = new BrushConverter();
         private MainWindow mainWindow = null;
 
-		public editObjects()
+        public editObjects(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
 		{
+            _saveManager = saveManager;
+            _taglistManager = taglistManager;
 			InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(step4_Loaded);
@@ -62,9 +66,9 @@ namespace Liberty.Controls
             Clipboard.SetData(DataFormats.Text, label.Content);
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            _saveData = saveManager.SaveData;
+            _saveData = _saveManager.SaveData;
 
             // Reset selected item
             currentChunkIndex = -1;
@@ -116,7 +120,7 @@ namespace Liberty.Controls
                     TreeViewItem tvi = new TreeViewItem();
                     tvi.Name = "tVItem" + i.ToString();
 
-                    tvi.Header = "[" + i.ToString() + "] " + saveManager.IdentifyObject(obj, guessName);
+                    tvi.Header = "[" + i.ToString() + "] " + _taglistManager.Identify(obj, guessName);
                     tvi.Tag = i;
 
                     if (objectsAreRelated(playerBiped, obj))
@@ -134,7 +138,7 @@ namespace Liberty.Controls
             }
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
             if (currentChunkIndex != -1)
                 saveValues();

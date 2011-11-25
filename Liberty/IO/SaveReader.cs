@@ -182,6 +182,26 @@ namespace Liberty.SaveIO
         }
 
         /// <summary>
+        /// Jumps to an offset in the stream.
+        /// </summary>
+        /// <param name="offset">The offset to move the stream's pointer to.</param>
+        /// <seealso cref="Seek"/>
+        public void SeekTo(long offset)
+        {
+            Seek(offset, SeekOrigin.Begin);
+        }
+
+        /// <summary>
+        /// Skips a number of bytes in the stream.
+        /// </summary>
+        /// <param name="count">The number of bytes to skip.</param>
+        /// <seealso cref="Seek"/>
+        public void Skip(long count)
+        {
+            Seek(count, SeekOrigin.Current);
+        }
+
+        /// <summary>
         /// Reads a null-terminated ASCII string.
         /// </summary>
         /// <returns>The string that was read.</returns>

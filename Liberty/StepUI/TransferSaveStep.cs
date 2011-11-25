@@ -32,11 +32,11 @@ namespace Liberty.StepUI
         {
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
             _deviceSelector.SelectedDevice.Close();
             return true;

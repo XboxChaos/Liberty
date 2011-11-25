@@ -39,7 +39,7 @@ namespace Liberty.Reach
     /// <summary>
     /// Provides properties and methods for managing Halo: Reach campaign saves.
     /// </summary>
-    public partial class CampaignSave
+    public partial class CampaignSave : ICampaignSave
     {
         /// <summary>
         /// Constructs a new CampaignSave object based off of information in an mmiof.bmf file.
@@ -109,10 +109,10 @@ namespace Liberty.Reach
         /// <summary>
         /// Updates and resigns the save data, writing any changes back to a mmiof.bmf file.
         /// </summary>
-        /// <param name="mmiofBmfPath">The mmiof.bmf file to write changes back to.</param>
-        public void Update(string mmiofBmfPath)
+        /// <param name="path">The mmiof.bmf file to write changes back to.</param>
+        public void Update(string path)
         {
-            FileStream stream = new FileStream(mmiofBmfPath, FileMode.Open, FileAccess.ReadWrite);
+            FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
             Update(stream);
             stream.Close();
         }

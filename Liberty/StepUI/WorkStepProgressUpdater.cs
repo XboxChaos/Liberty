@@ -28,15 +28,14 @@ namespace Liberty.StepUI
             _step.Hide();
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            _saveManager = saveManager;
-            _step.Load(saveManager);
+            _step.Load();
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
-            return _step.Save(saveManager);
+            return _step.Save();
         }
 
         private void step_OnProgressChanged(IWorkStep step, double progress)
@@ -46,12 +45,11 @@ namespace Liberty.StepUI
 
         private void step_OnComplete(IWorkStep step)
         {
-            _viewer.Forward(_saveManager);
+            _viewer.Forward();
         }
 
         private IWorkStep _step;
         private ProgressBarGroup _group;
         private StepViewer _viewer;
-        private Util.SaveManager _saveManager;
     }
 }

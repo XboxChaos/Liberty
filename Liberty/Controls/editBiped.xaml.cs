@@ -21,9 +21,13 @@ namespace Liberty.Controls
         private MainWindow mainWindow = null;
         private int originalBipdItem = -1;
         private bool loading = false;
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+        private Reach.TagListManager _taglistManager;
 
-        public editBiped()
+        public editBiped(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
         {
+            _saveManager = saveManager;
+            _taglistManager = taglistManager;
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(step2_Loaded);
@@ -34,10 +38,10 @@ namespace Liberty.Controls
             mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
             loading = true;
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             Reach.BipedObject playerBiped = saveData.Player.Biped;
             checkInvincible.IsChecked = playerBiped.Invincible;
             checkNoPhysics.IsEnabled = (playerBiped.Vehicle == null);
@@ -53,7 +57,7 @@ namespace Liberty.Controls
             HashSet<Reach.BipedObject> availableBipeds = Util.EditorSupport.FindSwappableBipeds(saveData);
             SortedDictionary<string, Reach.BipedObject> sortedBipeds = new SortedDictionary<string, Reach.BipedObject>();
             foreach (Reach.BipedObject obj in availableBipeds)
-                sortedBipeds[saveManager.IdentifyObject(obj, false)] = obj;
+                sortedBipeds[_taglistManager.Identify(obj, false)] = obj;
 
             foreach (KeyValuePair<string, Reach.BipedObject> obj in sortedBipeds)
             {
@@ -73,9 +77,9 @@ namespace Liberty.Controls
             loading = false;
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             Reach.BipedObject selectedBiped = (Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag;
             saveData.Player.ChangeBiped(selectedBiped, (bool)cBWeapTransfer.IsChecked);
 

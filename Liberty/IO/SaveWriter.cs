@@ -163,6 +163,15 @@ namespace Liberty.SaveIO
         }
 
         /// <summary>
+        /// Writes a block of bytes to the underlying stream.
+        /// </summary>
+        /// <param name="data">The bytes to write.</param>
+        public void WriteBlock(byte[] data)
+        {
+            _stream.Write(data, 0, data.Length);
+        }
+
+        /// <summary>
         /// Changes the position of the underlying stream.
         /// </summary>
         /// <param name="offset">The new offset, relative to the selected origin.</param>
@@ -170,6 +179,26 @@ namespace Liberty.SaveIO
         public void Seek(long offset, SeekOrigin origin)
         {
             _stream.Seek(offset, origin);
+        }
+
+        /// <summary>
+        /// Jumps to an offset in the stream.
+        /// </summary>
+        /// <param name="offset">The offset to move the stream's pointer to.</param>
+        /// <seealso cref="Seek"/>
+        public void SeekTo(long offset)
+        {
+            Seek(offset, SeekOrigin.Begin);
+        }
+
+        /// <summary>
+        /// Skips a number of bytes in the stream.
+        /// </summary>
+        /// <param name="count">The number of bytes to skip.</param>
+        /// <seealso cref="Seek"/>
+        public void Skip(long count)
+        {
+            Seek(count, SeekOrigin.Current);
         }
 
         /// <summary>

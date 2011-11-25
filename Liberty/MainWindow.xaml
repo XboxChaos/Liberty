@@ -91,19 +91,7 @@
                 <Child:BetaPlayground Visibility="Visible" />
             </Grid>
             
-            <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" Background="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
-                <Child:selectMode x:Name="stepSelectMode" Visibility="Hidden"/>
-				<Child:openSaveFile x:Name="stepOpenFile" Visibility="Hidden"/>
-                <Child:selectDevice x:Name="stepSelectDevice" Visibility="Hidden"/>
-                <Child:selectSaveOnDevice x:Name="stepSelectSave" Visibility="Hidden" Drive="{Binding ElementName=stepSelectDevice, Path=SelectedDevice}"/>
-                <Child:verifyFile x:Name="stepVerifyFile" Visibility="Hidden"/>
-                <Child:editBiped x:Name="stepBiped" Visibility="Hidden"/>
-                <Child:editWeapons x:Name="stepWeapons" Visibility="Hidden"/>
-                <local1:editGrenades x:Name="stepGrenades" Margin="0" Visibility="Hidden"/>
-                <Child:editObjects x:Name="stepObjects" d:LayoutOverrides="Width, Height" Visibility="Hidden"/>
-                <Child:quickTweaks x:Name="stepTweaks" Visibility="Hidden"/>
-                <Child:allDone x:Name="stepAllDone" Visibility="Hidden"/>
-			</Grid>
+            <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" Background="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585"/>
 			<Button x:Name="btnOK" Content="Next" HorizontalAlignment="Right" Margin="0,0,25,29" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="69"/>
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Right" Margin="0,0,109,29" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnBack_Click" Width="69"/>
 
@@ -111,8 +99,8 @@
             <MediaElement x:Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
 			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>
 
-        <StackPanel x:Name="settingsPanel" Margin="13,40,10,10" VerticalAlignment="Stretch" Background="{DynamicResource AccentBG}" HorizontalAlignment="Left" d:IsHidden="True" Width="622">
-				<Child:settingsMain Margin="0,0,0,0"  x:Name="settingsMain" Height="414" />
+        <StackPanel x:Name="settingsPanel" Margin="13,40,0,0" VerticalAlignment="Top" Background="{DynamicResource AccentBG}" Height="426" HorizontalAlignment="Left" Width="611">
+				<Child:settingsMain Margin="0,0,0,0"  x:Name="settingsMain" />
 			</StackPanel>
 
         <Rectangle x:Name="recMask" Fill="{DynamicResource AccentBG}" Margin="10,10,10,10" Stroke="{DynamicResource AccentBG}" Opacity="0.60" Visibility="Hidden" />

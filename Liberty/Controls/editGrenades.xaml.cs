@@ -13,15 +13,18 @@ using System.Windows.Shapes;
 
 namespace Liberty
 {
-	/// <summary>
-	/// Interaction logic for editGrenades.xaml
-	/// </summary>
-	public partial class editGrenades : UserControl, StepUI.IStep
-	{
-		public editGrenades()
-		{
-			this.InitializeComponent();
-		}
+    /// <summary>
+    /// Interaction logic for editGrenades.xaml
+    /// </summary>
+    public partial class editGrenades : UserControl, StepUI.IStep
+    {
+        Util.SaveManager<Reach.CampaignSave> _saveManager;
+
+        public editGrenades(Util.SaveManager<Reach.CampaignSave> saveManager)
+        {
+            _saveManager = saveManager;
+            this.InitializeComponent();
+        }
 
         public void Show()
         {
@@ -33,16 +36,16 @@ namespace Liberty
             Visibility = Visibility.Hidden;
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             txtFragNades.Text = saveData.Player.Biped.FragGrenades.ToString();
             txtPlasmaNades.Text = saveData.Player.Biped.PlasmaGrenades.ToString();
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             saveData.Player.Biped.FragGrenades = Convert.ToSByte(txtFragNades.Text);
             saveData.Player.Biped.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);
 

@@ -14,36 +14,38 @@ using Microsoft.Win32;
 
 namespace Liberty.Controls
 {
-	/// <summary>
-	/// Interaction logic for openSaveFile.xaml
-	/// </summary>
-	public partial class openSaveFile : UserControl, StepUI.IStep
-	{
+    /// <summary>
+    /// Interaction logic for openSaveFile.xaml
+    /// </summary>
+    public partial class openSaveFile : UserControl, StepUI.IStep
+    {
         private MainWindow _mainWindow = null;
-        private Util.SaveManager _saveManager = null;
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+        private Reach.TagListManager _taglistManager;
         private bool _loaded;
 
-		public openSaveFile()
-		{
-			this.InitializeComponent();
+        public openSaveFile(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
+        {
+            _saveManager = saveManager;
+            _taglistManager = taglistManager;
+            this.InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(openSaveFile_Loaded);
-		}
+        }
 
         void openSaveFile_Loaded(object sender, RoutedEventArgs e)
         {
             _mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            _loaded = saveManager.Loaded;
+            _loaded = _saveManager.Loaded;
             if (!_loaded)
                 lblFileDirec.Text = "please load a file...";
-            _saveManager = saveManager;
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
             return _loaded;
         }
@@ -69,12 +71,23 @@ namespace Liberty.Controls
                 try
                 {
                     _saveManager.LoadSTFS(ofd.FileName, classInfo.extraIO.makeTempSaveDir());
+                    _taglistManager.RemoveMapSpecificTaglists();
                     lblFileDirec.Text = ofd.FileName;
                     _loaded = true;
                 }
+                catch (ArgumentException ex)
+                {
+                    string message;
+                    if (ex.InnerException != null)
+                        message = ex.InnerException.Message;
+                    else
+                        message = ex.Message;
+
+                    _mainWindow.showMessage(message, "ERROR");
+                    _loaded = false;
+                }
                 catch (Exception ex)
                 {
-                    // An error occurred trying to load the file, display it to the user
                     _mainWindow.showException(ex.ToString());
                     _loaded = false;
                 }

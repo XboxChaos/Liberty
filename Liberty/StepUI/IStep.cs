@@ -21,13 +21,12 @@ namespace Liberty.StepUI
         /// <summary>
         /// Loads any data needed by the step.
         /// </summary>
-        /// <param name="saveManager">The SaveManager object that should be manipulated.</param>
-        void Load(Util.SaveManager saveManager);
+        void Load();
 
         /// <summary>
         /// Finishes editing and saves any data changed by the user.
         /// </summary>
-        /// <param name="saveManager">The SaveManager object that should be manipulated.</param>
-        bool Save(Util.SaveManager saveManager);
+        /// <returns>Whether or not the save operation succeeded</returns>
+        bool Save();
     }
 }

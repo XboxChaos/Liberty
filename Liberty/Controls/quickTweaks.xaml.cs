@@ -19,14 +19,17 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class quickTweaks : UserControl, StepUI.IStep
 	{
-		public quickTweaks()
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+
+        public quickTweaks(Util.SaveManager<Reach.CampaignSave> saveManager)
 		{
+            _saveManager = saveManager;
 			this.InitializeComponent();
 		}
 		
-		public void Load(Util.SaveManager saveManager)
+		public void Load()
 		{
-            string message = saveManager.SaveData.Message;
+            string message = _saveManager.SaveData.Message;
             if (message == "Checkpoint... done")
             {
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -35,13 +38,13 @@ namespace Liberty.Controls
             txtStartingMsg.Text = message;
 		}
 		
-		public bool Save(Util.SaveManager saveManager)
+		public bool Save()
 		{
             if ((bool)checkAllMaxAmmo.IsChecked)
-                Util.EditorSupport.AllWeaponsMaxAmmo(saveManager.SaveData);
-            saveManager.SaveData.Message = txtStartingMsg.Text;
+                Util.EditorSupport.AllWeaponsMaxAmmo(_saveManager.SaveData);
+            _saveManager.SaveData.Message = txtStartingMsg.Text;
 
-            saveManager.SaveChanges(Properties.Resources.KV);
+            _saveManager.SaveChanges(Properties.Resources.KV);
             return true;
 		}
 

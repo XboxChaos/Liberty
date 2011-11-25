@@ -68,7 +68,7 @@ namespace Liberty.Controls.Settings
             btnfindTaglist.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
         }
 
-        public void saveSettings(Util.SaveManager saveManager)
+        public void saveSettings(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
         {
             // Save to RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings");
@@ -92,7 +92,7 @@ namespace Liberty.Controls.Settings
             key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
 
             if (classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec != TLTAsvTagLstDirec.Text && saveManager != null)
-                classInfo.nameLookup.loadAscensionTaglist(saveManager);
+                classInfo.nameLookup.loadAscensionTaglist(saveManager, taglistManager);
 
             classInfo.storage.settings.applicationSettings.enableEasterEggs = (bool)LNSenableEggs.IsChecked;
             classInfo.storage.settings.applicationSettings.noWarnings = (bool)LNSnoWarnings.IsChecked;

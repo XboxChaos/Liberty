@@ -17,27 +17,30 @@ namespace Liberty.Controls
 	/// Interaction logic for step5.xaml
 	/// </summary>
 	public partial class allDone : UserControl, StepUI.IStep
-	{		
-		public allDone()
+	{
+        private selectMode _stepSelectMode;
+
+		public allDone(selectMode stepSelectMode)
 		{
+            _stepSelectMode = stepSelectMode;
 			this.InitializeComponent();
 		}
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            //if (classInfo.storage.fileInfoStorage.saveIsLocal)
+            if (_stepSelectMode.SelectedBranch != selectMode.EditingMode.EditSaveDevice)
             {
                 subBaseHeader_2_1.Content = "Liberty and then just transfer the save back to your hard drive, USB, or memory unit and enjoy some";
                 subBaseHeader_2_2.Content = "more Halo: Reach.";
             }
-            /*else
+            else
             {
                 subBaseHeader_2_1.Content = "Liberty and enjoy some more Halo: Reach.";
                 subBaseHeader_2_2.Content = "";
-            }*/
+            }
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
             return true;
         }

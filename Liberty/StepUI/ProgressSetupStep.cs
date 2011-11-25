@@ -33,14 +33,14 @@ namespace Liberty.StepUI
             _step.Hide();
         }
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            _step.Load(saveManager);
+            _step.Load();
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
-            return _step.Save(saveManager);
+            return _step.Save();
         }
 
         private IStep _step;

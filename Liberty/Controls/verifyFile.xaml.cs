@@ -18,14 +18,19 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class verifyFile : UserControl, StepUI.IStep
 	{
-		public verifyFile()
+        private Util.SaveManager<Reach.CampaignSave> _saveManager;
+        private Reach.TagListManager _taglistManager;
+
+        public verifyFile(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
 		{
+            _saveManager = saveManager;
+            _taglistManager = taglistManager;
 			this.InitializeComponent();
 		}
 
-        public void Load(Util.SaveManager saveManager)
+        public void Load()
         {
-            Reach.CampaignSave saveData = saveManager.SaveData;
+            Reach.CampaignSave saveData = _saveManager.SaveData;
             lblGamertag.Content = saveData.Gamertag;
             lblServiceTag.Content = saveData.ServiceTag;
             lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " (" + saveData.Map + ")";
@@ -42,9 +47,9 @@ namespace Liberty.Controls
             catch { }
         }
 
-        public bool Save(Util.SaveManager saveManager)
+        public bool Save()
         {
-            classInfo.nameLookup.loadAscensionTaglist(saveManager);
+            classInfo.nameLookup.loadAscensionTaglist(_saveManager, _taglistManager);
             return true;
         }
 
