@@ -13,6 +13,23 @@ using System.Windows.Shapes;
 
 namespace Liberty.StepUI
 {
+    public class ViewNodeEventArgs : EventArgs
+    {
+        public ViewNodeEventArgs(IStepNode nextNode, bool canGoBack, bool canGoForward)
+        {
+            NextNode = nextNode;
+            _canGoBack = canGoBack;
+            _canGoForward = canGoForward;
+        }
+
+        public IStepNode NextNode { get; set; }
+        public bool CanGoBack { get { return _canGoBack; } }
+        public bool CanGoForward { get { return _canGoForward; } }
+
+        private bool _canGoBack;
+        private bool _canGoForward;
+    }
+
     public class StepViewer
     {
         public StepViewer(Grid stepGrid)
@@ -32,10 +49,18 @@ namespace Liberty.StepUI
 
         public void ViewNode(IStepNode node)
         {
-            if (_currentNode != null)
-                _currentNode.Hide();
+            if (BeforeViewNode != null)
+            {
+                ViewNodeEventArgs args = new ViewNodeEventArgs(node, node.Previous != null, node.Next != null);
+                BeforeViewNode(this, args);
+            }
+
+            IStepNode previousNode = _currentNode;
             _currentNode = node;
+
             node.Load();
+            if (previousNode != null)
+                previousNode.Hide();
             node.Show();
         }
 
@@ -49,10 +74,8 @@ namespace Liberty.StepUI
             IStepNode nextNode = _currentNode.Next;
             if (nextNode == null)
                 return false;
-            nextNode.Load();
-            _currentNode.Hide();
-            _currentNode = nextNode;
-            nextNode.Show();
+
+            ViewNode(nextNode);
             return true;
         }
 
@@ -64,12 +87,12 @@ namespace Liberty.StepUI
             IStepNode previousNode = _currentNode.Previous;
             if (previousNode == null)
                 return false;
-            _currentNode.Hide();
-            _currentNode = previousNode;
-            _currentNode.Load();
-            _currentNode.Show();
+
+            ViewNode(previousNode);
             return true;
         }
+
+        public event EventHandler<ViewNodeEventArgs> BeforeViewNode;
 
         private Grid _stepGrid;
         private IStepNode _currentNode = null;

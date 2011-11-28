@@ -40,7 +40,8 @@ namespace Liberty.StepUI
 
         private void step_OnProgressChanged(IWorkStep step, double progress)
         {
-            _group.UpdateStepProgress(progress);
+            if (_group != null)
+                _group.UpdateStepProgress(progress);
         }
 
         private void step_OnComplete(IWorkStep step)

@@ -98,7 +98,7 @@ namespace Liberty.Controls
             {
                 string Type = _physDrives[i].DriveName;
                 ComboBoxItem hdd = new ComboBoxItem();
-                hdd.Content = _physDrives[i].DriveType.ToString() + " - " + _physDrives[i].DriveName.ToString() + " (" + _physDrives[i].DriveSizeConverted + ")";
+                hdd.Content = Util.FATXSaveTransferrer.FormatDeviceName(_physDrives[i]);
                 hdd.Tag = _physDrives[i];
                 cBStorageType.Items.Add(hdd);
                 i++;
