@@ -201,8 +201,6 @@ namespace Liberty.Reach
         /// <seealso cref="Security.SaveSHA1"/>
         private void Resign(Stream stream)
         {
-            Security.SaveSHA1 hasher = new Security.SaveSHA1();
-
             // Load the whole stream into memory
             MemoryStream memoryStream = new MemoryStream((int)stream.Length);
             memoryStream.SetLength(stream.Length);
@@ -212,11 +210,11 @@ namespace Liberty.Reach
             // Hash the contents
             memoryStream.Position = 0x1E708;
             memoryStream.Write(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, 20);
-            hasher.TransformFinalBlock(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+            byte[] hash = Security.SaveSHA1.ComputeHash(memoryStream.GetBuffer());
 
             // Write the new digest
             stream.Position = 0x1E708;
-            stream.Write(hasher.Hash, 0, 20);
+            stream.Write(hash, 0, 20);
         }
 
         /// <summary>

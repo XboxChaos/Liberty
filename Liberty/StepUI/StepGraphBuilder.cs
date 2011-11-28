@@ -35,28 +35,6 @@ namespace Liberty.StepUI
             return null;
         }
 
-        public IStepNode AddWorkStep(IWorkStep step, StepViewer viewer)
-        {
-            if (_rootNode == null || _lastSimpleNode != null)
-            {
-                SimpleStepNode node = new SimpleStepNode(DecorateWorkStep(step, viewer, null));
-                AddNode(node, node);
-                return node;
-            }
-            return null;
-        }
-
-        public IStepNode AddWorkStep(IWorkStep step, StepViewer viewer, string progressGroupName)
-        {
-            if (_rootNode == null || _lastSimpleNode != null)
-            {
-                SimpleStepNode node = new SimpleStepNode(DecorateWorkStep(step, viewer, FindGroup(progressGroupName)));
-                AddNode(node, node);
-                return node;
-            }
-            return null;
-        }
-
         public BranchStepNode<T> AddBranchStep<T>(IBranchStep<T> branchData, string progressGroupName)
         {
             BranchStepNode<T> node = new BranchStepNode<T>(branchData, DecorateStep(branchData, FindGroup(progressGroupName)));
@@ -119,13 +97,6 @@ namespace Liberty.StepUI
                 result = new ProgressLinkedStep(result, progressBarGroup);
             }
             return result;
-        }
-
-        private IStep DecorateWorkStep(IWorkStep step, StepViewer viewer, ProgressBarGroup progressBarGroup)
-        {
-            IStep decoratedStep = DecorateStep(step, progressBarGroup);
-            WorkStepProgressUpdater updaterStep = new WorkStepProgressUpdater(step, progressBarGroup, viewer);
-            return updaterStep;
         }
 
         private void AddNode(IStepNode node, SimpleStepNode simpleNode)

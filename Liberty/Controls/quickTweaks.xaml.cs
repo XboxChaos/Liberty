@@ -43,8 +43,6 @@ namespace Liberty.Controls
             if ((bool)checkAllMaxAmmo.IsChecked)
                 Util.EditorSupport.AllWeaponsMaxAmmo(_saveManager.SaveData);
             _saveManager.SaveData.Message = txtStartingMsg.Text;
-
-            _saveManager.SaveChanges(Properties.Resources.KV);
             return true;
 		}
 

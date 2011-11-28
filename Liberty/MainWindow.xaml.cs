@@ -20,6 +20,8 @@ using Liberty.classInfo.storage;
 using Liberty.classInfo.storage.settings;
 using Liberty.Controls;
 using Liberty.StepUI;
+using X360.STFS;
+using System.Windows.Threading;
 
 namespace Liberty
 {
@@ -29,39 +31,68 @@ namespace Liberty
     public partial class MainWindow : Window
     {
 		BrushConverter bc = new BrushConverter();
-        private Util.SaveManager<Reach.CampaignSave> _reachSaveManager =
-            new Util.SaveManager<Reach.CampaignSave>(path => new Reach.CampaignSave(path));
+        private Util.ISaveManager _saveManager = null;
+        private Util.SaveManager<Reach.CampaignSave> _reachSaveManager;
+        private Util.SaveManager<HCEX.CampaignSave> _hcexSaveManager;
         private Reach.TagListManager _reachTaglists = null;
         private StepViewer _stepViewer = null;
         private StepUI.IStepNode _firstStep;
-        selectMode _stepSelectMode = null;
+        private Util.FATXSaveTransferrer _saveTransferrer = new Util.FATXSaveTransferrer();
+        private selectMode _stepSelectMode;
+        private selectDevice _stepSelectDevice;
+        private openSaveFile _stepOpenFile;
+        private transferSave _stepTransfer;
+        private string _packagePath = null;
+        private Util.SaveType _currentGame;
+        private DispatcherTimer egg2 = new DispatcherTimer();
+
 
         public MainWindow()
         {
             InitializeComponent();
 
+            // Setup egg2 Timers
+            egg2.Interval = new TimeSpan(0, 0, 20);
+            egg2.Tick += new EventHandler(egg2_Tick);
+
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
             settingsPanel.Visibility = Visibility.Hidden;
 
+            // Set up reach stuff
+            _reachSaveManager = new Util.SaveManager<Reach.CampaignSave>(path => new Reach.CampaignSave(path));
             _reachTaglists = new Reach.TagListManager(_reachSaveManager);
+
+            // Set up HCEX stuff
+            _hcexSaveManager = new Util.SaveManager<HCEX.CampaignSave>(path => new HCEX.CampaignSave(path));
+
+            // Set up the step viewer
+            _stepViewer = new StepViewer(stepGrid);
+            _stepViewer.BeforeViewNode += new EventHandler<ViewNodeEventArgs>(stepViewer_BeforeViewNode);
 
             // Create steps
             _stepSelectMode = new selectMode();
-            openSaveFile stepOpenFile = new openSaveFile(_reachSaveManager, _reachTaglists);
-            selectDevice stepSelectDevice = new selectDevice();
-            selectSaveOnDevice stepSelectSave = new selectSaveOnDevice(stepSelectDevice, _reachSaveManager, _reachTaglists);
+            _stepOpenFile = new openSaveFile(loadSaveFile);
+            _stepSelectDevice = new selectDevice();
+            selectSaveOnDevice stepSelectSave = new selectSaveOnDevice(_stepSelectDevice, _saveTransferrer, loadSaveFile);
             verifyFile stepVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
             editBiped stepBiped = new editBiped(_reachSaveManager, _reachTaglists);
             editWeapons stepWeapons = new editWeapons(_reachSaveManager);
             editGrenades stepGrenades = new editGrenades(_reachSaveManager);
             editObjects stepObjects = new editObjects(_reachSaveManager, _reachTaglists);
             quickTweaks stepTweaks = new quickTweaks(_reachSaveManager);
+            saving stepSaving = new saving(updateSaveFile);
+            _stepTransfer = new transferSave(_saveTransferrer);
             allDone stepAllDone = new allDone(_stepSelectMode);
 
-            // Add them
+            // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
+            // Maybe I should just throw away that feature where the progress bar can update mid-step so a group reference isn't needed
+            IStep workStepSaving = new WorkStepProgressUpdater(new UnnavigableWorkStep(stepSaving, gridButtons, headerControls), null, _stepViewer);
+            IStep workStepTransfer = new WorkStepProgressUpdater(new UnnavigableWorkStep(_stepTransfer, gridButtons, headerControls), null, _stepViewer);
+
+            // Add them to the step grid
             addStep(_stepSelectMode);
-            addStep(stepOpenFile);
-            addStep(stepSelectDevice);
+            addStep(_stepOpenFile);
+            addStep(_stepSelectDevice);
             addStep(stepSelectSave);
             addStep(stepVerifyFile);
             addStep(stepBiped);
@@ -69,10 +100,9 @@ namespace Liberty
             addStep(stepGrenades);
             addStep(stepObjects);
             addStep(stepTweaks);
+            addStep(stepSaving);
+            addStep(_stepTransfer);
             addStep(stepAllDone);
-
-            // Set up the step viewer
-            _stepViewer = new StepViewer(stepGrid);
 
             // Start building the step graph
             StepGraphBuilder stepGraph = new StepGraphBuilder(progressBar);
@@ -80,36 +110,59 @@ namespace Liberty
 
             // Step graph: Edit save on computer
             StepGraphBuilder editSaveOnComputer = stepGraph.StartBranch(selectMode.EditingMode.EditSaveComputer, true);
-            editSaveOnComputer.AddStep(stepOpenFile, "SAVE SELECTION");
-            editSaveOnComputer.AddStep(stepVerifyFile, "SAVE SELECTION");
-            editSaveOnComputer.AddStep(stepBiped, "CHARACTER DATA");
-            editSaveOnComputer.AddStep(stepWeapons, "WEAPON DATA");
-            editSaveOnComputer.AddStep(stepGrenades, "WEAPON DATA");
-            editSaveOnComputer.AddStep(stepObjects, "OBJECT DATA");
-            editSaveOnComputer.AddStep(stepTweaks, "OBJECT DATA");
-            editSaveOnComputer.AddStep(stepAllDone, "FINISHED");
+            editSaveOnComputer.AddBranchStep(_stepOpenFile, "SAVE SELECTION");
+
+            // Step graph: Edit Halo: Reach save on computer
+            StepGraphBuilder reachComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Reach, true);
+            reachComputerSave.AddStep(stepVerifyFile, "SAVE SELECTION");
+            reachComputerSave.AddStep(stepBiped, "CHARACTER DATA");
+            reachComputerSave.AddStep(stepWeapons, "WEAPON DATA");
+            reachComputerSave.AddStep(stepGrenades, "WEAPON DATA");
+            reachComputerSave.AddStep(stepObjects, "OBJECT DATA");
+            reachComputerSave.AddStep(stepTweaks, "OBJECT DATA");
+            reachComputerSave.AddStep(workStepSaving);
+            reachComputerSave.AddStep(stepAllDone, "FINISHED");
+
+            // Step graph: Edit HCEX save on computer
+            StepGraphBuilder hcexComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Anniversary, true);
+            hcexComputerSave.AddStep(stepAllDone, "FINISHED");
 
             // Step graph: Edit save on removable device
             StepGraphBuilder editSaveOnDevice = stepGraph.StartBranch(selectMode.EditingMode.EditSaveDevice, true);
-            editSaveOnDevice.AddStep(stepSelectDevice, "SAVE SELECTION");
-            editSaveOnDevice.AddStep(stepSelectSave, "SAVE SELECTION");
-            editSaveOnDevice.AddStep(stepVerifyFile, "SAVE SELECTION");
-            editSaveOnDevice.AddStep(stepBiped, "CHARACTER DATA");
-            editSaveOnDevice.AddStep(stepWeapons, "WEAPON DATA");
-            editSaveOnDevice.AddStep(stepGrenades, "WEAPON DATA");
-            editSaveOnDevice.AddStep(stepObjects, "OBJECT DATA");
-            editSaveOnDevice.AddStep(stepTweaks, "OBJECT DATA");
-            TransferSaveStep stepTransfer = new TransferSaveStep(this, stepSelectDevice, stepSelectSave);
-            editSaveOnDevice.AddWorkStep(stepTransfer, _stepViewer);
-            editSaveOnDevice.AddStep(stepAllDone, "FINISHED");
+            editSaveOnDevice.AddStep(_stepSelectDevice, "SAVE SELECTION");
+            editSaveOnDevice.AddBranchStep(stepSelectSave, "SAVE SELECTION");
 
-            // Add dummy groups to the mode selection step so that they show in the progress bar
+            // Step graph: Edit Halo: Reach save on removable device
+            StepGraphBuilder reachDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Reach, true);
+            reachDeviceSave.AddStep(stepVerifyFile, "SAVE SELECTION");
+            reachDeviceSave.AddStep(stepBiped, "CHARACTER DATA");
+            reachDeviceSave.AddStep(stepWeapons, "WEAPON DATA");
+            reachDeviceSave.AddStep(stepGrenades, "WEAPON DATA");
+            reachDeviceSave.AddStep(stepObjects, "OBJECT DATA");
+            reachDeviceSave.AddStep(stepTweaks, "OBJECT DATA");
+            reachDeviceSave.AddStep(workStepSaving);
+            reachDeviceSave.AddStep(workStepTransfer);
+            reachDeviceSave.AddStep(stepAllDone, "FINISHED");
+
+            // Step graph: Edit HCEX save on removable device
+            StepGraphBuilder hcexDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Anniversary, true);
+            hcexDeviceSave.AddStep(stepAllDone, "FINISHED");
+
+            // Add dummy groups so that they show in the progress bar
             // This needs to be improved upon...
             stepGraph.AddGroup("SAVE SELECTION");
             stepGraph.AddGroup("CHARACTER DATA");
             stepGraph.AddGroup("WEAPON DATA");
             stepGraph.AddGroup("OBJECT DATA");
             stepGraph.AddGroup("FINISHED");
+            editSaveOnComputer.AddGroup("CHARACTER DATA");
+            editSaveOnComputer.AddGroup("WEAPON DATA");
+            editSaveOnComputer.AddGroup("OBJECT DATA");
+            editSaveOnComputer.AddGroup("FINISHED");
+            editSaveOnDevice.AddGroup("CHARACTER DATA");
+            editSaveOnDevice.AddGroup("WEAPON DATA");
+            editSaveOnDevice.AddGroup("OBJECT DATA");
+            editSaveOnDevice.AddGroup("FINISHED");
 
             _firstStep = stepGraph.BuildGraph();
             _stepViewer.ViewNode(_firstStep);
@@ -126,6 +179,78 @@ namespace Liberty
         {
             step.Visibility = Visibility.Collapsed;
             stepGrid.Children.Add(step);
+        }
+
+        private Util.SaveType loadSaveFile(string stfsPath)
+        {
+            _reachTaglists.RemoveMapSpecificTaglists();
+            if (_saveManager != null)
+                _saveManager.Close();
+
+            STFSPackage package = null;
+            try
+            {
+                package = new STFSPackage(stfsPath, null);
+                string rawFileName;
+                _currentGame = DetectGame(package, out rawFileName);
+                if (_currentGame == Util.SaveType.Unknown)
+                {
+                    showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo: Reach and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
+                    return Util.SaveType.Unknown;
+                }
+
+                _saveManager.LoadSTFS(package, rawFileName, classInfo.extraIO.makeTempSaveDir());
+                _packagePath = stfsPath;
+
+                _stepTransfer.GameName = package.Header.Title_Package + " / " + package.Header.TitleID.ToString("X");
+                _stepTransfer.Gamertag = package.Header.Title_Display + " / " + package.Header.ProfileID.ToString("X");
+            }
+            catch (ArgumentException ex)
+            {
+                showMessage(ex.Message, "ERROR");
+                return Util.SaveType.Unknown;
+            }
+            catch (Exception ex)
+            {
+                showException(ex.ToString());
+                return Util.SaveType.Unknown;
+            }
+            finally
+            {
+                if (package != null)
+                    package.CloseIO();
+            }
+
+            return _currentGame;
+        }
+
+        private Util.SaveType DetectGame(STFSPackage package, out string rawFileName)
+        {
+            Util.SaveType game = Util.GameID.IdentifyGame(package);
+            switch (game)
+            {
+                case Util.SaveType.Reach:
+                    _saveManager = _reachSaveManager;
+                    rawFileName = "mmiof.bmf";
+                    break;
+
+                case Util.SaveType.Anniversary:
+                    _saveManager = _hcexSaveManager;
+                    rawFileName = "saves.cfg";
+                    break;
+
+                default:
+                    rawFileName = null;
+                    break;
+            }
+            return game;
+        }
+
+        private void updateSaveFile()
+        {
+            STFSPackage package = new STFSPackage(_packagePath, null);
+            _saveManager.SaveChanges(package, Properties.Resources.KV);
+            package.CloseIO();
         }
 
         public void showMessage(string message, string title)
@@ -386,18 +511,24 @@ namespace Liberty
         private void btnSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
+            isMouseDownEgg2 = false;
         }
 
-        private void btnSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
+        private void btnSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            isMouseDownEgg2 = true;
+            egg2.Start();
+        }
 
         private void btnSettings_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-
             settingsPanel.Visibility = Visibility.Visible;
+            isMouseDownEgg2 = false;
         }
         #endregion
 
+        private bool isMouseDownEgg2 = false;
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             if (!_stepViewer.Forward())
@@ -406,15 +537,28 @@ namespace Liberty
                 classInfo.applicationExtra.disableInput(this);
                 return;
             }
+        }
+        void egg2_Tick(object sender, EventArgs e)
+        {
+            egg2.Stop();
+            if (isMouseDownEgg2)
+                eggData.egg2Data.enableFuckingRainbows();
+        }
 
-            btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
-            if (!_stepViewer.CanGoForward)
+        private void stepViewer_BeforeViewNode(object sender, ViewNodeEventArgs e)
+        {
+            btnBack.Visibility = e.CanGoBack ? Visibility.Visible : Visibility.Hidden;
+
+            if (!e.CanGoForward)
             {
+                if (_stepSelectDevice.SelectedDevice != null)
+                    _stepSelectDevice.SelectedDevice.Close();
+
                 btnOK.Content = "Close";
                 btnBack.Content = "Restart";
                 if (_stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
                 {
-                    string argument = @"/select, " + _reachSaveManager.STFSPath;
+                    string argument = @"/select, " + _packagePath;
                     Process.Start("explorer.exe", argument);
                 }
             }
@@ -425,7 +569,8 @@ namespace Liberty
             if (!_stepViewer.CanGoForward)
             {
                 // Restart
-                _reachSaveManager.Close();
+                _saveManager.Close();
+                _stepOpenFile.FileUnloaded();
                 _reachTaglists.RemoveMapSpecificTaglists();
                 _stepViewer.ViewNode(_firstStep);
                 btnOK.Content = "Next";
@@ -435,7 +580,6 @@ namespace Liberty
             {
                 _stepViewer.Back();
             }
-            btnBack.Visibility = _stepViewer.CanGoBack ? Visibility.Visible : Visibility.Hidden;
         }
 		
 		private void Rectangle_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -460,6 +604,11 @@ namespace Liberty
                 stepBeta.Visibility = Visibility.Hidden;
                 stepGrid.Visibility = Visibility.Visible;
             }
+        }
+
+        private void mainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = !btnClose.IsEnabled;
         }
     }
 }

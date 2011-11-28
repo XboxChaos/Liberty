@@ -28,24 +28,14 @@ namespace Liberty.Security
     /// <summary>
     /// Computes salted SHA-1 digests by using the algorithm used in mmiof.bmf.
     /// </summary>
-    class SaveSHA1 : SHA1Managed
+    public class SaveSHA1
     {
-        /// <summary>
-        /// Constructs and initializes a new SaveSHA1 object.
-        /// </summary>
-        /// <seealso cref="Initialize"/>
-        public SaveSHA1()
+        public static byte[] ComputeHash(byte[] data)
         {
-            Initialize();
-        }
-
-        /// <summary>
-        /// Initializes the hash by transforming the salt.
-        /// </summary>
-        public override void Initialize()
-        {
-            base.Initialize();
-            base.TransformBlock(_salt, 0, 34, _salt, 0);
+            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
+            sha1.TransformBlock(_salt, 0, _salt.Length, _salt, 0);
+            sha1.TransformFinalBlock(data, 0, data.Length);
+            return sha1.Hash;
         }
 
         /// <summary>

@@ -1,0 +1,16 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	x:Class="Liberty.saving"
+	x:Name="UserControl"
+	d:DesignWidth="640" d:DesignHeight="480" Width="585" Height="339">
+	<Grid x:Name="LayoutRoot">
+		<Label x:Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Saving..." Height="46" VerticalAlignment="Top" />
+		<Label x:Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="We're almost done! Just wait a moment while your save is updated and resigned." Height="25.911" VerticalAlignment="Top" />
+		<ProgressBar x:Name="progressBar" IsIndeterminate="True" Margin="5,84,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="408" Height="12" />
+			
+	</Grid>
+</UserControl>

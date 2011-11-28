@@ -22,24 +22,23 @@ namespace Liberty.Controls
 	/// <summary>
 	/// Interaction logic for step0_2.xaml
 	/// </summary>
-	public partial class selectSaveOnDevice : UserControl, StepUI.IStep
+	public partial class selectSaveOnDevice : UserControl, StepUI.IBranchStep<Util.SaveType>
 	{
         private MainWindow _mainWindow = null;
+        private Func<string, Util.SaveType> _loadSaveFunc;
         private Folder[] _fileInjectDirec = new Folder[200];
         private int _index = 0;
         private File _selectedFile = null;
         private string _extractPath = null;
         private string _tempDir = null;
         private selectDevice _selectDeviceStep;
+        private Util.FATXSaveTransferrer _saveTransferrer;
 
-        private Util.SaveManager<Reach.CampaignSave> _saveManager;
-        private Reach.TagListManager _taglistManager;
-
-        public selectSaveOnDevice(selectDevice selectDeviceStep, Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
+        public selectSaveOnDevice(selectDevice selectDeviceStep, Util.FATXSaveTransferrer saveTransferrer, Func<string, Util.SaveType> loadSaveFunc)
 		{
             _selectDeviceStep = selectDeviceStep;
-            _taglistManager = taglistManager;
-            _saveManager = saveManager;
+            _saveTransferrer = saveTransferrer;
+            _loadSaveFunc = loadSaveFunc;
 			this.InitializeComponent();
 
             Loaded += new RoutedEventHandler(selectSaveOnDevice_Loaded);
@@ -142,8 +141,18 @@ namespace Liberty.Controls
                         _tempDir = classInfo.extraIO.makeTempSaveDir();
                         _extractPath = _tempDir + _selectedFile.Name;
                         _selectedFile.Extract(_extractPath, ref cancel);
-                        _saveManager.LoadSTFS(_extractPath, _tempDir);
-                        _taglistManager.RemoveMapSpecificTaglists();
+                        Util.SaveType type = _loadSaveFunc(_extractPath);
+                        if (type != Util.SaveType.Unknown)
+                        {
+                            _saveType = type;
+                            _saveTransferrer.CancelAll();
+                            _saveTransferrer.QueueFile(_extractPath, _selectedFile);
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     catch (ArgumentException ex)
                     {
@@ -182,5 +191,12 @@ namespace Liberty.Controls
         {
             Load();
         }
+
+        public Util.SaveType SelectedBranch
+        {
+            get { return _saveType; }
+        }
+
+        private Util.SaveType _saveType = Util.SaveType.Reach;
     }
 }

@@ -12,7 +12,7 @@ namespace Liberty.Util
     /// <summary>
     /// Wraps a CampaignSave and provides functions for loading/saving to STFS packages.
     /// </summary>
-    public class SaveManager<T> where T : ICampaignSave
+    public class SaveManager<T> : Liberty.Util.ISaveManager where T : ICampaignSave
     {
         public SaveManager(Func<string, T> constructSave)
         {
@@ -28,15 +28,6 @@ namespace Liberty.Util
         }
 
         /// <summary>
-        /// The path to the currently loaded STFS package.
-        /// Can be null if no STFS package is loaded.
-        /// </summary>
-        public string STFSPath
-        {
-            get { return _stfsPath; }
-        }
-
-        /// <summary>
         /// The path to the currently loaded raw save file.
         /// Can be null if no raw save file is loaded.
         /// </summary>
@@ -45,6 +36,9 @@ namespace Liberty.Util
             get { return _rawPath; }
         }
 
+        /// <summary>
+        /// Returns whether or not any save data is loaded.
+        /// </summary>
         public bool Loaded
         {
             get { return (_saveData != null); }
@@ -73,66 +67,56 @@ namespace Liberty.Util
         /// </summary>
         /// <param name="path">The path to the STFS package to load.</param>
         /// <param name="extractDir">The directory to extract the STFS package to.</param>
-        public void LoadSTFS(string path, string extractDir)
+        public void LoadSTFS(string path, string rawFileName, string extractDir)
         {
-            STFSPackage package = null;
-            try
-            {
-                // Open the STFS package and find mmiof.bmf so we can extract it
-                // Reach.CampaignSave requires an mmiof.bmf file
-                package = new STFSPackage(path, null);
-                X360.STFS.FileEntry file = package.GetFile("mmiof.bmf");
+            STFSPackage package = new STFSPackage(path, null);
+            LoadSTFS(package, rawFileName, extractDir);
+            package.CloseIO();
+        }
 
-                // Create the extraction directory
-                Directory.CreateDirectory(extractDir);
-                string newMmiofPath = extractDir + "\\mmiof.bmf";
+        public void LoadSTFS(STFSPackage package, string rawFileName, string extractDir)
+        {
+            X360.STFS.FileEntry file = package.GetFile(rawFileName);
 
-                // Extract the file and close the package
-                if (!file.Extract(newMmiofPath))
-                    throw new ArgumentException("Unable to extract mmiof.bmf to \"" + extractDir + "\"");
-                package.CloseIO();
-                package = null;
+            // Create the extraction directory
+            Directory.CreateDirectory(extractDir);
+            string newRawPath = extractDir + "\\" + rawFileName;
 
-                // Load the mmiof.bmf file into the _saveData object
-                _saveData = _constructSave(newMmiofPath);
-                _rawPath = newMmiofPath;
-                _stfsPath = path;
-            }
-            catch (Exception ex)
-            {
-                if (package != null)
-                    package.CloseIO();
+            // Extract the file and close the package
+            if (!file.Extract(newRawPath))
+                throw new ArgumentException("Unable to extract " + rawFileName + " to \"" + extractDir + "\"");
 
-                throw new ArgumentException("The save file is invalid.", ex);
-            }
+            // Load the mmiof.bmf file into the _saveData object
+            _saveData = _constructSave(newRawPath);
+            _rawPath = newRawPath;
         }
 
         /// <summary>
         /// Saves any changes made to the save data without resigning the container package (if any).
         /// </summary>
-        public void SaveChanges()
+        public void SaveChanges(X360.STFS.STFSPackage package)
         {
             _saveData.Update(_rawPath);
-            UpdateSTFS(null);
+            UpdateSTFS(package, null);
         }
 
         /// <summary>
         /// Saves any changes made to the save data, resigning the container package with the specified KV.
         /// </summary>
         /// <param name="kvData">The KV data to resign with</param>
-        public void SaveChanges(byte[] kvData)
+        public void SaveChanges(X360.STFS.STFSPackage package, byte[] kvData)
         {
             _saveData.Update(_rawPath);
-            UpdateSTFS(kvData);
+            UpdateSTFS(package, kvData);
         }
 
         /// <summary>
         /// Saves any changes made to the save data, resigning the container package with the specified KV file.
         /// </summary>
         /// <param name="kvPath">The path to the KV file to resign with.</param>
-        public void SaveChanges(string kvPath)
+        public void SaveChanges(X360.STFS.STFSPackage package, string kvPath)
         {
-            SaveChanges(File.ReadAllBytes(kvPath));
+            SaveChanges(package, File.ReadAllBytes(kvPath));
         }
 
         /// <summary>
@@ -142,43 +126,28 @@ namespace Liberty.Util
         {
             _saveData = default(T);
             _rawPath = null;
-            _stfsPath = null;
         }
         
-        private void UpdateSTFS(byte[] kvData)
+        private void UpdateSTFS(STFSPackage package, byte[] kvData)
         {
-            if (_stfsPath != null)
+            if (package != null)
             {
-                STFSPackage package = null;
-                try
-                {
-                    // Re-open the STFS package and inject the new mmiof.bmf
-                    package = new STFSPackage(_stfsPath, null);
-                    X360.STFS.FileEntry file = package.GetFile("mmiof.bmf");
-                    file.Inject(_rawPath);
+                // Inject the new mmiof.bmf
+                X360.STFS.FileEntry file = package.GetFile("mmiof.bmf");
+                file.Inject(_rawPath);
 
-                    if (kvData != null)
-                    {
-                        // Resign the package using the KV data
-                        DJsIO kvStream = new DJsIO(kvData, true);
-                        package.FlushPackage(new X360.STFS.RSAParams(kvStream));
-                        kvStream.Close();
-                    }
-                    package.CloseIO();
-                }
-                catch
+                if (kvData != null)
                 {
-                    if (package != null)
-                        package.CloseIO();
-
-                    throw;
+                    // Resign the package using the KV data
+                    DJsIO kvStream = new DJsIO(kvData, true);
+                    package.FlushPackage(new X360.STFS.RSAParams(kvStream));
+                    kvStream.Close();
                 }
             }
         }
 
         private T _saveData;
         private Func<string, T> _constructSave;
-        private string _stfsPath = null;
         private string _rawPath = null;
     }
 }

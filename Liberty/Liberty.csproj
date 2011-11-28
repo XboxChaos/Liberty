@@ -126,11 +126,25 @@
     <Compile Include="Controls\openSaveFile.xaml.cs">
       <DependentUpon>openSaveFile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\saving.xaml.cs">
+      <DependentUpon>saving.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\transferSave.xaml.cs">
+      <DependentUpon>transferSave.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="eggData\egg2Data.cs" />
+    <Compile Include="HCEX\CampaignSave.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HCEX\SaveHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ICampaignSave.cs" />
     <Compile Include="Reach\ObjectEntry.cs" />
     <Compile Include="Reach\TagListManager.cs" />
     <Compile Include="StepUI\BranchStepGraphBuilder.cs" />
     <Compile Include="StepUI\BranchStepNode.cs" />
+    <Compile Include="StepUI\UnnavigableWorkStep.cs" />
     <Compile Include="StepUI\IWorkStep.cs" />
     <Compile Include="StepUI\ProgressSetupStep.cs" />
     <Compile Include="StepUI\IBranchStep.cs" />
@@ -213,10 +227,12 @@
     </Compile>
     <Compile Include="StepUI\ProgressBarGroup.cs" />
     <Compile Include="StepUI\StepViewer.cs" />
-    <Compile Include="StepUI\TransferSaveStep.cs" />
     <Compile Include="StepUI\WorkStepProgressUpdater.cs" />
     <Compile Include="Util\EditorSupport.cs" />
+    <Compile Include="Util\FATXSaveTransferrer.cs" />
     <Compile Include="Util\GameIdentification.cs" />
+    <Compile Include="Util\ISaveManager.cs" />
+    <Compile Include="Util\ISaveTransferrer.cs" />
     <Compile Include="Util\SaveManager.cs" />
     <Compile Include="Util\TagList.cs" />
     <Content Include="Themes\Accents\Orange.xaml">
@@ -278,6 +294,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Controls\saving.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\settingsMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -299,6 +319,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\selectSaveOnDevice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\transferSave.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -448,6 +472,36 @@
     <None Include="Resources\taglist.ini" />
   </ItemGroup>
   <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\SegoeWP-Bold.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\SegoeWP.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\segoeui.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\segoeuib.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\segoeuii.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\segoeuiz.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
     <Resource Include="Images\Button-onhover.png" />
     <Resource Include="Images\c-close.png" />
     <Resource Include="Images\c-minimize.png" />
@@ -478,13 +532,10 @@
     <Resource Include="Images\mapImages\M70_bonus.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Fonts\" />
-    <Folder Include="HCEX\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
   <!--<Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
