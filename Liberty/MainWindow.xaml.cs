@@ -240,6 +240,10 @@ namespace Liberty
                     showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo: Reach and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
                     return Util.SaveType.Unknown;
                 }
+                else if (_currentGame == Util.SaveType.CocksOfDooty)
+                {
+                    eggData.egg3Data.loadingCODHowCouldYou(this);
+                }
 
                 _saveManager.LoadSTFS(package, rawFileName, classInfo.extraIO.makeTempSaveDir());
                 _packagePath = stfsPath;
