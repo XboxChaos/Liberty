@@ -12,7 +12,7 @@
         <Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Is this Right?" Height="60.911" VerticalAlignment="Top" />
         <Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Let's just make sure that this is the correct Halo: Combat Evolved Anniversary save file." Height="25.911" VerticalAlignment="Top" />
 
-        <Image Name="imgMapImage" Width="200" Height="80" Margin="193,216,0,0" VerticalAlignment="Top" d:LayoutOverrides="Width, Height" HorizontalAlignment="Left" />
+        <Image Name="imgMapImage" Width="292" Height="85" Margin="147,216,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
         <Label Name="subHeading1" Content="package data;" Margin="0,80,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="107" Height="26.267" VerticalAlignment="Top" />
         <Label Name="lblGamertag1" Content="gamertag: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,106.267,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="76" />
