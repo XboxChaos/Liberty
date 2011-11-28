@@ -117,7 +117,19 @@
     <Compile Include="Controls\dllMissingError.xaml.cs">
       <DependentUpon>dllMissingError.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\editGrenades.xaml.cs">
+    <Compile Include="HCEX\UI\cexEditBiped.xaml.cs">
+      <DependentUpon>cexEditBiped.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HCEX\UI\cexEditGrenades.xaml.cs">
+      <DependentUpon>cexEditGrenades.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HCEX\UI\cexEditWeapons.xaml.cs">
+      <DependentUpon>cexEditWeapons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="HCEX\UI\cexQuickTweaks.xaml.cs">
+      <DependentUpon>cexQuickTweaks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reach\UI\editGrenades.xaml.cs">
       <DependentUpon>editGrenades.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\exceptionWindow.xaml.cs">
@@ -138,6 +150,9 @@
     </Compile>
     <Compile Include="HCEX\SaveHeader.cs">
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HCEX\UI\cexVerifyFile.xaml.cs">
+      <DependentUpon>cexVerifyFile.xaml</DependentUpon>
     </Compile>
     <Compile Include="ICampaignSave.cs" />
     <Compile Include="Reach\ObjectEntry.cs" />
@@ -184,7 +199,7 @@
     <Compile Include="Controls\selectSaveOnDevice.xaml.cs">
       <DependentUpon>selectSaveOnDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\quickTweaks.xaml.cs">
+    <Compile Include="Reach\UI\quickTweaks.xaml.cs">
       <DependentUpon>quickTweaks.xaml</DependentUpon>
     </Compile>
     <Compile Include="StepUI\IStepProgressBar.cs" />
@@ -250,7 +265,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\editGrenades.xaml">
+    <Page Include="HCEX\UI\cexEditBiped.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HCEX\UI\cexEditGrenades.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HCEX\UI\cexEditWeapons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HCEX\UI\cexQuickTweaks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reach\UI\editGrenades.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -326,23 +353,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\verifyFile.xaml">
+    <Page Include="Reach\UI\verifyFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\editBiped.xaml">
+    <Page Include="Reach\UI\editBiped.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\editWeapons.xaml">
+    <Page Include="Reach\UI\editWeapons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\quickTweaks.xaml">
+    <Page Include="Reach\UI\quickTweaks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\editObjects.xaml">
+    <Page Include="Reach\UI\editObjects.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -357,6 +384,9 @@
     <Page Include="Controls\uploadOnLoad.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HCEX\UI\cexVerifyFile.xaml">
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -383,16 +413,16 @@
     <Compile Include="Controls\selectMode.xaml.cs">
       <DependentUpon>selectMode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\verifyFile.xaml.cs">
+    <Compile Include="Reach\UI\verifyFile.xaml.cs">
       <DependentUpon>verifyFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\editBiped.xaml.cs">
+    <Compile Include="Reach\UI\editBiped.xaml.cs">
       <DependentUpon>editBiped.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\editWeapons.xaml.cs">
+    <Compile Include="Reach\UI\editWeapons.xaml.cs">
       <DependentUpon>editWeapons.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\editObjects.xaml.cs">
+    <Compile Include="Reach\UI\editObjects.xaml.cs">
       <DependentUpon>editObjects.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\allDone.xaml.cs">
@@ -519,20 +549,23 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\mapImages\M05.jpg" />
-    <Resource Include="Images\mapImages\M10.jpg" />
-    <Resource Include="Images\mapImages\M20.jpg" />
-    <Resource Include="Images\mapImages\M30.jpg" />
-    <Resource Include="Images\mapImages\M35.jpg" />
-    <Resource Include="Images\mapImages\M45.jpg" />
-    <Resource Include="Images\mapImages\M50.jpg" />
-    <Resource Include="Images\mapImages\M52.jpg" />
-    <Resource Include="Images\mapImages\M60.jpg" />
-    <Resource Include="Images\mapImages\M70.jpg" />
-    <Resource Include="Images\mapImages\M70_bonus.jpg" />
+    <Resource Include="Images\reachMaps\M05.jpg" />
+    <Resource Include="Images\reachMaps\M10.jpg" />
+    <Resource Include="Images\reachMaps\M20.jpg" />
+    <Resource Include="Images\reachMaps\M30.jpg" />
+    <Resource Include="Images\reachMaps\M35.jpg" />
+    <Resource Include="Images\reachMaps\M45.jpg" />
+    <Resource Include="Images\reachMaps\M50.jpg" />
+    <Resource Include="Images\reachMaps\M52.jpg" />
+    <Resource Include="Images\reachMaps\M60.jpg" />
+    <Resource Include="Images\reachMaps\M70.jpg" />
+    <Resource Include="Images\reachMaps\M70_bonus.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\hcexMaps\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

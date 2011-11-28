@@ -18,7 +18,10 @@ using System.IO;
 using Microsoft.Win32;
 using Liberty.classInfo.storage;
 using Liberty.classInfo.storage.settings;
+
 using Liberty.Controls;
+using Liberty.HCEX.UI;
+
 using Liberty.StepUI;
 using X360.STFS;
 using System.Windows.Threading;
@@ -74,12 +77,23 @@ namespace Liberty
             _stepOpenFile = new openSaveFile(loadSaveFile);
             _stepSelectDevice = new selectDevice();
             selectSaveOnDevice stepSelectSave = new selectSaveOnDevice(_stepSelectDevice, _saveTransferrer, loadSaveFile);
-            verifyFile stepVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
-            editBiped stepBiped = new editBiped(_reachSaveManager, _reachTaglists);
-            editWeapons stepWeapons = new editWeapons(_reachSaveManager);
-            editGrenades stepGrenades = new editGrenades(_reachSaveManager);
-            editObjects stepObjects = new editObjects(_reachSaveManager, _reachTaglists);
-            quickTweaks stepTweaks = new quickTweaks(_reachSaveManager);
+
+            #region Reach
+            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
+            editBiped reachBiped = new editBiped(_reachSaveManager, _reachTaglists);
+            editWeapons reachWeapons = new editWeapons(_reachSaveManager);
+            editGrenades reachGrenades = new editGrenades(_reachSaveManager);
+            editObjects reachObjects = new editObjects(_reachSaveManager, _reachTaglists);
+            quickTweaks reachTweaks = new quickTweaks(_reachSaveManager);
+            #endregion
+
+            #region HCEX
+            cexVerifyFile cexVerifyFile = new HCEX.UI.cexVerifyFile(_hcexSaveManager);
+            cexEditBiped cexEditBiped = new HCEX.UI.cexEditBiped(_hcexSaveManager);
+            cexEditWeapons cexEditWeapons = new HCEX.UI.cexEditWeapons(_hcexSaveManager);
+            cexEditGrenades cexEditGrenades = new HCEX.UI.cexEditGrenades(_hcexSaveManager);
+            cexQuickTweaks cexQuickTweaks = new HCEX.UI.cexQuickTweaks(_hcexSaveManager);
+            #endregion
             saving stepSaving = new saving(updateSaveFile);
             _stepTransfer = new transferSave(_saveTransferrer);
             allDone stepAllDone = new allDone(_stepSelectMode);
@@ -94,12 +108,24 @@ namespace Liberty
             addStep(_stepOpenFile);
             addStep(_stepSelectDevice);
             addStep(stepSelectSave);
-            addStep(stepVerifyFile);
-            addStep(stepBiped);
-            addStep(stepWeapons);
-            addStep(stepGrenades);
-            addStep(stepObjects);
-            addStep(stepTweaks);
+
+            #region ReachSteps
+            addStep(reachVerifyFile);
+            addStep(reachBiped);
+            addStep(reachWeapons);
+            addStep(reachGrenades);
+            addStep(reachObjects);
+            addStep(reachTweaks);
+            #endregion
+
+            #region CEXSteps
+            addStep(cexVerifyFile);
+            addStep(cexEditBiped);
+            addStep(cexEditWeapons);
+            addStep(cexEditGrenades);
+            addStep(cexQuickTweaks);
+            #endregion
+
             addStep(stepSaving);
             addStep(_stepTransfer);
             addStep(stepAllDone);
@@ -112,41 +138,57 @@ namespace Liberty
             StepGraphBuilder editSaveOnComputer = stepGraph.StartBranch(selectMode.EditingMode.EditSaveComputer, true);
             editSaveOnComputer.AddBranchStep(_stepOpenFile, "SAVE SELECTION");
 
-            // Step graph: Edit Halo: Reach save on computer
-            StepGraphBuilder reachComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Reach, true);
-            reachComputerSave.AddStep(stepVerifyFile, "SAVE SELECTION");
-            reachComputerSave.AddStep(stepBiped, "CHARACTER DATA");
-            reachComputerSave.AddStep(stepWeapons, "WEAPON DATA");
-            reachComputerSave.AddStep(stepGrenades, "WEAPON DATA");
-            reachComputerSave.AddStep(stepObjects, "OBJECT DATA");
-            reachComputerSave.AddStep(stepTweaks, "OBJECT DATA");
-            reachComputerSave.AddStep(workStepSaving);
-            reachComputerSave.AddStep(stepAllDone, "FINISHED");
-
-            // Step graph: Edit HCEX save on computer
-            StepGraphBuilder hcexComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Anniversary, true);
-            hcexComputerSave.AddStep(stepAllDone, "FINISHED");
-
             // Step graph: Edit save on removable device
             StepGraphBuilder editSaveOnDevice = stepGraph.StartBranch(selectMode.EditingMode.EditSaveDevice, true);
             editSaveOnDevice.AddStep(_stepSelectDevice, "SAVE SELECTION");
             editSaveOnDevice.AddBranchStep(stepSelectSave, "SAVE SELECTION");
 
+            #region ReachSteps
+            // Step graph: Edit Halo: Reach save on computer
+            StepGraphBuilder reachComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Reach, true);
+            reachComputerSave.AddStep(reachVerifyFile, "SAVE SELECTION");
+            reachComputerSave.AddStep(reachBiped, "CHARACTER DATA");
+            reachComputerSave.AddStep(reachWeapons, "WEAPON DATA");
+            reachComputerSave.AddStep(reachGrenades, "WEAPON DATA");
+            reachComputerSave.AddStep(reachObjects, "OBJECT DATA");
+            reachComputerSave.AddStep(reachTweaks, "OBJECT DATA");
+            reachComputerSave.AddStep(workStepSaving);
+            reachComputerSave.AddStep(stepAllDone, "FINISHED");
+
             // Step graph: Edit Halo: Reach save on removable device
             StepGraphBuilder reachDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Reach, true);
-            reachDeviceSave.AddStep(stepVerifyFile, "SAVE SELECTION");
-            reachDeviceSave.AddStep(stepBiped, "CHARACTER DATA");
-            reachDeviceSave.AddStep(stepWeapons, "WEAPON DATA");
-            reachDeviceSave.AddStep(stepGrenades, "WEAPON DATA");
-            reachDeviceSave.AddStep(stepObjects, "OBJECT DATA");
-            reachDeviceSave.AddStep(stepTweaks, "OBJECT DATA");
+            reachDeviceSave.AddStep(reachVerifyFile, "SAVE SELECTION");
+            reachDeviceSave.AddStep(reachBiped, "CHARACTER DATA");
+            reachDeviceSave.AddStep(reachWeapons, "WEAPON DATA");
+            reachDeviceSave.AddStep(reachGrenades, "WEAPON DATA");
+            reachDeviceSave.AddStep(reachObjects, "OBJECT DATA");
+            reachDeviceSave.AddStep(reachTweaks, "OBJECT DATA");
             reachDeviceSave.AddStep(workStepSaving);
             reachDeviceSave.AddStep(workStepTransfer);
             reachDeviceSave.AddStep(stepAllDone, "FINISHED");
+            #endregion
+
+            #region CEXSteps
+            // Step graph: Edit HCEX save on computer
+            StepGraphBuilder hcexComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Anniversary, true);
+            hcexComputerSave.AddStep(cexVerifyFile, "SAVE SELECTION");
+            hcexComputerSave.AddStep(cexEditBiped, "CHARACTER DATA");
+            hcexComputerSave.AddStep(cexEditWeapons, "WEAPON DATA");
+            hcexComputerSave.AddStep(cexEditGrenades, "WEAPON DATA");
+            hcexComputerSave.AddStep(cexQuickTweaks, "OBJECT DATA");
+            hcexComputerSave.AddStep(workStepSaving);
+            hcexComputerSave.AddStep(stepAllDone, "FINISHED");
 
             // Step graph: Edit HCEX save on removable device
             StepGraphBuilder hcexDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Anniversary, true);
+            hcexDeviceSave.AddStep(cexVerifyFile, "SAVE SELECTION");
+            hcexDeviceSave.AddStep(cexEditBiped, "CHARACTER DATA");
+            hcexDeviceSave.AddStep(cexEditWeapons, "WEAPON DATA");
+            hcexDeviceSave.AddStep(cexEditGrenades, "WEAPON DATA");
+            hcexDeviceSave.AddStep(cexQuickTweaks, "OBJECT DATA");
+            hcexDeviceSave.AddStep(workStepSaving);
             hcexDeviceSave.AddStep(stepAllDone, "FINISHED");
+            #endregion
 
             // Add dummy groups so that they show in the progress bar
             // This needs to be improved upon...
