@@ -50,18 +50,58 @@ namespace Liberty.HCEX
             WriteToStream(stream);
         }
 
+        /// <summary>
+        /// The CFG data that appears at the top of the file
+        /// </summary>
+        public string CFGData
+        {
+            get { return _fileHeader.CFGData; }
+        }
+
+        /// <summary>
+        /// The resource name of the current map.
+        /// </summary>
+        public string Map
+        {
+            get { return _saveHeader.Map; }
+        }
+
+        /// <summary>
+        /// The list of objects loaded in the save.
+        /// </summary>
+        public ObjectList Objects
+        {
+            get { return _objectList; }
+        }
+
         private void ReadFromStream(Stream stream)
         {
-            SaveReader reader = new SaveReader(stream);
-            _header.ReadFrom(reader);
+            _fileHeader.ReadFrom(new SaveReader(stream));
+
+            // Construct an OffsetStream which offsets everything relative to the start of the actual save data
+            OffsetStream offsetStream = new OffsetStream(stream, stream.Length - SaveDataSize);
+            offsetStream.Seek(0, SeekOrigin.Begin);
+
+            // Now read the save header
+            SaveIO.SaveReader reader = new SaveReader(offsetStream);
+            _saveHeader.ReadFrom(reader);
+
+            // Read the object list
+            reader.SeekTo((long)TableOffset.Object);
+            _objectList = new ObjectList(reader);
         }
 
         private void WriteToStream(Stream stream)
         {
             SaveWriter writer = new SaveWriter(stream);
-            _header.WriteTo(writer);
+            _fileHeader.WriteTo(writer);
         }
 
-        private SaveHeader _header;
+        private FileHeader _fileHeader;
+        private SaveHeader _saveHeader;
+
+        private ObjectList _objectList;
+
+        private const int SaveDataSize = 0x40A000;
     }
 }

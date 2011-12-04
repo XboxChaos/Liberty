@@ -173,7 +173,7 @@ namespace Liberty.SaveIO
                     break;
 
                 case SeekOrigin.End:
-                    _position = _length - offset;
+                    _position = _length + offset;
                     break;
             }
 
@@ -272,7 +272,7 @@ namespace Liberty.SaveIO
         {
             get
             {
-                return (_position >= _length);
+                return (Position >= Length);
             }
         }
 
@@ -299,7 +299,7 @@ namespace Liberty.SaveIO
         }
 
         private Stream _stream = null;
-        private byte[] _buffer = new byte[8];
+        private byte[] _buffer = new byte[4];
         private long _position = 0;
         private long _length = 0;
     }

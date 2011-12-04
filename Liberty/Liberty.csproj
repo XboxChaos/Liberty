@@ -105,6 +105,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
     <Compile Include="classInfo\AccentCodebase\AccentStorage.cs" />
@@ -117,10 +118,17 @@
     <Compile Include="Controls\dllMissingError.xaml.cs">
       <DependentUpon>dllMissingError.xaml</DependentUpon>
     </Compile>
-    <Compile Include="eggData\egg3Data.cs" />
-    <Compile Include="eggData\InitCODVerification.xaml.cs">
-      <DependentUpon>InitCODVerification.xaml</DependentUpon>
+    <Compile Include="eggData\egg3Dialog.xaml.cs">
+      <DependentUpon>egg3Dialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Blam\DatumIndex.cs" />
+    <Compile Include="HCEX\GameObject.cs" />
+    <Compile Include="HCEX\ObjectEntry.cs" />
+    <Compile Include="HCEX\ObjectList.cs" />
+    <Compile Include="HCEX\SaveHeader.cs" />
+    <Compile Include="HCEX\Table.cs" />
+    <Compile Include="HCEX\TableOffset.cs" />
+    <Compile Include="HCEX\TagGroup.cs" />
     <Compile Include="HCEX\UI\cexEditBiped.xaml.cs">
       <DependentUpon>cexEditBiped.xaml</DependentUpon>
     </Compile>
@@ -133,6 +141,8 @@
     <Compile Include="HCEX\UI\cexQuickTweaks.xaml.cs">
       <DependentUpon>cexQuickTweaks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reach\ChunkOffset.cs" />
+    <Compile Include="SaveIO\OffsetStream.cs" />
     <Compile Include="Reach\UI\editGrenades.xaml.cs">
       <DependentUpon>editGrenades.xaml</DependentUpon>
     </Compile>
@@ -152,7 +162,7 @@
     <Compile Include="HCEX\CampaignSave.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="HCEX\SaveHeader.cs">
+    <Compile Include="HCEX\FileHeader.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HCEX\UI\cexVerifyFile.xaml.cs">
@@ -161,6 +171,9 @@
     <Compile Include="ICampaignSave.cs" />
     <Compile Include="Reach\ObjectEntry.cs" />
     <Compile Include="Reach\TagListManager.cs" />
+    <Compile Include="Security\CRC32.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StepUI\BranchStepGraphBuilder.cs" />
     <Compile Include="StepUI\BranchStepNode.cs" />
     <Compile Include="StepUI\UnnavigableWorkStep.cs" />
@@ -225,8 +238,8 @@
     <Compile Include="FATX\Structs.cs" />
     <Compile Include="FATX\Win32\API.cs" />
     <Compile Include="FATX\Write.cs" />
-    <Compile Include="IO\SaveReader.cs" />
-    <Compile Include="IO\SaveWriter.cs" />
+    <Compile Include="SaveIO\SaveReader.cs" />
+    <Compile Include="SaveIO\SaveWriter.cs" />
     <Compile Include="MathUtil\Convert.cs" />
     <Compile Include="MathUtil\Vector3.cs" />
     <Compile Include="Reach\BipedObject.cs" />
@@ -279,8 +292,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="eggData\InitCODVerification.xaml">
+    <Page Include="eggData\egg3Dialog.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="HCEX\UI\cexEditBiped.xaml">
       <Generator>MSBuild:Compile</Generator>

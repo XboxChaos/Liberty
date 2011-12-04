@@ -39,7 +39,7 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            loading = true;
+            /*loading = true;
             HCEX.CampaignSave saveData = _saveManager.SaveData;
             HCEX.BipedObject playerBiped = saveData.Player.Biped;
             checkInvincible.IsChecked = playerBiped.Invincible;
@@ -48,12 +48,12 @@ namespace Liberty.HCEX.UI
             txtPlayerYCord.Text = playerBiped.Y.ToString();
             txtPlayerZCord.Text = playerBiped.Z.ToString();
 
-            loading = false;
+            loading = false;*/
         }
 
         public bool Save()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
 
             HCEX.BipedObject playerBiped = saveData.Player.Biped;
             playerBiped.Invincible = (bool)checkInvincible.IsChecked;
@@ -62,7 +62,7 @@ namespace Liberty.HCEX.UI
 
             playerBiped.X = Convert.ToSingle(txtPlayerXCord.Text);
             playerBiped.Y = Convert.ToSingle(txtPlayerYCord.Text);
-            playerBiped.Z = Convert.ToSingle(txtPlayerZCord.Text);
+            playerBiped.Z = Convert.ToSingle(txtPlayerZCord.Text);*/
 
             return true;
         }
