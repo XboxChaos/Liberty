@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Liberty.classInfo;
 
 namespace Liberty.HCEX
 {
@@ -21,6 +22,12 @@ namespace Liberty.HCEX
             // Skip the CFG CRC32 and read the CFG text
             reader.Skip(CRC32Size);
             CFGData = reader.ReadAscii(_cfgSize - CRC32Size);
+
+            // Parse the Lua Datastructure in the header
+            string CFGParsed = CFGData.Replace("[","").Replace("]","");
+            HaloCFGParse hCFG = new HaloCFGParse();
+            hCFG.Parse(CFGParsed);
+            //var test = lua.Val["level_id"];
         }
 
         public void WriteTo(SaveIO.SaveWriter writer)
@@ -65,6 +72,7 @@ namespace Liberty.HCEX
         }
 
         public string CFGData { get; set; }
+        
 
         private uint _unknown;
         private int _dataBlock1Size;
