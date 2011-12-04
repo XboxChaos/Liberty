@@ -21,17 +21,7 @@ namespace Liberty.HCEX
 
             // Read data
             long baseOffset = reader.Position;
-            _tag = DatumIndex.ReadFrom(reader);
-
-            reader.SeekTo(baseOffset + 0x5C);
-            _position.X = reader.ReadFloat();
-            _position.Y = reader.ReadFloat();
-            _position.Z = reader.ReadFloat();
-
-            reader.SeekTo(baseOffset + 0x114);
-            _nextCarriedIndex = DatumIndex.ReadFrom(reader);
-            _firstCarriedIndex = DatumIndex.ReadFrom(reader);
-            _carrierIndex = DatumIndex.ReadFrom(reader);
+            ReadFrom(reader, baseOffset);
         }
 
         /// <summary>
@@ -43,6 +33,26 @@ namespace Liberty.HCEX
             _nextCarried = objectResolver.ResolveIndex(_nextCarriedIndex);
             _firstCarried = objectResolver.ResolveIndex(_firstCarriedIndex);
             _carrier = objectResolver.ResolveIndex(_carrierIndex);
+        }
+
+        /// <summary>
+        /// Reads data from a SaveReader. Override this in a derived class to read object-specific data.
+        /// </summary>
+        /// <param name="reader">The SaveReader to read from. No guarantees can be made about its ending offset.</param>
+        /// <param name="baseOffset">The offset of the start of the object data.</param>
+        protected virtual void ReadFrom(SaveReader reader, long baseOffset)
+        {
+            _tag = DatumIndex.ReadFrom(reader);
+
+            reader.SeekTo(baseOffset + PositionOffset1);
+            _position.X = reader.ReadFloat();
+            _position.Y = reader.ReadFloat();
+            _position.Z = reader.ReadFloat();
+
+            reader.SeekTo(baseOffset + CarryInfoOffset);
+            _nextCarriedIndex = DatumIndex.ReadFrom(reader);
+            _firstCarriedIndex = DatumIndex.ReadFrom(reader);
+            _carrierIndex = DatumIndex.ReadFrom(reader);
         }
 
         /// <summary>
@@ -112,9 +122,12 @@ namespace Liberty.HCEX
         private DatumIndex _nextCarriedIndex;
         private DatumIndex _firstCarriedIndex;
         private DatumIndex _carrierIndex;
-
         private GameObject _nextCarried = null;
         private GameObject _firstCarried = null;
         private GameObject _carrier = null;
+
+        // Offsets
+        private const int PositionOffset1 = 0x5C;
+        private const int CarryInfoOffset = 0x114;
     }
 }

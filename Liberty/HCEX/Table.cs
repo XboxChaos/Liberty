@@ -10,7 +10,7 @@ namespace Liberty.HCEX
     public class Table
     {
         /// <summary>
-        /// A callback used by the EnumEntries method.
+        /// A callback used by the ReadEntries method.
         /// </summary>
         /// <param name="table">The Table that the entry belongs to.</param>
         /// <param name="reader">The SaveReader to read from. It will be positioned after the datum index.</param>
@@ -18,8 +18,15 @@ namespace Liberty.HCEX
         /// <param name="size">The entry's size.</param>
         /// <param name="offset">The entry's start offset.</param>
         /// <returns>true if enumeration should continue.</returns>
-        public delegate bool EnumEntriesCallback(Table table, SaveReader reader, DatumIndex index, uint size, long offset);
+        public delegate bool ReadEntriesCallback(Table table, SaveReader reader, DatumIndex index, uint size, long offset);
 
+        /// <summary>
+        /// Constructs a new Table and reads the header.
+        /// </summary>
+        /// <param name="reader">
+        /// The SaveReader to read from. It should be positioned at the start of the table header.
+        /// When the function finishes, it will point to the first entry in the entry list (see the HeaderSize constant).
+        /// </param>
         public Table(SaveIO.SaveReader reader)
         {
             _name = reader.ReadAscii(0x1E);
@@ -35,11 +42,11 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
-        /// Calls a callback function for each entry in the table.
+        /// Reads the entry list and calls a callback function for each entry.
         /// </summary>
-        /// <param name="reader">The SaveReader to read from.</param>
-        /// <param name="callback">The EnumEntriesCallback to fire for each entry.</param>
-        public void EnumEntries(SaveIO.SaveReader reader, EnumEntriesCallback callback)
+        /// <param name="reader">The SaveReader to read from. It must be positioned at the start of the entry list.</param>
+        /// <param name="callback">The ReadEntriesCallback to call for each entry.</param>
+        public void ReadEntries(SaveIO.SaveReader reader, ReadEntriesCallback callback)
         {
             long entryListStart = reader.Position;
             long currentEntryOffset = entryListStart;
@@ -71,6 +78,9 @@ namespace Liberty.HCEX
             get { return _memAddress; }
         }
 
+        /// <summary>
+        /// The size of the table header in bytes.
+        /// </summary>
         public const int HeaderSize = 0x38;
 
         private string _name;

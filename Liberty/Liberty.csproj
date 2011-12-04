@@ -123,9 +123,11 @@
       <DependentUpon>egg3Dialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Blam\DatumIndex.cs" />
+    <Compile Include="HCEX\BipedObject.cs" />
     <Compile Include="HCEX\GameObject.cs" />
     <Compile Include="HCEX\ObjectEntry.cs" />
     <Compile Include="HCEX\ObjectList.cs" />
+    <Compile Include="HCEX\Player.cs" />
     <Compile Include="HCEX\SaveHeader.cs" />
     <Compile Include="HCEX\Table.cs" />
     <Compile Include="HCEX\TableOffset.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="HCEX\UI\cexQuickTweaks.xaml.cs">
       <DependentUpon>cexQuickTweaks.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HCEX\WeaponObject.cs" />
     <Compile Include="Reach\ChunkOffset.cs" />
     <Compile Include="SaveIO\OffsetStream.cs" />
     <Compile Include="Reach\UI\editGrenades.xaml.cs">
