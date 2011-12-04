@@ -92,7 +92,7 @@ namespace Liberty.Util
                     return saveData.Map;
             }
         }
-        /*public static string GetMissionName(HCEX.CampaignSave saveData)
+        public static string GetMissionName(HCEX.CampaignSave saveData)
         {
             switch (saveData.Map)
             {
@@ -127,8 +127,8 @@ namespace Liberty.Util
                     return "The Maw";
 
                 default:
-                    return saveData.Map;
+                    return "Halo";
             }
-        }*/
+        }
     }
 }

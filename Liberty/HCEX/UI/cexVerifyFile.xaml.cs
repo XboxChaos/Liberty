@@ -20,30 +20,32 @@ namespace Liberty.HCEX.UI
     public partial class cexVerifyFile : UserControl, StepUI.IStep
 	{
         private Util.SaveManager<HCEX.CampaignSave> _saveManager;
+        private transferSave _stepTransfer;
 
-        public cexVerifyFile(Util.SaveManager<HCEX.CampaignSave> saveManager)
+        public cexVerifyFile(Util.SaveManager<HCEX.CampaignSave> saveManager, transferSave stepTransfer)
         {
-            _saveManager = saveManager;
             InitializeComponent();
+            _saveManager = saveManager;
+            _stepTransfer = stepTransfer;
         }
 
         public void Load()
         {
-            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
-            lblGamertag.Content = saveData.Gamertag;
-            lblServiceTag.Content = saveData.ServiceTag;
-            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " (" + saveData.Map + ")";
-            lblDifficulty.Content = saveData.Difficulty.ToString();
+            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            lblGamertag.Content = _stepTransfer.Gamertag;
+            //lblServiceTag.Content = saveData.ServiceTag;
+            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " / (" + saveData.Map + ")";
+            //lblDifficulty.Content = saveData.CFGData; (add a CFG parser AMD, or I will ;p ).
 
             // Try to load the mission image
             try
             {
                 string mapName = saveData.Map;
                 mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
-                var source = new Uri(@"/Liberty;component/Images/hcexImages/" + mapName + ".jpg", UriKind.Relative);
+                var source = new Uri(@"/Liberty;component/Images/hcexMaps/" + mapName + ".png", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
             }
-            catch { }*/
+            catch { }
         }
 
         public bool Save()
