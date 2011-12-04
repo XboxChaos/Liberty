@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace Liberty.eggData
 {
     /// <summary>
-    /// Interaction logic for InitCODVerification.xaml
+    /// Interaction logic egg3Dialog.xaml
     /// </summary>
-    public partial class InitCODVerification : Window
+    public partial class egg3Dialog : Window
     {
-        public InitCODVerification()
+        public egg3Dialog()
         {
             this.InitializeComponent();
         }

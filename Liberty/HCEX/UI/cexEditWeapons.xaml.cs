@@ -29,22 +29,22 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
             HCEX.BipedObject playerBiped = saveData.Player.Biped;
             loadWeapon(playerBiped.PrimaryWeapon, gridPrimary, txtPrimaryAmmo, txtPrimaryClip);
             loadWeapon(playerBiped.SecondaryWeapon, gridSecondary, txtSecondaryAmmo, txtSecondaryClip);
             loadWeapon(playerBiped.TertiaryWeapon, gridTertiary, txtTertiaryAmmo, txtTertiaryClip);
-            loadWeapon(playerBiped.QuaternaryWeapon, gridQuaternary, txtQuaternaryAmmo, txtQuaternaryClip);
+            loadWeapon(playerBiped.QuaternaryWeapon, gridQuaternary, txtQuaternaryAmmo, txtQuaternaryClip);*/
         }
 
         public bool Save()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
             HCEX.BipedObject playerBiped = saveData.Player.Biped;
             saveWeapon(playerBiped.PrimaryWeapon, txtPrimaryAmmo, txtPrimaryClip);
             saveWeapon(playerBiped.SecondaryWeapon, txtSecondaryAmmo, txtSecondaryClip);
             saveWeapon(playerBiped.TertiaryWeapon, txtTertiaryAmmo, txtTertiaryClip);
-            saveWeapon(playerBiped.QuaternaryWeapon, txtQuaternaryAmmo, txtQuaternaryClip);
+            saveWeapon(playerBiped.QuaternaryWeapon, txtQuaternaryAmmo, txtQuaternaryClip);*/
             return true;
         }
 
@@ -58,7 +58,7 @@ namespace Liberty.HCEX.UI
             Visibility = Visibility.Hidden;
         }
 
-        private void loadWeapon(HCEX.WeaponObject weapon, Grid grid, TextBox ammoBox, TextBox clipBox)
+        /*private void loadWeapon(HCEX.WeaponObject weapon, Grid grid, TextBox ammoBox, TextBox clipBox)
         {
             if (weapon != null)
             {
@@ -79,7 +79,7 @@ namespace Liberty.HCEX.UI
                 weapon.Ammo = Convert.ToInt16(ammoBox.Text);
                 weapon.ClipAmmo = Convert.ToInt16(clipBox.Text);
             }
-        }
+        }*/
 
         #region textValidation
         private void txtPrimaryWeapAmmo_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

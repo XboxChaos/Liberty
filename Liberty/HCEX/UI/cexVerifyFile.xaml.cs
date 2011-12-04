@@ -29,7 +29,7 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
             lblGamertag.Content = saveData.Gamertag;
             lblServiceTag.Content = saveData.ServiceTag;
             lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " (" + saveData.Map + ")";
@@ -43,7 +43,7 @@ namespace Liberty.HCEX.UI
                 var source = new Uri(@"/Liberty;component/Images/hcexImages/" + mapName + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
             }
-            catch { }
+            catch { }*/
         }
 
         public bool Save()

@@ -41,7 +41,7 @@ namespace Liberty.Controls
             {
                 string mapName = saveData.Map;
                 mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
-                var source = new Uri(@"/Liberty;component/Images/reachImages/" + mapName + ".jpg", UriKind.Relative);
+                var source = new Uri(@"/Liberty;component/Images/reachMaps/" + mapName + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
             }
             catch { }
