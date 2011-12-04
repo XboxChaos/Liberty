@@ -267,8 +267,10 @@
     <Compile Include="Util\ISaveTransferrer.cs" />
     <Compile Include="Util\SaveManager.cs" />
     <Compile Include="Util\TagList.cs" />
+    <Resource Include="Images\Misc\initPlayerCOD.png" />
     <Resource Include="Images\hcexMaps\a10.png" />
     <Resource Include="Images\hcexMaps\a30.png" />
+    <Resource Include="Images\hcexMaps\a50.png" />
     <Resource Include="Images\hcexMaps\b30.png" />
     <Resource Include="Images\hcexMaps\b40.png" />
     <Resource Include="Images\hcexMaps\c10.png" />
@@ -276,7 +278,6 @@
     <Resource Include="Images\hcexMaps\c40.png" />
     <Resource Include="Images\hcexMaps\d20.png" />
     <Resource Include="Images\hcexMaps\d40.png" />
-    <Resource Include="Images\Misc\initPlayerCOD.png" />
     <Content Include="Themes\Accents\Orange.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

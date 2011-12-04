@@ -24,7 +24,8 @@ namespace Liberty.HCEX
 
             // Resolve datum indices
             foreach (GameObject obj in _objects)
-                obj.ResolveDatumIndices(this);
+                if (obj != null)
+                    obj.ResolveDatumIndices(this);
         }
 
         /// <summary>

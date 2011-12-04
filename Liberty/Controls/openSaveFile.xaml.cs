@@ -90,6 +90,12 @@ namespace Liberty.Controls
                     _saveType = type;
                     lblFileDirec.Text = ofd.FileName;
                 }
+                else
+                {
+                    _loaded = false;
+                    _saveType = Util.SaveType.Unknown;
+                    lblFileDirec.Text = "please load a file...";
+                }
             }
         }
 

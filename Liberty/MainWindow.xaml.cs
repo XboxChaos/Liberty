@@ -78,8 +78,14 @@ namespace Liberty
             _stepSelectDevice = new selectDevice();
             selectSaveOnDevice stepSelectSave = new selectSaveOnDevice(_stepSelectDevice, _saveTransferrer, loadSaveFile);
 
+            saving stepSaving = new saving(updateSaveFile);
+            _stepTransfer = new transferSave(_saveTransferrer);
+            allDone stepAllDone = new allDone(_stepSelectMode);
+
+            // Moved this after the stepTransfer code. Prevents null, while grabbing gamertag
+            // of STFS package for loading CEA saves, due to it not being in the save player table
             #region Reach
-            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
+            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists, _stepTransfer);
             editBiped reachBiped = new editBiped(_reachSaveManager, _reachTaglists);
             editWeapons reachWeapons = new editWeapons(_reachSaveManager);
             editGrenades reachGrenades = new editGrenades(_reachSaveManager);
@@ -88,15 +94,12 @@ namespace Liberty
             #endregion
 
             #region HCEX
-            cexVerifyFile cexVerifyFile = new HCEX.UI.cexVerifyFile(_hcexSaveManager);
+            cexVerifyFile cexVerifyFile = new HCEX.UI.cexVerifyFile(_hcexSaveManager, _stepTransfer);
             cexEditBiped cexEditBiped = new HCEX.UI.cexEditBiped(_hcexSaveManager);
             cexEditWeapons cexEditWeapons = new HCEX.UI.cexEditWeapons(_hcexSaveManager);
             cexEditGrenades cexEditGrenades = new HCEX.UI.cexEditGrenades(_hcexSaveManager);
             cexQuickTweaks cexQuickTweaks = new HCEX.UI.cexQuickTweaks(_hcexSaveManager);
             #endregion
-            saving stepSaving = new saving(updateSaveFile);
-            _stepTransfer = new transferSave(_saveTransferrer);
-            allDone stepAllDone = new allDone(_stepSelectMode);
 
             // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
             // Maybe I should just throw away that feature where the progress bar can update mid-step so a group reference isn't needed
