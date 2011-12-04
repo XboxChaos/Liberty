@@ -18,14 +18,17 @@ namespace Liberty.HCEX
         {
             Table objectTable = new Table(reader);
             if (objectTable.Name != "object")
-                throw new ArgumentException("The object list can only be read from the \"object\" table. The save file may be corrupt.");
+                throw new ArgumentException("The object list must be read from the \"object\" table. The save file may be corrupt.");
             _entryTableOffset = reader.Position;
-            objectTable.EnumEntries(reader, ProcessObject);
+            objectTable.ReadEntries(reader, ProcessObject);
 
             // Resolve datum indices
+            // This needs to be done as a separate step since objects can refer to other objects that come later in the file.
             foreach (GameObject obj in _objects)
+            {
                 if (obj != null)
                     obj.ResolveDatumIndices(this);
+            }
         }
 
         /// <summary>
@@ -72,12 +75,28 @@ namespace Liberty.HCEX
                 return true;
             }
 
-            // Read the ObjectEntry and determine the object's file offset
+            // Read the ObjectEntry and seek to the object's file offset
             ObjectEntry entry = new ObjectEntry(index, reader);
             long fileOffset = entry.ObjectAddress - table.Address + _entryTableOffset;
             reader.SeekTo(fileOffset);
 
-            _objects.Add(new GameObject(entry, reader));
+            // Construct a specialized GameObject class depending on the tag group
+            GameObject obj;
+            switch (entry.TagGroup)
+            {
+                case TagGroup.Bipd:
+                    obj = new BipedObject(entry, reader);
+                    break;
+
+                case TagGroup.Weap:
+                    obj = new WeaponObject(entry, reader);
+                    break;
+
+                default:
+                    obj = new GameObject(entry, reader);
+                    break;
+            }
+            _objects.Add(obj);
             return true;
         }
 

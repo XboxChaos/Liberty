@@ -82,6 +82,14 @@ namespace Liberty.HCEX
             get { return _objectList; }
         }
 
+        /// <summary>
+        /// The player's biped.
+        /// </summary>
+        public BipedObject PlayerBiped
+        {
+            get { return _player.Biped; }
+        }
+
         private void ReadFromStream(Stream stream)
         {
             _fileHeader.ReadFrom(new SaveReader(stream));
@@ -97,6 +105,10 @@ namespace Liberty.HCEX
             // Read the object list
             reader.SeekTo((long)TableOffset.Object);
             _objectList = new ObjectList(reader);
+
+            // Read player info
+            reader.SeekTo((long)TableOffset.Players);
+            _player = new Player(reader, _objectList);
         }
 
         private void WriteToStream(Stream stream)
@@ -109,6 +121,7 @@ namespace Liberty.HCEX
         private SaveHeader _saveHeader;
 
         private ObjectList _objectList;
+        private Player _player;
 
         private const int SaveDataSize = 0x40A000;
     }
