@@ -107,7 +107,7 @@
     </ApplicationDefinition>
     <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
-    <Compile Include="classInfo\HaloCFGParse.cs" />
+    <Compile Include="Util\HaloCFGParse.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
     <Compile Include="classInfo\AccentCodebase\AccentStorage.cs" />
     <Compile Include="classInfo\storage\settings\applicationSettings.cs" />

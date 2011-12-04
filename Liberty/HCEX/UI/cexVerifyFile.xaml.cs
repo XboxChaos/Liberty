@@ -33,9 +33,9 @@ namespace Liberty.HCEX.UI
         {
             HCEX.CampaignSave saveData = _saveManager.SaveData;
             lblGamertag.Content = _stepTransfer.Gamertag;
-            //lblServiceTag.Content = saveData.ServiceTag;
+            lblGraphicsMode.Content = saveData.ParsedCFGData.Mode;
             lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " / (" + saveData.Map + ")";
-            //lblDifficulty.Content = saveData.CFGData; (add a CFG parser AMD, or I will ;p ).
+            lblDifficulty.Content = saveData.ParsedCFGData.Difficulty;
 
             // Try to load the mission image
             try

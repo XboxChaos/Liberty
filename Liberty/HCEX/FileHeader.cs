@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Liberty.classInfo;
+using Liberty.Util.HaloCFGParse;
 
 namespace Liberty.HCEX
 {
@@ -25,9 +26,9 @@ namespace Liberty.HCEX
 
             // Parse the Lua Datastructure in the header
             string CFGParsed = CFGData.Replace("[","").Replace("]","");
-            HaloCFGParse hCFG = new HaloCFGParse();
+            HCEXParser hCFG = new HCEXParser();
             hCFG.Parse(CFGParsed);
-            //var test = lua.Val["level_id"];
+            parsedCFG = hCFG.getParsedData();
         }
 
         public void WriteTo(SaveIO.SaveWriter writer)
@@ -72,7 +73,7 @@ namespace Liberty.HCEX
         }
 
         public string CFGData { get; set; }
-        
+        public HCEXParser.CFGData parsedCFG { get; set; }
 
         private uint _unknown;
         private int _dataBlock1Size;
