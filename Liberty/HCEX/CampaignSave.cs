@@ -59,6 +59,14 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
+        /// The parsed CFG data that appears in the header of the file
+        /// </summary>
+        public Util.HaloCFGParse.HCEXParser.CFGData ParsedCFGData
+        {
+            get { return _fileHeader.parsedCFG; }
+        }
+
+        /// <summary>
         /// The resource name of the current map.
         /// </summary>
         public string Map
