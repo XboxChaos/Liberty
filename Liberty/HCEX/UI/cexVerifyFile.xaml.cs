@@ -20,22 +20,21 @@ namespace Liberty.HCEX.UI
     public partial class cexVerifyFile : UserControl, StepUI.IStep
 	{
         private Util.SaveManager<HCEX.CampaignSave> _saveManager;
-        private transferSave _stepTransfer;
 
-        public cexVerifyFile(Util.SaveManager<HCEX.CampaignSave> saveManager, transferSave stepTransfer)
+        public cexVerifyFile(Util.SaveManager<HCEX.CampaignSave> saveManager)
         {
             InitializeComponent();
             _saveManager = saveManager;
-            _stepTransfer = stepTransfer;
         }
+
+        public string Gamertag { get; set; }
 
         public void Load()
         {
             HCEX.CampaignSave saveData = _saveManager.SaveData;
-            lblGamertag.Content = _stepTransfer.Gamertag;
-            lblGraphicsMode.Content = saveData.ParsedCFGData.Mode;
-            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " / (" + saveData.Map + ")";
-            lblDifficulty.Content = saveData.ParsedCFGData.Difficulty;
+            lblGamertag.Content = Gamertag;
+            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " - " + saveData.Map;
+            lblDifficulty.Content = saveData.CFGData.Difficulty;
 
             // Try to load the mission image
             try

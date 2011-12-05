@@ -21,12 +21,19 @@ namespace Liberty.HCEX
             base.ReadFrom(reader, baseOffset);
 
             reader.SeekTo(baseOffset + HealthModifierOffset);
-            _healthModifier = reader.ReadFloat();
-            _shieldModifier = reader.ReadFloat();
+            _oldHealthModifier = reader.ReadFloat();
+            _oldShieldModifier = reader.ReadFloat();
+            if (float.IsNaN(_oldHealthModifier) || float.IsNaN(_oldShieldModifier) || (_oldHealthModifier == 0 && _oldShieldModifier == 0))
+            {
+                _makeInvincible = true;
+                _canUseOldValues = false;
+            }
 
             reader.SeekTo(baseOffset + WeaponsOffset);
             _primaryWeaponIndex = DatumIndex.ReadFrom(reader);
             _secondaryWeaponIndex = DatumIndex.ReadFrom(reader);
+            _tertiaryWeaponIndex = DatumIndex.ReadFrom(reader);
+            _quaternaryWeaponIndex = DatumIndex.ReadFrom(reader);
 
             reader.SeekTo(baseOffset + GrenadesOffset);
             _fragGrenades = reader.ReadSByte();
@@ -39,24 +46,17 @@ namespace Liberty.HCEX
 
             _primaryWeapon = objectResolver.ResolveIndex(_primaryWeaponIndex) as WeaponObject;
             _secondaryWeapon = objectResolver.ResolveIndex(_secondaryWeaponIndex) as WeaponObject;
+            _tertiaryWeapon = objectResolver.ResolveIndex(_tertiaryWeaponIndex) as WeaponObject;
+            _quaternaryWeapon = objectResolver.ResolveIndex(_quaternaryWeaponIndex) as WeaponObject;
         }
 
         /// <summary>
-        /// The biped's health modifier. Set to NaN for invincibility.
+        /// Whether or not the biped should be made invincible.
         /// </summary>
-        public float HealthModifier
+        public bool Invincible
         {
-            get { return _healthModifier; }
-            set { _healthModifier = value; }
-        }
-
-        /// <summary>
-        /// The biped's shield modifier. Set to NaN for invincibility.
-        /// </summary>
-        public float ShieldModifier
-        {
-            get { return _shieldModifier; }
-            set { _shieldModifier = value; }
+            get { return _makeInvincible; }
+            set { _makeInvincible = value; }
         }
 
         /// <summary>
@@ -73,6 +73,22 @@ namespace Liberty.HCEX
         public WeaponObject SecondaryWeapon
         {
             get { return _secondaryWeapon; }
+        }
+
+        /// <summary>
+        /// The biped's secondary weapon, if it is carrying one.
+        /// </summary>
+        public WeaponObject TertiaryWeapon
+        {
+            get { return _tertiaryWeapon; }
+        }
+
+        /// <summary>
+        /// The biped's secondary weapon, if it is carrying one.
+        /// </summary>
+        public WeaponObject QuaternaryWeapon
+        {
+            get { return _quaternaryWeapon; }
         }
 
         /// <summary>
@@ -93,13 +109,19 @@ namespace Liberty.HCEX
             set { _plasmaGrenades = value; }
         }
 
-        private float _healthModifier;
-        private float _shieldModifier;
+        private bool _makeInvincible = false;
+        private bool _canUseOldValues = true;
+        private float _oldHealthModifier;
+        private float _oldShieldModifier;
 
         private DatumIndex _primaryWeaponIndex;
         private DatumIndex _secondaryWeaponIndex;
+        private DatumIndex _tertiaryWeaponIndex;
+        private DatumIndex _quaternaryWeaponIndex;
         private WeaponObject _primaryWeapon;
         private WeaponObject _secondaryWeapon;
+        private WeaponObject _tertiaryWeapon;
+        private WeaponObject _quaternaryWeapon;
 
         private sbyte _fragGrenades;
         private sbyte _plasmaGrenades;
@@ -108,5 +130,9 @@ namespace Liberty.HCEX
         private const int HealthModifierOffset = 0xD8;
         private const int WeaponsOffset = 0x2F8;
         private const int GrenadesOffset = 0x31E;
+
+        // Default modifiers
+        private const float DefaultChiefHealthModifier = 75;
+        private const float DefaultChiefShieldModifier = 75;
     }
 }

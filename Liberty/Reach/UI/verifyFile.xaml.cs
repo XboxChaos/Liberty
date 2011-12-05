@@ -19,13 +19,11 @@ namespace Liberty.Controls
 	public partial class verifyFile : UserControl, StepUI.IStep
 	{
         private Util.SaveManager<Reach.CampaignSave> _saveManager;
-        private transferSave _transferSave;
         private Reach.TagListManager _taglistManager;
 
-        public verifyFile(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager, transferSave transferSave)
+        public verifyFile(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
 		{
             _saveManager = saveManager;
-            _transferSave = transferSave;
             _taglistManager = taglistManager;
 			this.InitializeComponent();
 		}
@@ -33,9 +31,9 @@ namespace Liberty.Controls
         public void Load()
         {
             Reach.CampaignSave saveData = _saveManager.SaveData;
-            lblGamertag.Content = _transferSave.Gamertag;
+            lblGamertag.Content = saveData.Gamertag;
             lblServiceTag.Content = saveData.ServiceTag;
-            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " / (" + saveData.Map + ")";
+            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " - " + saveData.Map;
             lblDifficulty.Content = saveData.Difficulty.ToString();
 
             // Try to load the mission image

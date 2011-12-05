@@ -23,7 +23,7 @@ namespace Liberty.Util
             }
         }
         
-        /*public static void AllWeaponsMaxAmmo(HCEX.CampaignSave saveData)
+        public static void AllWeaponsMaxAmmo(HCEX.CampaignSave saveData)
         {
             foreach (HCEX.GameObject obj in saveData.Objects)
             {
@@ -34,7 +34,7 @@ namespace Liberty.Util
                     weapon.ClipAmmo = 32767;
                 }
             }
-        }*/
+        }
 
         public static HashSet<Reach.BipedObject> FindSwappableBipeds(Reach.CampaignSave saveData)
         {

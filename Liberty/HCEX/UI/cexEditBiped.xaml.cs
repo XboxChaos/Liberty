@@ -20,8 +20,6 @@ namespace Liberty.HCEX.UI
     public partial class cexEditBiped : UserControl, StepUI.IStep
     {
         private MainWindow mainWindow = null;
-        private int originalBipdItem = -1;
-        private bool loading = false;
         private Util.SaveManager<HCEX.CampaignSave> _saveManager;
 
         public cexEditBiped(Util.SaveManager<HCEX.CampaignSave> saveManager)
@@ -39,16 +37,13 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            /*loading = true;
             HCEX.CampaignSave saveData = _saveManager.SaveData;
-            HCEX.BipedObject playerBiped = saveData.Player.Biped;
+            HCEX.BipedObject playerBiped = saveData.PlayerBiped;
             checkInvincible.IsChecked = playerBiped.Invincible;
 
-            txtPlayerXCord.Text = playerBiped.X.ToString();
-            txtPlayerYCord.Text = playerBiped.Y.ToString();
-            txtPlayerZCord.Text = playerBiped.Z.ToString();
-
-            loading = false;*/
+            txtPlayerXCord.Text = playerBiped.Position.X.ToString();
+            txtPlayerYCord.Text = playerBiped.Position.Y.ToString();
+            txtPlayerZCord.Text = playerBiped.Position.Z.ToString();
         }
 
         public bool Save()

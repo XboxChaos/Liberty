@@ -39,16 +39,16 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
-            txtFragNades.Text = saveData.Player.Biped.FragGrenades.ToString();
-            txtPlasmaNades.Text = saveData.Player.Biped.PlasmaGrenades.ToString();*/
+            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            txtFragNades.Text = saveData.PlayerBiped.FragGrenades.ToString();
+            txtPlasmaNades.Text = saveData.PlayerBiped.PlasmaGrenades.ToString();
         }
 
         public bool Save()
         {
-            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
-            saveData.Player.Biped.FragGrenades = Convert.ToSByte(txtFragNades.Text);
-            saveData.Player.Biped.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);*/
+            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            saveData.PlayerBiped.FragGrenades = Convert.ToSByte(txtFragNades.Text);
+            saveData.PlayerBiped.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);
 
             return true;
         }

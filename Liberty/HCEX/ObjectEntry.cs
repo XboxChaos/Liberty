@@ -16,6 +16,7 @@ namespace Liberty.HCEX
         /// <param name="reader">The SaveReader to read from. It should point to the section of the table entry after the salt.</param>
         public ObjectEntry(DatumIndex index, SaveReader reader)
         {
+            _index = index;
             _flags = reader.ReadByte();
             _tagGroup = (TagGroup)reader.ReadByte();
             reader.Skip(2); // Unknown value
