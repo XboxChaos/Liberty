@@ -22,11 +22,13 @@
 using System;
 using System.Security.Cryptography;
 
-public class CRC32 : HashAlgorithm
+namespace Liberty.Security
 {
-    public const uint DefaultSeed = 0xffffffff;
+    public class SaveCRC32 : HashAlgorithm
+    {
+        public const uint DefaultSeed = 0xffffffff;
 
-    readonly static uint[] CrcTable = new uint[] {
+        readonly static uint[] CrcTable = new uint[] {
             0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419,
             0x706AF48F, 0xE963A535, 0x9E6495A3, 0x0EDB8832, 0x79DCB8A4,
             0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD, 0xE7B82D07,
@@ -81,47 +83,48 @@ public class CRC32 : HashAlgorithm
             0x2D02EF8D
         };
 
-    uint crcValue = 0;
+        uint crcValue = 0;
 
-    public override void Initialize()
-    {
-        crcValue = 0;
-    }
-
-    protected override void HashCore(byte[] buffer, int start, int length)
-    {
-        crcValue ^= DefaultSeed;
-
-        unchecked
+        public override void Initialize()
         {
-            while (--length >= 0)
-            {
-                crcValue = CrcTable[(crcValue ^ buffer[start++]) & 0xFF] ^ (crcValue >> 8);
-            }
+            crcValue = 0;
         }
 
-        crcValue ^= DefaultSeed;
-    }
+        protected override void HashCore(byte[] buffer, int start, int length)
+        {
+            crcValue ^= DefaultSeed;
 
-    protected override byte[] HashFinal()
-    {
-        this.HashValue = new byte[] { (byte)((crcValue >> 24) & 0xff), 
+            unchecked
+            {
+                while (--length >= 0)
+                {
+                    crcValue = CrcTable[(crcValue ^ buffer[start++]) & 0xFF] ^ (crcValue >> 8);
+                }
+            }
+
+            crcValue ^= DefaultSeed;
+        }
+
+        protected override byte[] HashFinal()
+        {
+            this.HashValue = new byte[] { (byte)((crcValue >> 24) & 0xff), 
                                       (byte)((crcValue >> 16) & 0xff), 
                                       (byte)((crcValue >> 8) & 0xff), 
                                       (byte)(crcValue & 0xff) };
-        return this.HashValue;
-    }
-
-    public uint CrcValue
-    {
-        get
-        {
-            return (uint)((HashValue[0] << 24) | (HashValue[1] << 16) | (HashValue[2] << 8) | HashValue[3]);
+            return this.HashValue;
         }
-    }
 
-    public override int HashSize
-    {
-        get { return 32; }
+        public uint CrcValue
+        {
+            get
+            {
+                return (uint)((HashValue[0] << 24) | (HashValue[1] << 16) | (HashValue[2] << 8) | HashValue[3]);
+            }
+        }
+
+        public override int HashSize
+        {
+            get { return 32; }
+        }
     }
 }

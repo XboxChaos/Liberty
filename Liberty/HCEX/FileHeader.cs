@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Liberty.classInfo;
+using Liberty.Security;
 
 namespace Liberty.HCEX
 {
@@ -45,7 +46,7 @@ namespace Liberty.HCEX
             tempWriter.WriteInt32(_saveDataSize);
 
             // Grab its CRC32
-            CRC32 crc32 = new CRC32();
+            SaveCRC32 crc32 = new SaveCRC32();
             byte[] checksum = crc32.ComputeHash(tempStream.GetBuffer());
 
             // Now write it to the destination stream
@@ -60,12 +61,15 @@ namespace Liberty.HCEX
             byte[] cfgData = new byte[_cfgSize - CRC32Size];
             Encoding.ASCII.GetBytes(CFGText, 0, CFGText.Length, cfgData, 0);
 
-            CRC32 crc32 = new CRC32();
+            SaveCRC32 crc32 = new SaveCRC32();
             byte[] checksum = crc32.ComputeHash(cfgData);
 
             // Write it out
             writer.WriteBlock(checksum);
             writer.WriteBlock(cfgData);
+
+            // Calculate Save Offset
+            SaveCRCOffset = 0x18 + _cfgSize + _dataBlock1Size + _dataBlock2Size;
         }
 
         /// <summary>
@@ -77,6 +81,11 @@ namespace Liberty.HCEX
         /// The raw CFG text that appears at the top of the file.
         /// </summary>
         public string CFGText { get; private set; }
+
+        /// <summary>
+        /// The raw CFG text that appears at the top of the file.
+        /// </summary>
+        public int SaveCRCOffset { get; private set; }
 
         private uint _unknown;
         private int _dataBlock1Size;

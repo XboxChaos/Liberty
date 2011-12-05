@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Liberty.SaveIO;
 using Liberty.Blam;
+using System.IO;
 
 namespace Liberty.HCEX
 {
@@ -23,7 +24,7 @@ namespace Liberty.HCEX
             reader.SeekTo(baseOffset + HealthModifiersOffset);
             _oldHealthModifier = reader.ReadFloat();
             _oldShieldModifier = reader.ReadFloat();
-            if (float.IsNaN(_oldHealthModifier) || float.IsNaN(_oldShieldModifier) || (_oldHealthModifier == 0 && _oldShieldModifier == 0))
+            if (float.IsNaN(_oldHealthModifier) || float.IsNaN(_oldShieldModifier) || (_oldHealthModifier == 0.0 && _oldShieldModifier == 0.0))
             {
                 _makeInvincible = true;
                 _canUseOldValues = false;
@@ -59,12 +60,14 @@ namespace Liberty.HCEX
             writer.SeekTo(SourceOffset + HealthModifiersOffset);
             if (_makeInvincible)
             {
-                if (_oldHealthModifier != 0)
-                    writer.WriteUInt32(0xFFFFFFFF);
+                if (_oldHealthModifier != 0.0)
+                    writer.WriteFloat(0xFFFFFFFF);
                 else
-                    writer.WriteUInt32(0x00000000);
-                if (_oldShieldModifier != 0)
-                    writer.WriteUInt32(0xFFFFFFFF);
+                    writer.WriteFloat(0x00000000);
+                if (_oldShieldModifier != 0.0)
+                    writer.WriteFloat(0xFFFFFFFF);
+                else
+                    writer.WriteFloat(0x00000000);
             }
             else
             {
@@ -82,19 +85,21 @@ namespace Liberty.HCEX
                 }
             }
 
+            // Position
+            writer.SeekTo(SourceOffset + PositionOffset1);
+            writer.WriteFloat(Position.X);
+            writer.WriteFloat(Position.Y);
+            writer.WriteFloat(Position.Z);
+
+            writer.Seek(0x38, SeekOrigin.Current);
+            writer.WriteFloat(Position.X);
+            writer.WriteFloat(Position.Y);
+            writer.WriteFloat(Position.Z);
+
             // Grenades
             writer.SeekTo(SourceOffset + GrenadesOffset);
             writer.WriteSByte(_fragGrenades);
             writer.WriteSByte(_plasmaGrenades);
-        }
-
-        /// <summary>
-        /// Whether or not the biped should be made invincible.
-        /// </summary>
-        public bool Invincible
-        {
-            get { return _makeInvincible; }
-            set { _makeInvincible = value; }
         }
 
         /// <summary>
@@ -166,6 +171,7 @@ namespace Liberty.HCEX
 
         // Offsets
         private const int HealthModifiersOffset = 0xD8;
+        private const int PositionOffset1 = 0x5C;
         private const int WeaponsOffset = 0x2F8;
         private const int GrenadesOffset = 0x31E;
 

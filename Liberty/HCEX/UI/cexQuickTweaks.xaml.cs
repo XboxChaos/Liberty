@@ -27,10 +27,7 @@ namespace Liberty.HCEX.UI
             this.InitializeComponent();
         }
 
-        public void Load()
-        {
-
-        }
+        public void Load() { }
 
         public bool Save()
         {

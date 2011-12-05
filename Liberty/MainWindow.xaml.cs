@@ -236,6 +236,7 @@ namespace Liberty
                 package = new STFSPackage(stfsPath, null);
                 string rawFileName;
                 _currentGame = DetectGame(package, out rawFileName);
+                classInfo.storage.settings.applicationSettings.gameIdent.gameID = _currentGame;
                 if (_currentGame == Util.SaveType.Unknown)
                 {
                     showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo: Reach and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
