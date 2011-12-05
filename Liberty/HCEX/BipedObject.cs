@@ -20,7 +20,7 @@ namespace Liberty.HCEX
         {
             base.ReadFrom(reader, baseOffset);
 
-            reader.SeekTo(baseOffset + HealthModifierOffset);
+            reader.SeekTo(baseOffset + HealthModifiersOffset);
             _oldHealthModifier = reader.ReadFloat();
             _oldShieldModifier = reader.ReadFloat();
             if (float.IsNaN(_oldHealthModifier) || float.IsNaN(_oldShieldModifier) || (_oldHealthModifier == 0 && _oldShieldModifier == 0))
@@ -48,6 +48,44 @@ namespace Liberty.HCEX
             _secondaryWeapon = objectResolver.ResolveIndex(_secondaryWeaponIndex) as WeaponObject;
             _tertiaryWeapon = objectResolver.ResolveIndex(_tertiaryWeaponIndex) as WeaponObject;
             _quaternaryWeapon = objectResolver.ResolveIndex(_quaternaryWeaponIndex) as WeaponObject;
+        }
+
+        public override void Update(SaveWriter writer)
+        {
+            base.Update(writer);
+
+            // Invincibility
+            // TODO: fix hax
+            writer.SeekTo(SourceOffset + HealthModifiersOffset);
+            if (_makeInvincible)
+            {
+                if (_oldHealthModifier != 0)
+                    writer.WriteUInt32(0xFFFFFFFF);
+                else
+                    writer.WriteUInt32(0x00000000);
+                if (_oldShieldModifier != 0)
+                    writer.WriteUInt32(0xFFFFFFFF);
+            }
+            else
+            {
+                if (_canUseOldValues)
+                {
+                    // Write the old health and shield values
+                    writer.WriteFloat(_oldHealthModifier);
+                    writer.WriteFloat(_oldShieldModifier);
+                }
+                else
+                {
+                    // TODO: FIX THIS!!!
+                    writer.WriteUInt32(DefaultChiefHealthModifier);
+                    writer.WriteUInt32(DefaultChiefShieldModifier);
+                }
+            }
+
+            // Grenades
+            writer.SeekTo(SourceOffset + GrenadesOffset);
+            writer.WriteSByte(_fragGrenades);
+            writer.WriteSByte(_plasmaGrenades);
         }
 
         /// <summary>
@@ -127,12 +165,12 @@ namespace Liberty.HCEX
         private sbyte _plasmaGrenades;
 
         // Offsets
-        private const int HealthModifierOffset = 0xD8;
+        private const int HealthModifiersOffset = 0xD8;
         private const int WeaponsOffset = 0x2F8;
         private const int GrenadesOffset = 0x31E;
 
         // Default modifiers
-        private const float DefaultChiefHealthModifier = 75;
-        private const float DefaultChiefShieldModifier = 75;
+        private const uint DefaultChiefHealthModifier = 0x42960000;
+        private const uint DefaultChiefShieldModifier = 0x42960000;
     }
 }

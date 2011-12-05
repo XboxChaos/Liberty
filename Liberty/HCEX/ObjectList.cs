@@ -31,6 +31,15 @@ namespace Liberty.HCEX
             }
         }
 
+        public void Update(SaveWriter writer)
+        {
+            foreach (GameObject obj in _objects)
+            {
+                if (obj != null)
+                    obj.Update(writer);
+            }
+        }
+
         /// <summary>
         /// Looks up an object from an integer index.
         /// </summary>

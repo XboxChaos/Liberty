@@ -25,6 +25,15 @@ namespace Liberty.HCEX
             _clipAmmo = reader.ReadInt16();
         }
 
+        public override void Update(SaveWriter writer)
+        {
+            base.Update(writer);
+
+            writer.SeekTo(SourceOffset + AmmoOffset);
+            writer.WriteInt16(_remainingAmmo);
+            writer.WriteInt16(_clipAmmo);
+        }
+
         /// <summary>
         /// How much unloaded ammo is left in the weapon.
         /// </summary>
