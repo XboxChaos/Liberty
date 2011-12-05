@@ -21,6 +21,7 @@ namespace Liberty.HCEX
 
             // Read data
             long baseOffset = reader.Position;
+            _streamOffset = baseOffset;
             ReadFrom(reader, baseOffset);
         }
 
@@ -56,6 +57,25 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
+        /// Updates any changes made to the object data.
+        /// </summary>
+        /// <param name="reader">
+        /// The SaveWriter to write to.
+        /// It should point to the same stream that was used to load the object data, as seeking will be done automatically.
+        /// </param>
+        public virtual void Update(SaveWriter writer)
+        {
+        }
+
+        /// <summary>
+        /// The object's offset in the source stream.
+        /// </summary>
+        public long SourceOffset
+        {
+            get { return _streamOffset; }
+        }
+
+        /// <summary>
         /// The object's datum index.
         /// </summary>
         public DatumIndex Index
@@ -80,7 +100,7 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
-        /// The object's position.
+        /// The object's position. Changes to this will not save ATM.
         /// </summary>
         public Vector3 Position
         {
@@ -114,6 +134,7 @@ namespace Liberty.HCEX
             get { return _carrier; }
         }
 
+        private long _streamOffset;
         private ObjectEntry _entry;
         private DatumIndex _tag;
 

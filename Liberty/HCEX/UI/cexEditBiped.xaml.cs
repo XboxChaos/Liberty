@@ -48,16 +48,16 @@ namespace Liberty.HCEX.UI
 
         public bool Save()
         {
-            /*HCEX.CampaignSave saveData = _saveManager.SaveData;
+            HCEX.CampaignSave saveData = _saveManager.SaveData;
 
-            HCEX.BipedObject playerBiped = saveData.Player.Biped;
+            HCEX.BipedObject playerBiped = saveData.PlayerBiped;
             playerBiped.Invincible = (bool)checkInvincible.IsChecked;
-            if (playerBiped.Vehicle != null)
-                playerBiped.Vehicle.Invincible = (bool)checkInvincible.IsChecked;
+            /*if (playerBiped.Vehicle != null)
+                playerBiped.Vehicle.Invincible = (bool)checkInvincible.IsChecked;*/
 
-            playerBiped.X = Convert.ToSingle(txtPlayerXCord.Text);
-            playerBiped.Y = Convert.ToSingle(txtPlayerYCord.Text);
-            playerBiped.Z = Convert.ToSingle(txtPlayerZCord.Text);*/
+            /*playerBiped.Position.X = Convert.ToSingle(txtPlayerXCord.Text);
+            playerBiped.Position.Y = Convert.ToSingle(txtPlayerYCord.Text);
+            playerBiped.Position.Z = Convert.ToSingle(txtPlayerZCord.Text);*/
 
             return true;
         }

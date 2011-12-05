@@ -105,8 +105,15 @@ namespace Liberty.HCEX
 
         private void WriteToStream(Stream stream)
         {
-            SaveWriter writer = new SaveWriter(stream);
-            _fileHeader.WriteTo(writer);
+            _fileHeader.WriteTo(new SaveWriter(stream));
+
+            // Construct an OffsetStream which offsets everything relative to the start of the actual save data
+            OffsetStream offsetStream = new OffsetStream(stream, stream.Length - SaveDataSize);
+            offsetStream.Seek(0, SeekOrigin.Begin);
+
+            // Update the object list
+            SaveWriter writer = new SaveWriter(offsetStream);
+            _objectList.Update(writer);
         }
 
         private FileHeader _fileHeader;

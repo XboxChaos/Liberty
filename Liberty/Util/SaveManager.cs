@@ -89,6 +89,7 @@ namespace Liberty.Util
             // Load the mmiof.bmf file into the _saveData object
             _saveData = _constructSave(newRawPath);
             _rawPath = newRawPath;
+            _rawFileName = rawFileName;
         }
 
         /// <summary>
@@ -133,7 +134,7 @@ namespace Liberty.Util
             if (package != null)
             {
                 // Inject the new mmiof.bmf
-                X360.STFS.FileEntry file = package.GetFile("mmiof.bmf");
+                X360.STFS.FileEntry file = package.GetFile(_rawFileName);
                 file.Inject(_rawPath);
 
                 if (kvData != null)
@@ -149,5 +150,6 @@ namespace Liberty.Util
         private T _saveData;
         private Func<string, T> _constructSave;
         private string _rawPath = null;
+        private string _rawFileName;
     }
 }
