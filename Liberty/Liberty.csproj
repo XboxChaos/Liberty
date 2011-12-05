@@ -107,7 +107,7 @@
     </ApplicationDefinition>
     <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
-    <Compile Include="Util\HaloCFGParse.cs" />
+    <Compile Include="HCEX\SaveCFG.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
     <Compile Include="classInfo\AccentCodebase\AccentStorage.cs" />
     <Compile Include="classInfo\storage\settings\applicationSettings.cs" />
@@ -306,6 +306,7 @@
     </Page>
     <Page Include="HCEX\UI\cexEditGrenades.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="HCEX\UI\cexEditWeapons.xaml">
       <Generator>MSBuild:Compile</Generator>

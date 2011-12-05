@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Liberty.classInfo;
-using Liberty.Util.HaloCFGParse;
 
 namespace Liberty.HCEX
 {
@@ -22,13 +21,10 @@ namespace Liberty.HCEX
 
             // Skip the CFG CRC32 and read the CFG text
             reader.Skip(CRC32Size);
-            CFGData = reader.ReadAscii(_cfgSize - CRC32Size);
+            CFGText = reader.ReadAscii(_cfgSize - CRC32Size);
 
-            // Parse the Lua Datastructure in the header
-            string CFGParsed = CFGData.Replace("[","").Replace("]","");
-            HCEXParser hCFG = new HCEXParser();
-            hCFG.Parse(CFGParsed);
-            parsedCFG = hCFG.getParsedData();
+            // Parse the CFG data
+            CFGData = new SaveCFG(CFGText);
         }
 
         public void WriteTo(SaveIO.SaveWriter writer)
@@ -62,7 +58,7 @@ namespace Liberty.HCEX
         {
             // Get the CRC32 of the data
             byte[] cfgData = new byte[_cfgSize - CRC32Size];
-            Encoding.ASCII.GetBytes(CFGData, 0, CFGData.Length, cfgData, 0);
+            Encoding.ASCII.GetBytes(CFGText, 0, CFGText.Length, cfgData, 0);
 
             CRC32 crc32 = new CRC32();
             byte[] checksum = crc32.ComputeHash(cfgData);
@@ -72,8 +68,15 @@ namespace Liberty.HCEX
             writer.WriteBlock(cfgData);
         }
 
-        public string CFGData { get; set; }
-        public HCEXParser.CFGData parsedCFG { get; set; }
+        /// <summary>
+        /// The parsed CFG data that appears at the top of the file.
+        /// </summary>
+        public SaveCFG CFGData { get; private set; }
+
+        /// <summary>
+        /// The raw CFG text that appears at the top of the file.
+        /// </summary>
+        public string CFGText { get; private set; }
 
         private uint _unknown;
         private int _dataBlock1Size;

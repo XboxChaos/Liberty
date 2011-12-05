@@ -51,19 +51,11 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
-        /// The CFG data that appears at the top of the file
-        /// </summary>
-        public string CFGData
-        {
-            get { return _fileHeader.CFGData; }
-        }
-
-        /// <summary>
         /// The parsed CFG data that appears in the header of the file
         /// </summary>
-        public Util.HaloCFGParse.HCEXParser.CFGData ParsedCFGData
+        public SaveCFG CFGData
         {
-            get { return _fileHeader.parsedCFG; }
+            get { return _fileHeader.CFGData; }
         }
 
         /// <summary>

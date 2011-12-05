@@ -48,7 +48,7 @@ namespace Liberty
         private string _packagePath = null;
         private Util.SaveType _currentGame;
         private DispatcherTimer egg2 = new DispatcherTimer();
-
+        private cexVerifyFile _cexVerifyFile;
 
         public MainWindow()
         {
@@ -82,10 +82,8 @@ namespace Liberty
             _stepTransfer = new transferSave(_saveTransferrer);
             allDone stepAllDone = new allDone(_stepSelectMode);
 
-            // Moved this after the stepTransfer code. Prevents null, while grabbing gamertag
-            // of STFS package for loading CEA saves, due to it not being in the save player table
             #region Reach
-            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists, _stepTransfer);
+            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
             editBiped reachBiped = new editBiped(_reachSaveManager, _reachTaglists);
             editWeapons reachWeapons = new editWeapons(_reachSaveManager);
             editGrenades reachGrenades = new editGrenades(_reachSaveManager);
@@ -94,7 +92,7 @@ namespace Liberty
             #endregion
 
             #region HCEX
-            cexVerifyFile cexVerifyFile = new HCEX.UI.cexVerifyFile(_hcexSaveManager, _stepTransfer);
+            _cexVerifyFile = new HCEX.UI.cexVerifyFile(_hcexSaveManager);
             cexEditBiped cexEditBiped = new HCEX.UI.cexEditBiped(_hcexSaveManager);
             cexEditWeapons cexEditWeapons = new HCEX.UI.cexEditWeapons(_hcexSaveManager);
             cexEditGrenades cexEditGrenades = new HCEX.UI.cexEditGrenades(_hcexSaveManager);
@@ -122,7 +120,7 @@ namespace Liberty
             #endregion
 
             #region CEXSteps
-            addStep(cexVerifyFile);
+            addStep(_cexVerifyFile);
             addStep(cexEditBiped);
             addStep(cexEditWeapons);
             addStep(cexEditGrenades);
@@ -174,7 +172,7 @@ namespace Liberty
             #region CEXSteps
             // Step graph: Edit HCEX save on computer
             StepGraphBuilder hcexComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Anniversary, true);
-            hcexComputerSave.AddStep(cexVerifyFile, "SAVE SELECTION");
+            hcexComputerSave.AddStep(_cexVerifyFile, "SAVE SELECTION");
             hcexComputerSave.AddStep(cexEditBiped, "CHARACTER DATA");
             hcexComputerSave.AddStep(cexEditWeapons, "WEAPON DATA");
             hcexComputerSave.AddStep(cexEditGrenades, "WEAPON DATA");
@@ -184,7 +182,7 @@ namespace Liberty
 
             // Step graph: Edit HCEX save on removable device
             StepGraphBuilder hcexDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Anniversary, true);
-            hcexDeviceSave.AddStep(cexVerifyFile, "SAVE SELECTION");
+            hcexDeviceSave.AddStep(_cexVerifyFile, "SAVE SELECTION");
             hcexDeviceSave.AddStep(cexEditBiped, "CHARACTER DATA");
             hcexDeviceSave.AddStep(cexEditWeapons, "WEAPON DATA");
             hcexDeviceSave.AddStep(cexEditGrenades, "WEAPON DATA");
@@ -256,6 +254,7 @@ namespace Liberty
 
                 _stepTransfer.GameName = package.Header.Title_Package + " / " + package.Header.TitleID.ToString("X");
                 _stepTransfer.Gamertag = package.Header.Title_Display + " / " + package.Header.ProfileID.ToString("X");
+                _cexVerifyFile.Gamertag = package.Header.Title_Display;
             }
             catch (ArgumentException ex)
             {

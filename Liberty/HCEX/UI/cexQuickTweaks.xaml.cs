@@ -34,8 +34,8 @@ namespace Liberty.HCEX.UI
 
         public bool Save()
         {
-            /*if ((bool)checkAllMaxAmmo.IsChecked)
-                Util.EditorSupport.AllWeaponsMaxAmmo(_saveManager.SaveData);*/
+            if ((bool)checkAllMaxAmmo.IsChecked)
+                Util.EditorSupport.AllWeaponsMaxAmmo(_saveManager.SaveData);
             return true;
         }
 
