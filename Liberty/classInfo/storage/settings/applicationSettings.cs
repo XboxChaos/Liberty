@@ -24,5 +24,10 @@ namespace Liberty.classInfo.storage.settings
 
         public static int AccentColour;
         public static int ThemeColour;
+
+        public class gameIdent
+        {
+            public static Util.SaveType gameID;
+        }
     }
 }

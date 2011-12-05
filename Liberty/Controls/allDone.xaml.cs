@@ -31,12 +31,25 @@ namespace Liberty.Controls
             if (_stepSelectMode.SelectedBranch != selectMode.EditingMode.EditSaveDevice)
             {
                 subBaseHeader_2_1.Content = "Liberty and then just transfer the save back to your hard drive, USB, or memory unit and enjoy some";
-                subBaseHeader_2_2.Content = "more Halo: Reach.";
+                subBaseHeader_2_2.Content = "more Halo!";
             }
             else
             {
-                subBaseHeader_2_1.Content = "Liberty and enjoy some more Halo: Reach.";
+                subBaseHeader_2_1.Content = "Liberty and enjoy some more Halo!";
                 subBaseHeader_2_2.Content = "";
+            }
+
+            switch (classInfo.storage.settings.applicationSettings.gameIdent.gameID)
+            {
+                case Util.SaveType.Reach:
+                    gameWarning.Content = "";
+                    break;
+                case Util.SaveType.Anniversary:
+                    gameWarning.Content = "For Halo Anniversary, when you load your save, press A to overide in the 'failed to load' menu.";
+                    break;
+                default:
+                    gameWarning.Content = "";
+                    break;
             }
         }
 

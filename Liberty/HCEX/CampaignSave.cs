@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Liberty.SaveIO;
+using Liberty.Security;
 
 namespace Liberty.HCEX
 {
@@ -111,9 +112,25 @@ namespace Liberty.HCEX
             OffsetStream offsetStream = new OffsetStream(stream, stream.Length - SaveDataSize);
             offsetStream.Seek(0, SeekOrigin.Begin);
 
-            // Update the object list
             SaveWriter writer = new SaveWriter(offsetStream);
+
+            // Update the object list
             _objectList.Update(writer);
+
+            // Update the File Header
+            _fileHeader.WriteTo(writer);
+
+            // Resign the file
+            Resign(stream);
+        }
+
+        /// <summary>
+        /// Resigns the save data so that it can be read by the game.
+        /// </summary>
+        /// <seealso cref="Security.SaveCRC32"/>
+        private void Resign(Stream stream)
+        {
+            
         }
 
         private FileHeader _fileHeader;

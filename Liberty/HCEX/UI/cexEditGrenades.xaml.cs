@@ -20,11 +20,14 @@ namespace Liberty.HCEX.UI
     public partial class cexEditGrenades : UserControl, StepUI.IStep
     {
         Util.SaveManager<HCEX.CampaignSave> _saveManager;
+        private MainWindow mainWindow = null;
 
         public cexEditGrenades(Util.SaveManager<HCEX.CampaignSave> saveManager)
         {
             _saveManager = saveManager;
             this.InitializeComponent();
+
+            mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
         public void Show()
@@ -47,9 +50,24 @@ namespace Liberty.HCEX.UI
         public bool Save()
         {
             HCEX.CampaignSave saveData = _saveManager.SaveData;
-            saveData.PlayerBiped.FragGrenades = Convert.ToSByte(txtFragNades.Text);
-            saveData.PlayerBiped.PlasmaGrenades = Convert.ToSByte(txtPlasmaNades.Text);
+            try
+            {
+                int validateF = int.Parse(txtFragNades.Text);
+                int validateP = int.Parse(txtPlasmaNades.Text);
 
+                if (validateF > 127 && validateF < 0)
+                    txtFragNades.Text = "127";
+                if (validateF > 127 && validateP < 0)
+                    txtPlasmaNades.Text = "127";
+
+                saveData.PlayerBiped.FragGrenades = Convert.ToSByte(validateF);
+                saveData.PlayerBiped.PlasmaGrenades = Convert.ToSByte(validateP);
+            }
+            catch
+            {
+                mainWindow.showWarning("Invalid grenade count, you can only have a maximum of 127, and a minimum of 0", "INVALID COUNT");
+                return false;
+            }
             return true;
         }
 
