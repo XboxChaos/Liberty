@@ -25,6 +25,7 @@ using Liberty.HCEX.UI;
 using Liberty.StepUI;
 using X360.STFS;
 using System.Windows.Threading;
+using System.Reflection;
 
 namespace Liberty
 {
@@ -216,8 +217,21 @@ namespace Liberty
 
 #if DEBUG
             btnBetaPlayground.Visibility = System.Windows.Visibility.Visible;
+            lblBetaWatermark.Visibility = System.Windows.Visibility.Visible;
+
+            string datetime = DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString().Remove(0, 2);
+            Security.SaveSHA1 sha1 = new Security.SaveSHA1();
+            UTF8Encoding utf = new UTF8Encoding();
+            byte[] buildHash = Security.SaveSHA1.ComputeHash(utf.GetBytes(Assembly.GetExecutingAssembly().GetName().Version.ToString() + lblBetaWatermark.Text));
+
+
+            lblBetaWatermark.Text = string.Format("Liberty Developer Preview" + Environment.NewLine + "Build {0}.tfs_main.{1}-1733.{2}",
+                Assembly.GetExecutingAssembly().GetName().Version.ToString().Replace(".", ""),
+                datetime,
+                BitConverter.ToString(buildHash).ToLower().Replace("-", "").Remove(16));
 #else
             btnBetaPlayground.Visibility = System.Windows.Visibility.Hidden;
+            lblBetaWatermark.Visibility = System.Windows.Visibility.Hidden;
 #endif
         }
 

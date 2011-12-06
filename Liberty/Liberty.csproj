@@ -108,6 +108,7 @@
     <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="Blam\StrengthInfo.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
+    <Compile Include="eggData\eggData4.cs" />
     <Compile Include="HCEX\SaveCFG.cs" />
     <Compile Include="classInfo\nameLookup.cs" />
     <Compile Include="classInfo\AccentCodebase\AccentStorage.cs" />

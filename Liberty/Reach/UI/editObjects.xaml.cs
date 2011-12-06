@@ -141,7 +141,7 @@ namespace Liberty.Controls
         public bool Save()
         {
             if (currentChunkIndex != -1)
-                saveValues();
+                saveValues("");
 
             return true;
         }
@@ -197,7 +197,7 @@ namespace Liberty.Controls
             }
         }
 
-        private void saveValues()
+        private void saveValues(string tagName)
         {
             //Save those sexy values
             Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
@@ -205,6 +205,9 @@ namespace Liberty.Controls
             if (textBoxChanged(txtObjectYCord)) currentObject.Y = Convert.ToSingle(txtObjectYCord.Text);
             if (textBoxChanged(txtObjectZCord)) currentObject.Z = Convert.ToSingle(txtObjectZCord.Text);
             if (textBoxChanged(txtObjectScale)) currentObject.Scale = Convert.ToSingle(txtObjectScale.Text);
+
+            if (currentObject.Scale > 1 && tagName.ToLower().Contains("kat"))
+                eggData.eggData4.enableChecker(mainWindow);
 
             if (textBoxChanged(txtObjectYaw) ||
                 textBoxChanged(txtObjectPitch) ||
@@ -303,7 +306,7 @@ namespace Liberty.Controls
                 {
                     if (currentChunkIndex != -1)
                     {
-                        saveValues();
+                        saveValues(e.OldValue.ToString());
                     }
                     try
                     {
