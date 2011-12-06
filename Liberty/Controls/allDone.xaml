@@ -22,7 +22,7 @@
 			<Label x:Name="subBaseHeader_2_1" Content="Liberty {0}" Margin="8,0,4,99.398" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="26.267" VerticalAlignment="Bottom" Visibility="Visible" />
 			<Label x:Name="subBaseHeader_2_2" Content="{}{1}" Margin="8,0,4,83.131" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="26.267" VerticalAlignment="Bottom" Visibility="Visible" />
 
-        <Label x:Name="gameWarning" Content="" Margin="-1,0,-24,50" FontFamily="SegeoUI" FontSize="13" FontWeight="Black" Foreground="{DynamicResource AccentTextLight}" Height="26" VerticalAlignment="Bottom" Visibility="Visible" />
+        <Label x:Name="gameWarning" Content="" Margin="-1,0,-24,50" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextLight}" Height="26" VerticalAlignment="Bottom" Visibility="Visible" />
 
         <Label x:Name="subBaseHeader_3_0" Content="Love," Margin="40,0,4,14.665" FontFamily="SegeoUI" FontSize="14" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="26.267" VerticalAlignment="Bottom" Visibility="Visible" />
 			<Label x:Name="subBaseHeader_3_05" Content="the Liberty Development Team" Margin="73,0,-29,14.665" FontFamily="SegeoUI" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource AccentTextLight}" Height="26.267" VerticalAlignment="Bottom" Visibility="Visible" />

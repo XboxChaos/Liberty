@@ -51,5 +51,10 @@ namespace Liberty.Controls
         {
             this.Close();
         }
+
+        private void lblSe7ensins_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("http://www.se7ensins.com/forums/topic/511478-appliberty-halo-reach-campaign-editor/");
+        }
 	}
 }

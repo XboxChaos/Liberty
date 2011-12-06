@@ -138,11 +138,13 @@ namespace Liberty
             // Step graph: Edit save on computer
             StepGraphBuilder editSaveOnComputer = stepGraph.StartBranch(selectMode.EditingMode.EditSaveComputer, true);
             editSaveOnComputer.AddBranchStep(_stepOpenFile, "SAVE SELECTION");
+            editSaveOnComputer.AddPlaceholder("SAVE SELECTION");
 
             // Step graph: Edit save on removable device
             StepGraphBuilder editSaveOnDevice = stepGraph.StartBranch(selectMode.EditingMode.EditSaveDevice, true);
             editSaveOnDevice.AddStep(_stepSelectDevice, "SAVE SELECTION");
             editSaveOnDevice.AddBranchStep(stepSelectSave, "SAVE SELECTION");
+            editSaveOnDevice.AddPlaceholder("SAVE SELECTION");
 
             #region ReachSteps
             // Step graph: Edit Halo: Reach save on computer
@@ -188,6 +190,7 @@ namespace Liberty
             hcexDeviceSave.AddStep(cexEditGrenades, "WEAPON DATA");
             hcexDeviceSave.AddStep(cexQuickTweaks, "OBJECT DATA");
             hcexDeviceSave.AddStep(workStepSaving);
+            hcexDeviceSave.AddStep(workStepTransfer);
             hcexDeviceSave.AddStep(stepAllDone, "FINISHED");
             #endregion
 

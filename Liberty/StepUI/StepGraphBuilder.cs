@@ -35,6 +35,13 @@ namespace Liberty.StepUI
             return null;
         }
 
+        public void AddPlaceholder(string progressGroupName)
+        {
+            ProgressBarGroup group;
+            if (_groups.TryGetValue(progressGroupName, out group))
+                group.AddPlaceholder();
+        }
+
         public BranchStepNode<T> AddBranchStep<T>(IBranchStep<T> branchData, string progressGroupName)
         {
             BranchStepNode<T> node = new BranchStepNode<T>(branchData, DecorateStep(branchData, FindGroup(progressGroupName)));
@@ -50,7 +57,7 @@ namespace Liberty.StepUI
             if (copyGroups)
             {
                 foreach (KeyValuePair<string, ProgressBarGroup> group in _groups)
-                    builder._groups.Add(group.Key, group.Value);
+                    builder._groups.Add(group.Key, (ProgressBarGroup)group.Value.Clone());
             }
 
             _branches.Add(builder);
