@@ -106,6 +106,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Blam\IDatumIndexResolver.cs" />
+    <Compile Include="Blam\StrengthInfo.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
     <Compile Include="HCEX\SaveCFG.cs" />
     <Compile Include="classInfo\nameLookup.cs" />

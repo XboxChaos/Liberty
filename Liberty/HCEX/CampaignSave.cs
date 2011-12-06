@@ -85,52 +85,33 @@ namespace Liberty.HCEX
 
         private void ReadFromStream(Stream stream)
         {
-            _fileHeader.ReadFrom(new SaveReader(stream));
-
-            // Construct an OffsetStream which offsets everything relative to the start of the actual save data
-            OffsetStream offsetStream = new OffsetStream(stream, stream.Length - SaveDataSize);
-            offsetStream.Seek(0, SeekOrigin.Begin);
+            SaveIO.SaveReader reader = new SaveReader(stream);
+            _fileHeader.ReadFrom(reader);
 
             // Now read the save header
-            SaveIO.SaveReader reader = new SaveReader(offsetStream);
+            long saveDataStart = stream.Length - SaveDataSize;
+            reader.SeekTo(saveDataStart);
             _saveHeader.ReadFrom(reader);
 
             // Read the object list
-            reader.SeekTo((long)TableOffset.Object);
+            reader.SeekTo(saveDataStart + (long)TableOffset.Object);
             _objectList = new ObjectList(reader);
 
             // Read player info
-            reader.SeekTo((long)TableOffset.Players);
+            reader.SeekTo(saveDataStart + (long)TableOffset.Players);
             _player = new Player(reader, _objectList);
         }
 
         private void WriteToStream(Stream stream)
         {
-            _fileHeader.WriteTo(new SaveWriter(stream));
-
-            // Construct an OffsetStream which offsets everything relative to the start of the actual save data
-            OffsetStream offsetStream = new OffsetStream(stream, stream.Length - SaveDataSize);
-            offsetStream.Seek(0, SeekOrigin.Begin);
-
-            SaveWriter writer = new SaveWriter(offsetStream);
+            SaveWriter writer = new SaveWriter(stream);
 
             // Update the object list
             _objectList.Update(writer);
 
-            // Update the File Header
-            _fileHeader.WriteTo(writer);
-
-            // Resign the file
-            Resign(stream);
-        }
-
-        /// <summary>
-        /// Resigns the save data so that it can be read by the game.
-        /// </summary>
-        /// <seealso cref="Security.SaveCRC32"/>
-        private void Resign(Stream stream)
-        {
-            
+            // Now update the file header (this is done last so the file is resigned correctly)
+            writer.SeekTo(0);
+            _fileHeader.Update(writer, stream);
         }
 
         private FileHeader _fileHeader;

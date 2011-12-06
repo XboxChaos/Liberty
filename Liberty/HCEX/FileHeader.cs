@@ -28,10 +28,17 @@ namespace Liberty.HCEX
             CFGData = new SaveCFG(CFGText);
         }
 
-        public void WriteTo(SaveIO.SaveWriter writer)
+        /// <summary>
+        /// Updates any changed header information and resigns the file.
+        /// </summary>
+        /// <param name="writer">The SaveWriter to write to.</param>
+        /// <param name="resignStream">The Stream to read from, used for resigning the file.</param>
+        public void Update(SaveIO.SaveWriter writer, Stream resignStream)
         {
+            long baseOffset = writer.BaseStream.Position;   // TODO: this is sooo inconsistent with SaveReader, I need to improve upon this...
             WriteMainHeader(writer);
             WriteCFGData(writer);
+            Resign(writer, resignStream, baseOffset);
         }
 
         private void WriteMainHeader(SaveIO.SaveWriter writer)
@@ -46,7 +53,7 @@ namespace Liberty.HCEX
             tempWriter.WriteInt32(_saveDataSize);
 
             // Grab its CRC32
-            SaveCRC32 crc32 = new SaveCRC32();
+            CRC32 crc32 = new CRC32();
             byte[] checksum = crc32.ComputeHash(tempStream.GetBuffer());
 
             // Now write it to the destination stream
@@ -61,15 +68,26 @@ namespace Liberty.HCEX
             byte[] cfgData = new byte[_cfgSize - CRC32Size];
             Encoding.ASCII.GetBytes(CFGText, 0, CFGText.Length, cfgData, 0);
 
-            SaveCRC32 crc32 = new SaveCRC32();
+            CRC32 crc32 = new CRC32();
             byte[] checksum = crc32.ComputeHash(cfgData);
 
             // Write it out
             writer.WriteBlock(checksum);
             writer.WriteBlock(cfgData);
+        }
 
-            // Calculate Save Offset
-            SaveCRCOffset = 0x18 + _cfgSize + _dataBlock1Size + _dataBlock2Size;
+        private void Resign(SaveIO.SaveWriter writer, Stream resignStream, long baseOffset)
+        {
+            long saveCrcOffset = baseOffset + HeaderSize + _cfgSize + _dataBlock1Size + _dataBlock2Size;
+
+            // Resign the main save data
+            resignStream.Seek(saveCrcOffset + CRC32Size, SeekOrigin.Begin);
+            CRC32 crc32 = new CRC32();
+            byte[] checksum = crc32.ComputeHash(resignStream);
+
+            // Write it out
+            writer.SeekTo(saveCrcOffset);
+            writer.WriteBlock(checksum);
         }
 
         /// <summary>
@@ -81,11 +99,6 @@ namespace Liberty.HCEX
         /// The raw CFG text that appears at the top of the file.
         /// </summary>
         public string CFGText { get; private set; }
-
-        /// <summary>
-        /// The raw CFG text that appears at the top of the file.
-        /// </summary>
-        public int SaveCRCOffset { get; private set; }
 
         private uint _unknown;
         private int _dataBlock1Size;

@@ -10,16 +10,16 @@ namespace Liberty.HCEX
     {
         public void ReadFrom(SaveIO.SaveReader reader)
         {
-            long offset = reader.Position;
+            long baseOffset = reader.Position;
 
-            string saveType = reader.ReadAscii(0x14);
+            string saveType = reader.ReadAscii(SaveTypeSize);
             if (saveType != "non compressed save")
                 throw new ArgumentException("Invalid save header - expected a non-compressed HCEX save");
             if (reader.ReadUInt32() != Magic1)
                 throw new ArgumentException("Invalid save header - bad magic number 1 (expected 0x92F7E104)");
             _map = reader.ReadAscii();
 
-            reader.SeekTo(offset + 0x1F8);
+            reader.SeekTo(baseOffset + Magic2Offset);
             if (reader.ReadUInt32() != Magic2)
                 throw new ArgumentException("Invalid save header - bad magic number 2 (expected 0xDEADBEEF)");
         }
@@ -33,5 +33,8 @@ namespace Liberty.HCEX
 
         private const uint Magic1 = 0x92F7E104;
         private const uint Magic2 = 0xDEADBEEF;
+
+        private const int SaveTypeSize = 0x14;
+        private const int Magic2Offset = 0x1F8;
     }
 }
