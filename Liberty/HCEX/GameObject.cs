@@ -27,6 +27,16 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
+        /// Changes the object's invincibility status.
+        /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
+        /// </summary>
+        /// <param name="invincible">true if the object should become invincible</param>
+        public void MakeInvincible(bool invincible)
+        {
+            _strengthInfo.MakeInvincible(invincible);
+        }
+
+        /// <summary>
         /// Resolves any datum indices that this object refers to.
         /// </summary>
         /// <param name="objectResolver">The IDatumIndexResolver to use for resolving GameObjects.</param>
@@ -45,6 +55,11 @@ namespace Liberty.HCEX
         protected virtual void ReadFrom(SaveReader reader, long baseOffset)
         {
             _tag = DatumIndex.ReadFrom(reader);
+
+            reader.SeekTo(baseOffset + StrengthInfoOffset);
+            // Using the default Master Chief values is kind of hackish,
+            // but at the same time it would be overkill to have a huge DB of original health/shield values.
+            _strengthInfo = new StrengthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier);
 
             reader.SeekTo(baseOffset + PositionOffset1);
             _position.X = reader.ReadFloat();
@@ -66,14 +81,9 @@ namespace Liberty.HCEX
         /// </param>
         public virtual void Update(SaveWriter writer)
         {
-            // Invincibility
-            // TODO: fix hax
-            writer.SeekTo(SourceOffset + HealthModifiersOffset);
-            if (_makeInvincible)
-            {
-                writer.WriteFloat(0xFFFFFFFF);
-                writer.WriteFloat(0xFFFFFFFF);
-            }
+            // Strength info
+            writer.SeekTo(SourceOffset + StrengthInfoOffset);
+            _strengthInfo.WriteTo(writer);
 
             // Position
             writer.SeekTo(SourceOffset + PositionOffset1);
@@ -81,7 +91,7 @@ namespace Liberty.HCEX
             writer.WriteFloat(Position.Y);
             writer.WriteFloat(Position.Z);
 
-            writer.Seek(0x38, SeekOrigin.Current);
+            writer.SeekTo(SourceOffset + PositionOffset2);
             writer.WriteFloat(Position.X);
             writer.WriteFloat(Position.Y);
             writer.WriteFloat(Position.Z);
@@ -156,12 +166,39 @@ namespace Liberty.HCEX
         }
 
         /// <summary>
-        /// Whether or not the biped should be made invincible.
+        /// Whether or not the object is invincible.
         /// </summary>
         public bool Invincible
         {
-            get { return _makeInvincible; }
-            set { _makeInvincible = value; }
+            get { return _strengthInfo.IsInvincible; }
+        }
+
+        /// <summary>
+        /// Whether or not the object supports health information.
+        /// </summary>
+        public bool HasHealth
+        {
+            get { return _strengthInfo.HasHealth; }
+        }
+
+        /// <summary>
+        /// Whether or not the object supports shields information.
+        /// </summary>
+        public bool HasShields
+        {
+            get { return _strengthInfo.HasShields; }
+        }
+
+        public float HealthModifier
+        {
+            get { return _strengthInfo.HealthModifier; }
+            set { _strengthInfo.HealthModifier = value; }
+        }
+
+        public float ShieldModifier
+        {
+            get { return _strengthInfo.ShieldModifier; }
+            set { _strengthInfo.ShieldModifier = value; }
         }
 
         private long _streamOffset;
@@ -170,11 +207,9 @@ namespace Liberty.HCEX
 
         private Vector3 _position;
 
-        private bool _makeInvincible = false;
-        private bool _canUseOldValues = true;
-
-        private const uint DefaultChiefHealthModifier = 0x42960000;
-        private const uint DefaultChiefShieldModifier = 0x42960000;
+        private StrengthInfo _strengthInfo;
+        private const float DefaultChiefHealthModifier = 75;
+        private const float DefaultChiefShieldModifier = 75;
 
         private DatumIndex _nextCarriedIndex;
         private DatumIndex _firstCarriedIndex;
@@ -185,7 +220,8 @@ namespace Liberty.HCEX
 
         // Offsets
         private const int PositionOffset1 = 0x5C;
+        private const int PositionOffset2 = 0xA0;
         private const int CarryInfoOffset = 0x114;
-        private const int HealthModifiersOffset = 0xD8;
+        private const int StrengthInfoOffset = 0xD8;
     }
 }

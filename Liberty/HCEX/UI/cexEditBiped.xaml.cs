@@ -51,15 +51,16 @@ namespace Liberty.HCEX.UI
             HCEX.CampaignSave saveData = _saveManager.SaveData;
 
             HCEX.BipedObject playerBiped = saveData.PlayerBiped;
-            playerBiped.Invincible = (bool)checkInvincible.IsChecked;
+            playerBiped.MakeInvincible((bool)checkInvincible.IsChecked);
             
             // TODO: Actually detect if this is a vehicle, and not some homosexual dragon (fixhax)
             if (playerBiped.Carrier != null)
-                playerBiped.Carrier.Invincible = (bool)checkInvincible.IsChecked;
+                playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked);
 
-            // TODO: fix geh hax
-            playerBiped.Position = new MathUtil.Vector3(Convert.ToSingle(txtPlayerXCord.Text),
-                                                            Convert.ToSingle(txtPlayerYCord.Text), Convert.ToSingle(txtPlayerZCord.Text));
+            float newX = Convert.ToSingle(txtPlayerXCord.Text);
+            float newY = Convert.ToSingle(txtPlayerYCord.Text);
+            float newZ = Convert.ToSingle(txtPlayerZCord.Text);
+            playerBiped.Position = new MathUtil.Vector3(newX, newY, newZ);
 
             return true;
         }

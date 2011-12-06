@@ -24,7 +24,7 @@ using System.Security.Cryptography;
 
 namespace Liberty.Security
 {
-    public class SaveCRC32 : HashAlgorithm
+    public class CRC32 : HashAlgorithm
     {
         public const uint DefaultSeed = 0xffffffff;
 

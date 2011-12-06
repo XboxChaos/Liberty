@@ -21,15 +21,6 @@ namespace Liberty.HCEX
         {
             base.ReadFrom(reader, baseOffset);
 
-            reader.SeekTo(baseOffset + HealthModifiersOffset);
-            _oldHealthModifier = reader.ReadFloat();
-            _oldShieldModifier = reader.ReadFloat();
-            if (float.IsNaN(_oldHealthModifier) || float.IsNaN(_oldShieldModifier) || (_oldHealthModifier == 0.0 && _oldShieldModifier == 0.0))
-            {
-                _makeInvincible = true;
-                _canUseOldValues = false;
-            }
-
             reader.SeekTo(baseOffset + WeaponsOffset);
             _primaryWeaponIndex = DatumIndex.ReadFrom(reader);
             _secondaryWeaponIndex = DatumIndex.ReadFrom(reader);
@@ -54,47 +45,6 @@ namespace Liberty.HCEX
         public override void Update(SaveWriter writer)
         {
             base.Update(writer);
-
-            // Invincibility
-            // TODO: fix hax
-            writer.SeekTo(SourceOffset + HealthModifiersOffset);
-            if (_makeInvincible)
-            {
-                if (_oldHealthModifier != 0.0)
-                    writer.WriteFloat(0xFFFFFFFF);
-                else
-                    writer.WriteFloat(0x00000000);
-                if (_oldShieldModifier != 0.0)
-                    writer.WriteFloat(0xFFFFFFFF);
-                else
-                    writer.WriteFloat(0x00000000);
-            }
-            else
-            {
-                if (_canUseOldValues)
-                {
-                    // Write the old health and shield values
-                    writer.WriteFloat(_oldHealthModifier);
-                    writer.WriteFloat(_oldShieldModifier);
-                }
-                else
-                {
-                    // TODO: FIX THIS!!!
-                    writer.WriteUInt32(DefaultChiefHealthModifier);
-                    writer.WriteUInt32(DefaultChiefShieldModifier);
-                }
-            }
-
-            // Position
-            writer.SeekTo(SourceOffset + PositionOffset1);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
-
-            writer.Seek(0x38, SeekOrigin.Current);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
 
             // Grenades
             writer.SeekTo(SourceOffset + GrenadesOffset);
@@ -152,11 +102,6 @@ namespace Liberty.HCEX
             set { _plasmaGrenades = value; }
         }
 
-        private bool _makeInvincible = false;
-        private bool _canUseOldValues = true;
-        private float _oldHealthModifier;
-        private float _oldShieldModifier;
-
         private DatumIndex _primaryWeaponIndex;
         private DatumIndex _secondaryWeaponIndex;
         private DatumIndex _tertiaryWeaponIndex;
@@ -170,13 +115,8 @@ namespace Liberty.HCEX
         private sbyte _plasmaGrenades;
 
         // Offsets
-        private const int HealthModifiersOffset = 0xD8;
         private const int PositionOffset1 = 0x5C;
         private const int WeaponsOffset = 0x2F8;
         private const int GrenadesOffset = 0x31E;
-
-        // Default modifiers
-        private const uint DefaultChiefHealthModifier = 0x42960000;
-        private const uint DefaultChiefShieldModifier = 0x42960000;
     }
 }

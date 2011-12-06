@@ -26,7 +26,11 @@ namespace Liberty.HCEX.UI
         {
             _saveManager = saveManager;
             this.InitializeComponent();
+            this.Loaded += new RoutedEventHandler(cexEditGrenades_Loaded);
+        }
 
+        void cexEditGrenades_Loaded(object sender, RoutedEventArgs e)
+        {
             mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
@@ -65,7 +69,7 @@ namespace Liberty.HCEX.UI
             }
             catch
             {
-                mainWindow.showWarning("Invalid grenade count, you can only have a maximum of 127, and a minimum of 0", "INVALID COUNT");
+                mainWindow.showMessage("Invalid grenade count, you can only have a maximum of 127, and a minimum of 0", "INVALID COUNT");
                 return false;
             }
             return true;

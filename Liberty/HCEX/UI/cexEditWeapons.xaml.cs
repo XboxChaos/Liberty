@@ -26,6 +26,11 @@ namespace Liberty.HCEX.UI
         {
             _saveManager = saveManager;
             this.InitializeComponent();
+            this.Loaded += new RoutedEventHandler(cexEditWeapons_Loaded);
+        }
+
+        void cexEditWeapons_Loaded(object sender, RoutedEventArgs e)
+        {
             mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
@@ -110,7 +115,11 @@ namespace Liberty.HCEX.UI
                 saveWeapon(playerBiped.TertiaryWeapon, txtTertiaryAmmo, txtTertiaryClip);
                 saveWeapon(playerBiped.QuaternaryWeapon, txtQuaternaryAmmo, txtQuaternaryClip);
             }
-            catch (Exception ex) { mainWindow.showWarning("Invalid weapom ammo count, you can only have a maximum of 32767, and a minimum of 0", "INVALID AMMO"); return false; }
+            catch (Exception ex)
+            {
+                mainWindow.showMessage("Invalid weapon ammo count, you can only have a maximum of 32767, and a minimum of 0", "INVALID AMMO");
+                return false;
+            }
             return true;
         }
 
