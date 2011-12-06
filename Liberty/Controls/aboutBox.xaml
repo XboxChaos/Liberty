@@ -5,7 +5,7 @@
 		
 		x:Class="Liberty.Controls.aboutBox"
 		x:Name="about"
-        Title="Liberty - About" Height="353" Width="470"
+        Title="Liberty - About" Height="372" Width="470"
         WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True" Background="{x:Null}" ShowInTaskbar="False">
 	
     <Window.Triggers>
@@ -79,20 +79,22 @@
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,116,0,0" Text="Thunder" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" />
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,135,0,0" Text="XenonDev" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="209,55,0,0" Text="Special Thanks To;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Text="Whirligig" d:LayoutOverrides="VerticalAlignment" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,93,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" Text="FlamingRabbit" />
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,112,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" ><Run Language="en-gb" Text="clkxu5"/></TextBlock>
-                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,131,0,0" Text="ManBearPig06" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" />
-        		<TextBlock HorizontalAlignment="Left" Margin="245,150,0,142" Text="Bloodraptor" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,169,0,0" Text="DeadCanadian" VerticalAlignment="Top" Width="188" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,188,0,0" Text="Ascension Developers" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,207,0,0" Text="Xbox Chaos Community" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
-        		<TextBlock HorizontalAlignment="Left" Margin="245,226,0,0" Text="TeamViewer" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Height="19" VerticalAlignment="Top" />
-        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,245,0,0" Text="Bungie" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,74,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Text="jfrankiller3" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,93,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Text="kornman00" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,112,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Text="Whirligig" d:LayoutOverrides="VerticalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,131,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" Text="FlamingRabbit" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,150,0,0" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="VerticalAlignment" ><Run Language="en-gb" Text="clkxu5"/></TextBlock>
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="245,188,0,0" Text="ManBearPig06" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock HorizontalAlignment="Left" Margin="245,0,0,104" Text="Bloodraptor" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" Height="75" VerticalAlignment="Bottom" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,207,0,0" Text="DeadCanadian" VerticalAlignment="Top" Width="188" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,226,0,0" Text="Ascension Developers" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,245,0,0" Text="Xbox Chaos / 7s Community" VerticalAlignment="Top" Width="178" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
+        		<TextBlock Height="19" HorizontalAlignment="Left" Margin="245,264,0,0" Text="Bungie" VerticalAlignment="Top" Width="145" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentTextDark}" />
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="33,165,0,0" Text="Links;" VerticalAlignment="Top" Width="172" TextWrapping="Wrap" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" d:LayoutOverrides="HorizontalAlignment" />
         		<TextBlock Height="19" HorizontalAlignment="Left" Margin="60,188,0,0" x:Name="lblXboxChaos" Text="Xbox Chaos" VerticalAlignment="Top" Width="71" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXboxChaos_MouseUp" Cursor="Hand" />
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,207,0,0" x:Name="lblXeraxic" Text="Xeraxic" VerticalAlignment="Top" Width="45" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXeraxic_MouseUp" Cursor="Hand" />
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,226,0,0" x:Name="lblCodeplex" Text="CodePlex" VerticalAlignment="Top" Width="57" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" MouseUp="lblCodePlex_MouseUp" Cursor="Hand" d:LayoutOverrides="HorizontalAlignment" />
+                <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,245,0,0" x:Name="lblSe7ensins" Text="Se7ensins Topic" VerticalAlignment="Top" Width="96" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" MouseUp="lblSe7ensins_MouseUp" Cursor="Hand" d:LayoutOverrides="HorizontalAlignment" />
                 <Button x:Name="btnOK" Content="I've Seen Enough" HorizontalAlignment="Right" Margin="0,0,25,17" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="132"/>
         	</Grid>
         </Border>

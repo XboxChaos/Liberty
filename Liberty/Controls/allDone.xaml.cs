@@ -45,7 +45,7 @@ namespace Liberty.Controls
                     gameWarning.Content = "";
                     break;
                 case Util.SaveType.Anniversary:
-                    gameWarning.Content = "For Halo Anniversary, when you load your save, press A to overide in the 'failed to load' menu.";
+                    gameWarning.Content = "Note: if the game throws a 'save corrupt' error, press A to override the 'failed to load' menu.";
                     break;
                 default:
                     gameWarning.Content = "";

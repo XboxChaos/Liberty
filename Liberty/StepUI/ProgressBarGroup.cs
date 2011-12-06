@@ -7,7 +7,7 @@ namespace Liberty.StepUI
 {
     public delegate void ProgressEventHandler(ProgressBarGroup group, double progress);
 
-    public class ProgressBarGroup
+    public class ProgressBarGroup : ICloneable
     {
         /// <summary>
         /// Adds a ProgressLinkedStep to this group.
@@ -17,6 +17,16 @@ namespace Liberty.StepUI
         {
             int position = _stepPositions.Count;
             _stepPositions[step] = position;
+            _numPositions++;
+        }
+
+        /// <summary>
+        /// Adds a placeholder step at the end of the group that doesn't copy over when this is cloned
+        /// So much hax....
+        /// </summary>
+        public void AddPlaceholder()
+        {
+            _numPositions++;
         }
 
         /// <summary>
@@ -33,14 +43,13 @@ namespace Liberty.StepUI
         /// <summary>
         /// Activates a ProgressLinkedStep, updating any attached progress bars.
         /// </summary>
-        /// <param name="node"></param>
         public void ActivateStep(ProgressLinkedStep step)
         {
             int position;
             if (_stepPositions.TryGetValue(step, out position))
             {
-                _progressRangeStart = (double)position / (double)_stepPositions.Count;
-                _progressRangeEnd = (double)(position + 1) / (double)_stepPositions.Count;
+                _progressRangeStart = (double)position / _numPositions;
+                _progressRangeEnd = (double)(position + 1) / _numPositions;
                 OnProgressChanged(_progressRangeStart);
             }
             else
@@ -54,6 +63,19 @@ namespace Liberty.StepUI
             OnProgressChanged(_progressRangeStart + progress * (_progressRangeEnd - _progressRangeStart));
         }
 
+        public object Clone()
+        {
+            ProgressBarGroup newGroup = new ProgressBarGroup();
+            newGroup._progressRangeStart = _progressRangeStart;
+            newGroup._progressRangeEnd = _progressRangeEnd;
+            foreach (KeyValuePair<ProgressLinkedStep, int> position in _stepPositions)
+                newGroup._stepPositions.Add(position.Key, position.Value);
+            if (ProgressChanged != null)
+                newGroup.ProgressChanged = (ProgressEventHandler)ProgressChanged.Clone();
+            newGroup._numPositions = newGroup._stepPositions.Count;
+            return newGroup;
+        }
+
         public event ProgressEventHandler ProgressChanged;
 
         protected void OnProgressChanged(double newProgress)
@@ -64,6 +86,7 @@ namespace Liberty.StepUI
 
         private double _progressRangeStart = 0;
         private double _progressRangeEnd = 1;
+        private double _numPositions = 0;
         private Dictionary<ProgressLinkedStep, int> _stepPositions = new Dictionary<ProgressLinkedStep, int>();
     }
 }
