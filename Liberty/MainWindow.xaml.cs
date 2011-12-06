@@ -426,6 +426,12 @@ namespace Liberty
         protected void ParentWPF_CloseSettings(object sender, EventArgs e)
         {
             settingsPanel.Visibility = Visibility.Hidden;
+
+            // Set theme colours on static objects
+            btnSettings_MouseLeave(null, null);
+            btnAbout_MouseLeave(null, null);
+            btnCFU_MouseLeave(null, null);
+            btnBugReport_MouseLeave(null, null);
         }
 
         #region uncleanBullshitforWFP

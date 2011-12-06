@@ -283,10 +283,9 @@
     <Resource Include="Images\hcexMaps\c40.png" />
     <Resource Include="Images\hcexMaps\d20.png" />
     <Resource Include="Images\hcexMaps\d40.png" />
-    <Content Include="Themes\Accents\Orange.xaml">
+    <Page Include="Themes\Accents\Orange.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Page>
     <Page Include="Controls\aboutBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
