@@ -25,6 +25,7 @@ namespace Liberty
         public int pcBuild = 0;
         public Util.TagList tagList = null;
 
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             RegistryKey keyApp = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\");
