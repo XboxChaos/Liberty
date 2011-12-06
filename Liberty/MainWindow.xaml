@@ -96,7 +96,7 @@
 
         <Grid x:Name="stepBeta" Margin="40,85,0,0" Background="{x:Null}" Height="339" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585">
                 <Child:BetaPlayground Visibility="Visible" />
-            </Grid>
+        </Grid>
             
             <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" Background="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585"/>
             <Grid x:Name="gridButtons" HorizontalAlignment="Right" Height="25.96" Margin="0,0,25,29" VerticalAlignment="Bottom" Width="153">
@@ -105,7 +105,9 @@
 
             </Grid>
 
-            <Button x:Name="btnBetaPlayground" Content="Beta" HorizontalAlignment="Right" Margin="0,0,524,28" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" d:LayoutOverrides="Height" Click="btnBetaPlayground_Click" Width="69"/>
+        <TextBlock x:Name="lblBetaWatermark" Text="1"  FontWeight="light" FontSize="12" Foreground="{DynamicResource AccentTextDark}" Margin="0,422,268,11" HorizontalAlignment="Right" Width="339" />
+        <Button x:Name="btnBetaPlayground" Content="Beta" HorizontalAlignment="Right" Margin="0,0,195,29" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnBetaPlayground_Click" Width="69"/>
+            
             <MediaElement x:Name="egg1" Volume="1" Width="0" Height="0" Margin="18,461.969,617,15.031" LoadedBehavior="Manual" UnloadedBehavior="Manual" />
 			<Rectangle Fill="#00F4F4F5" HorizontalAlignment="Left" Height="4" Stroke="#00000000" VerticalAlignment="Bottom" Width="4" Margin="10,0,0,11.031" MouseUp="Rectangle_MouseUp"/>
 
