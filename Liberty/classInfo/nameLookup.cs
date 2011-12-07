@@ -13,11 +13,11 @@ namespace Liberty.classInfo
         {
             if (applicationSettings.getLatestTagLst)
             {
-                return Util.TagList.FromString(applicationExtra.downloadTaglist());
+                return Util.TagList.FromString(applicationExtra.downloadTaglists());
             }
             else
             {
-                return Util.TagList.FromString(Liberty.Properties.Resources.taglist);
+                return Util.TagList.FromString(Liberty.Properties.Resources.taglists);
             }
         }
 

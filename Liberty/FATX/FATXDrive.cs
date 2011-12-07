@@ -153,17 +153,11 @@ namespace FATX
             {
                 string data = "\\Data";
                 if (i.ToString().Length == 1)
-                {
                     data += "000";
-                }
                 else if (i.ToString().Length == 2)
-                {
                     data += "00";
-                }
                 else if (i.ToString().Length == 3)
-                {
                     data += "0";
-                }
                 FilePaths[i] = fi[i].Directory + data + i.ToString();
             }
             return FilePaths;
