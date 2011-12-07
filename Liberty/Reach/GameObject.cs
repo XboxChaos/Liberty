@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Liberty.Blam;
 
 namespace Liberty.Reach
 {
@@ -212,6 +213,52 @@ namespace Liberty.Reach
             }
 
             Delete(deleteCarried);
+        }
+
+        /// <summary>
+        /// Changes the object's invincibility status.
+        /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
+        /// </summary>
+        /// <param name="invincible">true if the object should become invincible</param>
+        public void MakeInvincible(bool invincible)
+        {
+            _healthInfo.MakeInvincible(invincible);
+        }
+
+        /// <summary>
+        /// Whether or not the object is invincible.
+        /// </summary>
+        public bool Invincible
+        {
+            get { return _healthInfo.IsInvincible; }
+        }
+
+        /// <summary>
+        /// Whether or not the object has health information.
+        /// </summary>
+        public bool HasHealth
+        {
+            get { return _healthInfo.HasHealth; }
+        }
+
+        /// <summary>
+        /// Whether or not the object can have shields.
+        /// </summary>
+        public bool HasShields
+        {
+            get { return _healthInfo.HasShields; }
+        }
+
+        public float HealthModifier
+        {
+            get { return _healthInfo.HealthModifier; }
+            set { _healthInfo.HealthModifier = value; }
+        }
+
+        public float ShieldModifier
+        {
+            get { return _healthInfo.ShieldModifier; }
+            set { _healthInfo.ShieldModifier = value; }
         }
 
         /// <summary>
@@ -493,6 +540,10 @@ namespace Liberty.Reach
             reader.Seek(start + 0xD8, SeekOrigin.Begin);
             _physicsFlags = reader.ReadUInt64();
 
+            // Health info
+            reader.Seek(start + 0x110, SeekOrigin.Begin);
+            _healthInfo = new HealthInfo(reader, DefaultNoble6HealthModifier, DefaultNoble6ShieldModifier);
+
             // Node data
             reader.Seek(start + 0x17C, SeekOrigin.Begin);
             ushort _nodeDataSize = reader.ReadUInt16();
@@ -584,6 +635,10 @@ namespace Liberty.Reach
 
             writer.Seek(start + 0xD8, SeekOrigin.Begin);
             writer.WriteUInt64(_physicsFlags);
+
+            // Write strength info
+            writer.Seek(start + 0x110, SeekOrigin.Begin);
+            _healthInfo.WriteTo(writer);
 
             if (_nodeDataOffset != 0xFFFF)
             {
@@ -758,6 +813,10 @@ namespace Liberty.Reach
 
         private ushort _nodeDataOffset = 0xFFFF;
         private NodeCollection _nodes = null;
+
+        private HealthInfo _healthInfo;
+        private const float DefaultNoble6HealthModifier = 45;
+        private const float DefaultNoble6ShieldModifier = 70;
     }
 
     /// <summary>

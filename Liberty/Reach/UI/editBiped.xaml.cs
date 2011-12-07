@@ -55,6 +55,7 @@ namespace Liberty.Controls
             cBWeapTransfer.IsEnabled = false;
             cBBipeds.Items.Clear();
             HashSet<Reach.BipedObject> availableBipeds = Util.EditorSupport.FindSwappableBipeds(saveData);
+            availableBipeds.Add(playerBiped);
             SortedDictionary<string, Reach.BipedObject> sortedBipeds = new SortedDictionary<string, Reach.BipedObject>();
             foreach (Reach.BipedObject obj in availableBipeds)
                 sortedBipeds[_taglistManager.Identify(obj, false)] = obj;
@@ -80,13 +81,14 @@ namespace Liberty.Controls
         public bool Save()
         {
             Reach.CampaignSave saveData = _saveManager.SaveData;
-            Reach.BipedObject selectedBiped = (Reach.BipedObject)((ComboBoxItem)cBBipeds.SelectedItem).Tag;
-            saveData.Player.ChangeBiped(selectedBiped, (bool)cBWeapTransfer.IsChecked);
+            Reach.BipedObject selectedBiped = ((ComboBoxItem)cBBipeds.SelectedItem).Tag as Reach.BipedObject;
+            if (selectedBiped != null)
+                saveData.Player.ChangeBiped(selectedBiped, (bool)cBWeapTransfer.IsChecked);
 
             Reach.BipedObject playerBiped = saveData.Player.Biped;
-            playerBiped.Invincible = (bool)checkInvincible.IsChecked;
+            playerBiped.MakeInvincible((bool)checkInvincible.IsChecked);
             if (playerBiped.Vehicle != null)
-                playerBiped.Vehicle.Invincible = (bool)checkInvincible.IsChecked;
+                playerBiped.Vehicle.MakeInvincible((bool)checkInvincible.IsChecked);
             playerBiped.PhysicsEnabled = !(bool)checkNoPhysics.IsChecked;
 
             playerBiped.X = Convert.ToSingle(txtPlayerXCord.Text);

@@ -9,7 +9,7 @@ namespace Liberty.Reach
     /// <summary>
     /// Implements a consistent weapon interface for objects that can carry and use weapons.
     /// </summary>
-    public class WeaponUser : HlmtObject
+    public class WeaponUser : GameObject
     {
         /// <summary>
         /// Constructs a new WeaponUser.

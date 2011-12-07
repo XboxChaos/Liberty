@@ -33,7 +33,7 @@ namespace Liberty.HCEX
         /// <param name="invincible">true if the object should become invincible</param>
         public void MakeInvincible(bool invincible)
         {
-            _strengthInfo.MakeInvincible(invincible);
+            _healthInfo.MakeInvincible(invincible);
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Liberty.HCEX
             reader.SeekTo(baseOffset + StrengthInfoOffset);
             // Using the default Master Chief values is kind of hackish,
             // but at the same time it would be overkill to have a huge DB of original health/shield values.
-            _strengthInfo = new StrengthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier);
+            _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier);
 
             reader.SeekTo(baseOffset + PositionOffset1);
             _position.X = reader.ReadFloat();
@@ -83,7 +83,7 @@ namespace Liberty.HCEX
         {
             // Strength info
             writer.SeekTo(SourceOffset + StrengthInfoOffset);
-            _strengthInfo.WriteTo(writer);
+            _healthInfo.WriteTo(writer);
 
             // Position
             writer.SeekTo(SourceOffset + PositionOffset1);
@@ -170,7 +170,7 @@ namespace Liberty.HCEX
         /// </summary>
         public bool Invincible
         {
-            get { return _strengthInfo.IsInvincible; }
+            get { return _healthInfo.IsInvincible; }
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace Liberty.HCEX
         /// </summary>
         public bool HasHealth
         {
-            get { return _strengthInfo.HasHealth; }
+            get { return _healthInfo.HasHealth; }
         }
 
         /// <summary>
@@ -186,19 +186,19 @@ namespace Liberty.HCEX
         /// </summary>
         public bool HasShields
         {
-            get { return _strengthInfo.HasShields; }
+            get { return _healthInfo.HasShields; }
         }
 
         public float HealthModifier
         {
-            get { return _strengthInfo.HealthModifier; }
-            set { _strengthInfo.HealthModifier = value; }
+            get { return _healthInfo.HealthModifier; }
+            set { _healthInfo.HealthModifier = value; }
         }
 
         public float ShieldModifier
         {
-            get { return _strengthInfo.ShieldModifier; }
-            set { _strengthInfo.ShieldModifier = value; }
+            get { return _healthInfo.ShieldModifier; }
+            set { _healthInfo.ShieldModifier = value; }
         }
 
         private long _streamOffset;
@@ -207,7 +207,7 @@ namespace Liberty.HCEX
 
         private Vector3 _position;
 
-        private StrengthInfo _strengthInfo;
+        private HealthInfo _healthInfo;
         private const float DefaultChiefHealthModifier = 75;
         private const float DefaultChiefShieldModifier = 75;
 
