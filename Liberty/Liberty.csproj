@@ -106,7 +106,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Blam\IDatumIndexResolver.cs" />
-    <Compile Include="Blam\StrengthInfo.cs" />
+    <Compile Include="Blam\HealthInfo.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
     <Compile Include="eggData\eggData4.cs" />
     <Compile Include="HCEX\SaveCFG.cs" />
@@ -252,7 +252,6 @@
     <Compile Include="Reach\CampaignSave.cs" />
     <Compile Include="Reach\Chunk.cs" />
     <Compile Include="Reach\EquipmentObject.cs" />
-    <Compile Include="Reach\HlmtObject.cs" />
     <Compile Include="Reach\ModelNode.cs" />
     <Compile Include="Reach\GameObject.cs" />
     <Compile Include="Reach\GamePlayer.cs" />

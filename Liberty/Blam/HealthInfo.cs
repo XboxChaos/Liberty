@@ -7,10 +7,10 @@ using Liberty.SaveIO;
 namespace Liberty.Blam
 {
     // TODO: Refactor the Reach backend to use this
-    public class StrengthInfo
+    public class HealthInfo
     {
         /// <summary>
-        /// Constructs a StrengthInfo object, reading strength data from a SaveReader.
+        /// Constructs a HealthInfo object, reading strength data from a SaveReader.
         /// </summary>
         /// <param name="reader">The SaveReader to read from.</param>
         /// <param name="defaultHealthModifier">
@@ -21,10 +21,11 @@ namespace Liberty.Blam
         /// The default shield modifier that this object should use
         /// (in case the object is already invincible and needs to be made vulnerable)
         /// </param>
-        public StrengthInfo(SaveReader reader, float defaultHealthModifier, float defaultShieldModifier)
+        public HealthInfo(SaveReader reader, float defaultHealthModifier, float defaultShieldModifier)
         {
             _healthModifier = reader.ReadFloat();
             _shieldModifier = reader.ReadFloat();
+            //System.Diagnostics.Debug.WriteLine("{0:F} {1:F}", _healthModifier, _shieldModifier);
 
             // Keep backups of the values so that invincibility can be disabled
             // However, if a value is already NaN (invincible), we have to resort to the default value that was passed in.

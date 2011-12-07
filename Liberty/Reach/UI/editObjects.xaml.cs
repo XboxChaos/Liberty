@@ -180,7 +180,7 @@ namespace Liberty.Controls
             switch (obj.TagGroup)
             {
                 case Reach.TagGroup.Bipd:
-                    objBipd.Invincible = (bool)cBBipdInvici.IsChecked;
+                    objBipd.MakeInvincible((bool)cBBipdInvici.IsChecked);
                     objBipd.PlasmaGrenades = Convert.ToSByte(txtBipdPlasmaNade.Text);
                     objBipd.FragGrenades = Convert.ToSByte(txtBipdFragNade.Text);
                     break;
@@ -192,7 +192,7 @@ namespace Liberty.Controls
                     break;
 
                 case Reach.TagGroup.Vehi:
-                    objVehi.Invincible = (bool)cBVehiInvici.IsChecked;
+                    objVehi.MakeInvincible((bool)cBVehiInvici.IsChecked);
                     break;
             }
         }

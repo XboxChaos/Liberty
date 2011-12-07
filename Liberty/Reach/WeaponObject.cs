@@ -9,7 +9,7 @@ namespace Liberty.Reach
     /// <summary>
     /// A weapon object.
     /// </summary>
-    public class WeaponObject : HlmtObject
+    public class WeaponObject : GameObject
     {
         /// <summary>
         /// Constructs a new WeaponObject.
