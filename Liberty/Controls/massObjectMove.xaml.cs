@@ -133,121 +133,52 @@ namespace Liberty.Controls
             _moveY = _y;
             _moveZ = _z;
 
-            int x = _saveData.Objects.Count;
-            int[] objectNoNull = new int[x];
-            int ___x = 0;
-            int ____x = 0;
+            if ((bool)cBAdvancedAlgo.IsChecked)
+            {
+                int __x = _saveData.Objects.Count / 2;
 
-            // Xerax: I don't understand the point of these if statements; they all look the same.
-            // -- AMD
-            /*if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "bipd")
-            {
+                _moveX = _moveX - __x - (float)0.1;
+                _moveY = _moveY - __x - (float)0.1;
+
+                bool lastX = false;
+                bool lastY = false;
                 foreach (Reach.GameObject obj in _saveData.Objects)
                 {
-                    Reach.BipedObject biped = obj as Reach.BipedObject;
-                    if (biped != null && !biped.Deleted)
+                    if (obj != null && !obj.Deleted)
                     {
-                        if (biped.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
-                        {
-                            objectNoNull[___x] = ____x;
-                            ___x++;
-                        }
+                        if (lastX)
+                            obj.X = _moveX;
+                        else
+                            obj.X = _moveX + 0.1f;
+
+                        if (lastY)
+                            obj.Y = _moveY;
+                        else
+                            obj.Y = _moveY + 0.1f;
+
+                        obj.Z = _moveZ;
+
+                        Random ran = new Random();
+                        lastX = false;
+                        lastY = false;
+
+                        if (ran.Next(0, 2) == 1)
+                            lastX = true;
+                        else
+                            lastY = true;
                     }
-                    ____x++;
                 }
             }
-            else if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "weap")
-            {
-                foreach (Reach.GameObject obj in _saveData.Objects)
-                {
-                    Reach.WeaponObject weap = obj as Reach.WeaponObject;
-                    if (weap != null && !weap.Deleted)
-                    {
-                        if (weap.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
-                        {
-                            objectNoNull[___x] = ____x;
-                            ___x++;
-                        }
-                    }
-                    ____x++;
-                }
-            }
-            else if (classInfo.loadPackageData.convertClassToString(classInfo.storage.fileInfoStorage.massCordMoveType) == "vehi")
-            {
-                foreach (Reach.GameObject obj in _saveData.Objects)
-                {
-                    Reach.VehicleObject vehi = obj as Reach.VehicleObject;
-                    if (vehi != null && !vehi.Deleted)
-                    {
-                        if (vehi.TagGroup == classInfo.storage.fileInfoStorage.massCordMoveType)
-                        {
-                            objectNoNull[___x] = ____x;
-                            ___x++;
-                        }
-                    }
-                    ____x++;
-                }
-            }
-            else*/
+            else
             {
                 foreach (Reach.GameObject obj in _saveData.Objects)
                 {
                     if (obj != null && !obj.Deleted)
                     {
-                        if (obj.TagGroup == _tagGroup)
-                        {
-                            objectNoNull[___x] = ____x;
-                            ___x++;
-                        }
+                        obj.X = _moveX;
+                        obj.Y = _moveY;
+                        obj.Z = _moveZ;
                     }
-                    ____x++;
-                }
-            }
-
-            if ((bool)cBAdvancedAlgo.IsChecked)
-            {
-                int __x = ___x / 2;
-
-                _x = _x - __x - (float)0.2;
-                _y = _y - __x - (float)0.2;
-
-                int __z = 0;
-                for (int k = 0; k < ___x; k++)
-                {
-                    for (int i = 0; i < __x; i++)
-                    {
-                        _saveData.Objects[objectNoNull[__z]].X = _x;
-                        _saveData.Objects[objectNoNull[__z]].Y = _y;
-                        _saveData.Objects[objectNoNull[__z]].Z = _z;
-                        _x = _x + (float)0.2;
-                        _y = _y + (float)0.2;
-                        _y++;
-
-                        __z++;
-                        for (int j = 0; j < (__x / 2); j++)
-                        {
-                            _saveData.Objects[objectNoNull[__z]].X = _x;
-                            _saveData.Objects[objectNoNull[__z]].Y = _y;
-                            _saveData.Objects[objectNoNull[__z]].Z = _z;
-                            _x = _x + (float)0.2;
-                            _y = _y + (float)0.2;
-
-                            __z++;
-                        }
-                    }
-                    k++;
-                }
-            }
-            else
-            {
-                int __z = 0;
-                for (int k = 0; k < ___x; k++)
-                {
-                    _saveData.Objects[objectNoNull[__z]].X = _x;
-                    _saveData.Objects[objectNoNull[__z]].Y = _y;
-                    _saveData.Objects[objectNoNull[__z]].Z = _z;
-                    __z++;
-                    k++;
                 }
             }
 

@@ -131,14 +131,14 @@ namespace Liberty.classInfo
             App.Current.Resources.MergedDictionaries.Add(rd);
         }
 
-        public static string downloadTaglist()
+        public static string downloadTaglists()
         {
             try
             {
-                Dns.GetHostEntry("xboxchaos.com");
+                Dns.GetHostEntry("xeraxic.com");
                 System.Net.WebClient wb = new System.Net.WebClient();
-                return wb.DownloadString("http://xboxchaos.com/reach/liberty/taglist.ini");
-            } catch { return Properties.Resources.taglist; }
+                return wb.DownloadString("http://www.xeraxic.com/downloads/0/haloreachliberty/taglists.ini");
+            } catch { return Properties.Resources.taglists; }
         }
 
         public static void closeApplication()
