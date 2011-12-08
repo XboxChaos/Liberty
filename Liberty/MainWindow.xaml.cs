@@ -25,6 +25,7 @@ using Liberty.HCEX.UI;
 using Liberty.StepUI;
 using X360.STFS;
 using System.Windows.Threading;
+using System.Threading;
 using System.Reflection;
 
 namespace Liberty
@@ -321,8 +322,38 @@ namespace Liberty
             return game;
         }
 
+        private void makeBackup()
+        {
+            if (!showQuestion("Would you like to make a backup of your save file before it's overwritten? It only takes a few seconds and can be useful in case you need to report a problem.", "BACKUP CREATION"))
+                return;
+
+            SaveFileDialog ofd = new SaveFileDialog();
+            ofd.Title = "Save Backup As";
+            ofd.FileName = "backup_" + System.IO.Path.GetFileName(_packagePath);
+            if ((bool)ofd.ShowDialog())
+            {
+                try
+                {
+                    File.Copy(_packagePath, ofd.FileName, true);
+                }
+                catch (Exception ex)
+                {
+                    showException(ex.ToString());
+                }
+            }
+        }
+
         private void updateSaveFile()
         {
+            // FIXME: This is hax, you have to invoke the dispatcher from a STA thread so that showQuestion will work -_-
+            Thread backupThread = new Thread(() =>
+                {
+                    Dispatcher.Invoke(new Action(makeBackup));
+                });
+            backupThread.SetApartmentState(ApartmentState.STA);
+            backupThread.Start();
+            backupThread.Join();
+
             STFSPackage package = new STFSPackage(_packagePath, null);
             _saveManager.SaveChanges(package, Properties.Resources.KV);
             package.CloseIO();

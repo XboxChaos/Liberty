@@ -51,6 +51,7 @@ namespace Liberty.Controls
 		{
             if (cBStorageType.SelectedIndex == -1)
             {
+                _mainWindow.showMessage("You need to select a device before you can continue.", "HOLD ON!");
                 return false;
             }
             else

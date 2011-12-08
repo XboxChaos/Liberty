@@ -45,7 +45,7 @@
 								<Button x:Name="btnParent" Content="Carrier" HorizontalAlignment="Left" Margin="5,0,0,0" Style="{DynamicResource MetroSecondaryButton}" Width="75" Height="28" Click="btnParent_Click"/>
 								<TextBlock x:Name="lblParentIdent" Margin="92,4,0,4" Text="[125] 0xAAAAAAAA" FontFamily="Segeo UI" FontSize="10.667" FontWeight="SemiBold" Padding="5,6,5,5" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource AccentTextDark}"/>
 							</Grid>
-							<Grid x:Name="carrying" Height="32" Margin="0,-3,0,0" VerticalAlignment="Top">
+							<Grid x:Name="carrying" Height="32" Margin="0" VerticalAlignment="Top">
                                 <Button x:Name="btnChildren" Content="Carrying" HorizontalAlignment="Left" Margin="5,0,0,0" Style="{DynamicResource MetroSecondaryButton}" Width="75" Height="28" Click="btnChildren_Click"/>
                                 <TextBlock x:Name="lblNumChildren" Margin="92,5,0,3" Text="9001 objects" FontFamily="Segeo UI" FontSize="10.667" FontWeight="SemiBold" Padding="5" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource AccentTextDark}"/>
 							</Grid>
@@ -74,7 +74,7 @@
 						<Label x:Name="lblGamertag_Copy61" Content="fragmentation grenades: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="150" />
 				
 						<TextBox Margin="166,55,150,0" MaxLines="1" x:Name="txtBipdPlasmaNade" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateByte" />
-						<CheckBox x:Name="cBBipdInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,94,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="210" Height="20.243" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
+						<CheckBox x:Name="cBBipdInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,94,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="210" Height="20.243" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" IsChecked="{Binding IsChecked, ElementName=cBInvincible}"/>
 						<TextBox x:Name="txtBipdFragNade" TextWrapping="Wrap" Text="0" Margin="166,25,150,0" TextChanged="ValidateByte" MaxLines="1" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
 						<Button x:Name="btnBipdPlasmaMax" Content="Max" HorizontalAlignment="Right" Margin="0,55,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnBipdPlasmaMax_Click" Width="71"/>
 						<Button x:Name="btnBipdFragMax" Content="Max" HorizontalAlignment="Right" Margin="0,25,72,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnBipdFragMax_Click"/>
@@ -95,7 +95,7 @@
 				<TabItem x:Name="tabVehicle" Header="VEHICLE" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy4" Content="vehicle properties;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="133" d:LayoutOverrides="HorizontalAlignment" Padding="5,0,5,5" />
-						<CheckBox x:Name="cBVehiInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,30,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="135" Height="24" VerticalAlignment="Top"/>
+						<CheckBox x:Name="cBVehiInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,30,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="135" Height="24" VerticalAlignment="Top" IsChecked="{Binding IsChecked, ElementName=cBInvincible}"/>
 					</Grid>
 				</TabItem>
 				<TabItem x:Name="tabWeapons" Header="WEAPONS" Style="{DynamicResource MetroTabItem}">
@@ -109,7 +109,17 @@
 						</StackPanel>
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource MetroTabItem}">
+				<TabItem x:Name="tabAdvanced" Header="ADVANCED" Style="{DynamicResource MetroTabItem}">
+					<Grid>
+						<Label Content="damage settings;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="120" Height="29" VerticalAlignment="Top" Padding="5,0,5,5" />
+						<Label Content="max health:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" />
+						<Label Content="max shields:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,55,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" />
+						<TextBox Margin="104,25,0,0" MaxLines="1" x:Name="txtMaxHealth" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateFloat" HorizontalAlignment="Left" Width="59" />
+						<TextBox Margin="104,55,0,0" MaxLines="1" x:Name="txtMaxShields" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateFloat" HorizontalAlignment="Left" Width="59" />
+						<CheckBox x:Name="cBInvincible" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,94,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="142" Height="20.243" VerticalAlignment="Top" Checked="cBInvincible_Checked" Unchecked="cBInvincible_Unchecked" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment"/>
+					</Grid>
+				</TabItem>
+				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
 					<Grid>
 						<Label x:Name="subHeading1_Copy1" Content="node selection;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Left" Width="109" d:LayoutOverrides="HorizontalAlignment" />
 						<ListBox x:Name="listNodes" Margin="21,25,180,63" SelectionChanged="listNodes_SelectionChanged" Width="174" Height="152"/>

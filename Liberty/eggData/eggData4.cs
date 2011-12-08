@@ -12,7 +12,7 @@ namespace Liberty.eggData
         {
             if (classInfo.storage.settings.applicationSettings.enableEasterEggs)
             {
-                win.showMessage("Seriously? You used Liberty to look at kat's ass giggle at full size? Seriously? You sly dawg.", "Seriously 7.0");
+                win.showMessage("Seriously? You're using Liberty to look at Kat's ass jiggle at full size? Seriously? You sly dawg.", "Seriously 7.0");
             }
         }
     }
