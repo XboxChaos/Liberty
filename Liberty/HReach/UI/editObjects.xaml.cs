@@ -1,4 +1,4 @@
-﻿// Uncomment to enable the node editor
+// Uncomment to enable the node editor
 //#define ENABLE_NODE_EDITOR
 
 using System;
@@ -210,7 +210,7 @@ namespace Liberty.Controls
                 currentObject.Scale = Convert.ToSingle(txtObjectScale.Text);
 
                 if (currentObject.Scale >= 1.1 && tagName.ToLower().Contains("kat"))
-                    eggData.eggData4.enableChecker(mainWindow);
+                eggData.eggData4.enableChecker(mainWindow);
             }
 
             /*if (textBoxChanged(txtObjectYaw) ||
@@ -585,8 +585,8 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
             if (tvi != null)
             {
-                TreeViewItem parent = (TreeViewItem)tvi.Parent;
-                parent.Items.Remove(tvi);
+            TreeViewItem parent = (TreeViewItem)tvi.Parent;
+            parent.Items.Remove(tvi);
             }
 
             obj.Delete(false);
@@ -634,9 +634,9 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
             if (tvi != null)
             {
-                TreeViewItem parent = (TreeViewItem)tvi.Parent;
-                parent.Items.Remove(tvi);
-            }
+            TreeViewItem parent = (TreeViewItem)tvi.Parent;
+            parent.Items.Remove(tvi);
+        }
         }
 
         private void btnReplace_Click(object sender, RoutedEventArgs e)
@@ -652,12 +652,12 @@ namespace Liberty.Controls
                     ListBoxItem lbItem = new ListBoxItem();
                     if (item.Header != null)
                     {
-                        lbItem.Content = item.Header;
-                        lbItem.FontWeight = item.FontWeight;
-                        lbItem.Tag = item;
-                        listboxItems.Add(lbItem);
-                    }
+                    lbItem.Content = item.Header;
+                    lbItem.FontWeight = item.FontWeight;
+                    lbItem.Tag = item;
+                    listboxItems.Add(lbItem);
                 }
+            }
             }
 
             // Ask the user which object this should be replaced with
@@ -726,11 +726,11 @@ namespace Liberty.Controls
                 TreeViewItem tvi = objectItems[index];
                 if (tvi.Header != null)
                 {
-                    string groupPrefix = ((string)((TreeViewItem)tvi.Parent).Header).TrimEnd('s');
-                    item.Content = "[" + groupPrefix + "] " + tvi.Header;
-                    item.FontWeight = tvi.FontWeight;
-                    item.Tag = tvi;
-                    listboxItems.Add(item);
+                string groupPrefix = ((string)((TreeViewItem)tvi.Parent).Header).TrimEnd('s');
+                item.Content = "[" + groupPrefix + "] " + tvi.Header;
+                item.FontWeight = tvi.FontWeight;
+                item.Tag = tvi;
+                listboxItems.Add(item);
                 }
                 obj = obj.NextCarried;
             }
@@ -934,11 +934,11 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
             if (tvi != null && tvi.Header != null)
             {
-                item.Content = tvi.Header;
-                item.FontWeight = tvi.FontWeight;
-                item.Tag = weapon;
-                listWeapons.Items.Add(item);
-            }
+            item.Content = tvi.Header;
+            item.FontWeight = tvi.FontWeight;
+            item.Tag = weapon;
+            listWeapons.Items.Add(item);
+        }
         }
 
         private void refreshWeaponButtons()
@@ -992,13 +992,13 @@ namespace Liberty.Controls
                     TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
                     if (tvi.Header != null)
                     {
-                        ListBoxItem item = new ListBoxItem();
-                        item.Content = tvi.Header;
-                        item.FontWeight = tvi.FontWeight;
-                        item.Tag = weapon;
-                        listItems.Add(item);
-                    }
+                    ListBoxItem item = new ListBoxItem();
+                    item.Content = tvi.Header;
+                    item.FontWeight = tvi.FontWeight;
+                    item.Tag = weapon;
+                    listItems.Add(item);
                 }
+            }
             }
 
             ListBoxItem selectedItem = mainWindow.showListBox("Select a weapon to pick up:", "PICK UP WEAPON", listItems);

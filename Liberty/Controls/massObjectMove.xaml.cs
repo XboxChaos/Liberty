@@ -135,37 +135,43 @@ namespace Liberty.Controls
 
             if ((bool)cBAdvancedAlgo.IsChecked)
             {
-                int __x = _saveData.Objects.Count / 2;
+                float i = 0;
+                foreach (Reach.GameObject obj in _saveData.Objects)
+                {
+                    if (obj != null && !obj.Deleted && obj.TagGroup == _tagGroup)
+                        i++;
+                }
 
-                _moveX = _moveX - __x - (float)0.1;
-                _moveY = _moveY - __x - (float)0.1;
+                _moveX = _moveX - (0.50f * i);
+                _moveY = _moveY - (0.50f * i);
 
                 bool lastX = false;
                 bool lastY = false;
+
+                float j = 0;
                 foreach (Reach.GameObject obj in _saveData.Objects)
                 {
-                    if (obj != null && !obj.Deleted)
+                    if (obj != null && !obj.Deleted && obj.TagGroup == _tagGroup)
                     {
                         if (lastX)
                             obj.X = _moveX;
-                        else
-                            obj.X = _moveX + 0.1f;
+                        else { obj.X = _moveX + 0.2f; _moveX = _moveX + 0.2f; }
 
                         if (lastY)
                             obj.Y = _moveY;
-                        else
-                            obj.Y = _moveY + 0.1f;
+                        else { obj.Y = _moveY + 0.2f; _moveY = _moveY + 0.2f; }
 
                         obj.Z = _moveZ;
 
-                        Random ran = new Random();
                         lastX = false;
                         lastY = false;
 
-                        if (ran.Next(0, 2) == 1)
+                        if (j > (i * 0.50f))
                             lastX = true;
                         else
                             lastY = true;
+
+                        j++;
                     }
                 }
             }
@@ -173,7 +179,7 @@ namespace Liberty.Controls
             {
                 foreach (Reach.GameObject obj in _saveData.Objects)
                 {
-                    if (obj != null && !obj.Deleted)
+                    if (obj != null && !obj.Deleted && obj.TagGroup == _tagGroup)
                     {
                         obj.X = _moveX;
                         obj.Y = _moveY;
