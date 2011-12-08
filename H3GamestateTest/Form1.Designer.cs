@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtDatum = new System.Windows.Forms.TextBox();
             this.txtTagFilename = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtGameIdent = new System.Windows.Forms.TextBox();
@@ -80,6 +82,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -112,16 +115,36 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.txtDatum);
             this.groupBox5.Controls.Add(this.txtTagFilename);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.txtGameIdent);
             this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Location = new System.Drawing.Point(6, 19);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(296, 120);
+            this.groupBox5.Size = new System.Drawing.Size(296, 150);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Game Data";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(15, 105);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 13);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Datum Index";
+            // 
+            // txtDatum
+            // 
+            this.txtDatum.BackColor = System.Drawing.Color.White;
+            this.txtDatum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDatum.Location = new System.Drawing.Point(110, 103);
+            this.txtDatum.Name = "txtDatum";
+            this.txtDatum.Size = new System.Drawing.Size(176, 20);
+            this.txtDatum.TabIndex = 9;
             // 
             // txtTagFilename
             // 
@@ -167,7 +190,7 @@
             this.groupBox4.Controls.Add(this.txtPosY);
             this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.txtPosZ);
-            this.groupBox4.Location = new System.Drawing.Point(6, 145);
+            this.groupBox4.Location = new System.Drawing.Point(6, 162);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(296, 120);
             this.groupBox4.TabIndex = 18;
@@ -236,7 +259,7 @@
             this.groupBox3.Controls.Add(this.txtBBY2);
             this.groupBox3.Controls.Add(this.label6);
             this.groupBox3.Controls.Add(this.txtBBZ2);
-            this.groupBox3.Location = new System.Drawing.Point(318, 145);
+            this.groupBox3.Location = new System.Drawing.Point(318, 162);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(296, 120);
             this.groupBox3.TabIndex = 17;
@@ -305,7 +328,7 @@
             this.groupBox2.Controls.Add(this.txtBBY1);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.txtBBZ1);
-            this.groupBox2.Location = new System.Drawing.Point(318, 19);
+            this.groupBox2.Location = new System.Drawing.Point(318, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(296, 120);
             this.groupBox2.TabIndex = 16;
@@ -377,7 +400,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(626, 328);
+            this.tabPage2.Size = new System.Drawing.Size(643, 288);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Weap Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -552,7 +575,8 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader4});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.GridLines = true;
@@ -562,12 +586,13 @@
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
+            this.listView1.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listView1_ColumnClick);
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
             this.columnHeader1.Text = "Tag Filename";
-            this.columnHeader1.Width = 218;
+            this.columnHeader1.Width = 144;
             // 
             // columnHeader2
             // 
@@ -576,6 +601,11 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "TagGroup";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Datum Index";
+            this.columnHeader4.Width = 74;
             // 
             // Form1
             // 
@@ -666,6 +696,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtDatum;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
 
     }
 }

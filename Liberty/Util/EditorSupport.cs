@@ -22,7 +22,6 @@ namespace Liberty.Util
                 }
             }
         }
-        
         public static void AllWeaponsMaxAmmo(HCEX.CampaignSave saveData)
         {
             foreach (HCEX.GameObject obj in saveData.Objects)
@@ -89,7 +88,7 @@ namespace Liberty.Util
                     return "Lone Wolf";
 
                 default:
-                    return saveData.Map;
+                    return saveData.Map.Substring(saveData.Map.LastIndexOf('\\') + 1).ToLower();
             }
         }
         public static string GetMissionName(HCEX.CampaignSave saveData)
@@ -127,7 +126,45 @@ namespace Liberty.Util
                     return "The Maw";
 
                 default:
+                    return saveData.Map.Substring(saveData.Map.LastIndexOf('\\') + 1).ToLower();
+            }
+        }
+        public static string GetMissionName(Halo3.CampaignSave saveData)
+        {
+            switch (saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower())
+            {
+                case @"005_intro":
+                    return "Arrival";
+
+                case @"010_jungle":
+                    return "Sierra 117";
+
+                case @"020_base":
+                    return "Crow's Nest";
+
+                case @"030_outskirts":
+                    return "Tsavo Highway";
+
+                case @"040_voi":
+                    return "The Storm";
+
+                case @"050_floodvoi":
+                    return "Floodgate";
+
+                case @"070_waste":
+                    return "The Ark";
+
+                case @"100_citadel":
+                    return "The Covenant";
+
+                case @"110_hc":
+                    return "Cortana";
+
+                case @"120_halo":
                     return "Halo";
+
+                default:
+                    return saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower();
             }
         }
     }

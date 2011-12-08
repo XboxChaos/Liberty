@@ -8,6 +8,7 @@ namespace Liberty.Util
     public enum SaveType
     {
         Unknown,
+        Halo3,
         Reach,
         Anniversary,
         SomeGame
@@ -33,10 +34,16 @@ namespace Liberty.Util
                     if (package.GetFile("saves.cfg") != null)
                         return SaveType.Anniversary;
                     break;
+
+                case Halo3TitleID:
+                    if (package.GetFile("mmiof.bmf") != null)
+                        return SaveType.Halo3;
+                    break;
             }
             return SaveType.Unknown;
         }
 
+        private const uint Halo3TitleID = 0x4D5307E6;
         private const uint ReachTitleID = 0x4D53085B;
         private const uint AnniversaryID = 0x4D5309B1;
     }

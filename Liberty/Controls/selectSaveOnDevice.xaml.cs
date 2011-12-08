@@ -83,7 +83,8 @@ namespace Liberty.Controls
             else
             {
                 Partitions = Drive.Partitions;
-                contentDirec = Partitions[2]; //who uses hdd's for modding gamesaves, are you a fucking egit?
+                contentDirec = Partitions[2];   //who uses hdd's for modding gamesaves, are you a fucking egit?
+                                                // LOL -Xerax
             }
 
             SortedList<string, ComboBoxItem> items = new SortedList<string, ComboBoxItem>();
@@ -97,13 +98,13 @@ namespace Liberty.Controls
                         {
                             foreach (Folder profileContent in profiles.SubFolders(false))
                             {
-                                if (profileContent.Name == "4D53085B" || profileContent.Name == "4D5309B1")
+                                if (profileContent.Name == "4D53085B" || profileContent.Name == "4D5309B1" || profileContent.Name == "4D5307E6")
                                 {
                                     foreach (Folder reachSub1 in profileContent.SubFolders(false))
                                     {
                                         foreach (File reachSub2 in reachSub1.Files(false))
                                         {
-                                            if (reachSub2.Name.StartsWith("s"))
+                                            if (reachSub2.Name.StartsWith("s") || reachSub2.Name.StartsWith("personal"))
                                             {
                                                 ComboBoxItem cbi = new ComboBoxItem();
                                                 reachSub2.ForceSTFSInfo();

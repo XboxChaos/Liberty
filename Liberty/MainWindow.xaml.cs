@@ -21,6 +21,7 @@ using Liberty.classInfo.storage.settings;
 
 using Liberty.Controls;
 using Liberty.HCEX.UI;
+using Liberty.Halo3.UI;
 
 using Liberty.StepUI;
 using X360.STFS;
@@ -39,6 +40,7 @@ namespace Liberty
         private Util.ISaveManager _saveManager = null;
         private Util.SaveManager<Reach.CampaignSave> _reachSaveManager;
         private Util.SaveManager<HCEX.CampaignSave> _hcexSaveManager;
+        private Util.SaveManager<Halo3.CampaignSave> _halo3SaveManager;
         private Reach.TagListManager _reachTaglists = null;
         private StepViewer _stepViewer = null;
         private StepUI.IStepNode _firstStep;
@@ -69,6 +71,9 @@ namespace Liberty
 
             // Set up HCEX stuff
             _hcexSaveManager = new Util.SaveManager<HCEX.CampaignSave>(path => new HCEX.CampaignSave(path));
+
+            // Set up Halo3 stuff
+            _halo3SaveManager = new Util.SaveManager<Halo3.CampaignSave>(path => new Halo3.CampaignSave(path));
 
             // Set up the step viewer
             _stepViewer = new StepViewer(stepGrid);
@@ -101,6 +106,11 @@ namespace Liberty
             cexQuickTweaks cexQuickTweaks = new HCEX.UI.cexQuickTweaks(_hcexSaveManager);
             #endregion
 
+            #region Halo3
+            h3VerifyFile h3VerifyFile = new Halo3.UI.h3VerifyFile(_halo3SaveManager);
+            // TODO: Add rest of steps
+            #endregion
+
             // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
             // Maybe I should just throw away that feature where the progress bar can update mid-step so a group reference isn't needed
             IStep workStepSaving = new WorkStepProgressUpdater(new UnnavigableWorkStep(stepSaving, gridButtons, headerControls), null, _stepViewer);
@@ -127,6 +137,10 @@ namespace Liberty
             addStep(cexEditWeapons);
             addStep(cexEditGrenades);
             addStep(cexQuickTweaks);
+            #endregion
+
+            #region Halo3Steps
+            addStep(h3VerifyFile);
             #endregion
 
             addStep(stepSaving);
@@ -194,6 +208,21 @@ namespace Liberty
             hcexDeviceSave.AddStep(workStepSaving);
             hcexDeviceSave.AddStep(workStepTransfer);
             hcexDeviceSave.AddStep(stepAllDone, "FINISHED");
+            #endregion
+
+            #region Halo3Steps
+            // Step graph: Edit HCEX save on computer
+            StepGraphBuilder halo3ComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Halo3, true);
+            halo3ComputerSave.AddStep(h3VerifyFile, "SAVE SELECTION");
+            halo3ComputerSave.AddStep(workStepSaving);
+            halo3ComputerSave.AddStep(stepAllDone, "FINISHED");
+
+            // Step graph: Edit HCEX save on removable device
+            StepGraphBuilder halo3DeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Halo3, true);
+            halo3DeviceSave.AddStep(h3VerifyFile, "SAVE SELECTION");
+            halo3DeviceSave.AddStep(workStepSaving);
+            halo3DeviceSave.AddStep(workStepTransfer);
+            halo3DeviceSave.AddStep(stepAllDone, "FINISHED");
             #endregion
 
             // Add dummy groups so that they show in the progress bar
@@ -313,6 +342,11 @@ namespace Liberty
                 case Util.SaveType.Anniversary:
                     _saveManager = _hcexSaveManager;
                     rawFileName = "saves.cfg";
+                    break;
+
+                case Util.SaveType.Halo3:
+                    _saveManager = _halo3SaveManager;
+                    rawFileName = "mmiof.bmf";
                     break;
 
                 default:

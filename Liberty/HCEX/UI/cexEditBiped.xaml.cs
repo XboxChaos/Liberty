@@ -54,7 +54,9 @@ namespace Liberty.HCEX.UI
             playerBiped.MakeInvincible((bool)checkInvincible.IsChecked);
             
             // TODO: Actually detect if this is a vehicle, and not some homosexual dragon (fixhax)
-            if (playerBiped.Carrier != null)
+            // I think that should work AMD -Xerax
+            GameObject playerCarrier = playerBiped.Carrier;
+            if (playerCarrier != null && playerCarrier.TagGroup == TagGroup.Vehi)
                 playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked);
 
             float newX = Convert.ToSingle(txtPlayerXCord.Text);

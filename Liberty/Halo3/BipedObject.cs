@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Liberty.SaveIO;
 using Liberty.Blam;
-using System.IO;
+using Liberty.SaveIO;
 
-namespace Liberty.HCEX
+namespace Liberty.Halo3
 {
     public class BipedObject : GameObject
     {
         public BipedObject(ObjectEntry entry, SaveReader reader)
             : base(entry, reader)
         {
-            if (entry.TagGroup != HCEX.TagGroup.Bipd)
+            if (entry.TagGroup != Halo3.TagGroup.Bipd)
                 throw new ArgumentException("Cannot construct a BipedObject from a non-Bipd object entry");
         }
 
@@ -30,6 +29,8 @@ namespace Liberty.HCEX
             reader.SeekTo(baseOffset + GrenadesOffset);
             _fragGrenades = reader.ReadSByte();
             _plasmaGrenades = reader.ReadSByte();
+            _spikeGrenades = reader.ReadSByte();
+            _firebombGrenades = reader.ReadSByte();
         }
 
         public override void ResolveDatumIndices(IDatumIndexResolver<GameObject> objectResolver)
@@ -50,8 +51,11 @@ namespace Liberty.HCEX
             writer.SeekTo(SourceOffset + GrenadesOffset);
             writer.WriteSByte(_fragGrenades);
             writer.WriteSByte(_plasmaGrenades);
+            writer.WriteSByte(_spikeGrenades);
+            writer.WriteSByte(_firebombGrenades);
         }
 
+        #region Delcarations
         /// <summary>
         /// The biped's primary weapon, if it is carrying one.
         /// </summary>
@@ -102,6 +106,25 @@ namespace Liberty.HCEX
             set { _plasmaGrenades = value; }
         }
 
+        /// <summary>
+        /// The number of spike grenades the biped is carrying.
+        /// </summary>
+        public sbyte SpikeGrenades
+        {
+            get { return _spikeGrenades; }
+            set { _spikeGrenades = value; }
+        }
+
+        /// <summary>
+        /// The number of firebomb grenades the biped is carrying.
+        /// </summary>
+        public sbyte FirebombGrenades
+        {
+            get { return _firebombGrenades; }
+            set { _firebombGrenades = value; }
+        }
+        #endregion
+
         private DatumIndex _primaryWeaponIndex;
         private DatumIndex _secondaryWeaponIndex;
         private DatumIndex _tertiaryWeaponIndex;
@@ -113,10 +136,11 @@ namespace Liberty.HCEX
 
         private sbyte _fragGrenades;
         private sbyte _plasmaGrenades;
+        private sbyte _spikeGrenades;
+        private sbyte _firebombGrenades;
 
         // Offsets
-        private const int PositionOffset1 = 0x5C;
-        private const int WeaponsOffset = 0x2F8;
-        private const int GrenadesOffset = 0x31E;
+        private const int WeaponsOffset = 0x260;
+        private const int GrenadesOffset = 0x28C;
     }
 }
