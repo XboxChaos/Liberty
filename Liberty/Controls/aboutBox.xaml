@@ -95,6 +95,8 @@
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,207,0,0" x:Name="lblXeraxic" Text="Xeraxic" VerticalAlignment="Top" Width="45" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" d:LayoutOverrides="HorizontalAlignment" MouseUp="lblXeraxic_MouseUp" Cursor="Hand" />
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,226,0,0" x:Name="lblCodeplex" Text="CodePlex" VerticalAlignment="Top" Width="57" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" MouseUp="lblCodePlex_MouseUp" Cursor="Hand" d:LayoutOverrides="HorizontalAlignment" />
                 <TextBlock Height="19" HorizontalAlignment="Left" Margin="60,245,0,0" x:Name="lblSe7ensins" Text="Se7ensins Topic" VerticalAlignment="Top" Width="96" TextWrapping="Wrap" FontSize="13" Foreground="{DynamicResource AccentColour}" MouseUp="lblSe7ensins_MouseUp" Cursor="Hand" d:LayoutOverrides="HorizontalAlignment" />
+                <TextBlock Height="31" HorizontalAlignment="Left" Margin="9,314,0,0" Text="*Bungie controls everything. You have no rights. Play nice, don't be a jerk." VerticalAlignment="Top" Width="205" TextWrapping="Wrap" FontSize="10" Foreground="{DynamicResource AccentTextDark}" />
+
                 <Button x:Name="btnOK" Content="I've Seen Enough" HorizontalAlignment="Right" Margin="0,0,25,17" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" Click="btnOK_Click" Width="132"/>
         	</Grid>
         </Border>

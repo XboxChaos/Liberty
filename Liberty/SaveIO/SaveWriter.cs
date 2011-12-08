@@ -161,6 +161,25 @@ namespace Liberty.SaveIO
                 WriteInt16((short)ch);
             WriteInt16(0x0000);
         }
+		
+		/// <summary>
+		/// Writes a ASCII encoded string to the underlying stream.
+        ///  - Xerax (If this is bad, please re-code it AMD)
+		/// </summary>
+		/// <param name="str">The string to write.</param>
+        /// <param name="length">The length to null terminate</param>
+		public void WriteASCII(string str, int length)
+		{
+            byte[] stringArray = Encoding.ASCII.GetBytes(str);
+
+            for (int i = 0; i < length; i++)
+                WriteByte(0x00);
+
+            this.Seek(this.BaseStream.Position - length, SeekOrigin.Current);
+
+            foreach (byte chr in stringArray)
+                WriteByte(chr);
+		}
 
         /// <summary>
         /// Writes a block of bytes to the underlying stream.

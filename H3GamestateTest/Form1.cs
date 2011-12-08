@@ -132,8 +132,9 @@ namespace H3GamestateTest
                 LinkObjectTable linkObj = new LinkObjectTable();
                 linkObj.MahOffsat = stream.Position;
 
-                linkObj.DatumSaltIndex = streamReader.ReadUInt16();
-                linkObj.Unk1 = (byte)streamReader.ReadByte();
+                linkObj.DatumSaltIndex = (uint)(streamReader.ReadUInt16() << 16 | i);
+                //linkObj.Unk1 = 
+                    streamReader.ReadByte();
                 linkObj.TagGroup = (byte)streamReader.ReadByte();
                 linkObj.Unk3 = streamReader.ReadUInt16();
                 linkObj.Unk4 = streamReader.ReadUInt16();
@@ -228,6 +229,7 @@ namespace H3GamestateTest
                 lvi.Text = trueTaglist.IniReadValue(gamestateHeader.trueMapName, gameObj.GameIdent.ToString("X"));
                 lvi.SubItems.Add(gameObj.GameIdent.ToString("X"));
                 lvi.SubItems.Add(gameObj.linkedData.TagGroup.ToString());
+                lvi.SubItems.Add(gameObj.linkedData.DatumSaltIndex.ToString("X"));
                 lvi.Tag = gameObj;
 
                 listView1.Items.Add(lvi);
@@ -252,8 +254,7 @@ namespace H3GamestateTest
         {
             public Int64 MahOffsat { get; set; }
             
-            public UInt16 DatumSaltIndex { get; set; }
-            public byte Unk1 { get; set; }
+            public UInt32 DatumSaltIndex { get; set; }
             public byte TagGroup { get; set; }
             public UInt16 Unk3 { get; set; }
             public UInt16 Unk4 { get; set; }
@@ -329,7 +330,7 @@ namespace H3GamestateTest
         {
             H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
-            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
+            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
                 gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") +
                 gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.Unk6.ToString("X");   
 
@@ -348,7 +349,7 @@ namespace H3GamestateTest
         {
             H3GameObject gameObj = (H3GameObject)listView1.SelectedItems[0].Tag;
 
-            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.Unk1.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
+            string byteData = gameObj.linkedData.DatumSaltIndex.ToString("X") + gameObj.linkedData.TagGroup.ToString("X") +
                 gameObj.linkedData.Unk3.ToString("X") + gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.PoolOffset.ToString("X") +
                 gameObj.linkedData.Unk4.ToString("X") + gameObj.linkedData.Unk6.ToString("X"); Clipboard.SetText(byteData);
 
@@ -386,6 +387,7 @@ namespace H3GamestateTest
                 // Load Idents
                 txtGameIdent.Text = "0x" + obj.GameIdent.ToString("X");
                 txtTagFilename.Text = trueTaglist.IniReadValue(gamestateHeader.trueMapName, obj.GameIdent.ToString("X"));
+                txtDatum.Text = obj.linkedData.DatumSaltIndex.ToString("X");
 
                 // Load BoundingBox (max)
                 txtBBX1.Text = Convert.ToString(obj.BoundingBoxX1);
