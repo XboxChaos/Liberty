@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -152,9 +152,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reach\ChunkOffset.cs" />
+    <Compile Include="HReach\ChunkOffset.cs" />
     <Compile Include="SaveIO\OffsetStream.cs" />
-    <Compile Include="Reach\UI\editGrenades.xaml.cs">
+    <Compile Include="HReach\UI\editGrenades.xaml.cs">
       <DependentUpon>editGrenades.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\exceptionWindow.xaml.cs">
@@ -180,8 +180,8 @@
       <DependentUpon>cexVerifyFile.xaml</DependentUpon>
     </Compile>
     <Compile Include="ICampaignSave.cs" />
-    <Compile Include="Reach\ObjectEntry.cs" />
-    <Compile Include="Reach\TagListManager.cs" />
+    <Compile Include="HReach\ObjectEntry.cs" />
+    <Compile Include="HReach\TagListManager.cs" />
     <Compile Include="Security\CRC32.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -227,7 +227,7 @@
     <Compile Include="Controls\selectSaveOnDevice.xaml.cs">
       <DependentUpon>selectSaveOnDevice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reach\UI\quickTweaks.xaml.cs">
+    <Compile Include="HReach\UI\quickTweaks.xaml.cs">
       <DependentUpon>quickTweaks.xaml</DependentUpon>
     </Compile>
     <Compile Include="StepUI\IStepProgressBar.cs" />
@@ -253,16 +253,16 @@
     <Compile Include="SaveIO\SaveWriter.cs" />
     <Compile Include="MathUtil\Convert.cs" />
     <Compile Include="MathUtil\Vector3.cs" />
-    <Compile Include="Reach\BipedObject.cs" />
-    <Compile Include="Reach\CampaignSave.cs" />
-    <Compile Include="Reach\Chunk.cs" />
-    <Compile Include="Reach\EquipmentObject.cs" />
-    <Compile Include="Reach\ModelNode.cs" />
-    <Compile Include="Reach\GameObject.cs" />
-    <Compile Include="Reach\GamePlayer.cs" />
-    <Compile Include="Reach\VehicleObject.cs" />
-    <Compile Include="Reach\WeaponObject.cs" />
-    <Compile Include="Reach\WeaponUser.cs" />
+    <Compile Include="HReach\BipedObject.cs" />
+    <Compile Include="HReach\CampaignSave.cs" />
+    <Compile Include="HReach\Chunk.cs" />
+    <Compile Include="HReach\EquipmentObject.cs" />
+    <Compile Include="HReach\ModelNode.cs" />
+    <Compile Include="HReach\GameObject.cs" />
+    <Compile Include="HReach\GamePlayer.cs" />
+    <Compile Include="HReach\VehicleObject.cs" />
+    <Compile Include="HReach\WeaponObject.cs" />
+    <Compile Include="HReach\WeaponUser.cs" />
     <Compile Include="Security\SaveSHA1.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
@@ -319,7 +319,7 @@
     <Page Include="HCEX\UI\cexQuickTweaks.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Reach\UI\editGrenades.xaml">
+    <Page Include="HReach\UI\editGrenades.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -395,23 +395,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Reach\UI\verifyFile.xaml">
+    <Page Include="HReach\UI\verifyFile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Reach\UI\editBiped.xaml">
+    <Page Include="HReach\UI\editBiped.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Reach\UI\editWeapons.xaml">
+    <Page Include="HReach\UI\editWeapons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Reach\UI\quickTweaks.xaml">
+    <Page Include="HReach\UI\quickTweaks.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Reach\UI\editObjects.xaml">
+    <Page Include="HReach\UI\editObjects.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -455,16 +455,16 @@
     <Compile Include="Controls\selectMode.xaml.cs">
       <DependentUpon>selectMode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reach\UI\verifyFile.xaml.cs">
+    <Compile Include="HReach\UI\verifyFile.xaml.cs">
       <DependentUpon>verifyFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reach\UI\editBiped.xaml.cs">
+    <Compile Include="HReach\UI\editBiped.xaml.cs">
       <DependentUpon>editBiped.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reach\UI\editWeapons.xaml.cs">
+    <Compile Include="HReach\UI\editWeapons.xaml.cs">
       <DependentUpon>editWeapons.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reach\UI\editObjects.xaml.cs">
+    <Compile Include="HReach\UI\editObjects.xaml.cs">
       <DependentUpon>editObjects.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\allDone.xaml.cs">
@@ -602,7 +602,9 @@
     <Resource Include="Images\splash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="H3\" />
     <Folder Include="HCEX\Taglists\" />
+    <Folder Include="Reach\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
