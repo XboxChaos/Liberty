@@ -89,7 +89,6 @@ namespace Liberty.Blam
 
         /// <summary>
         /// Whether or not health data is present.
-        /// Avoid setting this to NaN if possible and use Invincible if invincibility is needed.
         /// </summary>
         public bool HasHealth
         {
@@ -107,7 +106,6 @@ namespace Liberty.Blam
 
         /// <summary>
         /// Whether or not shield data is present.
-        /// Avoid setting this to NaN if possible and use Invincible if invincibility is needed.
         /// </summary>
         public bool HasShields
         {

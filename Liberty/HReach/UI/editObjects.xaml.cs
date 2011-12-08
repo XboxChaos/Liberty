@@ -180,7 +180,7 @@ namespace Liberty.Controls
             switch (obj.TagGroup)
             {
                 case Reach.TagGroup.Bipd:
-                    objBipd.MakeInvincible((bool)cBBipdInvici.IsChecked);
+                    //objBipd.MakeInvincible((bool)cBBipdInvici.IsChecked);
                     objBipd.PlasmaGrenades = Convert.ToSByte(txtBipdPlasmaNade.Text);
                     objBipd.FragGrenades = Convert.ToSByte(txtBipdFragNade.Text);
                     break;
@@ -192,7 +192,8 @@ namespace Liberty.Controls
                     break;
 
                 case Reach.TagGroup.Vehi:
-                    objVehi.MakeInvincible((bool)cBVehiInvici.IsChecked);
+                    // Moved to checked/unchecked events
+                    //objVehi.MakeInvincible((bool)cBVehiInvici.IsChecked);
                     break;
             }
         }
@@ -204,12 +205,15 @@ namespace Liberty.Controls
             if (textBoxChanged(txtObjectXCord)) currentObject.X = Convert.ToSingle(txtObjectXCord.Text);
             if (textBoxChanged(txtObjectYCord)) currentObject.Y = Convert.ToSingle(txtObjectYCord.Text);
             if (textBoxChanged(txtObjectZCord)) currentObject.Z = Convert.ToSingle(txtObjectZCord.Text);
-            if (textBoxChanged(txtObjectScale)) currentObject.Scale = Convert.ToSingle(txtObjectScale.Text);
+            if (textBoxChanged(txtObjectScale))
+            {
+                currentObject.Scale = Convert.ToSingle(txtObjectScale.Text);
 
-            if (currentObject.Scale > 1 && tagName.ToLower().Contains("kat"))
-                eggData.eggData4.enableChecker(mainWindow);
+                if (currentObject.Scale >= 1.1 && tagName.ToLower().Contains("kat"))
+                    eggData.eggData4.enableChecker(mainWindow);
+            }
 
-            if (textBoxChanged(txtObjectYaw) ||
+            /*if (textBoxChanged(txtObjectYaw) ||
                 textBoxChanged(txtObjectPitch) ||
                 textBoxChanged(txtObjectRoll))
             {
@@ -219,7 +223,9 @@ namespace Liberty.Controls
                 currentObject.Right = MathUtil.Convert.ToRightVector(yaw, pitch, roll);
                 currentObject.Up = MathUtil.Convert.ToUpVector(yaw, pitch, roll);
                 currentObject.Forward = MathUtil.Vector3.Cross(currentObject.Up, currentObject.Right);
-            }
+            }*/
+
+            saveHealthInfo(currentObject);
 
             // Nodes
 #if ENABLE_NODE_EDITOR
@@ -229,6 +235,28 @@ namespace Liberty.Controls
 
             // "Plugin" values
             savePluginData();
+        }
+
+        private void saveHealthInfo(Reach.GameObject obj)
+        {
+            try
+            {
+                if (obj.HasHealth)
+                {
+                    float newHealth = Convert.ToSingle(txtMaxHealth.Text);
+                    if (!float.IsNaN(newHealth))
+                        obj.HealthModifier = newHealth;
+                }
+                if (obj.HasShields)
+                {
+                    float newShields = Convert.ToSingle(txtMaxShields.Text);
+                    if (!float.IsNaN(newShields))
+                        obj.ShieldModifier = newShields;
+                }
+            }
+            catch
+            {
+            }
         }
 
         private bool objectsAreRelated(Reach.GameObject obj1, Reach.GameObject obj2)
@@ -293,7 +321,7 @@ namespace Liberty.Controls
             if (e.NewValue != null)
             {
                 TreeViewItem SelectedItem = tVObjects.SelectedItem as TreeViewItem;
-                if (SelectedItem.Items.Count > 0 && (string)SelectedItem.Tag != "bloc")
+                if (SelectedItem.Items.Count > 0)
                 {
                     // Item is a mass-movable tag group
                     btnDelete.Visibility = Visibility.Hidden;
@@ -362,6 +390,14 @@ namespace Liberty.Controls
                             // Children button
                             refreshChildrenButton();
 
+                            // Max health/shields
+                            txtMaxHealth.Text = currentObject.HealthModifier.ToString();
+                            txtMaxHealth.IsEnabled = currentObject.HasHealth && !currentObject.Invincible;
+                            txtMaxShields.Text = currentObject.ShieldModifier.ToString();
+                            txtMaxShields.IsEnabled = currentObject.HasShields && !currentObject.Invincible;
+                            cBInvincible.IsChecked = currentObject.Invincible;
+                            cBInvincible.IsEnabled = currentObject.HasHealth || currentObject.HasShields;
+
                             // "Plugin" stuff
                             switch (currentObject.TagGroup)
                             {
@@ -371,7 +407,7 @@ namespace Liberty.Controls
                                     txtBipdPlasmaNade.Text = Convert.ToString(objBipd.PlasmaGrenades);
                                     txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
 
-                                    cBBipdInvici.IsChecked = objBipd.Invincible;
+                                    //cBBipdInvici.IsChecked = objBipd.Invincible;
 
                                     changePlugin(tabBiped);
                                     break;
@@ -390,7 +426,7 @@ namespace Liberty.Controls
                                 case Reach.TagGroup.Vehi:
                                     objVehi = currentObject as Reach.VehicleObject;
 
-                                    cBVehiInvici.IsChecked = objVehi.Invincible;
+                                    //cBVehiInvici.IsChecked = objVehi.Invincible;
 
                                     changePlugin(tabVehicle);
                                     break;
@@ -547,8 +583,11 @@ namespace Liberty.Controls
 
             // Remove the TreeViewItem
             TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
-            TreeViewItem parent = (TreeViewItem)tvi.Parent;
-            parent.Items.Remove(tvi);
+            if (tvi != null)
+            {
+                TreeViewItem parent = (TreeViewItem)tvi.Parent;
+                parent.Items.Remove(tvi);
+            }
 
             obj.Delete(false);
         }
@@ -559,6 +598,8 @@ namespace Liberty.Controls
                 return;
 
             TreeViewItem tvi = objectItems[currentChunkIndex];
+            if (tvi == null)
+                return;
             TreeViewItem parent = (TreeViewItem)tvi.Parent;
             int currentPos = parent.Items.IndexOf(tvi);
 
@@ -591,8 +632,11 @@ namespace Liberty.Controls
             }
 
             TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
-            TreeViewItem parent = (TreeViewItem)tvi.Parent;
-            parent.Items.Remove(tvi);
+            if (tvi != null)
+            {
+                TreeViewItem parent = (TreeViewItem)tvi.Parent;
+                parent.Items.Remove(tvi);
+            }
         }
 
         private void btnReplace_Click(object sender, RoutedEventArgs e)
@@ -606,10 +650,13 @@ namespace Liberty.Controls
                 if ((int)item.Tag != currentChunkIndex)
                 {
                     ListBoxItem lbItem = new ListBoxItem();
-                    lbItem.Content = item.Header;
-                    lbItem.FontWeight = item.FontWeight;
-                    lbItem.Tag = item;
-                    listboxItems.Add(lbItem);
+                    if (item.Header != null)
+                    {
+                        lbItem.Content = item.Header;
+                        lbItem.FontWeight = item.FontWeight;
+                        lbItem.Tag = item;
+                        listboxItems.Add(lbItem);
+                    }
                 }
             }
 
@@ -677,11 +724,14 @@ namespace Liberty.Controls
                 ListBoxItem item = new ListBoxItem();
                 int index = (int)(obj.ID & 0xFFFF);
                 TreeViewItem tvi = objectItems[index];
-                string groupPrefix = ((string)((TreeViewItem)tvi.Parent).Header).TrimEnd('s');
-                item.Content = "[" + groupPrefix + "] " + tvi.Header;
-                item.FontWeight = tvi.FontWeight;
-                item.Tag = tvi;
-                listboxItems.Add(item);
+                if (tvi.Header != null)
+                {
+                    string groupPrefix = ((string)((TreeViewItem)tvi.Parent).Header).TrimEnd('s');
+                    item.Content = "[" + groupPrefix + "] " + tvi.Header;
+                    item.FontWeight = tvi.FontWeight;
+                    item.Tag = tvi;
+                    listboxItems.Add(item);
+                }
                 obj = obj.NextCarried;
             }
             ListBoxItem selectedItem = mainWindow.showListBox("Select a carried object to edit:", "EDIT CARRIED OBJECT", listboxItems);
@@ -882,10 +932,13 @@ namespace Liberty.Controls
         {
             ListBoxItem item = new ListBoxItem();
             TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-            item.Content = tvi.Header;
-            item.FontWeight = tvi.FontWeight;
-            item.Tag = weapon;
-            listWeapons.Items.Add(item);
+            if (tvi != null && tvi.Header != null)
+            {
+                item.Content = tvi.Header;
+                item.FontWeight = tvi.FontWeight;
+                item.Tag = weapon;
+                listWeapons.Items.Add(item);
+            }
         }
 
         private void refreshWeaponButtons()
@@ -937,11 +990,14 @@ namespace Liberty.Controls
                 if (weapon != null)
                 {
                     TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-                    ListBoxItem item = new ListBoxItem();
-                    item.Content = tvi.Header;
-                    item.FontWeight = tvi.FontWeight;
-                    item.Tag = weapon;
-                    listItems.Add(item);
+                    if (tvi.Header != null)
+                    {
+                        ListBoxItem item = new ListBoxItem();
+                        item.Content = tvi.Header;
+                        item.FontWeight = tvi.FontWeight;
+                        item.Tag = weapon;
+                        listItems.Add(item);
+                    }
                 }
             }
 
@@ -960,6 +1016,29 @@ namespace Liberty.Controls
                 addWeaponToList(weapon);
                 refreshWeaponButtons();
             }
+        }
+
+        private void cBInvincible_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+            saveHealthInfo(currentObject);
+            currentObject.MakeInvincible(true);
+            txtMaxHealth.IsEnabled = false;
+            txtMaxHealth.Text = currentObject.HealthModifier.ToString();
+            txtMaxShields.IsEnabled = false;
+            txtMaxShields.Text = currentObject.ShieldModifier.ToString();
+        }
+
+        private void cBInvincible_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+            currentObject.MakeInvincible(false);
+            txtMaxHealth.IsEnabled = currentObject.HasHealth;
+            txtMaxHealth.Text = currentObject.HealthModifier.ToString();
+            txtMaxShields.IsEnabled = currentObject.HasShields;
+            txtMaxShields.Text = currentObject.ShieldModifier.ToString();
         }
     }
 }
