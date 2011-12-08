@@ -604,7 +604,6 @@
   <ItemGroup>
     <Folder Include="H3\" />
     <Folder Include="HCEX\Taglists\" />
-    <Folder Include="Reach\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
