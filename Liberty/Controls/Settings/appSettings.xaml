@@ -7,13 +7,19 @@
              mc:Ignorable="d" 
              Width="615" Height="320">
     <Grid>
-    	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="0.5"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="98*"/>
+            <RowDefinition Height="222*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="1" Grid.RowSpan="2"/>
 
         <Label x:Name="btnUpdateSettings" MouseEnter="btnUpdateSettings_MouseEnter" MouseLeave="btnUpdateSettings_MouseLeave" MouseDown="btnUpdateSettings_MouseDown" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
         <Label x:Name="btnLaunchSettings" MouseEnter="btnLaunchSettings_MouseEnter" MouseLeave="btnLaunchSettings_MouseLeave" MouseDown="btnLaunchSettings_MouseDown" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,74,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
-        <Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
-	
-		<StackPanel x:Name="updateSettings" Margin="183,40,-18,40" d:IsHidden="True">
+        <Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" Grid.RowSpan="2" />
+        <Label x:Name="btnAppAbout" MouseEnter="btnAppAbout_MouseEnter" MouseLeave="btnAppAbout_MouseLeave" MouseDown="btnAppAbout_MouseDown" Content="ABOUT LIBERTY" FontWeight="Bold" FontSize="8" Margin="46,12.167,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" Grid.Row="1" />
+
+
+        <StackPanel x:Name="updateSettings" Margin="183,40,-18,40" d:IsHidden="True" Grid.RowSpan="2">
 			<Label x:Name="UPSheader" Content="Change the settings of the Updater" FontSize="18" Foreground="{DynamicResource AccentTextDark}" FontWeight="SemiBold" Height="34"/>
             <Label x:Name="UPSsubheader" Content="Change default settings about the updater, and update procedure." Foreground="{DynamicResource AccentTextDark}" FontSize="11" FontWeight="SemiBold" Margin="0,-10,0,0" Height="25"/>
 			
@@ -22,7 +28,7 @@
 			<CheckBox x:Name="UPSshowChangeLog" Content="Show change log when Liberty checks for updates." Margin="10,5,0,0" />
 		</StackPanel>
 		
-		<StackPanel x:Name="launchSettings" Margin="183,40,-18,40" d:IsHidden="True">
+		<StackPanel x:Name="launchSettings" Margin="183,40,-18,40" d:IsHidden="True" Grid.RowSpan="2">
 			<Label x:Name="LNSheader" Content="Change launch settings of Liberty" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
 			<Label x:Name="LNSsubheader" Content="Change Liberty's splash screen and runtime settings." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
 			
@@ -38,7 +44,7 @@
 			<CheckBox x:Name="LNSnoWarnings" Content="Don't show warning dialogs for unsafe actions." Margin="10,5,0,0" />
 		</StackPanel>
 		
-		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" Visibility="Visible">
+		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" d:IsHidden="True" Grid.RowSpan="2">
 			<Label x:Name="TLTheader" Content="Change Taglist settings" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
 			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
 			
@@ -55,7 +61,29 @@
             <Button x:Name="btnfindTaglist" Content="Find" Style="{DynamicResource MetroPrimaryButton}" Width="71" Margin="310,-28,0,0" HorizontalAlignment="Left" Click="btnfindTaglist_Click"/>
         </StackPanel>
 
-        <ed:RegularPolygon Name="triUpd" Fill="#FF000000" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,65,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+        <StackPanel x:Name="appAbout" Margin="183,40,-18,40" Visibility="Visible" Grid.RowSpan="2">
+            <Label x:Name="AAheader" Content="About Liberty" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
+            <Label x:Name="AAsubheader" Content="Information about the build/external dependencies" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
+
+            <TextBlock x:Name="appBuildData"  FontSize="11.0" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}">
+                Build Version:    {0} <LineBreak/>
+                Build Date:       {1}
+            </TextBlock>
+
+            <ScrollViewer Margin="0,15,30,0" Height="140">
+                <TextBlock x:Name="appExternal"   FontSize="10.5" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.CanContentScroll="True">
+                    Dependency Name:     {0} <LineBreak/>
+                    Dependency Author:   {1} <LineBreak/>
+                    Dependency Size:     {2} <LineBreak/>
+                    Dependency License:  {3} <LineBreak/>
+                    <LineBreak/>
+                    <LineBreak/>
+                </TextBlock>
+            </ScrollViewer>
+
+        </StackPanel>
+
+        <ed:RegularPolygon Name="triUpd" Fill="#FF000000" HorizontalAlignment="Left" Height="2" InnerRadius="1" Margin="43,65,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="5" RenderTransformOrigin="0.5,0.5">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>
@@ -65,7 +93,7 @@
     			</TransformGroup>
     		</ed:RegularPolygon.RenderTransform>
     	</ed:RegularPolygon>
-        <ed:RegularPolygon x:Name="triLaunch" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,83.682,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+        <ed:RegularPolygon x:Name="triLaunch" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2" InnerRadius="1" Margin="43,84,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="5" RenderTransformOrigin="0.5,0.5">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>
@@ -75,7 +103,7 @@
     			</TransformGroup>
     		</ed:RegularPolygon.RenderTransform>
     	</ed:RegularPolygon>
-        <ed:RegularPolygon x:Name="triTaglist" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2.387" InnerRadius="1" Margin="43,101.649,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="4.957" RenderTransformOrigin="0.5,0.5">
+        <ed:RegularPolygon x:Name="triTaglist" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2" InnerRadius="1" Margin="43,4.167,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="5" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
     		<ed:RegularPolygon.RenderTransform>
     			<TransformGroup>
     				<ScaleTransform/>
@@ -85,5 +113,15 @@
     			</TransformGroup>
     		</ed:RegularPolygon.RenderTransform>
     	</ed:RegularPolygon>
-	</Grid>
+        <ed:RegularPolygon x:Name="triAboutApp" Fill="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Height="2" InnerRadius="1" Margin="43,22.167,0,0" PointCount="3" Stretch="Fill" Stroke="{DynamicResource AccentTextDark}" VerticalAlignment="Top" Width="5" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
+            <ed:RegularPolygon.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ed:RegularPolygon.RenderTransform>
+        </ed:RegularPolygon>
+    </Grid>
 </UserControl>

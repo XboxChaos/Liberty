@@ -12,17 +12,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Liberty.HCEX.UI
+namespace Liberty.Halo3.UI
 {
     /// <summary>
-    /// Interaction logic for cexEditGrenades.xaml
+    /// Interaction logic for h3EditGrenades.xaml
     /// </summary>
-    public partial class cexEditGrenades : UserControl, StepUI.IStep
+    public partial class h3EditGrenades : UserControl, StepUI.IStep
     {
-        Util.SaveManager<HCEX.CampaignSave> _saveManager;
+        Util.SaveManager<Halo3.CampaignSave> _saveManager;
         private MainWindow mainWindow = null;
 
-        public cexEditGrenades(Util.SaveManager<HCEX.CampaignSave> saveManager)
+        public h3EditGrenades(Util.SaveManager<Halo3.CampaignSave> saveManager)
         {
             _saveManager = saveManager;
             this.InitializeComponent();
@@ -46,26 +46,36 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            Halo3.CampaignSave saveData = _saveManager.SaveData;
             txtFragNades.Text = saveData.PlayerBiped.FragGrenades.ToString();
             txtPlasmaNades.Text = saveData.PlayerBiped.PlasmaGrenades.ToString();
+            txtSpikeNades.Text = saveData.PlayerBiped.SpikeGrenades.ToString();
+            txtFirebombNades.Text = saveData.PlayerBiped.FirebombGrenades.ToString();
         }
 
         public bool Save()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
+            Halo3.CampaignSave saveData = _saveManager.SaveData;
             try
             {
                 int validateF = int.Parse(txtFragNades.Text);
                 int validateP = int.Parse(txtPlasmaNades.Text);
+                int validateS = int.Parse(txtSpikeNades.Text);
+                int validateB = int.Parse(txtFirebombNades.Text);
 
                 if (validateF > 127 && validateF < 0)
                     txtFragNades.Text = "127";
                 if (validateP > 127 && validateP < 0)
                     txtPlasmaNades.Text = "127";
+                if (validateS > 127 && validateS < 0)
+                    txtSpikeNades.Text = "127";
+                if (validateB > 127 && validateB < 0)
+                    txtFirebombNades.Text = "127";
 
                 saveData.PlayerBiped.FragGrenades = Convert.ToSByte(validateF);
                 saveData.PlayerBiped.PlasmaGrenades = Convert.ToSByte(validateP);
+                saveData.PlayerBiped.SpikeGrenades = Convert.ToSByte(validateS);
+                saveData.PlayerBiped.FirebombGrenades = Convert.ToSByte(validateB);
             }
             catch
             {
@@ -79,10 +89,17 @@ namespace Liberty.HCEX.UI
         {
             txtFragNades.Text = "127";
         }
-
         private void btnMaxPlasmaNades_Click(object sender, RoutedEventArgs e)
         {
             txtPlasmaNades.Text = "127";
+        }
+        private void btnMaxSpikeNades_Click(object sender, RoutedEventArgs e)
+        {
+            txtSpikeNades.Text = "127";
+        }
+        private void btnMaxFirebombNades_Click(object sender, RoutedEventArgs e)
+        {
+            txtFirebombNades.Text = "127";
         }
 
         private void txtFragNadeCount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -110,7 +127,6 @@ namespace Liberty.HCEX.UI
 
             if (txtFragNadeCount.Text == "") { txtFragNadeCount.Text = "0"; }*/
         }
-
         private void txtPlasmaNadeCount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             /*if (txtPlasmaNadeCount.Text == "") { }

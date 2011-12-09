@@ -34,6 +34,18 @@ namespace Liberty.Util
                 }
             }
         }
+        public static void AllWeaponsMaxAmmo(Halo3.CampaignSave saveData)
+        {
+            foreach(Halo3.GameObject obj in saveData.Objects)
+            {
+                Halo3.WeaponObject weap = obj as Halo3.WeaponObject;
+                if (weap != null)
+                {
+                    weap.Ammo = 32767;
+                    weap.ClipAmmo = 32767;
+                }
+            }
+        }
 
         public static HashSet<Reach.BipedObject> FindSwappableBipeds(Reach.CampaignSave saveData)
         {
@@ -45,6 +57,15 @@ namespace Liberty.Util
                     availableBipeds.Add((Reach.BipedObject)obj);
             }
             return availableBipeds;
+        }
+        public static HashSet<Halo3.BipedObject> FindSwappableBipeds(Halo3.CampaignSave saveData)
+        {
+            Halo3.BipedObject currentBiped = saveData.PlayerBiped;
+            HashSet<Halo3.BipedObject> avaiableBipeds = new HashSet<Halo3.BipedObject>();
+            foreach(Halo3.BipedObject obj in saveData.Objects)
+                if (obj != null && obj.TagGroup == Halo3.TagGroup.Bipd && obj.Zone == currentBiped.Zone) // TODO: Deleted (with ObjEditor) and IsActive
+                    avaiableBipeds.Add((Halo3.BipedObject)obj);
+            return avaiableBipeds;
         }
 
         public static string GetMissionName(Reach.CampaignSave saveData)

@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using Liberty.classInfo;
+using System.IO;
+using System.Reflection;
 
 namespace Liberty.Controls.Settings
 {
@@ -37,6 +39,34 @@ namespace Liberty.Controls.Settings
         void appSettings_Loaded(object sender, RoutedEventArgs e)
         {
             mainWindow = Window.GetWindow(this) as MainWindow;
+
+            // Do Build Data
+            FileInfo fi = new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            DateTime dt = fi.CreationTime;
+            appBuildData.Text = string.Format("Build Version:    {0}" + Environment.NewLine +
+                "Build Date:       {1}",
+                Assembly.GetExecutingAssembly().GetName().Version.ToString(), dt.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // TODO: Fix this when we add a new dll
+            //      -Xerax
+            string[][] depend = new string[3][];
+            depend[0] = new string[] { "X360", "DJ Shepard", "404.0 kb", "GPLv2" };
+            depend[1] = new string[] { "System.Windows.Interactivity", "Microsoft", "39.0 kb", "Closed Source" };
+            depend[2] = new string[] { "Microsoft.Expression.Drawing", "Microsoft", "120.0 kb", "Closed Source" };
+
+            appExternal.Text = "";
+            foreach (string[] tmp in depend)
+            {
+                string adding = string.Format("Dependency Name:     {0} " + Environment.NewLine +
+                                              "Dependency Author:   {1} " + Environment.NewLine +
+                                              "Dependency Size:       {2} " + Environment.NewLine +
+                                              "Dependency License:  {3} " + Environment.NewLine + Environment.NewLine + Environment.NewLine,
+
+                              tmp[0], tmp[1], tmp[2], tmp[3]);
+
+                appExternal.Text = appExternal.Text + adding;
+            }
+            appExternal.Text = appExternal.Text.Remove(appExternal.Text.Length - 7);
         }
 
         public void loadSettings()
@@ -168,17 +198,37 @@ namespace Liberty.Controls.Settings
         }
         #endregion
 
+        #region btnappAbout
+        private void btnAppAbout_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            btnAppAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
+        }
+        private void btnAppAbout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            btnAppAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
+        }
+        private void btnAppAbout_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            hideAllTris();
+            hideAllForms();
+            triAboutApp.Visibility = Visibility.Visible;
+            appAbout.Visibility = Visibility.Visible;
+        }
+        #endregion
+
         void hideAllForms()
         {
             updateSettings.Visibility = Visibility.Hidden;
             launchSettings.Visibility = Visibility.Hidden;
             taglistSettings.Visibility = Visibility.Hidden;
+            appAbout.Visibility = Visibility.Hidden;
         }
         void hideAllTris()
         {
             triLaunch.Visibility = Visibility.Hidden;
             triTaglist.Visibility = Visibility.Hidden;
             triUpd.Visibility = Visibility.Hidden;
+            triAboutApp.Visibility = Visibility.Hidden;
         }
         #endregion
 

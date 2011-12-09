@@ -18,10 +18,13 @@ namespace Liberty
 	/// </summary>
 	public partial class transferSave : UserControl, StepUI.IWorkStep
 	{
-		public transferSave(Util.ISaveTransferrer saveTransferrer)
+        MainWindow _mainWin;
+		public transferSave(Util.ISaveTransferrer saveTransferrer, MainWindow mainWin )
 		{
 			this.InitializeComponent();
 
+            _mainWin = mainWin;
+            _mainWin.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
             _saveTransferrer = saveTransferrer;
             _saveTransferrer.NextFile += new EventHandler<Util.TransferFileEventArgs>(saveTransferrer_NextFile);
             _saveTransferrer.ProgressChanged += new EventHandler<Util.TransferProgressEventArgs>(saveTransferrer_ProgressChanged);
@@ -57,14 +60,20 @@ namespace Liberty
 
         public bool Save()
         {
+            _mainWin.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
             return true;
         }
 
         private void UpdateProgress(int transferred, int total)
         {
-            // Progress bar
+            //// Progress bar
             progressBar.Value = transferred;
             progressBar.Maximum = total;
+            float lulz = (Convert.ToSingle(transferred) / Convert.ToSingle(total));
+            _mainWin.TaskbarItemInfo.ProgressValue = lulz;
+
+            if (transferred == total)
+                _mainWin.TaskbarItemInfo.ProgressValue = 0.0;
 
             // Progress label
             double mbTransferred = Math.Round(transferred / 1000000f, 2);

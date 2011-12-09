@@ -60,13 +60,12 @@ namespace Liberty.Halo3
                     break;
             }
 
-
             // Read Gamertag
-            reader.Seek(0xE6D9, SeekOrigin.Begin);
+            reader.Seek(0xE6D8, SeekOrigin.Begin);
             _gamertag = reader.ReadUTF16();
 
             // Read ServiceTag
-            reader.Seek(0xE70F, SeekOrigin.Begin);
+            reader.Seek(0xE70E, SeekOrigin.Begin);
             _serviceTag = reader.ReadUTF16();
         }
 
@@ -77,33 +76,33 @@ namespace Liberty.Halo3
         /// <seealso cref="SaveIO.SaveWriter"/>
         public void WriteTo(SaveWriter writer)
         {
-            // Write Map Scenario
-            writer.Seek(8, System.IO.SeekOrigin.Begin);
-            writer.WriteASCII(_mapScenario, 0x100);
+            //// Write Map Scenario
+            //writer.Seek(8, System.IO.SeekOrigin.Begin);
+            //writer.WriteASCII(_mapScenario, 0x100);
 
-            // Write Engine Build
-            writer.Seek(0x108, System.IO.SeekOrigin.Begin);
-            writer.WriteASCII(_engineBuild, 0x20);
+            //// Write Engine Build
+            //writer.Seek(0x108, System.IO.SeekOrigin.Begin);
+            //writer.WriteASCII(_engineBuild, 0x20);
 
-            // Write Disk Map Location
-            writer.Seek(0x154, System.IO.SeekOrigin.Begin);
-            writer.WriteASCII(_mapDiskLocation, 0x25);
+            //// Write Disk Map Location
+            //writer.Seek(0x154, System.IO.SeekOrigin.Begin);
+            //writer.WriteASCII(_mapDiskLocation, 0x25);
 
-            // Write Difficulty
-            writer.Seek(0xE72B, SeekOrigin.Begin);
-            writer.WriteByte((byte)_difficulty);
+            //// Write Difficulty
+            //writer.Seek(0xE72B, SeekOrigin.Begin);
+            //writer.WriteByte((byte)_difficulty);
 
-            // Write Gamertag1
-            writer.Seek(0xE6D9, System.IO.SeekOrigin.Begin);
-            writer.WriteUTF16(_gamertag);
+            //// Write Gamertag1
+            //writer.Seek(0xE6D8, System.IO.SeekOrigin.Begin);
+            //writer.WriteUTF16(_gamertag);
 
-            // Write ServiceTag
-            writer.Seek(0xE70F, System.IO.SeekOrigin.Begin);
-            writer.WriteUTF16(_serviceTag);
+            //// Write ServiceTag
+            //writer.Seek(0xE70E, System.IO.SeekOrigin.Begin);
+            //writer.WriteUTF16(_serviceTag);
 
-            // Write Gamertag2
-            writer.Seek(0xE7A1, System.IO.SeekOrigin.Begin);
-            writer.WriteUTF16(_gamertag);
+            //// Write Gamertag2
+            //writer.Seek(0xE7A0, System.IO.SeekOrigin.Begin);
+            //writer.WriteUTF16(_gamertag);
         }
 
         /// <summary>
