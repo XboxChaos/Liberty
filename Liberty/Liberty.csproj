@@ -122,6 +122,15 @@
     <Compile Include="Halo3\UI\h3EditBiped.xaml.cs">
       <DependentUpon>h3EditBiped.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Halo3\UI\h3EditGrenades.xaml.cs">
+      <DependentUpon>h3EditGrenades.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Halo3\UI\h3EditWeapons.xaml.cs">
+      <DependentUpon>h3EditWeapons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Halo3\UI\h3QuickTweaks.xaml.cs">
+      <DependentUpon>h3QuickTweaks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Halo3\UI\h3VerifyFile.xaml.cs">
       <DependentUpon>h3VerifyFile.xaml</DependentUpon>
     </Compile>
@@ -306,6 +315,15 @@
     <Resource Include="Images\hcexMaps\d20.png" />
     <Resource Include="Images\hcexMaps\d40.png" />
     <Page Include="Halo3\UI\h3EditBiped.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Halo3\UI\h3EditGrenades.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Halo3\UI\h3EditWeapons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Halo3\UI\h3QuickTweaks.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Halo3\UI\h3VerifyFile.xaml">

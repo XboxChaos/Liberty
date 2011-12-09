@@ -3,9 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
+	
+            mc:Ignorable="d"
+	        x:Name="editBiped"
+	        d:DesignWidth="585" d:DesignHeight="339">
+
+    <Grid x:Name="LayoutRoot">
+        <Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Biped Customization" Margin="0,0,0,292" />
+        <Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="First of all, let's change your biped infomation." Height="25.911" VerticalAlignment="Top" />
+
+        <Label Name="subHeading1" Content="biped infomation;" Margin="0,61,0,252" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
+        <Label Name="lblGamertag" Content="current biped: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,87,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
+
+        <Label Name="lblBiped" Content="Master Chief" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextLight}" Margin="121,87,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
+
+        <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light"  Margin="44,116,0,0" HorizontalAlignment="Left" Width="418" Height="18" VerticalAlignment="Top"/>
+        <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,175,0,138" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
+        <Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,110" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
+        <Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,82" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
+        <Label x:Name="lblGamertag_Copy2" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,55" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
+        <TextBox HorizontalAlignment="Left" Margin="59,0,0,110" MaxLines="1" x:Name="txtPlayerXCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerXCord_TextChanged" />
+        <TextBox HorizontalAlignment="Left" Margin="59,0,0,82" MaxLines="1" x:Name="txtPlayerYCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerYCord_TextChanged" />
+        <TextBox HorizontalAlignment="Left" Margin="59,0,0,54" MaxLines="1" x:Name="txtPlayerZCord" Text="" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="94" TextChanged="txtPlayerZCord_TextChanged" />
     </Grid>
+
 </UserControl>

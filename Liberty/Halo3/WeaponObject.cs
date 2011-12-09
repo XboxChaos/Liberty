@@ -59,6 +59,6 @@ namespace Liberty.Halo3
         private short _clipAmmo;
 
         // Offsets
-        private const int AmmoOffset = 0x2BA;
+        private const int AmmoOffset = 0x23A;
     }
 }

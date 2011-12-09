@@ -30,6 +30,7 @@ namespace Liberty.Halo3
         public Table(SaveReader reader)
         {
             _name = reader.ReadAscii(0x1E);
+            reader.Skip(2);
             _entryCount = reader.ReadUInt32();
             _entrySize = reader.ReadUInt32();
             reader.Skip(0x28);

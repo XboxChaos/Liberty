@@ -58,6 +58,8 @@ namespace Liberty
         {
             InitializeComponent();
 
+            TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
+
             // Setup egg2 Timers
             egg2.Interval = new TimeSpan(0, 0, 20);
             egg2.Tick += new EventHandler(egg2_Tick);
@@ -86,7 +88,7 @@ namespace Liberty
             selectSaveOnDevice stepSelectSave = new selectSaveOnDevice(_stepSelectDevice, _saveTransferrer, loadSaveFile);
 
             saving stepSaving = new saving(updateSaveFile);
-            _stepTransfer = new transferSave(_saveTransferrer);
+            _stepTransfer = new transferSave(_saveTransferrer, this);
             allDone stepAllDone = new allDone(_stepSelectMode);
 
             #region Reach
@@ -108,7 +110,10 @@ namespace Liberty
 
             #region Halo3
             h3VerifyFile h3VerifyFile = new Halo3.UI.h3VerifyFile(_halo3SaveManager);
-            // TODO: Add rest of steps
+            h3EditBiped h3EditBiped = new Halo3.UI.h3EditBiped(_halo3SaveManager);
+            h3EditWeapons h3EditWeapons = new Halo3.UI.h3EditWeapons(_halo3SaveManager);
+            h3EditGrenades h3EditGrenades = new Halo3.UI.h3EditGrenades(_halo3SaveManager);
+            h3QuickTweaks h3QuickTweaks = new Halo3.UI.h3QuickTweaks(_halo3SaveManager);
             #endregion
 
             // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
@@ -141,6 +146,10 @@ namespace Liberty
 
             #region Halo3Steps
             addStep(h3VerifyFile);
+            addStep(h3EditBiped);
+            addStep(h3EditWeapons);
+            addStep(h3EditGrenades);
+            addStep(h3QuickTweaks);
             #endregion
 
             addStep(stepSaving);
@@ -214,12 +223,20 @@ namespace Liberty
             // Step graph: Edit HCEX save on computer
             StepGraphBuilder halo3ComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Halo3, true);
             halo3ComputerSave.AddStep(h3VerifyFile, "SAVE SELECTION");
+            halo3ComputerSave.AddStep(h3EditBiped, "CHARACTER DATA");
+            halo3ComputerSave.AddStep(h3EditWeapons, "WEAPON DATA");
+            halo3ComputerSave.AddStep(h3EditGrenades, "WEAPON DATA");
+            halo3ComputerSave.AddStep(h3QuickTweaks, "OBJECT DATA");
             halo3ComputerSave.AddStep(workStepSaving);
             halo3ComputerSave.AddStep(stepAllDone, "FINISHED");
 
             // Step graph: Edit HCEX save on removable device
             StepGraphBuilder halo3DeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Halo3, true);
             halo3DeviceSave.AddStep(h3VerifyFile, "SAVE SELECTION");
+            halo3DeviceSave.AddStep(h3EditBiped, "CHARACTER DATA");
+            halo3DeviceSave.AddStep(h3EditWeapons, "WEAPON DATA");
+            halo3DeviceSave.AddStep(h3EditGrenades, "WEAPON DATA");
+            halo3DeviceSave.AddStep(h3QuickTweaks, "OBJECT DATA");
             halo3DeviceSave.AddStep(workStepSaving);
             halo3DeviceSave.AddStep(workStepTransfer);
             halo3DeviceSave.AddStep(stepAllDone, "FINISHED");
@@ -286,7 +303,7 @@ namespace Liberty
                 classInfo.storage.settings.applicationSettings.gameIdent.gameID = _currentGame;
                 if (_currentGame == Util.SaveType.Unknown)
                 {
-                    showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo: Reach and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
+                    showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo: Reach and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
                     return Util.SaveType.Unknown;
                 }
                 else if (_currentGame == Util.SaveType.SomeGame)

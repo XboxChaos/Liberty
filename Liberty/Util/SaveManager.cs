@@ -80,7 +80,7 @@ namespace Liberty.Util
 
             // Create the extraction directory
             Directory.CreateDirectory(extractDir);
-            string newRawPath = extractDir + "\\" + rawFileName;
+            string newRawPath = extractDir + rawFileName;
 
             // Extract the file and close the package
             if (!file.Extract(newRawPath))

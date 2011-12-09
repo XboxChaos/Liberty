@@ -39,6 +39,9 @@ namespace Liberty.Halo3
             // but at the same time it would be overkill to have a huge DB of original health/shield values.
             _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier);
 
+            reader.SeekTo(baseOffset + 0x18);
+            _zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
+
             reader.SeekTo(baseOffset + PositionOffset3);
             _position.X = reader.ReadFloat();
             _position.Y = reader.ReadFloat();
@@ -55,9 +58,20 @@ namespace Liberty.Halo3
         /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
         /// </summary>
         /// <param name="invincible">true if the object should become invincible</param>
-        public void MakeInvinvible(bool invincible)
+        public void MakeInvincible(bool invincible)
         {
             _healthInfo.MakeInvincible(invincible);
+        }
+
+        /// <summary>
+        /// Changes the object's invincibility status.
+        /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
+        /// </summary>
+        /// <param name="invincible">true if the object should become invincible</param>
+        /// <param name="healthVal">set a custom float for health</param>
+        public void MakeInvincible(bool invincible, float healthVal)
+        {
+            _healthInfo.MakeInvincible(invincible, healthVal);
         }
 
         /// <summary>
@@ -81,23 +95,35 @@ namespace Liberty.Halo3
         public virtual void Update(SaveWriter writer)
         {
             // Strength info
-            writer.SeekTo(SourceOffset + StrengthInfoOffset);
+            long chunkStartOffset = _entry.ObjectAddress + (long)TableOffset.ObjectPool;
+
+            writer.SeekTo(chunkStartOffset + StrengthInfoOffset);
             _healthInfo.WriteTo(writer);
 
+            // BSP Zone
+            writer.SeekTo(chunkStartOffset + 0x18);
+            writer.WriteUInt16(_zone);
+
             // Position1
-            writer.SeekTo(SourceOffset + PositionOffset1);
+            writer.SeekTo(chunkStartOffset + PositionOffset1);
             writer.WriteFloat(Position.X);
             writer.WriteFloat(Position.Y);
             writer.WriteFloat(Position.Z);
 
             // Position2
-            writer.SeekTo(SourceOffset + PositionOffset2);
+            writer.SeekTo(chunkStartOffset + PositionOffset2);
             writer.WriteFloat(Position.X);
             writer.WriteFloat(Position.Y);
             writer.WriteFloat(Position.Z);
 
             // Position3
-            writer.SeekTo(SourceOffset + PositionOffset3);
+            writer.SeekTo(chunkStartOffset + PositionOffset3);
+            writer.WriteFloat(Position.X);
+            writer.WriteFloat(Position.Y);
+            writer.WriteFloat(Position.Z);
+
+            // Position4
+            writer.SeekTo(chunkStartOffset + PositionOffset4);
             writer.WriteFloat(Position.X);
             writer.WriteFloat(Position.Y);
             writer.WriteFloat(Position.Z);
@@ -110,6 +136,22 @@ namespace Liberty.Halo3
         public long SourceOffset
         {
             get { return _streamOffset; }
+        }
+
+        /// <summary>
+        /// The zone that the object is currently in.
+        /// </summary>
+        public ushort Zone
+        {
+            get
+            {
+                GameObject obj = _carrier;
+                if (obj == null)
+                    return _zone;
+                while (obj._carrier != null)
+                    obj = obj._carrier;
+                return obj._zone;
+            }
         }
 
         /// <summary>
@@ -213,6 +255,8 @@ namespace Liberty.Halo3
         private ObjectEntry _entry;
         private DatumIndex _tag;
 
+        private ushort _zone;
+
         private Vector3 _position;
 
         private HealthInfo _healthInfo;
@@ -230,6 +274,7 @@ namespace Liberty.Halo3
         private const int PositionOffset1 = 0x20;
         private const int PositionOffset2 = 0x30;
         private const int PositionOffset3 = 0x40;
+        private const int PositionOffset4 = 0x54;
         private const int CarryInfoOffset = 0x08;
         private const int StrengthInfoOffset = 0xF0;
     }

@@ -11,6 +11,10 @@
 		Background="{x:Null}" WindowStartupLocation="CenterScreen"
         IsVisibleChanged="mainWindow_IsVisibleChanged" Closing="mainWindow_Closing">
 
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo />
+    </Window.TaskbarItemInfo>
+    
 				<Window.Triggers>
 				        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
 				            <BeginStoryboard>

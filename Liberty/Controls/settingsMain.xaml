@@ -21,7 +21,8 @@
 		<StackPanel x:Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
 			<Child:themeSettings x:Name="themeCode" />
 		</StackPanel>
-            <Button x:Name="btnOK" Content="Okay" Margin="435,295,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btnOK_Click" Width="69"/>
-            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="519,295,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnCancel_Click" Width="69"/>
+        
+        <Button x:Name="btnOK" Content="Okay" Margin="435,295,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="btnOK_Click" Width="69"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="519,295,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnCancel_Click" Width="69"/>
 	</Grid>
 </UserControl>

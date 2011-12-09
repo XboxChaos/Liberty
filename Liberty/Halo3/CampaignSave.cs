@@ -93,13 +93,13 @@ namespace Liberty.Halo3
             // Read save header
             _saveHeader.ReadFrom(reader);
 
-            //// Read the object list
+            // Read the object list
             reader.SeekTo((long)TableOffset.Object);
-            //_objectList = new ObjectList(reader);
+            _objectList = new ObjectList(reader);
 
             // Read player info
             reader.SeekTo((long)TableOffset.Players);
-            //_player = new Player(reader, _objectList);
+            _player = new Player(reader, _objectList);
         }
 
         /// <summary>
@@ -112,9 +112,11 @@ namespace Liberty.Halo3
 
             // Write Save Header
             _saveHeader.WriteTo(writer);
+            writer.SeekTo(0);
 
-            // TODO: Object Saving Code
-            // TODO: Player Saving Code
+            // Write the object list
+            _objectList.Update(writer);
+            writer.SeekTo(0);
 
             // Resign the Save
             _saveHeader.Resign(writer, stream);
@@ -131,12 +133,21 @@ namespace Liberty.Halo3
         }
 
         /// <summary>
+        /// The list of objects loaded in the save.
+        /// </summary>
+        public ObjectList Objects
+        {
+            get { return _objectList; }
+        }
+
+        /// <summary>
         /// The player's biped.
         /// </summary>
         public BipedObject PlayerBiped
         {
             get { return _player.Biped; }
         }
+
         /// <summary>
         /// The player's information from the Player Table
         /// </summary>

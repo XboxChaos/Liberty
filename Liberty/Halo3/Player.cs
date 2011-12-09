@@ -22,7 +22,7 @@ namespace Liberty.Halo3
                 throw new ArgumentException("Player info must be read from the \"players\" table. The save file may be corrupt.");
             playerTable.ReadEntries(reader, ProcessPlayer);
 
-            //_biped = objectResolver.ResolveIndex(_bipedIndex) as BipedObject;
+            _biped = objectResolver.ResolveIndex(_bipedIndex) as BipedObject;
         }
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace Liberty.Halo3
             reader.SeekTo(baseOffset + PlayerBipedOffset);
             _bipedIndex = DatumIndex.ReadFrom(reader);
 
-            reader.Seek(0x25, System.IO.SeekOrigin.Current);
+            reader.Seek(baseOffset + 0x50, System.IO.SeekOrigin.Begin);
             _gamertag = reader.ReadUTF16();
 
-            reader.Seek(baseOffset + 0x5F, System.IO.SeekOrigin.Begin);
+            reader.Seek(baseOffset + 0x86, System.IO.SeekOrigin.Begin);
             _serviceTag = reader.ReadUTF16();
         }
 

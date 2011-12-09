@@ -67,6 +67,7 @@ namespace Liberty.Halo3
         ClusterLightReference = 0x45DDF8,
         LightClusterReference = 0x463F4C,
         Object = 0x46A0A0,
+        ObjectPool = 0x4721F4,
         ClusterCollideableObjectRefe = 0x6021B4,
         CollideableObjectClusterRefe = 0x612328,
         ClusterNoncollideableObjectR = 0x61C47C,
