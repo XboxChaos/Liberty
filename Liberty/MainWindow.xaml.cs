@@ -64,8 +64,12 @@ namespace Liberty
             egg2.Interval = new TimeSpan(0, 0, 20);
             egg2.Tick += new EventHandler(egg2_Tick);
 
+            // Set settings menu visible state
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
             settingsPanel.Visibility = Visibility.Hidden;
+
+            // Hide Taskbar Progress State
+            this.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
 
             // Set up reach stuff
             _reachSaveManager = new Util.SaveManager<Reach.CampaignSave>(path => new Reach.CampaignSave(path));
@@ -439,6 +443,34 @@ namespace Liberty
 
             return msgBoxOpt.result;
         }
+
+        #region MultiGameCoordGetter
+        public listcordWindow showListCordWindow(HCEX.CampaignSave obj1, HCEX.TagGroup obj2)
+        {
+            listcordWindow msgListCord = new listcordWindow(obj1, obj2);
+            msgListCord.Owner = this;
+            msgListCord.ShowDialog();
+
+            return msgListCord;
+        }
+        public listcordWindow showListCordWindow(Halo3.CampaignSave obj1, Halo3.TagGroup obj2)
+        {
+            listcordWindow msgListCord = new listcordWindow(obj1, obj2);
+            msgListCord.Owner = this;
+            msgListCord.ShowDialog();
+
+            return msgListCord;
+        }
+        public listcordWindow showListCordWindow(Reach.CampaignSave obj1, Reach.TagGroup obj2, Reach.TagListManager obj3)
+        {
+            listcordWindow msgListCord = new listcordWindow(obj1, obj2, obj3);
+            msgListCord.Owner = this;
+            msgListCord.ShowDialog();
+
+            return msgListCord;
+        }
+
+        #endregion
 
         public ListBoxItem showListBox(string message, string title, List<ListBoxItem> items)
         {

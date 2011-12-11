@@ -108,6 +108,9 @@
     <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="Blam\HealthInfo.cs" />
     <Compile Include="classInfo\applicationExtra.cs" />
+    <Compile Include="Controls\listcordWindow.xaml.cs">
+      <DependentUpon>listcordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="eggData\eggData4.cs" />
     <Compile Include="Halo3\BipedObject.cs" />
     <Compile Include="Halo3\CampaignSave.cs" />
@@ -226,9 +229,6 @@
       <SubType>Code</SubType>
       <DependentUpon>listboxWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\massObjectMove.xaml.cs">
-      <DependentUpon>massObjectMove.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\messageBoxOptions.xaml.cs">
       <DependentUpon>messageBoxOptions.xaml</DependentUpon>
     </Compile>
@@ -314,6 +314,10 @@
     <Resource Include="Images\hcexMaps\c40.png" />
     <Resource Include="Images\hcexMaps\d20.png" />
     <Resource Include="Images\hcexMaps\d40.png" />
+    <Page Include="Controls\listcordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Halo3\UI\h3EditBiped.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -373,10 +377,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\listboxWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\massObjectMove.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
