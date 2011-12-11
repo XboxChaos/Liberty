@@ -20,12 +20,11 @@
         <Label Name="subTitle" Margin="0,0,0,278.089" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Edit the data for individual objects in the save" Height="25.911" VerticalAlignment="Bottom" />
             <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="0,308,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="98" Click="btnDelete_Click"/>
             <Button x:Name="btnReplace" Content="Replace" HorizontalAlignment="Left" Margin="102,308,0,5" Style="{DynamicResource MetroSecondaryButton}" Width="92" Click="btnReplace_Click"/>
-			<Button x:Name="btnMassMove" Content="Mass Move" HorizontalAlignment="Left" Margin="0,0,0,5.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="98" Click="btnMassMove_Click" d:IsHidden="True"/>
-	        
-			<TreeView Name="tVObjects" HorizontalAlignment="Left" Margin="0,75,0,35" Width="194" SelectedItemChanged="tVObjects_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="10.667" MaxHeight="229" MinHeight="229" Height="229">
+			
+			<TreeView Name="tVObjects" HorizontalAlignment="Left" Margin="0,75,0,35" Width="194" SelectedItemChanged="tVObjects_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" FontSize="10.667" MaxHeight="229" MinHeight="229" Height="229" IsTextSearchEnabled="True">
 				<TreeViewItem Header="test" Tag="50">
 			    </TreeViewItem>			
-				</TreeView>
+			</TreeView>
 			<TextBlock x:Name="instructions" Margin="202,75,17,0" TextWrapping="Wrap" FontFamily="Segeo UI" FontWeight="Light" Foreground="#FF949494" Padding="0,0,5,5" d:IsHidden="True"><Run Text="Nothing is selected. If you would like to edit, delete, or replace an object, select it from the list on the left. Otherwise, just click OK."/><LineBreak/><Run/><LineBreak/><Run Text="Object names in "/><Run FontWeight="Bold" Text="bold"/><Run Text=" are related to your player biped (weapons, armour ability, etc.), and object names inside parentheses are guessed names (if name guessing is enabled in the Settings)."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to mass move all of the objects in a group, select the group name, click Mass Move, and then enter the new coordinates."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to replace an object with another one (for example, to swap your weapons), first select the object that you want to be replaced (e.g. your current weapon). Then, click Replace and select the new object from the list that appears."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to delete an object, simply select it and then press Delete."/></TextBlock>
 			<TabControl x:Name="tabs" Margin="202,75,8,0" Style="{DynamicResource MetroTabControl}">
 				<TabItem x:Name="tabInfo" Header="INFO" Style="{DynamicResource MetroTabItem}">
@@ -141,7 +140,47 @@
 						<Button x:Name="btnExportParts" Content="Export CSV" HorizontalAlignment="Left" Margin="21,0,0,33.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="88" Click="btnExportParts_Click"/>
 					</Grid>
 				</TabItem>
-			</TabControl>
-		</Grid>
+            <TabItem x:Name="tabMassMove" Header="OBJECT MOVE" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
+                <Grid>
+                    <TextBox x:Name="txtMassMoveX" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,5,193,0">
+                        <TextBox.InputScope>
+                            <InputScope>
+                                <InputScope.Names>
+                                    <InputScopeName NameValue="Number"/>
+                                </InputScope.Names>
+                            </InputScope>
+                        </TextBox.InputScope>
+                    </TextBox>
+
+                    <TextBox x:Name="txtMassMoveY" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,35,193,0" >
+                        <TextBox.InputScope>
+                            <InputScope>
+                                <InputScope.Names>
+                                    <InputScopeName NameValue="Number"/>
+                                </InputScope.Names>
+                            </InputScope>
+                        </TextBox.InputScope>
+                    </TextBox>
+                    <TextBox x:Name="txtMassMoveZ" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,65,193,0" >
+                        <TextBox.InputScope>
+                            <InputScope>
+                                <InputScope.Names>
+                                    <InputScopeName NameValue="Number"/>
+                                </InputScope.Names>
+                            </InputScope>
+                        </TextBox.InputScope>
+                    </TextBox>
+
+                    <Button x:Name="btnMassMoveCordSetter" Margin="8,100,193,113" Style="{DynamicResource MetroSecondaryButton}" Content="Set Coordinates from Object" Click="btnMassMoveCordSetter_Click" />
+
+                    <TextBlock x:Name="lblMassMoveSliderDetail" Text="spacing type: 2.5 - fair" Margin="12,172,150,53" FontFamily="SegeoUI" FontSize="11" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
+                    <Slider x:Name="sliderMassMove" Maximum="10" SmallChange="0.1" LargeChange="0.1" Minimum="0.5" Value="2.5" Margin="13,148,215,69" ValueChanged="sliderMassMove_ValueChanged" />
+                    <TextBlock Text="set the spacing of the grid;" Margin="12,133,215,92" FontFamily="SegeoUI" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
+
+                    <Button x:Name="btnMassMoveMover" Margin="8,198,8,14" Style="{DynamicResource MetroPrimaryButton}" Content="Move Selected Objects" Click="btnMassMoveMover_Click" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 
 </UserControl>

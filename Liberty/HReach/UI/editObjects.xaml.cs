@@ -79,7 +79,6 @@ namespace Liberty.Controls
             // Hide buttons
             btnDelete.Visibility = Visibility.Hidden;
             btnReplace.Visibility = Visibility.Hidden;
-            btnMassMove.Visibility = Visibility.Hidden;
 
             // Show the instructions
             instructions.Visibility = Visibility.Visible;
@@ -326,12 +325,32 @@ namespace Liberty.Controls
                     // Item is a mass-movable tag group
                     btnDelete.Visibility = Visibility.Hidden;
                     btnReplace.Visibility = Visibility.Hidden;
-                    btnMassMove.Visibility = Visibility.Visible;
+
+                    foreach (TabItem itm in tabs.Items)
+                        if (itm.Header.ToString() == "OBJECT MOVE")
+                            itm.Visibility = System.Windows.Visibility.Visible;
+                        else
+                            itm.Visibility = System.Windows.Visibility.Collapsed;
+
+                    changePlugin(null);
+                    tabs.SelectedIndex = 4;
+
+                    instructions.Visibility = Visibility.Hidden;
+                    tabs.Visibility = Visibility.Visible;
 
                     currentParentNodeTag = (string)SelectedItem.Tag;
                 }
                 else if (e.NewValue.ToString().Contains("Header:["))
                 {
+                    foreach (TabItem itm in tabs.Items)
+                        if (itm.Header.ToString() != "OBJECT MOVE")
+                            itm.Visibility = System.Windows.Visibility.Visible;
+                        else
+                            itm.Visibility = System.Windows.Visibility.Collapsed;
+
+                    tabInfo.Visibility = System.Windows.Visibility.Collapsed;
+                    tabs.SelectedIndex = 0;
+
                     if (currentChunkIndex != -1)
                     {
                         saveValues(e.OldValue.ToString());
@@ -344,9 +363,9 @@ namespace Liberty.Controls
 
                         if (e.NewValue.ToString().Contains("Header:["))
                         {
-                            btnMassMove.Visibility = Visibility.Hidden;
+                            tabMassMove.Visibility = Visibility.Hidden;
                             instructions.Visibility = Visibility.Hidden;
-                            tabs.Visibility = Visibility.Visible;
+                            tabInfo.Visibility = tabs.Visibility = Visibility.Visible;
 
                             // Info values
                             Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
@@ -491,7 +510,6 @@ namespace Liberty.Controls
                 else
                 {
                     // The selected TreeViewItem has no children and does not represent an object
-                    btnMassMove.Visibility = Visibility.Hidden;
                     btnDelete.Visibility = Visibility.Hidden;
                     btnReplace.Visibility = Visibility.Hidden;
                 }
@@ -532,22 +550,6 @@ namespace Liberty.Controls
         }
 
         #region wpf bullshit
-        private void btnMassMove_Click(object sender, RoutedEventArgs e)
-        {
-            Reach.TagGroup tagGroup = classInfo.loadPackageData.convertStringToClass(currentParentNodeTag);
-            string tagGroupName = ((string)findTagGroupItem(tagGroup).Header).ToLower();
-            Controls.massObjectMove massCoord = new Controls.massObjectMove(_saveData, tagGroup, tagGroupName);
-            massCoord.Owner = mainWindow;
-            massCoord.ShowDialog();
-
-            if (massCoord.result)
-            {
-                txtObjectXCord.Text = Convert.ToString(massCoord.moveX);
-                txtObjectYCord.Text = Convert.ToString(massCoord.moveY);
-                txtObjectZCord.Text = Convert.ToString(massCoord.moveZ);
-            }
-        }
-
         private void btnBipdFragMax_Click(object sender, RoutedEventArgs e)
         {
             txtBipdFragNade.Text = "127";
@@ -615,7 +617,6 @@ namespace Liberty.Controls
             else
             {
                 currentChunkIndex = -1;
-                tabs.Visibility = Visibility.Hidden;
                 btnDelete.Visibility = Visibility.Hidden;
                 btnReplace.Visibility = Visibility.Hidden;
             }
@@ -652,12 +653,12 @@ namespace Liberty.Controls
                     ListBoxItem lbItem = new ListBoxItem();
                     if (item.Header != null)
                     {
-                    lbItem.Content = item.Header;
-                    lbItem.FontWeight = item.FontWeight;
-                    lbItem.Tag = item;
-                    listboxItems.Add(lbItem);
+                        lbItem.Content = item.Header;
+                        lbItem.FontWeight = item.FontWeight;
+                        lbItem.Tag = item;
+                        listboxItems.Add(lbItem);
+                    }
                 }
-            }
             }
 
             // Ask the user which object this should be replaced with
@@ -934,11 +935,11 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
             if (tvi != null && tvi.Header != null)
             {
-            item.Content = tvi.Header;
-            item.FontWeight = tvi.FontWeight;
-            item.Tag = weapon;
-            listWeapons.Items.Add(item);
-        }
+                item.Content = tvi.Header;
+                item.FontWeight = tvi.FontWeight;
+                item.Tag = weapon;
+                listWeapons.Items.Add(item);
+            }
         }
 
         private void refreshWeaponButtons()
@@ -992,13 +993,13 @@ namespace Liberty.Controls
                     TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
                     if (tvi.Header != null)
                     {
-                    ListBoxItem item = new ListBoxItem();
-                    item.Content = tvi.Header;
-                    item.FontWeight = tvi.FontWeight;
-                    item.Tag = weapon;
-                    listItems.Add(item);
+                        ListBoxItem item = new ListBoxItem();
+                        item.Content = tvi.Header;
+                        item.FontWeight = tvi.FontWeight;
+                        item.Tag = weapon;
+                        listItems.Add(item);
+                    }
                 }
-            }
             }
 
             ListBoxItem selectedItem = mainWindow.showListBox("Select a weapon to pick up:", "PICK UP WEAPON", listItems);
@@ -1040,5 +1041,111 @@ namespace Liberty.Controls
             txtMaxShields.IsEnabled = currentObject.HasShields;
             txtMaxShields.Text = currentObject.ShieldModifier.ToString();
         }
+
+        #region MassObjectMove
+        private void btnMassMoveMover_Click(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem parent = (TreeViewItem)tVObjects.SelectedItem;
+            int i=0;
+            IList<Reach.GameObject> listObj = new List<Reach.GameObject>();
+            Reach.TagGroup tag = (Reach.TagGroup)Enum.Parse(typeof(Reach.TagGroup), parent.Tag.ToString(), true);
+
+            foreach (Reach.GameObject obj in _saveData.Objects)
+                if (obj != null && obj.TagGroup == tag && !obj.Deleted)
+                    i++;
+
+            int indexBK = i;
+            double spread = sliderMassMove.Value;
+
+            double gridSize = Math.Ceiling(Math.Sqrt(i));
+
+            bool gridLarge = true;
+            while (gridLarge)
+            {
+                if ((gridSize * gridSize) > i)
+                    gridLarge = true;
+                else
+                    gridSize++;
+            }
+
+            // Cols = derp
+            // Rows = derp
+            // Spread = slider.value
+
+            // Calculate the start point.
+            float pX = float.Parse(txtMassMoveX.Text);
+            float pY = float.Parse(txtMassMoveY.Text);
+            float pZ = float.Parse(txtMassMoveZ.Text);
+
+            float StartVert = pX + Convert.ToSingle((gridSize / 2) * spread);
+            float StartHor = pY + Convert.ToSingle((gridSize / 2) * spread);
+            float CurrentVert = StartVert;
+            float CurrentHor = StartHor;
+
+            int k = 0;
+            for (double z = 0; z < gridSize; z++)
+            {
+                CurrentVert = StartVert;
+
+                for (double j = 0; j < gridSize; j++)
+                {
+                    bool isDone = true;
+                    while (isDone)
+                    {
+                        if (_saveData.Objects.Count < k)
+                            isDone = false;
+
+                        if (_saveData.Objects.Count > k && _saveData.Objects[k] != null && !_saveData.Objects[k].Deleted && _saveData.Objects[k].TagGroup == tag)
+                        {
+                            isDone = false;
+
+                            _saveData.Objects[k].X = CurrentVert;
+                            _saveData.Objects[k].Y = CurrentHor;
+                            _saveData.Objects[k].Z = pZ;
+
+                            CurrentVert += Convert.ToSingle(spread);
+                        }
+                        k++;
+                    }
+                }
+                CurrentHor += Convert.ToSingle(spread);
+            }
+        }
+
+        private void btnMassMoveCordSetter_Click(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem parent = (TreeViewItem)tVObjects.SelectedItem;
+            Reach.TagGroup tag = (Reach.TagGroup) Enum.Parse(typeof(Reach.TagGroup), parent.Tag.ToString(), true);
+
+            Liberty.Controls.listcordWindow listCord = mainWindow.showListCordWindow(_saveData, tag, _taglistManager);
+
+            Reach.GameObject obj = listCord.HReachObject;
+
+            if (obj != null && !float.IsNaN(obj.X))
+            {
+                txtMassMoveX.Text = obj.X.ToString();
+                txtMassMoveY.Text = obj.Y.ToString();
+                txtMassMoveZ.Text = obj.Z.ToString();
+            }
+        }
+
+        private void sliderMassMove_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            string sliderDetail = "spacing type: {0} - {1}";
+
+            if (e.NewValue <= 1)
+                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "compact");
+            else if (e.NewValue > 1 && e.NewValue <= 3)
+                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "fair");
+            else if (e.NewValue > 3 && e.NewValue <= 5)
+                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "medium");
+            else if (e.NewValue > 5 && e.NewValue <= 8)
+                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "expanded");
+            else if (e.NewValue > 8 && e.NewValue <= 10)
+                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "very streched (only recommended for vehicles/obstacles)");
+
+            lblMassMoveSliderDetail.Text = sliderDetail;
+        }
+        #endregion
     }
 }

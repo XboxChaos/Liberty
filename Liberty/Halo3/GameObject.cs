@@ -42,6 +42,7 @@ namespace Liberty.Halo3
             reader.SeekTo(baseOffset + 0x18);
             _zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
 
+
             reader.SeekTo(baseOffset + PositionOffset3);
             _position.X = reader.ReadFloat();
             _position.Y = reader.ReadFloat();
