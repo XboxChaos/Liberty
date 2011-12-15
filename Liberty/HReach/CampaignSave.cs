@@ -162,7 +162,7 @@ namespace Liberty.Reach
         /// Returns a bitfield that specifies which skulls are active.
         /// Not much is known about the order of the bits.
         /// </summary>
-        public uint Skulls
+        public Skulls ActiveSkulls
         {
             get { return _skulls; }
         }
@@ -237,7 +237,7 @@ namespace Liberty.Reach
 
             // Skulls
             reader.Seek(0xFB0C, SeekOrigin.Begin);
-            _skulls = reader.ReadUInt32();
+            _skulls = (Skulls)reader.ReadUInt32();
 
             // Gamertag
             reader.Seek(0x1D668, SeekOrigin.Begin);
@@ -269,7 +269,7 @@ namespace Liberty.Reach
         private string _gamertag;
         private string _serviceTag;
         private GamePlayer _player = null;
-        private uint _skulls;
+        private Skulls _skulls;
         private string _checkpointMsg;
     }
 }

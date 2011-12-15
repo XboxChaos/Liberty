@@ -61,7 +61,7 @@ namespace Liberty.Reach
                 if (_armorAbility != null)
                     _armorAbility.ReplaceWith(value, false);
                 else
-                    PickUpObject(value);
+                    PickUp(value);
                 _armorAbility = value;
             }
         }

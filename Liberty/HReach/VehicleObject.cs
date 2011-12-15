@@ -21,6 +21,22 @@ namespace Liberty.Reach
         {
         }
 
+        /// <summary>
+        /// The object that is driving this vehicle.
+        /// </summary>
+        public GameObject Driver
+        {
+            get { return _driver; }
+        }
+
+        /// <summary>
+        /// The object that is controlling this vehicle.
+        /// </summary>
+        public GameObject Controller
+        {
+            get { return _controller; }
+        }
+
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
         {
             base.DoLoad(reader, start);
@@ -75,6 +91,16 @@ namespace Liberty.Reach
                 _controller = newObj;
         }
 
+        public override void Drop()
+        {
+            if (_driver == Carrier)
+                _driver = null;
+            if (_controller == Carrier)
+                _controller = null;
+
+            base.Drop();
+        }
+
         public override void ReplaceWith(GameObject newObj, bool deleteCarried)
         {
             GameObject driver = _driver;
@@ -101,7 +127,7 @@ namespace Liberty.Reach
             {
                 GameObject next = current.NextCarried;
                 if (current.TagGroup == TagGroup.Bipd)
-                    newObj.PickUpObject(current);
+                    newObj.PickUp(current);
                 current = next;
             }
 

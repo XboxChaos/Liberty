@@ -68,9 +68,6 @@ namespace Liberty
             settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
             settingsPanel.Visibility = Visibility.Hidden;
 
-            // Hide Taskbar Progress State
-            this.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
-
             // Set up reach stuff
             _reachSaveManager = new Util.SaveManager<Reach.CampaignSave>(path => new Reach.CampaignSave(path));
             _reachTaglists = new Reach.TagListManager(_reachSaveManager);
@@ -307,7 +304,7 @@ namespace Liberty
                 classInfo.storage.settings.applicationSettings.gameIdent.gameID = _currentGame;
                 if (_currentGame == Util.SaveType.Unknown)
                 {
-                    showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo: Reach and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
+                    showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo: Reach, and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
                     return Util.SaveType.Unknown;
                 }
                 else if (_currentGame == Util.SaveType.SomeGame)
@@ -481,6 +478,17 @@ namespace Liberty
             listbox.ShowDialog();
 
             return listbox.selectedItem;
+        }
+
+        public TreeViewItem showObjectTree(string message, string title, IEnumerable<TreeViewItem> items)
+        {
+            selectObjectWindow selectObject = new selectObjectWindow(items);
+            selectObject.lblTitle.Text = title.ToUpper();
+            selectObject.lblSubInfo.Text = message;
+            selectObject.Owner = this;
+            selectObject.ShowDialog();
+
+            return selectObject.selectedItem;
         }
 
         public bool showWarning(string message, string title)

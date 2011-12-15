@@ -24,7 +24,6 @@ namespace Liberty
 			this.InitializeComponent();
 
             _mainWin = mainWin;
-            _mainWin.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
             _saveTransferrer = saveTransferrer;
             _saveTransferrer.NextFile += new EventHandler<Util.TransferFileEventArgs>(saveTransferrer_NextFile);
             _saveTransferrer.ProgressChanged += new EventHandler<Util.TransferProgressEventArgs>(saveTransferrer_ProgressChanged);
@@ -46,11 +45,13 @@ namespace Liberty
         public void Show()
         {
             Visibility = Visibility.Visible;
+            _mainWin.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.Normal;
             _saveTransferrer.Start();
         }
 
         public void Hide()
         {
+            _mainWin.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
             Visibility = Visibility.Hidden;
         }
 
@@ -60,7 +61,6 @@ namespace Liberty
 
         public bool Save()
         {
-            _mainWin.TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
             return true;
         }
 
@@ -76,8 +76,8 @@ namespace Liberty
                 _mainWin.TaskbarItemInfo.ProgressValue = 0.0;
 
             // Progress label
-            double mbTransferred = Math.Round(transferred / 1000000f, 2);
-            double mbSize = Math.Round(total / 1000000f, 2);
+            double mbTransferred = Math.Round(transferred / (1024f * 1024f), 2);
+            double mbSize = Math.Round(total / (1024f * 1024f), 2);
             lblProgress.Text = mbTransferred + " / " + mbSize + " MB transferred";
 
             // ProgressChanged event
