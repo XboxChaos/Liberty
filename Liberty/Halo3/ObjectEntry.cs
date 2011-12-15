@@ -12,8 +12,7 @@ namespace Liberty.Halo3
         public ObjectEntry(DatumIndex index, SaveReader reader)
         {
             _index = index;
-            //_flags = reader.ReadByte();
-            reader.Skip(1);
+            _flags = reader.ReadByte();
             _tagGroup = (TagGroup)reader.ReadByte();
             reader.Skip(4);
             _chunkAddress = reader.ReadUInt32();
@@ -44,14 +43,6 @@ namespace Liberty.Halo3
         }
 
         /// <summary>
-        /// The size of the object's data, excluding link information.
-        /// </summary>
-        public ushort ObjectSize
-        {
-            get { return _chunkSize; }
-        }
-
-        /// <summary>
         /// The object's memory address.
         /// </summary>
         public uint ObjectAddress
@@ -62,7 +53,6 @@ namespace Liberty.Halo3
         private DatumIndex _index;
         private byte _flags;
         private TagGroup _tagGroup;
-        private ushort _chunkSize;
         private uint _chunkAddress;
     }
 }

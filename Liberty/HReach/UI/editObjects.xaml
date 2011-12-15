@@ -25,7 +25,7 @@
 				<TreeViewItem Header="test" Tag="50">
 			    </TreeViewItem>			
 			</TreeView>
-			<TextBlock x:Name="instructions" Margin="202,75,17,0" TextWrapping="Wrap" FontFamily="Segeo UI" FontWeight="Light" Foreground="#FF949494" Padding="0,0,5,5" d:IsHidden="True"><Run Text="Nothing is selected. If you would like to edit, delete, or replace an object, select it from the list on the left. Otherwise, just click OK."/><LineBreak/><Run/><LineBreak/><Run Text="Object names in "/><Run FontWeight="Bold" Text="bold"/><Run Text=" are related to your player biped (weapons, armour ability, etc.), and object names inside parentheses are guessed names (if name guessing is enabled in the Settings)."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to mass move all of the objects in a group, select the group name, click Mass Move, and then enter the new coordinates."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to replace an object with another one (for example, to swap your weapons), first select the object that you want to be replaced (e.g. your current weapon). Then, click Replace and select the new object from the list that appears."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to delete an object, simply select it and then press Delete."/></TextBlock>
+			<TextBlock x:Name="instructions" Margin="202,75,17,0" TextWrapping="Wrap" FontFamily="Segeo UI" FontWeight="Light" Foreground="#FF949494" Padding="0,0,5,5" d:IsHidden="True"><Run Text="Nothing is selected. If you would like to edit, delete, or replace an object, select it from the list on the left. Otherwise, just click OK."/><LineBreak/><Run/><LineBreak/><Run Text="Object names in "/><Run FontWeight="Bold" Text="bold"/><Run Text=" are related to your player biped (weapons, armour ability, etc.), and object names inside parentheses are guessed names (if name guessing is enabled in the Settings)."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to mass move all of the objects in a group, select the group name, enter your movement info into the fields that pop up, and click the Move All button at the bottom."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to replace an object with another one (for example, to swap your weapons), first select the object that you want to be replaced (e.g. your current weapon). Then, click Replace and select the new object from the list that appears."/><LineBreak/><Run/><LineBreak/><Run Text="If you want to delete an object, simply select it and then press Delete."/></TextBlock>
 			<TabControl x:Name="tabs" Margin="202,75,8,0" Style="{DynamicResource MetroTabControl}">
 				<TabItem x:Name="tabInfo" Header="INFO" Style="{DynamicResource MetroTabItem}">
 					<Grid>
@@ -46,7 +46,7 @@
 							</Grid>
 							<Grid x:Name="carrying" Height="32" Margin="0" VerticalAlignment="Top">
                                 <Button x:Name="btnChildren" Content="Carrying" HorizontalAlignment="Left" Margin="5,0,0,0" Style="{DynamicResource MetroSecondaryButton}" Width="75" Height="28" Click="btnChildren_Click"/>
-                                <TextBlock x:Name="lblNumChildren" Margin="92,5,0,3" Text="9001 objects" FontFamily="Segeo UI" FontSize="10.667" FontWeight="SemiBold" Padding="5" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource AccentTextDark}"/>
+                                <TextBlock x:Name="lblNumChildren" Margin="92,4,0,3" Text="9001 objects" FontFamily="Segeo UI" FontSize="10.667" FontWeight="SemiBold" Padding="5" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource AccentTextDark}"/>
 							</Grid>
 						</StackPanel>
 						<Label Content="object position data;" Margin="0,0,14,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Right" Width="139.042" d:LayoutOverrides="GridBox" />
@@ -64,6 +64,17 @@
 						<TextBox Margin="0,175,14,0" MaxLines="1" x:Name="txtObjectPitch" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" HorizontalAlignment="Right" Width="94.042" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="GridBox" IsEnabled="False" />
 						<Label Content="Roll:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,205,109,0" HorizontalAlignment="Right" Width="39.997" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" />
 						<TextBox Margin="0,205,14,0" MaxLines="1" x:Name="txtObjectRoll" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Right" Width="94.042" d:LayoutOverrides="GridBox" Padding="0" VerticalContentAlignment="Center" IsEnabled="False" />
+					</Grid>
+				</TabItem>
+				<TabItem x:Name="tabCarrying" Header="CARRYING" Style="{DynamicResource MetroTabItem}">
+					<Grid>
+						<Label x:Name="subHeading1_Copy7" Content="carried objects;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Left" Width="139" d:LayoutOverrides="HorizontalAlignment" />
+						<ListBox x:Name="listCarried" Margin="21,30,0,0" Height="123" VerticalAlignment="Top" HorizontalAlignment="Left" Width="222" MouseDoubleClick="listCarried_MouseDoubleClick" SelectionChanged="listCarried_SelectionChanged"/>
+						<StackPanel Margin="21,157,123,0" Orientation="Horizontal" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment">
+							<Button x:Name="btnPickUpObject" Content="Add" Style="{DynamicResource MetroSecondaryButton}" Width="71" d:LayoutOverrides="Height" Margin="0,0,4,0" Click="btnPickUpObject_Click"/>
+							<Button x:Name="btnDropObject" Content="Drop" Style="{DynamicResource MetroSecondaryButton}" Width="71" d:LayoutOverrides="Height" Margin="0,0,4,0" Click="btnDropObject_Click"/>
+							<Button x:Name="btnViewCarriedObject" Content="View" Style="{DynamicResource MetroSecondaryButton}" Width="71" d:LayoutOverrides="Height" Click="btnViewCarriedObject_Click"/>
+						</StackPanel>
 					</Grid>
 				</TabItem>
 				<TabItem x:Name="tabBiped" Header="BIPED" Style="{DynamicResource MetroTabItem}">
@@ -97,17 +108,6 @@
 						<CheckBox x:Name="cBVehiInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,30,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="135" Height="24" VerticalAlignment="Top" IsChecked="{Binding IsChecked, ElementName=cBInvincible}"/>
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabWeapons" Header="WEAPONS" Style="{DynamicResource MetroTabItem}">
-					<Grid>
-						<Label x:Name="subHeading1_Copy7" Content="carried weapons;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Left" Width="139" d:LayoutOverrides="HorizontalAlignment" />
-						<ListBox x:Name="listWeapons" Margin="21,30,0,0" SelectionChanged="listWeapons_SelectionChanged" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Width="222"/>
-						<StackPanel Margin="21,134,123,0" Orientation="Horizontal" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment">
-                            <Button x:Name="btnAddWeapon" Content="Add" Style="{DynamicResource MetroSecondaryButton}" Width="71" d:LayoutOverrides="Height" Margin="0,0,4,0" Click="btnAddWeapon_Click"/>
-                            <Button x:Name="btnDropWeapon" Content="Drop" Style="{DynamicResource MetroSecondaryButton}" Width="71" d:LayoutOverrides="Height" Margin="0,0,4,0" Click="btnDropWeapon_Click"/>
-                            <Button x:Name="btnViewWeapon" Content="View" Style="{DynamicResource MetroSecondaryButton}" Width="71" d:LayoutOverrides="Height" Click="btnViewWeapon_Click"/>
-						</StackPanel>
-					</Grid>
-				</TabItem>
 				<TabItem x:Name="tabAdvanced" Header="ADVANCED" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label Content="damage settings;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="120" Height="29" VerticalAlignment="Top" Padding="5,0,5,5" />
@@ -116,33 +116,36 @@
 						<TextBox Margin="104,25,0,0" MaxLines="1" x:Name="txtMaxHealth" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateFloat" HorizontalAlignment="Left" Width="59" />
 						<TextBox Margin="104,55,0,0" MaxLines="1" x:Name="txtMaxShields" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateFloat" HorizontalAlignment="Left" Width="59" />
 						<CheckBox x:Name="cBInvincible" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,94,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="142" Height="20.243" VerticalAlignment="Top" Checked="cBInvincible_Checked" Unchecked="cBInvincible_Unchecked" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment"/>
+						<Label Content="carry information;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="132" Padding="5,0,5,5" Margin="0,132,0,0" Height="29" VerticalAlignment="Top" />
+						<Label Content="parent node:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,157,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" />
+						<TextBox Margin="104,156,0,0" MaxLines="1" x:Name="txtParentNode" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateByte" HorizontalAlignment="Left" Width="36" />
 					</Grid>
 				</TabItem>
 				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
 					<Grid>
 						<Label x:Name="subHeading1_Copy1" Content="node selection;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Left" Width="109" d:LayoutOverrides="HorizontalAlignment" />
 						<ListBox x:Name="listNodes" Margin="21,25,180,63" SelectionChanged="listNodes_SelectionChanged" Width="174" Height="152"/>
-						<Label x:Name="subHeading1_Copy6" Content="node position data;" Margin="221.958,0,14,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" d:LayoutOverrides="GridBox" />
-						<Label x:Name="lblGamertag_Copy15" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="239,25,109,0" Height="24.982" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
-						<Label x:Name="lblGamertag_Copy16" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,55,109,0" HorizontalAlignment="Right" Width="27" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
-						<Label x:Name="lblGamertag_Copy17" Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,85,109,0" HorizontalAlignment="Right" Width="27" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
+						<Label Content="node position data;" Margin="221.958,0,14,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" d:LayoutOverrides="GridBox" />
+						<Label Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="239,25,109,0" Height="24.982" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
+						<Label Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,55,109,0" HorizontalAlignment="Right" Width="27" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
+						<Label Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,85,109,0" HorizontalAlignment="Right" Width="27" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
 						<TextBox Margin="0,25,14,0" MaxLines="1" x:Name="txtPartXCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
 						<TextBox Margin="0,55,14,0" MaxLines="1" x:Name="txtPartYCord" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
 						<TextBox Margin="0,85,14,0" MaxLines="1" x:Name="txtPartZCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
-						<Label x:Name="lblGamertag_Copy18" Content="Yaw: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,115,109,0" HorizontalAlignment="Right" Width="41.998" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="GridBox" />
-						<Label x:Name="lblGamertag_Copy19" Content="Pitch: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,145,109,0" HorizontalAlignment="Right" Width="46" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="GridBox" />
-						<Label x:Name="lblGamertag_Copy20" Content="Roll: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,175,109,0" HorizontalAlignment="Right" Width="39.997" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="HorizontalAlignment, GridBox" />
-						<TextBox Margin="0,115,14,0" MaxLines="1" x:Name="txtPartYaw" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="True" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
-						<TextBox Margin="0,145,14,0" MaxLines="1" x:Name="txtPartPitch" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
-						<TextBox Margin="0,175,14,39" MaxLines="1" x:Name="txtPartRoll" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" d:LayoutOverrides="HorizontalAlignment, GridBox" Padding="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="94.042" />
-						<Label x:Name="lblGamertag_Copy12" Content="Scale: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="210,205,109,0" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" HorizontalContentAlignment="Right" Padding="5,5,9,5" />
-						<TextBox MaxLines="1" x:Name="txtPartScale" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="94.042" Margin="0,0,14,9" />
-						<Button x:Name="btnExportParts" Content="Export CSV" HorizontalAlignment="Left" Margin="21,0,0,33.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="88" Click="btnExportParts_Click"/>
+						<Label Content="Yaw: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,145,109,0" HorizontalAlignment="Right" Width="41.998" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="GridBox" />
+						<Label Content="Pitch: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,175,109,0" HorizontalAlignment="Right" Width="46" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="GridBox" />
+						<Label Content="Roll: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,205,109,0" HorizontalAlignment="Right" Width="39.997" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="HorizontalAlignment, GridBox" />
+						<TextBox Margin="0,145,14,0" MaxLines="1" x:Name="txtPartYaw" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" ScrollViewer.CanContentScroll="True" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
+						<TextBox Margin="0,175,14,0" MaxLines="1" x:Name="txtPartPitch" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
+						<TextBox Margin="0,205,14,9" MaxLines="1" x:Name="txtPartRoll" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" d:LayoutOverrides="HorizontalAlignment, GridBox" Padding="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
+						<Label Content="Scale: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="210,115,109,0" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" HorizontalContentAlignment="Right" Padding="5,5,9,5" />
+						<TextBox MaxLines="1" x:Name="txtPartScale" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" VerticalAlignment="Top" HorizontalAlignment="Right" Width="94.042" Margin="0,115,14,0" IsEnabled="False" />
+						<Button x:Name="btnExportParts" Content="Export" HorizontalAlignment="Left" Margin="21,0,0,33.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="72" Click="btnExportParts_Click"/>
 					</Grid>
 				</TabItem>
-            <TabItem x:Name="tabMassMove" Header="OBJECT MOVE" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
+            <TabItem x:Name="tabMassMove" Header="MASS MOVE" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
                 <Grid>
-                    <TextBox x:Name="txtMassMoveX" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,5,193,0">
+                    <TextBox x:Name="txtMassMoveX" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,5,184,0" d:LayoutOverrides="HorizontalAlignment">
                         <TextBox.InputScope>
                             <InputScope>
                                 <InputScope.Names>
@@ -152,7 +155,7 @@
                         </TextBox.InputScope>
                     </TextBox>
 
-                    <TextBox x:Name="txtMassMoveY" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,35,193,0" >
+                    <TextBox x:Name="txtMassMoveY" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,35,184,0" d:LayoutOverrides="HorizontalAlignment" >
                         <TextBox.InputScope>
                             <InputScope>
                                 <InputScope.Names>
@@ -161,7 +164,7 @@
                             </InputScope>
                         </TextBox.InputScope>
                     </TextBox>
-                    <TextBox x:Name="txtMassMoveZ" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,65,193,0" >
+                    <TextBox x:Name="txtMassMoveZ" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,65,184,0" d:LayoutOverrides="HorizontalAlignment" >
                         <TextBox.InputScope>
                             <InputScope>
                                 <InputScope.Names>
@@ -171,13 +174,13 @@
                         </TextBox.InputScope>
                     </TextBox>
 
-                    <Button x:Name="btnMassMoveCordSetter" Margin="8,100,193,113" Style="{DynamicResource MetroSecondaryButton}" Content="Set Coordinates from Object" Click="btnMassMoveCordSetter_Click" />
+                    <Button x:Name="btnMassMoveCordSetter" Margin="8,100,184,113" Style="{DynamicResource MetroSecondaryButton}" Content="Set Coordinates From Object" Click="btnMassMoveCordSetter_Click" d:LayoutOverrides="HorizontalAlignment" />
 
-                    <TextBlock x:Name="lblMassMoveSliderDetail" Text="spacing type: 2.5 - fair" Margin="12,172,150,53" FontFamily="SegeoUI" FontSize="11" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
-                    <Slider x:Name="sliderMassMove" Maximum="10" SmallChange="0.1" LargeChange="0.1" Minimum="0.5" Value="2.5" Margin="13,148,215,69" ValueChanged="sliderMassMove_ValueChanged" />
+                    <TextBlock x:Name="lblMassMoveSliderDetail" Text="spacing type: 2.5 - fair" Margin="12,172,8,53" FontFamily="SegeoUI" FontSize="11" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
+                    <Slider x:Name="sliderMassMove" Maximum="10" SmallChange="0.1" LargeChange="0.1" Value="2.5" Margin="13,148,215,69" ValueChanged="sliderMassMove_ValueChanged" />
                     <TextBlock Text="set the spacing of the grid;" Margin="12,133,215,92" FontFamily="SegeoUI" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
 
-                    <Button x:Name="btnMassMoveMover" Margin="8,198,8,14" Style="{DynamicResource MetroPrimaryButton}" Content="Move Selected Objects" Click="btnMassMoveMover_Click" />
+                    <Button x:Name="btnMassMoveMover" Margin="8,198,8,14" Style="{DynamicResource MetroPrimaryButton}" Content="Move All Objects" Click="btnMassMoveMover_Click" />
                 </Grid>
             </TabItem>
         </TabControl>

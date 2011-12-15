@@ -1,5 +1,4 @@
-// Uncomment to enable the node editor
-//#define ENABLE_NODE_EDITOR
+#define ENABLE_NODE_EDITOR
 
 using System;
 using System.Collections.Generic;
@@ -84,8 +83,8 @@ namespace Liberty.Controls
             instructions.Visibility = Visibility.Visible;
             tabs.Visibility = Visibility.Hidden;
 
-#if !ENABLE_NODE_EDITOR
-            tabNodes.Visibility = Visibility.Collapsed;
+#if ENABLE_NODE_EDITOR
+            tabNodes.Visibility = Visibility.Visible;
 #endif
 
             // Clear out the object list
@@ -225,6 +224,7 @@ namespace Liberty.Controls
             }*/
 
             saveHealthInfo(currentObject);
+            currentObject.ParentNode = Convert.ToSByte(txtParentNode.Text);
 
             // Nodes
 #if ENABLE_NODE_EDITOR
@@ -269,14 +269,14 @@ namespace Liberty.Controls
             if (obj1.TagGroup == Reach.TagGroup.Bipd)
             {
                 Reach.BipedObject biped = (Reach.BipedObject)obj1;
-                if (biped.PrimaryWeapon == obj2 || biped.SecondaryWeapon == obj2)
+                if (biped.PrimaryWeapon == obj2 || biped.SecondaryWeapon == obj2 || biped.TertiaryWeapon == obj2 || biped.QuaternaryWeapon == obj2)
                     return true;
             }
 
             if (obj2.TagGroup == Reach.TagGroup.Bipd)
             {
                 Reach.BipedObject biped = (Reach.BipedObject)obj2;
-                if (biped.PrimaryWeapon == obj1 || biped.SecondaryWeapon == obj1)
+                if (biped.PrimaryWeapon == obj1 || biped.SecondaryWeapon == obj1 || biped.TertiaryWeapon == obj1 || biped.QuaternaryWeapon == obj1)
                     return true;
             }
 
@@ -302,17 +302,16 @@ namespace Liberty.Controls
             }
         }
 
-        private void changePlugin(TabItem tab)
+        private void changePlugin(TabItem pluginTab)
         {
-            if (tab != currentPlugin || currentPlugin == null)
-            {
-                currentPlugin = tab;
-                tabs.Items.Remove(tabBiped);
-                tabs.Items.Remove(tabWeapon);
-                tabs.Items.Remove(tabVehicle);
-                if (tab != null)
-                    tabs.Items.Insert(1, tab);
-            }
+            tabBiped.Visibility = Visibility.Collapsed;
+            tabWeapon.Visibility = Visibility.Collapsed;
+            tabVehicle.Visibility = Visibility.Collapsed;
+            if (pluginTab != null)
+                pluginTab.Visibility = Visibility.Visible;
+            if (pluginTab != currentPlugin && tabs.SelectedItem == currentPlugin)
+                tabs.SelectedItem = tabInfo;
+            currentPlugin = pluginTab;
         }
 
         private void tVObjects_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
@@ -327,29 +326,33 @@ namespace Liberty.Controls
                     btnReplace.Visibility = Visibility.Hidden;
 
                     foreach (TabItem itm in tabs.Items)
-                        if (itm.Header.ToString() == "OBJECT MOVE")
+                    {
+                        if (itm == tabMassMove)
                             itm.Visibility = System.Windows.Visibility.Visible;
                         else
                             itm.Visibility = System.Windows.Visibility.Collapsed;
+                    }
 
                     changePlugin(null);
-                    tabs.SelectedIndex = 4;
+                    tabs.SelectedItem = tabMassMove;
 
                     instructions.Visibility = Visibility.Hidden;
                     tabs.Visibility = Visibility.Visible;
 
                     currentParentNodeTag = (string)SelectedItem.Tag;
+                    btnMassMoveMover.Content = "Move All " + SelectedItem.Header;
                 }
                 else if (e.NewValue.ToString().Contains("Header:["))
                 {
-                    foreach (TabItem itm in tabs.Items)
-                        if (itm.Header.ToString() != "OBJECT MOVE")
-                            itm.Visibility = System.Windows.Visibility.Visible;
+                    foreach (TabItem tab in tabs.Items)
+                    {
+                        if (tab == tabMassMove)
+                            tab.Visibility = Visibility.Collapsed;
                         else
-                            itm.Visibility = System.Windows.Visibility.Collapsed;
-
-                    tabInfo.Visibility = System.Windows.Visibility.Collapsed;
-                    tabs.SelectedIndex = 0;
+                            tab.Visibility = Visibility.Visible;
+                    }
+                    if (tabs.SelectedItem == tabMassMove)
+                        tabs.SelectedIndex = 0;
 
                     if (currentChunkIndex != -1)
                     {
@@ -363,7 +366,7 @@ namespace Liberty.Controls
 
                         if (e.NewValue.ToString().Contains("Header:["))
                         {
-                            tabMassMove.Visibility = Visibility.Hidden;
+                            tabMassMove.Visibility = Visibility.Collapsed;
                             instructions.Visibility = Visibility.Hidden;
                             tabInfo.Visibility = tabs.Visibility = Visibility.Visible;
 
@@ -406,8 +409,7 @@ namespace Liberty.Controls
                                 carriedBy.Visibility = Visibility.Collapsed;
                             }
 
-                            // Children button
-                            refreshChildrenButton();
+                            rebuildCarryList(currentObject);
 
                             // Max health/shields
                             txtMaxHealth.Text = currentObject.HealthModifier.ToString();
@@ -416,6 +418,9 @@ namespace Liberty.Controls
                             txtMaxShields.IsEnabled = currentObject.HasShields && !currentObject.Invincible;
                             cBInvincible.IsChecked = currentObject.Invincible;
                             cBInvincible.IsEnabled = currentObject.HasHealth || currentObject.HasShields;
+
+                            // Parent node
+                            txtParentNode.Text = currentObject.ParentNode.ToString();
 
                             // "Plugin" stuff
                             switch (currentObject.TagGroup)
@@ -453,23 +458,6 @@ namespace Liberty.Controls
                                 default:
                                     changePlugin(null);
                                     break;
-                            }
-
-                            // Weapon list
-                            Reach.WeaponUser weaponUser = currentObject as Reach.WeaponUser;
-                            if (weaponUser != null)
-                            {
-                                tabWeapons.Visibility = Visibility.Visible;
-                                listWeapons.Items.Clear();
-                                foreach (Reach.WeaponObject weapon in weaponUser.Weapons)
-                                    addWeaponToList(weapon);
-                                refreshWeaponButtons();
-                            }
-                            else
-                            {
-                                tabWeapons.Visibility = Visibility.Collapsed;
-                                if (tabWeapons.IsSelected)
-                                    tabInfo.IsSelected = true;
                             }
 
 #if ENABLE_NODE_EDITOR
@@ -512,40 +500,8 @@ namespace Liberty.Controls
                     // The selected TreeViewItem has no children and does not represent an object
                     btnDelete.Visibility = Visibility.Hidden;
                     btnReplace.Visibility = Visibility.Hidden;
+                    tabs.Visibility = Visibility.Hidden;
                 }
-            }
-        }
-
-        private void refreshChildrenButton()
-        {
-            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-            if (currentObject.FirstCarried != null)
-            {
-                int numChildren = 0;
-                Reach.GameObject obj = currentObject.FirstCarried;
-                while (obj != null)
-                {
-                    numChildren++;
-                    obj = obj.NextCarried;
-                }
-                if (numChildren == 1)
-                {
-                    lblNumChildren.FontSize = 8.0 * (96.0 / 72.0);
-                    lblNumChildren.Padding = new Thickness(5, 6, 5, 5);
-                    lblNumChildren.Text = (string)objectItems[(int)(currentObject.FirstCarried.ID & 0xFFFF)].Header;
-                }
-                else
-                {
-                    lblNumChildren.FontSize = 9.75 * (96.0 / 72.0);
-                    lblNumChildren.Padding = new Thickness(5);
-                    lblNumChildren.Text = numChildren.ToString() + " objects";
-                }
-
-                carrying.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                carrying.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -608,8 +564,8 @@ namespace Liberty.Controls
             recursiveDelete(_saveData.Objects[currentChunkIndex]);
 
             // Select a nearby item
-            if (currentPos == parent.Items.Count)
-                currentPos--;
+            if (currentPos >= parent.Items.Count)
+                currentPos = parent.Items.Count - 1;
             if (currentPos >= 0)
             {
                 ((TreeViewItem)parent.Items.GetItemAt(currentPos)).IsSelected = true;
@@ -635,9 +591,9 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
             if (tvi != null)
             {
-            TreeViewItem parent = (TreeViewItem)tvi.Parent;
-            parent.Items.Remove(tvi);
-        }
+                TreeViewItem parent = (TreeViewItem)tvi.Parent;
+                parent.Items.Remove(tvi);
+            }
         }
 
         private void btnReplace_Click(object sender, RoutedEventArgs e)
@@ -698,6 +654,7 @@ namespace Liberty.Controls
         {
             ((TreeViewItem)tvi.Parent).ExpandSubtree();
             tvi.IsSelected = true;
+            tabs.SelectedIndex = 0;
         }
 
         private void btnParent_Click(object sender, RoutedEventArgs e)
@@ -709,40 +666,16 @@ namespace Liberty.Controls
 
         private void btnChildren_Click(object sender, RoutedEventArgs e)
         {
-            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-            Reach.GameObject obj = currentObject.FirstCarried;
-
-            if (obj != null && obj.NextCarried == null)
+            if (listCarried.Items.Count == 1)
             {
-                // Only one carried object - just jump to it
-                selectItem(objectItems[(int)(obj.ID & 0xFFFF)]);
-                return;
+                ListBoxItem firstItem = (ListBoxItem)listCarried.Items[0];
+                Reach.GameObject obj = (Reach.GameObject)firstItem.Tag;
+                TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
+                selectItem(tvi);
             }
-
-            List<ListBoxItem> listboxItems = new List<ListBoxItem>();
-            while (obj != null)
+            else
             {
-                ListBoxItem item = new ListBoxItem();
-                int index = (int)(obj.ID & 0xFFFF);
-                TreeViewItem tvi = objectItems[index];
-                if (tvi.Header != null)
-                {
-                string groupPrefix = ((string)((TreeViewItem)tvi.Parent).Header).TrimEnd('s');
-                item.Content = "[" + groupPrefix + "] " + tvi.Header;
-                item.FontWeight = tvi.FontWeight;
-                item.Tag = tvi;
-                listboxItems.Add(item);
-                }
-                obj = obj.NextCarried;
-            }
-            ListBoxItem selectedItem = mainWindow.showListBox("Select a carried object to edit:", "EDIT CARRIED OBJECT", listboxItems);
-
-            if (selectedItem != null)
-            {
-                // This is kinda glitchy, but it works
-                TreeViewItem tvi = (TreeViewItem)selectedItem.Tag;
-                ((TreeViewItem)tvi.Parent).ExpandSubtree();
-                tvi.IsSelected = true;
+                tabs.SelectedItem = tabCarrying;
             }
         }
 
@@ -915,110 +848,6 @@ namespace Liberty.Controls
         }
         #endregion
 
-        private void listWeapons_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (listWeapons.SelectedIndex != -1)
-            {
-                btnViewWeapon.Visibility = Visibility.Visible;
-                btnDropWeapon.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnViewWeapon.Visibility = Visibility.Collapsed;
-                btnDropWeapon.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void addWeaponToList(Reach.WeaponObject weapon)
-        {
-            ListBoxItem item = new ListBoxItem();
-            TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-            if (tvi != null && tvi.Header != null)
-            {
-                item.Content = tvi.Header;
-                item.FontWeight = tvi.FontWeight;
-                item.Tag = weapon;
-                listWeapons.Items.Add(item);
-            }
-        }
-
-        private void refreshWeaponButtons()
-        {
-            if (listWeapons.Items.Count < 4)
-                btnAddWeapon.Visibility = Visibility.Visible;
-            else
-                btnAddWeapon.Visibility = Visibility.Collapsed;
-
-            if (listWeapons.SelectedIndex != -1)
-            {
-                btnViewWeapon.Visibility = Visibility.Visible;
-                btnDropWeapon.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                btnViewWeapon.Visibility = Visibility.Collapsed;
-                btnDropWeapon.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void btnViewWeapon_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxItem item = (ListBoxItem)listWeapons.SelectedItem;
-            Reach.WeaponObject weapon = (Reach.WeaponObject)item.Tag;
-            selectItem(objectItems[(int)(weapon.ID & 0xFFFF)]);
-        }
-
-        private void btnDropWeapon_Click(object sender, RoutedEventArgs e)
-        {
-            ListBoxItem item = (ListBoxItem)listWeapons.SelectedItem;
-            Reach.WeaponObject weapon = (Reach.WeaponObject)item.Tag;
-            weapon.Drop();
-
-            listWeapons.Items.Remove(item);
-            refreshChildrenButton();
-            TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-            tvi.FontWeight = FontWeights.Normal;
-
-            refreshWeaponButtons();
-        }
-
-        private void btnAddWeapon_Click(object sender, RoutedEventArgs e)
-        {
-            List<ListBoxItem> listItems = new List<ListBoxItem>();
-            foreach (Reach.GameObject obj in _saveData.Objects)
-            {
-                Reach.WeaponObject weapon = obj as Reach.WeaponObject;
-                if (weapon != null)
-                {
-                    TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-                    if (tvi.Header != null)
-                    {
-                        ListBoxItem item = new ListBoxItem();
-                        item.Content = tvi.Header;
-                        item.FontWeight = tvi.FontWeight;
-                        item.Tag = weapon;
-                        listItems.Add(item);
-                    }
-                }
-            }
-
-            ListBoxItem selectedItem = mainWindow.showListBox("Select a weapon to pick up:", "PICK UP WEAPON", listItems);
-            if (selectedItem != null)
-            {
-                Reach.WeaponUser weaponUser = (Reach.WeaponUser)_saveData.Objects[currentChunkIndex];
-                Reach.WeaponObject weapon = (Reach.WeaponObject)selectedItem.Tag;
-                weaponUser.PickUpWeapon(weapon);
-
-                if (objectsAreRelated(_saveData.Player.Biped, weapon))
-                {
-                    TreeViewItem tvi = objectItems[(int)(weapon.ID & 0xFFFF)];
-                    tvi.FontWeight = FontWeights.Bold;
-                }
-                addWeaponToList(weapon);
-                refreshWeaponButtons();
-            }
-        }
-
         private void cBInvincible_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
@@ -1059,14 +888,8 @@ namespace Liberty.Controls
 
             double gridSize = Math.Ceiling(Math.Sqrt(i));
 
-            bool gridLarge = true;
-            while (gridLarge)
-            {
-                if ((gridSize * gridSize) > i)
-                    gridLarge = true;
-                else
+            while (gridSize * gridSize < i)
                     gridSize++;
-            }
 
             // Cols = derp
             // Rows = derp
@@ -1110,6 +933,9 @@ namespace Liberty.Controls
                 }
                 CurrentHor += Convert.ToSingle(spread);
             }
+
+            string friendlyTagName = (string)parent.Header;
+            mainWindow.showMessage("All " + friendlyTagName.ToLower() + (friendlyTagName.EndsWith("s") ? " were" : " was") + " moved successfully!", "MASS MOVE");
         }
 
         private void btnMassMoveCordSetter_Click(object sender, RoutedEventArgs e)
@@ -1133,7 +959,9 @@ namespace Liberty.Controls
         {
             string sliderDetail = "spacing type: {0} - {1}";
 
-            if (e.NewValue <= 1)
+            if (e.NewValue == 0)
+                sliderDetail = string.Format(sliderDetail, 0, "none");
+            else if (e.NewValue <= 1)
                 sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "compact");
             else if (e.NewValue > 1 && e.NewValue <= 3)
                 sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "fair");
@@ -1142,9 +970,176 @@ namespace Liberty.Controls
             else if (e.NewValue > 5 && e.NewValue <= 8)
                 sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "expanded");
             else if (e.NewValue > 8 && e.NewValue <= 10)
-                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "very streched (only recommended for vehicles/obstacles)");
+                sliderDetail = string.Format(sliderDetail, Math.Round(e.NewValue, 1).ToString(), "very stretched (only recommended for vehicles/obstacles)");
 
             lblMassMoveSliderDetail.Text = sliderDetail;
+        }
+        #endregion
+
+        #region Carry List
+        private void addObjectToCarryList(Reach.GameObject obj)
+        {
+            ListBoxItem item = new ListBoxItem();
+            TreeViewItem objTvi = objectItems[(int)(obj.ID & 0xFFFF)];
+            TreeViewItem tviParent = (TreeViewItem)objTvi.Parent;
+            string groupName = (string)tviParent.Header;
+            if (groupName.EndsWith("s"))
+                groupName = groupName.Substring(0, groupName.Length - 1);
+            item.Content = "[" + groupName + "] " + objTvi.Header;
+            item.FontWeight = objTvi.FontWeight;
+            item.Tag = obj;
+            listCarried.Items.Add(item);
+        }
+
+        private void refreshChildrenButton()
+        {
+            int numChildren = listCarried.Items.Count;
+            if (numChildren > 0)
+            {
+                if (numChildren == 1)
+                {
+                    lblNumChildren.FontSize = 8.0 * (96.0 / 72.0);
+                    lblNumChildren.Padding = new Thickness(5, 6, 5, 5);
+
+                    ListBoxItem firstItem = (ListBoxItem)listCarried.Items[0];
+                    Reach.GameObject obj = (Reach.GameObject)firstItem.Tag;
+                    TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
+                    lblNumChildren.Text = (string)tvi.Header;
+                }
+                else
+                {
+                    lblNumChildren.FontSize = 9.75 * (96.0 / 72.0);
+                    lblNumChildren.Padding = new Thickness(5);
+                    lblNumChildren.Text = numChildren.ToString() + " objects";
+                }
+
+                carrying.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                carrying.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void refreshCarryButtons()
+        {
+            if (listCarried.SelectedIndex != -1)
+            {
+                btnDropObject.Visibility = Visibility.Visible;
+                btnViewCarriedObject.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnDropObject.Visibility = Visibility.Collapsed;
+                btnViewCarriedObject.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void rebuildCarryList(Reach.GameObject obj)
+        {
+            listCarried.Items.Clear();
+
+            // If the object is a biped, add its weapons to the list
+            Reach.BipedObject biped = obj as Reach.BipedObject;
+            if (biped != null)
+            {
+                foreach (Reach.WeaponObject weapon in biped.Weapons)
+                    addObjectToCarryList(weapon);
+            }
+
+            Reach.GameObject currentObj = obj.FirstCarried;
+            while (currentObj != null)
+            {
+                // Only add the object if it was not added in the weapon pass earlier
+                if (biped == null || (currentObj != biped.PrimaryWeapon && currentObj != biped.SecondaryWeapon && currentObj != biped.TertiaryWeapon && currentObj != biped.QuaternaryWeapon))
+                    addObjectToCarryList(currentObj);
+                currentObj = currentObj.NextCarried;
+            }
+            refreshCarryButtons();
+            refreshChildrenButton();
+        }
+
+        private TreeViewItem cloneTreeViewItem(TreeViewItem item)
+        {
+            TreeViewItem newItem = new TreeViewItem();
+            newItem.Header = item.Header;
+            newItem.FontWeight = item.FontWeight;
+            newItem.Tag = item.Tag;
+            foreach (TreeViewItem child in item.Items)
+                newItem.Items.Add(cloneTreeViewItem(child));
+            return newItem;
+        }
+
+        private List<TreeViewItem> cloneObjectTree()
+        {
+            List<TreeViewItem> items = new List<TreeViewItem>();
+            foreach (TreeViewItem item in tVObjects.Items)
+                items.Add(cloneTreeViewItem(item));
+            return items;
+        }
+
+        private void btnPickUpObject_Click(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem selectedItem = mainWindow.showObjectTree("Select an object to pick up:", "PICK UP OBJECT", cloneObjectTree());
+            if (selectedItem != null)
+            {
+                Reach.GameObject pickUp = _saveData.Objects[(int)selectedItem.Tag];
+                Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+                currentObject.PickUp(pickUp);
+
+                if (objectsAreRelated(_saveData.Player.Biped, pickUp))
+                    objectItems[(int)(pickUp.ID & 0xFFFF)].FontWeight = FontWeights.Bold;
+                rebuildCarryList(currentObject);
+            }
+        }
+
+        private void btnDropObject_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem item = listCarried.SelectedItem as ListBoxItem;
+            if (item != null)
+            {
+                Reach.GameObject selectedObject = (Reach.GameObject)item.Tag;
+                selectedObject.Drop();
+
+                // Remove the list box item and keep something selected
+                int oldIndex = listCarried.SelectedIndex;
+                listCarried.Items.RemoveAt(listCarried.SelectedIndex);
+                if (oldIndex >= listCarried.Items.Count)
+                    oldIndex = listCarried.Items.Count - 1;
+                listCarried.SelectedIndex = oldIndex;
+
+                // If the item is bolded, then unbold it in the TreeView
+                if (item.FontWeight == FontWeights.Bold)
+                {
+                    TreeViewItem tvi = objectItems[(int)(selectedObject.ID & 0xFFFF)];
+                    tvi.FontWeight = FontWeights.Normal;
+                }
+            }
+        }
+
+        private void btnViewCarriedObject_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem item = listCarried.SelectedItem as ListBoxItem;
+            if (item != null)
+            {
+                Reach.GameObject selectedObject = (Reach.GameObject)item.Tag;
+                TreeViewItem tvi = objectItems[(int)(selectedObject.ID & 0xFFFF)];
+                selectItem(tvi);
+            }
+        }
+
+        private void listCarried_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Make sure the mouse is over the selected item,
+            // and if it is then just forward to the View button code
+            ListBoxItem item = listCarried.SelectedItem as ListBoxItem;
+            if (item != null && item.IsMouseOver)
+                btnViewCarriedObject_Click(sender, e);
+        }
+
+        private void listCarried_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            refreshCarryButtons();
         }
         #endregion
     }

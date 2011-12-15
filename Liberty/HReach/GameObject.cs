@@ -193,6 +193,7 @@ namespace Liberty.Reach
             float oldZ = _z;
             bool oldPhysics = PhysicsEnabled;
             uint oldFlags = _flags;
+            sbyte oldParentNode = _parentNodeIndex;
 
             // Replace!
             if (_carrier != null)
@@ -207,6 +208,11 @@ namespace Liberty.Reach
                 newObj.Y = oldY;
                 newObj.Z = oldZ;
                 newObj.PhysicsEnabled = oldPhysics;
+                newObj._right = _right;
+                newObj._forward = _forward;
+                newObj._up = _up;
+                newObj._scale = _scale;
+                newObj._parentNodeIndex = oldParentNode;
 
                 // Adjust flags
                 newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (oldFlags & ObjectFlags.NotCarried);
@@ -431,6 +437,15 @@ namespace Liberty.Reach
         }
 
         /// <summary>
+        /// The parent node that the object is attached to.
+        /// </summary>
+        public sbyte ParentNode
+        {
+            get { return _parentNodeIndex; }
+            set { _parentNodeIndex = value; }
+        }
+
+        /// <summary>
         /// The object data's offset in the mmiof.bmf file.
         /// </summary>
         public uint FileOffset
@@ -506,6 +521,7 @@ namespace Liberty.Reach
             _nextCarriedId = (ushort)(reader.ReadUInt32() & 0xFFFF);
             _firstCarriedId = (ushort)(reader.ReadUInt32() & 0xFFFF);
             _carrierId = (ushort)(reader.ReadUInt32() & 0xFFFF);
+            _parentNodeIndex = reader.ReadSByte();
 
             // Position data
             reader.Seek(start + 0x20, SeekOrigin.Begin);
@@ -601,6 +617,7 @@ namespace Liberty.Reach
                 writer.WriteUInt32(_carrier.ID);
             else
                 writer.WriteUInt32(0xFFFFFFFF);
+            writer.WriteSByte(_parentNodeIndex);
 
             writer.Seek(start + 0x20, SeekOrigin.Begin);
             writer.WriteFloat(_x);
@@ -705,6 +722,7 @@ namespace Liberty.Reach
             obj._flags |= ObjectFlags.NotCarried;
             obj._carrier = null;
             obj._nextCarried = null;
+            obj._parentNodeIndex = -1;
         }
 
         // hax
@@ -720,11 +738,8 @@ namespace Liberty.Reach
         /// <summary>
         /// Picks up and starts carrying another object.
         /// </summary>
-        /// <remarks>
-        /// This should only be used by derived classes when object reference properties are changed.
-        /// </remarks>
         /// <param name="obj">The object to pick up.</param>
-        internal void PickUpObject(GameObject obj)
+        public virtual void PickUp(GameObject obj)
         {
             obj.Drop();
             obj._flags &= ~ObjectFlags.NotCarried;
@@ -733,6 +748,7 @@ namespace Liberty.Reach
             obj._nextCarried = _firstCarried;
             obj.PhysicsEnabled = false;
             _firstCarried = obj;
+            obj._parentNodeIndex = 0;
             obj.OnPickUp();
         }
 
@@ -752,7 +768,7 @@ namespace Liberty.Reach
             if (oldObj != null && oldObj.Carrier == this)
                 oldObj.Drop();
             if (newObj != null && newObj.Carrier != this)
-                PickUpObject(newObj);
+                PickUp(newObj);
         }
 
         // moar hax
@@ -794,6 +810,7 @@ namespace Liberty.Reach
         private GameObject _firstCarried = null;
         private ushort _nextCarriedId;
         private GameObject _nextCarried = null;
+        private sbyte _parentNodeIndex;
 
         private float _boundsX1, _boundsY1, _boundsZ1;
         private float _boundsX2, _boundsY2, _boundsZ2;

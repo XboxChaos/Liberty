@@ -115,7 +115,7 @@ namespace Liberty.HCEX.UI
                 saveWeapon(playerBiped.TertiaryWeapon, txtTertiaryAmmo, txtTertiaryClip);
                 saveWeapon(playerBiped.QuaternaryWeapon, txtQuaternaryAmmo, txtQuaternaryClip);
             }
-            catch (Exception ex)
+            catch
             {
                 mainWindow.showMessage("Invalid weapon ammo count, you can only have a maximum of 32767, and a minimum of 0", "INVALID AMMO");
                 return false;

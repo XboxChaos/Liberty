@@ -87,8 +87,7 @@ namespace Liberty.Reach
         {
             if (_weapons.Count < 4)
             {
-                _weapons.Add(weapon);
-                PickUpObject(weapon);
+                PickUp(weapon);
                 return true;
             }
 
@@ -144,6 +143,15 @@ namespace Liberty.Reach
         public IList<WeaponObject> Weapons
         {
             get { return _roWeapons; }
+        }
+
+        public override void PickUp(GameObject obj)
+        {
+            base.PickUp(obj);
+
+            WeaponObject weapon = obj as WeaponObject;
+            if (weapon != null && _weapons.Count < 4)
+                _weapons.Add(weapon);
         }
 
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
