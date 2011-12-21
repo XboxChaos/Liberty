@@ -28,6 +28,7 @@ using X360.STFS;
 using System.Windows.Threading;
 using System.Threading;
 using System.Reflection;
+using Liberty.Halo3ODST.UI;
 
 namespace Liberty
 {
@@ -41,6 +42,7 @@ namespace Liberty
         private Util.SaveManager<Reach.CampaignSave> _reachSaveManager;
         private Util.SaveManager<HCEX.CampaignSave> _hcexSaveManager;
         private Util.SaveManager<Halo3.CampaignSave> _halo3SaveManager;
+        private Util.SaveManager<Halo3ODST.CampaignSave> _halo3ODSTSaveManager;
         private Reach.TagListManager _reachTaglists = null;
         private StepViewer _stepViewer = null;
         private StepUI.IStepNode _firstStep;
@@ -77,6 +79,9 @@ namespace Liberty
 
             // Set up Halo3 stuff
             _halo3SaveManager = new Util.SaveManager<Halo3.CampaignSave>(path => new Halo3.CampaignSave(path));
+
+            // Set up Halo3: ODST stuff
+            _halo3ODSTSaveManager = new Util.SaveManager<Halo3ODST.CampaignSave>(path => new Halo3ODST.CampaignSave(path));
 
             // Set up the step viewer
             _stepViewer = new StepViewer(stepGrid);
@@ -117,6 +122,11 @@ namespace Liberty
             h3QuickTweaks h3QuickTweaks = new Halo3.UI.h3QuickTweaks(_halo3SaveManager);
             #endregion
 
+            #region Halo3ODST
+            h3ODSTVerifyFile h3ODSTVerifyFile = new Halo3ODST.UI.h3ODSTVerifyFile(_halo3ODSTSaveManager);
+            h3ODSTEditBiped h3ODSTEditBiped = new Halo3ODST.UI.h3ODSTEditBiped(_halo3ODSTSaveManager);
+            #endregion
+
             // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
             // Maybe I should just throw away that feature where the progress bar can update mid-step so a group reference isn't needed
             IStep workStepSaving = new WorkStepProgressUpdater(new UnnavigableWorkStep(stepSaving, gridButtons, headerControls), null, _stepViewer);
@@ -151,6 +161,11 @@ namespace Liberty
             addStep(h3EditWeapons);
             addStep(h3EditGrenades);
             addStep(h3QuickTweaks);
+            #endregion
+
+            #region Halo3ODSTSteps
+            addStep(h3ODSTVerifyFile);
+            addStep(h3ODSTEditBiped);
             #endregion
 
             addStep(stepSaving);
@@ -221,7 +236,7 @@ namespace Liberty
             #endregion
 
             #region Halo3Steps
-            // Step graph: Edit HCEX save on computer
+            // Step graph: Edit Halo3 save on computer
             StepGraphBuilder halo3ComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Halo3, true);
             halo3ComputerSave.AddStep(h3VerifyFile, "SAVE SELECTION");
             halo3ComputerSave.AddStep(h3EditBiped, "CHARACTER DATA");
@@ -231,7 +246,7 @@ namespace Liberty
             halo3ComputerSave.AddStep(workStepSaving);
             halo3ComputerSave.AddStep(stepAllDone, "FINISHED");
 
-            // Step graph: Edit HCEX save on removable device
+            // Step graph: Edit Halo3 save on removable device
             StepGraphBuilder halo3DeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Halo3, true);
             halo3DeviceSave.AddStep(h3VerifyFile, "SAVE SELECTION");
             halo3DeviceSave.AddStep(h3EditBiped, "CHARACTER DATA");
@@ -241,6 +256,23 @@ namespace Liberty
             halo3DeviceSave.AddStep(workStepSaving);
             halo3DeviceSave.AddStep(workStepTransfer);
             halo3DeviceSave.AddStep(stepAllDone, "FINISHED");
+            #endregion
+
+            #region Halo3ODSTSteps
+            // Step graph: Edit Halo3 save on computer
+            StepGraphBuilder halo3ODSTComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Halo3ODST, true);
+            halo3ODSTComputerSave.AddStep(h3ODSTVerifyFile, "SAVE SELECTION");
+            halo3ODSTComputerSave.AddStep(h3ODSTEditBiped, "CHARACTER DATA");
+            halo3ODSTComputerSave.AddStep(workStepSaving);
+            halo3ODSTComputerSave.AddStep(stepAllDone, "FINISHED");
+
+            // Step graph: Edit Halo3 save on removable device
+            StepGraphBuilder halo3ODSTDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Halo3ODST, true);
+            halo3ODSTDeviceSave.AddStep(h3ODSTVerifyFile, "SAVE SELECTION");
+            halo3ODSTDeviceSave.AddStep(h3ODSTEditBiped, "CHARACTER DATA");
+            halo3ODSTDeviceSave.AddStep(workStepSaving);
+            halo3ODSTDeviceSave.AddStep(workStepTransfer);
+            halo3ODSTDeviceSave.AddStep(stepAllDone, "FINISHED");
             #endregion
 
             // Add dummy groups so that they show in the progress bar
@@ -364,6 +396,10 @@ namespace Liberty
 
                 case Util.SaveType.Halo3:
                     _saveManager = _halo3SaveManager;
+                    rawFileName = "mmiof.bmf";
+                    break;
+                case Util.SaveType.Halo3ODST:
+                    _saveManager = _halo3ODSTSaveManager;
                     rawFileName = "mmiof.bmf";
                     break;
 

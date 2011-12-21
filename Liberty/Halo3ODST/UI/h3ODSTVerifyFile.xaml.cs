@@ -12,16 +12,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Liberty.HCEX.UI
+namespace Liberty.Halo3ODST.UI
 {
     /// <summary>
-    /// Interaction logic for cexVerifyFile.xaml
+    /// Interaction logic for h3ODSTVerifyFile.xaml
     /// </summary>
-    public partial class cexVerifyFile : UserControl, StepUI.IStep
-	{
-        private Util.SaveManager<HCEX.CampaignSave> _saveManager;
+    public partial class h3ODSTVerifyFile : UserControl, StepUI.IStep
+    {
+        private Util.SaveManager<Halo3ODST.CampaignSave> _saveManager;
 
-        public cexVerifyFile(Util.SaveManager<HCEX.CampaignSave> saveManager)
+        public h3ODSTVerifyFile(Util.SaveManager<Halo3ODST.CampaignSave> saveManager)
         {
             InitializeComponent();
             _saveManager = saveManager;
@@ -31,21 +31,21 @@ namespace Liberty.HCEX.UI
 
         public void Load()
         {
-            HCEX.CampaignSave saveData = _saveManager.SaveData;
-            lblGamertag.Content = Gamertag;
-            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " - " + saveData.Map;
-            lblDifficulty.Content = saveData.CFGData.Difficulty;
+            Halo3ODST.CampaignSave saveData = _saveManager.SaveData;
+            lblGamertag.Content = saveData.Player.Gamertag + " - (" + saveData.Player.ServiceTag + ")";
+            lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " - " + saveData.Header.Map;
+            lblDifficulty.Content = saveData.Header.DifficultyString;
 
-            // Try to load the mission image
+            // Try to load the mission image/difficulty
             try
             {
-                string mapName = saveData.Map;
+                string mapName = saveData.Header.Map;
                 mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
-                var source = new Uri(@"/Liberty;component/Images/hcexMaps/" + mapName + ".png", UriKind.Relative);
+                var source = new Uri(@"/Liberty;component/Images/h3ODSTMaps/" + mapName.ToLower() + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
 
-                int diff = saveData.CFGData.DifficultyID + 1;
-                source = new Uri(@"/Liberty;component/Images/Difficulty/Blam_Default/" + diff.ToString() + ".png", UriKind.Relative);
+                int diff = (int)saveData.Header.Difficulty + 1;
+                source = new Uri(@"/Liberty;component/Images/Difficulty/Blam_ODST/" + diff.ToString() + ".png", UriKind.Relative);
                 imgDifficulty.Source = new BitmapImage(source);
             }
             catch { }

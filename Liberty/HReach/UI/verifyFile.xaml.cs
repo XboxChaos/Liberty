@@ -43,6 +43,10 @@ namespace Liberty.Controls
                 mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
                 var source = new Uri(@"/Liberty;component/Images/reachMaps/" + mapName + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
+
+                int diff = (int)saveData.Difficulty + 1;
+                source = new Uri(@"/Liberty;component/Images/Difficulty/Blam_Default/" + diff.ToString() + ".png", UriKind.Relative);
+                imgDifficulty.Source = new BitmapImage(source);
             }
             catch { }
         }
