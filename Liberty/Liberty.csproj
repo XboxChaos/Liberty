@@ -115,6 +115,23 @@
       <DependentUpon>listcordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="eggData\eggData4.cs" />
+    <Compile Include="Halo3ODST\BipedObject.cs" />
+    <Compile Include="Halo3ODST\CampaignSave.cs" />
+    <Compile Include="Halo3ODST\GameObject.cs" />
+    <Compile Include="Halo3ODST\ObjectEntry.cs" />
+    <Compile Include="Halo3ODST\ObjectList.cs" />
+    <Compile Include="Halo3ODST\Player.cs" />
+    <Compile Include="Halo3ODST\SaveHeader.cs" />
+    <Compile Include="Halo3ODST\Table.cs" />
+    <Compile Include="Halo3ODST\TableOffset.cs" />
+    <Compile Include="Halo3ODST\TagGroup.cs" />
+    <Compile Include="Halo3ODST\UI\h3ODSTEditBiped.xaml.cs">
+      <DependentUpon>h3ODSTEditBiped.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Halo3ODST\UI\h3ODSTVerifyFile.xaml.cs">
+      <DependentUpon>h3ODSTVerifyFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Halo3ODST\WeaponObject.cs" />
     <Compile Include="Halo3\BipedObject.cs" />
     <Compile Include="Halo3\CampaignSave.cs" />
     <Compile Include="Halo3\GameObject.cs" />
@@ -323,6 +340,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\listcordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Halo3ODST\UI\h3ODSTEditBiped.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Halo3ODST\UI\h3ODSTVerifyFile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -664,6 +689,29 @@
     <Resource Include="Images\h3Maps\100_citadel.jpg" />
     <Resource Include="Images\h3Maps\110_hc.jpg" />
     <Resource Include="Images\h3Maps\120_halo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Difficulty\Blam_Default\1.png" />
+    <Resource Include="Images\Difficulty\Blam_Default\2.png" />
+    <Resource Include="Images\Difficulty\Blam_Default\3.png" />
+    <Resource Include="Images\Difficulty\Blam_Default\4.png" />
+    <Resource Include="Images\Difficulty\Blam_ODST\1.png" />
+    <Resource Include="Images\Difficulty\Blam_ODST\2.png" />
+    <Resource Include="Images\Difficulty\Blam_ODST\3.png" />
+    <Resource Include="Images\Difficulty\Blam_ODST\4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\h3ODSTMaps\c100.jpg" />
+    <Resource Include="Images\h3ODSTMaps\c200.jpg" />
+    <Resource Include="Images\h3ODSTMaps\h100.jpg" />
+    <Resource Include="Images\h3ODSTMaps\L200.jpg" />
+    <Resource Include="Images\h3ODSTMaps\L300.jpg" />
+    <Resource Include="Images\h3ODSTMaps\sc100.jpg" />
+    <Resource Include="Images\h3ODSTMaps\sc110.jpg" />
+    <Resource Include="Images\h3ODSTMaps\sc120.jpg" />
+    <Resource Include="Images\h3ODSTMaps\sc130.jpg" />
+    <Resource Include="Images\h3ODSTMaps\sc140.jpg" />
+    <Resource Include="Images\h3ODSTMaps\sc150.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />

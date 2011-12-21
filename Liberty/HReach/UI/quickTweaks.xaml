@@ -18,9 +18,9 @@
 				<Label x:Name="lblStartingMsg" Content="custom game start message:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,0,0,0" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="168" />
 				<TextBox Margin="203,0,0,0" MaxLines="1" x:Name="txtStartingMsg" Text="Modded with Liberty 3.2.0.0" TextWrapping="Wrap" VerticalAlignment="Bottom" MaxLength="400" />
 			</Grid>
-			<Grid Margin="0,160,0,0" Height="152" VerticalAlignment="Top" Visibility="Collapsed">
+			<Grid x:Name="skullsPanel" Margin="0,160,0,0" Height="152" VerticalAlignment="Top" Visibility="Collapsed">
 				<Label Content="skulls;" Margin="0,0,0,126" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="107" />
-				<WrapPanel x:Name="skullsPanel" Margin="36,30,0,42">
+				<WrapPanel x:Name="skullsWrapPanel" Margin="36,30,0,42">
 					<CheckBox x:Name="cBIron" Content="Iron" Margin="0,0,0,12" Height="16" Width="108" FontSize="13" FontWeight="Light"/>
 					<CheckBox x:Name="cBBlackEye" Content="Black Eye" Margin="0,0,0,12" Height="16" Width="108" FontSize="13" FontWeight="Light"/>
 					<CheckBox x:Name="cBToughLuck" Content="Tough Luck" Margin="0,0,0,12" Height="16" Width="108" FontSize="13" FontWeight="Light"/>

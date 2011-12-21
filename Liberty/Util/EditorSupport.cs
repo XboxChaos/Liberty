@@ -46,6 +46,19 @@ namespace Liberty.Util
                 }
             }
         }
+        public static void AllWeaponsMaxAmmo(Halo3ODST.CampaignSave saveData)
+        {
+            foreach (Halo3ODST.GameObject obj in saveData.Objects)
+            {
+                Halo3ODST.WeaponObject weap = obj as Halo3ODST.WeaponObject;
+                if (weap != null)
+                {
+                    weap.Ammo = 32767;
+                    weap.ClipAmmo = 32767;
+                }
+            }
+        }
+
 
         public static HashSet<Reach.BipedObject> FindSwappableBipeds(Reach.CampaignSave saveData)
         {
@@ -183,6 +196,47 @@ namespace Liberty.Util
 
                 case @"120_halo":
                     return "Halo";
+
+                default:
+                    return saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower();
+            }
+        }
+        public static string GetMissionName(Halo3ODST.CampaignSave saveData)
+        {
+            switch (saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower())
+            {
+                case @"c100":
+                    return "Prepare To Drop";
+
+                case @"c200":
+                    return "Coastal Highway";
+
+                case @"h100":
+                    return "Mombassa Streets";
+
+                case @"l200":
+                    return "Data Hive";
+
+                case @"l300":
+                    return "Coastal Highway";
+                    
+                case @"sc100":
+                    return "Tayari Plaza";
+
+                case @"sc110":
+                    return "Uplift Reserve";
+
+                case @"sc120":
+                    return "Kizingo Blvd.";
+
+                case @"sc130":
+                    return "Oni Alpha Base";
+
+                case @"sc140":
+                    return "NMPD HQ";
+
+                case @"sc150":
+                    return "Kikiwani Station";
 
                 default:
                     return saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower();

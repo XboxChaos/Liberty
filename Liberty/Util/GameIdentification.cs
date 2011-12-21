@@ -9,6 +9,7 @@ namespace Liberty.Util
     {
         Unknown,
         Halo3,
+        Halo3ODST,
         Reach,
         Anniversary,
         SomeGame
@@ -39,11 +40,16 @@ namespace Liberty.Util
                     if (package.GetFile("mmiof.bmf") != null)
                         return SaveType.Halo3;
                     break;
+                case Halo3ODSTTitleID:
+                    if (package.GetFile("mmiof.bmf") != null)
+                        return SaveType.Halo3ODST;
+                    break;
             }
             return SaveType.Unknown;
         }
 
         private const uint Halo3TitleID = 0x4D5307E6;
+        private const uint Halo3ODSTTitleID = 0x4D530877;
         private const uint ReachTitleID = 0x4D53085B;
         private const uint AnniversaryID = 0x4D5309B1;
     }

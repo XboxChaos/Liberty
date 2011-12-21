@@ -26,6 +26,10 @@ namespace Liberty.Controls
 		{
             _saveManager = saveManager;
 			this.InitializeComponent();
+
+#if DEBUG
+            skullsPanel.Visibility = System.Windows.Visibility.Visible;
+#endif
 		}
 		
 		public void Load()
@@ -74,7 +78,7 @@ namespace Liberty.Controls
 
         private void checkAll(bool check)
         {
-            foreach (UIElement element in skullsPanel.Children)
+            foreach (UIElement element in skullsWrapPanel.Children)
             {
                 CheckBox cb = element as CheckBox;
                 if (cb != null)

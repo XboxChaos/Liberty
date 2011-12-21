@@ -36,13 +36,17 @@ namespace Liberty.Halo3.UI
             lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " - " + saveData.Header.Map;
             lblDifficulty.Content = saveData.Header.DifficultyString;
 
-            // Try to load the mission image
+            // Try to load the mission image/difficulty
             try
             {
                 string mapName = saveData.Header.Map;
                 mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
                 var source = new Uri(@"/Liberty;component/Images/h3Maps/" + mapName + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
+
+                int diff = (int)saveData.Header.Difficulty;
+                source = new Uri(@"/Liberty;component/Images/Difficulty/Blam_Default/" + diff.ToString() + ".png", UriKind.Relative);
+                imgDifficulty.Source = new BitmapImage(source);
             }
             catch { }
         }

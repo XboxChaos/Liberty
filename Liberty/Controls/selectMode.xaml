@@ -16,7 +16,8 @@
 			<Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Welcome to Liberty" Height="60" VerticalAlignment="Top" />
 			<Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="The free, open-sauce Halo campaign save editor" Height="25" VerticalAlignment="Top" />
 			
-			<Label Name="subHeading1" Content="editing mode;" Margin="0,110,0,0" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="107" Height="28.911" VerticalAlignment="Top" />
+			<Label Name="subHeading1" Content="editing mode;" Margin="0,110,0,200" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="107" />
+
 
         <RadioButton Name="cBSaveOP" Content="Edit a save file stored on my computer" Margin="26,139,72.5,0" IsChecked="True" FontFamily="SegeoUI" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment"/>
 			<RadioButton Name="cBSaveOD" Content="Edit a save file stored on a removable device (USB, memory card, HDD)" Margin="26,158,29,0" FontFamily="SegeoUI" VerticalAlignment="Top"/>

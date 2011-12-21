@@ -24,17 +24,17 @@ using System.Linq;
 using System.Text;
 using Liberty.SaveIO;
 
-namespace Liberty.Halo3
+namespace Liberty.Halo3ODST
 {
     /// <summary>
     /// Provides constants for the various campaign difficulties.
     /// </summary>
     public enum Difficulty
     {
-        Easy = 1,
-        Normal = 2,
-        Heroic = 3,
-        Legendary = 4
+        Easy,
+        Normal,
+        Heroic,
+        Legendary
     } 
 
     /// <summary>

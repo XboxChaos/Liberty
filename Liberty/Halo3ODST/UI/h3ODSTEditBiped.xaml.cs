@@ -12,17 +12,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Liberty.Halo3.UI
+namespace Liberty.Halo3ODST.UI
 {
     /// <summary>
-    /// Interaction logic for h3EditBiped.xaml
+    /// Interaction logic for h3ODSTEditBiped.xaml
     /// </summary>
-    public partial class h3EditBiped : UserControl, StepUI.IStep
+    public partial class h3ODSTEditBiped : UserControl, StepUI.IStep
     {
         private MainWindow mainWindow = null;
-        private Util.SaveManager<Halo3.CampaignSave> _saveManager;
+        private Util.SaveManager<Halo3ODST.CampaignSave> _saveManager;
 
-        public h3EditBiped(Util.SaveManager<Halo3.CampaignSave> saveManager)
+        public h3ODSTEditBiped(Util.SaveManager<Halo3ODST.CampaignSave> saveManager)
         {
             _saveManager = saveManager;
             InitializeComponent();
@@ -37,8 +37,8 @@ namespace Liberty.Halo3.UI
 
         public void Load()
         {
-            Halo3.CampaignSave saveData = _saveManager.SaveData;
-            Halo3.BipedObject playerBiped = saveData.PlayerBiped;
+            Halo3ODST.CampaignSave saveData = _saveManager.SaveData;
+            Halo3ODST.BipedObject playerBiped = saveData.PlayerBiped;
             checkInvincible.IsChecked = playerBiped.Invincible;
 
             txtPlayerXCord.Text = playerBiped.Position.X.ToString();
@@ -48,21 +48,21 @@ namespace Liberty.Halo3.UI
 
         public bool Save()
         {
-            //Halo3.CampaignSave saveData = _saveManager.SaveData;
+            Halo3ODST.CampaignSave saveData = _saveManager.SaveData;
 
-            //Halo3.BipedObject playerBiped = saveData.PlayerBiped;
-            //playerBiped.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
-            
-            //// TODO: Actually detect if this is a vehicle, and not some homosexual dragon (fixhax)
-            //// I think that should work AMD -Xerax
-            //GameObject playerCarrier = playerBiped.Carrier;
-            //if (playerCarrier != null && playerCarrier.TagGroup == TagGroup.Vehi)
-            //    playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
+            Halo3ODST.BipedObject playerBiped = saveData.PlayerBiped;
+            playerBiped.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
 
-            //float newX = Convert.ToSingle(txtPlayerXCord.Text);
-            //float newY = Convert.ToSingle(txtPlayerYCord.Text);
-            //float newZ = Convert.ToSingle(txtPlayerZCord.Text);
-            //playerBiped.Position = new MathUtil.Vector3(newX, newY, newZ);
+            // TODO: Actually detect if this is a vehicle, and not some homosexual dragon (fixhax)
+            // I think that should work AMD -Xerax
+            GameObject playerCarrier = playerBiped.Carrier;
+            if (playerCarrier != null && playerCarrier.TagGroup == TagGroup.Vehi)
+                playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
+
+            float newX = Convert.ToSingle(txtPlayerXCord.Text);
+            float newY = Convert.ToSingle(txtPlayerYCord.Text);
+            float newZ = Convert.ToSingle(txtPlayerZCord.Text);
+            playerBiped.Position = new MathUtil.Vector3(newX, newY, newZ);
 
             return true;
         }
