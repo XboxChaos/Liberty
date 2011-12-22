@@ -140,7 +140,7 @@ namespace Liberty.Halo3ODST
         private sbyte _firebombGrenades;
 
         // Offsets
-        private const int WeaponsOffset = 0x260;
+        private const int WeaponsOffset = 0x270;
         private const int GrenadesOffset = 0x29C;
     }
 }
