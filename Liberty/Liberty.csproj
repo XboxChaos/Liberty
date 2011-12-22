@@ -131,6 +131,9 @@
     <Compile Include="Halo3ODST\UI\h3ODSTEditGrenades.xaml.cs">
       <DependentUpon>h3ODSTEditGrenades.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Halo3ODST\UI\h3ODSTEditWeapons.xaml.cs">
+      <DependentUpon>h3ODSTEditWeapons.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Halo3ODST\UI\h3ODSTVerifyFile.xaml.cs">
       <DependentUpon>h3ODSTVerifyFile.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Halo3ODST\UI\h3ODSTEditGrenades.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Halo3ODST\UI\h3ODSTEditWeapons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
