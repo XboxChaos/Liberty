@@ -20,15 +20,15 @@ using Liberty.classInfo.storage;
 using Liberty.classInfo.storage.settings;
 
 using Liberty.Controls;
+using Liberty.StepUI;
 using Liberty.HCEX.UI;
 using Liberty.Halo3.UI;
+using Liberty.Halo3ODST.UI;
 
-using Liberty.StepUI;
 using X360.STFS;
 using System.Windows.Threading;
 using System.Threading;
 using System.Reflection;
-using Liberty.Halo3ODST.UI;
 
 namespace Liberty
 {
@@ -125,6 +125,8 @@ namespace Liberty
             #region Halo3ODST
             h3ODSTVerifyFile h3ODSTVerifyFile = new Halo3ODST.UI.h3ODSTVerifyFile(_halo3ODSTSaveManager);
             h3ODSTEditBiped h3ODSTEditBiped = new Halo3ODST.UI.h3ODSTEditBiped(_halo3ODSTSaveManager);
+            h3ODSTEditWeapons h3ODSTEditWeapons = new Halo3ODST.UI.h3ODSTEditWeapons(_halo3ODSTSaveManager);
+            h3ODSTEditGrenades h3ODSTEditGrenades = new Halo3ODST.UI.h3ODSTEditGrenades(_halo3ODSTSaveManager);
             #endregion
 
             // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
@@ -166,6 +168,8 @@ namespace Liberty
             #region Halo3ODSTSteps
             addStep(h3ODSTVerifyFile);
             addStep(h3ODSTEditBiped);
+            addStep(h3ODSTEditWeapons);
+            addStep(h3ODSTEditGrenades);
             #endregion
 
             addStep(stepSaving);
@@ -263,6 +267,8 @@ namespace Liberty
             StepGraphBuilder halo3ODSTComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Halo3ODST, true);
             halo3ODSTComputerSave.AddStep(h3ODSTVerifyFile, "SAVE SELECTION");
             halo3ODSTComputerSave.AddStep(h3ODSTEditBiped, "CHARACTER DATA");
+            halo3ODSTComputerSave.AddStep(h3ODSTEditWeapons, "WEAPON DATA");
+            halo3ODSTComputerSave.AddStep(h3ODSTEditGrenades, "WEAPON DATA");
             halo3ODSTComputerSave.AddStep(workStepSaving);
             halo3ODSTComputerSave.AddStep(stepAllDone, "FINISHED");
 
@@ -270,6 +276,8 @@ namespace Liberty
             StepGraphBuilder halo3ODSTDeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Halo3ODST, true);
             halo3ODSTDeviceSave.AddStep(h3ODSTVerifyFile, "SAVE SELECTION");
             halo3ODSTDeviceSave.AddStep(h3ODSTEditBiped, "CHARACTER DATA");
+            halo3ODSTDeviceSave.AddStep(h3ODSTEditWeapons, "WEAPON DATA");
+            halo3ODSTDeviceSave.AddStep(h3ODSTEditGrenades, "WEAPON DATA");
             halo3ODSTDeviceSave.AddStep(workStepSaving);
             halo3ODSTDeviceSave.AddStep(workStepTransfer);
             halo3ODSTDeviceSave.AddStep(stepAllDone, "FINISHED");
