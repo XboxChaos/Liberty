@@ -104,11 +104,11 @@ namespace Liberty.Halo3ODST
                     break;
             }
 
-            // DEBUG
-            if (obj.TagGroup == TagGroup.Bipd)
+            if (obj.Index == new DatumIndex(0xE30B009C))
             {
 
             }
+
             _objects.Add(obj);
             return true;
         }

@@ -40,11 +40,11 @@ namespace Liberty.Halo3ODST
             _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier);
 
             reader.SeekTo(baseOffset + 0x18);
-            // From H3, needs checking
+            // TODO: get offset for BSP zone
             //_zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
 
 
-            reader.SeekTo(baseOffset + PositionOffset3);
+            reader.SeekTo(baseOffset + PositionOffset1);
             _position.X = reader.ReadFloat();
             _position.Y = reader.ReadFloat();
             _position.Z = reader.ReadFloat();
@@ -276,7 +276,7 @@ namespace Liberty.Halo3ODST
         private const int PositionOffset1 = 0x1C;
         private const int PositionOffset2 = 0x2C;
         private const int PositionOffset3 = 0x3C;
-        private const int PositionOffset4 = 0x52;
+        private const int PositionOffset4 = 0x50;
         private const int CarryInfoOffset = 0x08;
         private const int StrengthInfoOffset = 0xEC;
     }
