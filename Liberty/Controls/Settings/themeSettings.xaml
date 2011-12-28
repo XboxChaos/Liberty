@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="Liberty.Controls.Settings.themeSettings" 
              mc:Ignorable="d" 
-             Width="615" Height="320">
+             >
     <Grid>
     	<Rectangle Fill="#FFBFBFC0" HorizontalAlignment="Left" Margin="163,35,0,35" Stroke="#FFBFBFC0" Width="0.5"/>
 
@@ -17,20 +17,20 @@
 
             <Label x:Name="TLTprt1Header" Content="Colour Theme;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="8,51,-8,164" Height="25"/>
             <StackPanel Height="37" Margin="8,76,-8,127">
-                <RadioButton x:Name="rbLightTheme" IsChecked="True" IsEnabled="True" Content="Light Theme (black text on white)" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbDarkTheme" IsChecked="False" IsEnabled="True" Content="Dark Theme (white text on black)" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbLightTheme" IsChecked="True" IsEnabled="True" Content="Light Theme (black text on white)" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbDarkTheme" IsChecked="False" IsEnabled="True" Content="Dark Theme (white text on black)" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
             </StackPanel>
 
             <Label x:Name="TLTprt2Header" Content="Accent Theme;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="8,118,-8,97" Height="25"/>
             <StackPanel Height="146" Margin="8,145,-8,-51">
-                <RadioButton x:Name="rbAccent1" IsChecked="True" Content="Liberty Orange" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent2" IsChecked="False" Content="Blue" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent3" IsChecked="False" Content="Purple" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent4" IsChecked="False" Content="Pink" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent5" IsChecked="False" Content="Red" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent6" IsChecked="False" Content="Green" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent7" IsChecked="False" Content="Lime" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
-                <RadioButton x:Name="rbAccent8" IsChecked="False" Content="Silver" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent1" IsChecked="True" Content="Liberty Orange" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent2" IsChecked="False" Content="Blue" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent3" IsChecked="False" Content="Purple" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent4" IsChecked="False" Content="Pink" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent5" IsChecked="False" Content="Red" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent6" IsChecked="False" Content="Green" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent7" IsChecked="False" Content="Lime" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
+                <RadioButton x:Name="rbAccent8" IsChecked="False" Content="Silver" Checked="theme_Checked" FontSize="10" FontWeight="SemiBold" Margin="10,2,0,0" Height="14"/>
             </StackPanel>
         </Grid>
 

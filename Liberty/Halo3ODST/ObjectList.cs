@@ -104,10 +104,6 @@ namespace Liberty.Halo3ODST
                     break;
             }
 
-            if (obj.Index == new DatumIndex(0xE30B009C))
-            {
-
-            }
 
             _objects.Add(obj);
             return true;

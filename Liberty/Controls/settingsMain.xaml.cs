@@ -128,6 +128,8 @@ namespace Liberty.Controls
         {
             //Close code
             OnExecuteMethod();
+
+            classInfo.applicationExtra.loadApplicationSettings();
         }
         #endregion
     }
