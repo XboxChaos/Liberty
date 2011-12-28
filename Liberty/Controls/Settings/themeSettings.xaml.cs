@@ -21,6 +21,8 @@ namespace Liberty.Controls.Settings
     public partial class themeSettings : UserControl
     {
         BrushConverter bc = new BrushConverter();
+        public int lastLoadThemeID = -1;
+        public int lastLoadAccentID = -1;
 
         public themeSettings()
         {
@@ -59,6 +61,7 @@ namespace Liberty.Controls.Settings
                     rbDarkTheme.IsChecked = true;
                     break;
             }
+            lastLoadThemeID = themeColour;
 
             switch (accentColour)
             {
@@ -90,6 +93,8 @@ namespace Liberty.Controls.Settings
                     rbAccent1.IsChecked = true;
                     break;
             }
+            lastLoadAccentID = accentColour;
+
         }
         public void saveSettings()
         {
@@ -122,8 +127,6 @@ namespace Liberty.Controls.Settings
 
             key.SetValue("accentColour", AccentColour);
             key.SetValue("themeColour", ThemeColour);
-
-            classInfo.applicationExtra.loadApplicationSettings();
         }
 
         #region uncleanWPFshit
@@ -143,6 +146,29 @@ namespace Liberty.Controls.Settings
             hideAllTris();
             triThem.Visibility = Visibility.Visible;
             themeSettingsPnl.Visibility = Visibility.Visible;
+        }
+        #endregion
+
+        #region realTime
+        private void theme_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton cb = (RadioButton)sender;
+
+            if (cb.Content != null && cb.Content.ToString().EndsWith(")"))
+            {
+                string theme = cb.Content.ToString().Remove(5);
+                theme = theme.Replace(" ", "");
+
+                ResourceDictionary rd = new ResourceDictionary { Source = new Uri("Themes/Colour/"+theme+".xaml", UriKind.Relative) };
+                App.Current.Resources.MergedDictionaries.Add(rd);
+            }
+            else if (cb.Content != null)
+            {
+                string accent = cb.Content.ToString().Replace("Liberty ", "");
+
+                ResourceDictionary rd = new ResourceDictionary { Source = new Uri("Themes/Accents/" + accent + ".xaml", UriKind.Relative) };
+                App.Current.Resources.MergedDictionaries.Add(rd);
+            }
         }
         #endregion
         #endregion
