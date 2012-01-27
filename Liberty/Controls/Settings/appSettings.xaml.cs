@@ -42,9 +42,9 @@ namespace Liberty.Controls.Settings
 
             // Do Build Data
             FileInfo fi = new FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            DateTime dt = fi.CreationTime;
+            DateTime dt = fi.LastWriteTime;
             appBuildData.Text = string.Format("Build Version:    {0}" + Environment.NewLine +
-                "Build Date:       {1}",
+                "Build Date:        {1}",
                 Assembly.GetExecutingAssembly().GetName().Version.ToString(), dt.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // TODO: Fix this when we add a new dll
@@ -57,7 +57,7 @@ namespace Liberty.Controls.Settings
             appExternal.Text = "";
             foreach (string[] tmp in depend)
             {
-                string adding = string.Format("Dependency Name:     {0} " + Environment.NewLine +
+                string adding = string.Format("Dependency Name:    {0} " + Environment.NewLine +
                                               "Dependency Author:   {1} " + Environment.NewLine +
                                               "Dependency Size:       {2} " + Environment.NewLine +
                                               "Dependency License:  {3} " + Environment.NewLine + Environment.NewLine + Environment.NewLine,
@@ -98,7 +98,7 @@ namespace Liberty.Controls.Settings
             btnfindTaglist.IsEnabled = (bool)TLTExtAscTaglst.IsChecked;
         }
 
-        public void saveSettings(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
+        public void saveSettings()
         {
             // Save to RegTable
             RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings");
@@ -121,12 +121,11 @@ namespace Liberty.Controls.Settings
             key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
             key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
 
-            if (classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec != TLTAsvTagLstDirec.Text && saveManager != null)
-                classInfo.nameLookup.loadAscensionTaglist(saveManager, taglistManager);
-
             classInfo.storage.settings.applicationSettings.enableEasterEggs = (bool)LNSenableEggs.IsChecked;
             classInfo.storage.settings.applicationSettings.noWarnings = (bool)LNSnoWarnings.IsChecked;
             classInfo.storage.settings.applicationSettings.lookUpObjectTypes = (bool)TLTtaglstUseTypes.IsChecked;
+            classInfo.storage.settings.applicationSettings.extTaglistFrmAsc = (bool)TLTExtAscTaglst.IsChecked;
+            classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec = TLTAsvTagLstDirec.Text;
         }
 
         #region uncleanWPFshit

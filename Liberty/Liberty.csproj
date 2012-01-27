@@ -323,9 +323,11 @@
     <Compile Include="StepUI\ProgressBarGroup.cs" />
     <Compile Include="StepUI\StepViewer.cs" />
     <Compile Include="StepUI\WorkStepProgressUpdater.cs" />
+    <Compile Include="Util\AscensionTagList.cs" />
     <Compile Include="Util\EditorSupport.cs" />
     <Compile Include="Util\FATXSaveTransferrer.cs" />
     <Compile Include="Util\GameIdentification.cs" />
+    <Compile Include="Util\INITagList.cs" />
     <Compile Include="Util\ISaveManager.cs" />
     <Compile Include="Util\ISaveTransferrer.cs" />
     <Compile Include="Util\SaveManager.cs" />

@@ -4,42 +4,34 @@ using System.Linq;
 using System.Text;
 using Liberty.classInfo.storage.settings;
 using System.IO;
+using Liberty.Util;
 
 namespace Liberty.classInfo
 {
     class nameLookup
     {
-        public static Util.TagList loadTaglist()
+        public static TagList loadTaglist()
         {
             if (applicationSettings.getLatestTagLst)
             {
-                return Util.TagList.FromString(applicationExtra.downloadTaglists());
+                return INITagList.LoadFromString(applicationExtra.downloadTaglists());
             }
             else
             {
-                return Util.TagList.FromString(Liberty.Properties.Resources.taglists);
+                return INITagList.LoadFromString(Liberty.Properties.Resources.taglists);
             }
         }
 
-        public static string loadAscensionTaglist(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
+        public static void loadAscensionTaglist(SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
         {
-            try
+            if (applicationSettings.extTaglistFrmAsc && !string.IsNullOrWhiteSpace(applicationSettings.extTaglistFromAscDirec))
             {
-                if (applicationSettings.extTaglistFrmAsc && !string.IsNullOrWhiteSpace(applicationSettings.extTaglistFromAscDirec))
-                {
-                    string mapName = saveManager.SaveData.Map;
-                    mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
-                    string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + mapName + ".taglist";
-                    taglistManager.RemoveMapSpecificTaglists();
-                    if (File.Exists(fileName))
-                        taglistManager.AddMapSpecificTaglist(Util.TagList.FromFile(fileName, Util.TagListMode.Ascension));
-                }
-
-                return null;
-            }
-            catch (Exception exception)
-            {
-                return exception.ToString();
+                string mapName = saveManager.SaveData.Map;
+                mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
+                string fileName = applicationSettings.extTaglistFromAscDirec + "\\" + mapName + ".taglist";
+                taglistManager.RemoveMapSpecificTaglists();
+                if (File.Exists(fileName))
+                    taglistManager.AddMapSpecificTaglist(AscensionTagList.LoadFromFile(fileName));
             }
         }
     }

@@ -18,13 +18,15 @@ namespace Liberty.Controls
 	/// </summary>
 	public partial class verifyFile : UserControl, StepUI.IStep
 	{
+        private MainWindow _mainWindow;
         private Util.SaveManager<Reach.CampaignSave> _saveManager;
         private Reach.TagListManager _taglistManager;
 
-        public verifyFile(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager)
+        public verifyFile(Util.SaveManager<Reach.CampaignSave> saveManager, Reach.TagListManager taglistManager, MainWindow mainWindow)
 		{
             _saveManager = saveManager;
             _taglistManager = taglistManager;
+            _mainWindow = mainWindow;
 			this.InitializeComponent();
 		}
 
@@ -53,7 +55,14 @@ namespace Liberty.Controls
 
         public bool Save()
         {
-            classInfo.nameLookup.loadAscensionTaglist(_saveManager, _taglistManager);
+            try
+            {
+                classInfo.nameLookup.loadAscensionTaglist(_saveManager, _taglistManager);
+            }
+            catch (Exception ex)
+            {
+                _mainWindow.showException("Unable to load this map's Ascension taglist:\n\n" + ex.Message);
+            }
             return true;
         }
 
