@@ -44,6 +44,7 @@ namespace Liberty
         private Util.SaveManager<Halo3.CampaignSave> _halo3SaveManager;
         private Util.SaveManager<Halo3ODST.CampaignSave> _halo3ODSTSaveManager;
         private Reach.TagListManager _reachTaglists = null;
+        private string _reachTaglistDir = applicationSettings.extTaglistFromAscDirec;
         private StepViewer _stepViewer = null;
         private StepUI.IStepNode _firstStep;
         private Util.FATXSaveTransferrer _saveTransferrer = new Util.FATXSaveTransferrer();
@@ -67,7 +68,8 @@ namespace Liberty
             egg2.Tick += new EventHandler(egg2_Tick);
 
             // Set settings menu visible state
-            settingsMain.ExecuteMethod += new EventHandler(ParentWPF_CloseSettings);
+            settingsMain.SettingsChanged += new EventHandler(settingsMain_SettingsChanged);
+            settingsMain.Closed += new EventHandler(settingsMain_Closed);
             settingsPanel.Visibility = Visibility.Hidden;
 
             // Set up reach stuff
@@ -98,7 +100,7 @@ namespace Liberty
             allDone stepAllDone = new allDone(_stepSelectMode);
 
             #region Reach
-            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists);
+            verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists, this);
             editBiped reachBiped = new editBiped(_reachSaveManager, _reachTaglists);
             editWeapons reachWeapons = new editWeapons(_reachSaveManager);
             editGrenades reachGrenades = new editGrenades(_reachSaveManager);
@@ -603,9 +605,36 @@ namespace Liberty
                 _reachTaglists.AddGenericTaglist(app.tagList);
         }
 
-        protected void ParentWPF_CloseSettings(object sender, EventArgs e)
+        private void settingsMain_SettingsChanged(object sender, EventArgs e)
         {
-            settingsPanel.Visibility = Visibility.Hidden;
+            if (_reachSaveManager.Loaded)
+            {
+                if (applicationSettings.extTaglistFrmAsc)
+                {
+                    string newTaglistDir = applicationSettings.extTaglistFromAscDirec.ToLower();
+                    if (newTaglistDir != _reachTaglistDir)
+                    {
+                        try
+                        {
+                            classInfo.nameLookup.loadAscensionTaglist(_reachSaveManager, _reachTaglists);
+                        }
+                        catch (Exception ex)
+                        {
+                            showException("Unable to load this map's Ascension taglist:\n\n" + ex.Message);
+                        }
+                        _reachTaglistDir = newTaglistDir;
+                    }
+                }
+                else
+                {
+                    _reachTaglists.RemoveMapSpecificTaglists();
+                }
+            }
+        }
+
+        private void settingsMain_Closed(object sender, EventArgs e)
+        {
+            settingsPanel.Visibility = System.Windows.Visibility.Hidden;
 
             // Set theme colours on static objects
             btnSettings_MouseLeave(null, null);
@@ -770,7 +799,8 @@ namespace Liberty
         private void btnSettings_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-            settingsPanel.Visibility = Visibility.Visible;
+            settingsMain.Reload();
+            settingsPanel.Visibility = System.Windows.Visibility.Visible;
             isMouseDownEgg2 = false;
         }
         #endregion

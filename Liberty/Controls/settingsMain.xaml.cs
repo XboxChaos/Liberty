@@ -21,9 +21,9 @@ namespace Liberty.Controls
     {
         private bool isApp = true;
         BrushConverter bc = new BrushConverter();
-        //FontWeight fw = new FontWeight();
-        public event EventHandler ExecuteMethod;
-        protected virtual void OnExecuteMethod() { if (ExecuteMethod != null) ExecuteMethod(this, EventArgs.Empty); }
+
+        public event EventHandler SettingsChanged;
+        public event EventHandler Closed;
 
         public settingsMain()
         {
@@ -32,10 +32,7 @@ namespace Liberty.Controls
             themePanel.Visibility = Visibility.Hidden;
         }
 
-        public Util.SaveManager<Reach.CampaignSave> SaveManager { get; set; }
-        public Reach.TagListManager TagListManager { get; set; }
-
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        public void Reload()
         {
             softCode.loadSettings();
             themeCode.loadSettings();
@@ -117,20 +114,31 @@ namespace Liberty.Controls
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             //Save Code
-            softCode.saveSettings(SaveManager, TagListManager);
+            softCode.saveSettings();
             themeCode.saveSettings();
 
             //Leave Code
-            OnExecuteMethod();
+            OnSettingsChanged();
+            OnClosed();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //Close code
-            OnExecuteMethod();
-
             classInfo.applicationExtra.loadApplicationSettings();
+            OnClosed();
         }
         #endregion
+
+        private void OnSettingsChanged()
+        {
+            if (SettingsChanged != null)
+                SettingsChanged(this, EventArgs.Empty);
+        }
+
+        private void OnClosed()
+        {
+            if (Closed != null)
+                Closed(this, EventArgs.Empty);
+        }
     }
 }

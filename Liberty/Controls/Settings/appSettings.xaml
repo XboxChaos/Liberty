@@ -16,7 +16,7 @@
         <Label x:Name="btnUpdateSettings" MouseEnter="btnUpdateSettings_MouseEnter" MouseLeave="btnUpdateSettings_MouseLeave" MouseDown="btnUpdateSettings_MouseDown" Content="UPDATE SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,56,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
         <Label x:Name="btnLaunchSettings" MouseEnter="btnLaunchSettings_MouseEnter" MouseLeave="btnLaunchSettings_MouseLeave" MouseDown="btnLaunchSettings_MouseDown" Content="LAUNCH SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,74,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" />
         <Label x:Name="btnTaglistSettings" MouseEnter="btnTaglistSettings_MouseEnter" MouseLeave="btnTaglistSettings_MouseLeave" MouseDown="btnTaglistSettings_MouseDown" Content="TAGLIST SETTINGS" FontWeight="Bold" FontSize="8" Margin="46,92,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" Grid.RowSpan="2" />
-        <Label x:Name="btnAppAbout" MouseEnter="btnAppAbout_MouseEnter" MouseLeave="btnAppAbout_MouseLeave" MouseDown="btnAppAbout_MouseDown" Content="ABOUT LIBERTY" FontWeight="Bold" FontSize="8" Margin="46,12.167,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" Grid.Row="1" />
+        <Label x:Name="btnAppAbout" MouseEnter="btnAppAbout_MouseEnter" MouseLeave="btnAppAbout_MouseLeave" MouseDown="btnAppAbout_MouseDown" Content="ABOUT THIS BUILD" FontWeight="Bold" FontSize="8" Margin="46,12.167,460,0" Height="23" VerticalAlignment="Top" Foreground="{DynamicResource AccentTextDark}" Grid.Row="1" />
 
 
         <StackPanel x:Name="updateSettings" Margin="183,40,-18,40" d:IsHidden="True" Grid.RowSpan="2">
@@ -44,7 +44,7 @@
 			<CheckBox x:Name="LNSnoWarnings" Content="Don't show warning dialogs for unsafe actions." Margin="10,5,0,0" />
 		</StackPanel>
 		
-		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" d:IsHidden="True" Grid.RowSpan="2">
+		<StackPanel x:Name="taglistSettings" Margin="183,40,-18,40" Grid.RowSpan="2" d:IsHidden="True">
 			<Label x:Name="TLTheader" Content="Change Taglist settings" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
 			<Label x:Name="TLTsubheader" Content="Change options on Updating/Viewing/Reading Taglists." FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
 			
@@ -56,30 +56,31 @@
 			<Label x:Name="TLTprt2Header" Content="External taglist reading;" FontSize="11.5" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,10,0,0" Height="25"/>
 			<CheckBox x:Name="TLTExtAscTaglst" Content="Import taglists from Ascension" Margin="10,2,0,0" Checked="TLTExtAscTaglst_Checked" Unchecked="TLTExtAscTaglst_Unchecked" Height="16" />
 			
-			<TextBox IsReadOnly="True" Name="TLTAsvTagLstDirec" Margin="10,9,150,0" Height="22"/>
+			<TextBox Name="TLTAsvTagLstDirec" Margin="10,9,150,0" Height="22"/>
 
             <Button x:Name="btnfindTaglist" Content="Find" Style="{DynamicResource MetroPrimaryButton}" Width="71" Margin="310,-28,0,0" HorizontalAlignment="Left" Click="btnfindTaglist_Click"/>
         </StackPanel>
 
         <StackPanel x:Name="appAbout" Margin="183,40,-18,40" Visibility="Visible" Grid.RowSpan="2">
-            <Label x:Name="AAheader" Content="About Liberty" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
-            <Label x:Name="AAsubheader" Content="Information about the build/external dependencies" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
-
-            <TextBlock x:Name="appBuildData"  FontSize="11.0" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}">
-                Build Version:    {0} <LineBreak/>
-                Build Date:       {1}
-            </TextBlock>
-
-            <ScrollViewer Margin="0,15,30,0" Height="140">
-                <TextBlock x:Name="appExternal"   FontSize="10.5" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.CanContentScroll="True">
-                    Dependency Name:     {0} <LineBreak/>
-                    Dependency Author:   {1} <LineBreak/>
-                    Dependency Size:     {2} <LineBreak/>
-                    Dependency License:  {3} <LineBreak/>
-                    <LineBreak/>
-                    <LineBreak/>
-                </TextBlock>
-            </ScrollViewer>
+            <Label x:Name="AAheader" Content="About This Build" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="34"/>
+            <Label x:Name="AAsubheader" Content="Information about this build and external dependencies" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="0,-10,0,0" Height="25"/>
+            <TextBlock x:Name="appBuildData"  FontSize="11.0" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}" Margin="5,0,0,0"><Run Text="Build Version: {0}"/><LineBreak/><Run Text="Build Date: {1}"/></TextBlock>
+            <TabControl Height="154" Margin="0,8,48,0" Style="{DynamicResource MetroTabControl}">
+            	<TabItem Header="CHANGELOG" Style="{DynamicResource MetroTabItem}">
+            		<Grid>
+            			<ScrollViewer Height="126" VerticalAlignment="Top">
+            				<TextBlock   FontSize="10.5" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.CanContentScroll="True" Margin="5,0,0,0"><Run Text="-Major Release(3.0.0.0)"/><LineBreak/><Run Text=" -Added"/><LineBreak/><Run Text="  -Halo: CE Anniversary save editing"/><LineBreak/><Run Text="  -[CEA] Invincibility"/><LineBreak/><Run Text="  -[CEA] Ammo and grenades editing"/><LineBreak/><Run Text="  -[CEA] Biped position editing"/><LineBreak/><Run Text="  -[Reach] Carry and edit up to four weapons"/><LineBreak/><Run Text="  -[Reach] Weapon name guessing in the object editor"/><LineBreak/><Run Text="  -[Reach] View an object's rotation info"/><LineBreak/><Run Text="  -[Reach] Scaling objects"/><LineBreak/><Run Text="  -[Reach] Edit object max health and shields"/><LineBreak/><Run Text="  -Intermediate step while the package is being updated"/><LineBreak/><Run Text="  -Gamertag is now shown in the removable device save selector"/><LineBreak/><Run Text="  -GUI color schemes"/><LineBreak/><Run Text="  -Setting to hide warning dialogs for unsafe actions"/><LineBreak/><Run Text=" -Fixed"/><LineBreak/><Run Text="  -Object moving should hopefully work better now"/><LineBreak/><Run Text="  -Buggy mass move dialog"/><LineBreak/><Run Text="  -Internal improvements"/><LineBreak/><Run Text="  -Fixed lots and lots of bugs (yeah, loads)"/><LineBreak/><Run Text=" -Changed"/><LineBreak/><Run Text="  -[Reach] Completely redesigned object editor"/><LineBreak/><Run Text="  -New, cleaner metro controls"/></TextBlock>
+            			</ScrollViewer>
+            		</Grid>
+            	</TabItem>
+            	<TabItem Header="DEPENDENCIES" Style="{DynamicResource MetroTabItem}">
+            		<Grid RenderTransformOrigin="0.502,0.705" Margin="0">
+            			<ScrollViewer Height="126" VerticalAlignment="Top">
+            				<TextBlock x:Name="appExternal"   FontSize="10.5" FontWeight="Thin" Foreground="{DynamicResource AccentTextDark}" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.CanContentScroll="True" Margin="5,0,0,0"><Run Text="Dependency Name: {0}"/><LineBreak/><Run Text="Dependency Author: {1}"/><LineBreak/><Run Text="Dependency Size: {2}"/><LineBreak/><Run Text="Dependency License: {3}"/><LineBreak/><LineBreak/><LineBreak/></TextBlock>
+            			</ScrollViewer>
+            		</Grid>
+            	</TabItem>
+            </TabControl>
 
         </StackPanel>
 
