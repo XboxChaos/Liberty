@@ -19,6 +19,9 @@ namespace Liberty.Util
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
+                if (line.Length <= 11)
+                    continue;
+
                 line = line.Trim();
 
                 uint id;

@@ -124,6 +124,8 @@ namespace Liberty.Controls
             foreach (KeyValuePair<string, ComboBoxItem> item in items)
                 cBSaves.Items.Add(item.Value);
             cBSaves.SelectedIndex = 0;
+
+            _mainWindow.enableNextButton(cBSaves.Items.Count > 0);
         }
 
         public bool Save()
