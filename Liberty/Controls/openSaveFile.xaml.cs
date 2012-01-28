@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 using Microsoft.Win32;
 
 namespace Liberty.Controls
@@ -23,6 +24,8 @@ namespace Liberty.Controls
         private Func<string, Util.SaveType> _loadSaveFunc;
         private bool _loaded = false;
 
+        // NOTE: loadSaveFunc will be run in a separate thread!
+        // Be sure to make use of Dispatcher if you need to update UI controls.
         public openSaveFile(Func<string, Util.SaveType> loadSaveFunc)
         {
             _loadSaveFunc = loadSaveFunc;
@@ -47,16 +50,14 @@ namespace Liberty.Controls
         public void Load()
         {
             if (!_loaded)
+            {
                 lblFileDirec.Text = "please load a file...";
+                _mainWindow.enableNextButton(false);
+            }
         }
 
         public bool Save()
         {
-            if (!_loaded)
-            {
-                _mainWindow.showMessage("You need to select a save file before you can continue.", "HOLD ON!");
-                return false;
-            }
             return true;
         }
 
@@ -82,13 +83,38 @@ namespace Liberty.Controls
             ofd.Filter = "Halo: Reach Campaign STFS Packages|*";
             Nullable<bool> result = ofd.ShowDialog();
             if (result.HasValue && result.Value)
+                LoadSave(ofd.FileName);
+        }
+
+        private void LoadSave(string path)
+        {
+            lblFileDirec.Text = "processing your save file...";
+            btnOpen.IsEnabled = false;
+            _mainWindow.enableNextButton(false);
+            _mainWindow.enableBackButton(false);
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+            worker.RunWorkerAsync(path);
+        }
+
+        void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string fileName = (string)e.Argument;
+            _saveType = _loadSaveFunc(fileName);
+            e.Result = fileName;
+        }
+
+        void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error == null)
             {
-                Util.SaveType type = _loadSaveFunc(ofd.FileName);
-                if (type != Util.SaveType.Unknown)
+                string fileName = (string)e.Result;
+                if (_saveType != Util.SaveType.Unknown)
                 {
                     _loaded = true;
-                    _saveType = type;
-                    lblFileDirec.Text = ofd.FileName;
+                    lblFileDirec.Text = fileName;
                 }
                 else
                 {
@@ -97,6 +123,18 @@ namespace Liberty.Controls
                     lblFileDirec.Text = "please load a file...";
                 }
             }
+            else
+            {
+                _mainWindow.showException(e.Error.ToString());
+
+                lblFileDirec.Text = "please load a file...";
+                _saveType = Util.SaveType.Unknown;
+                _loaded = false;
+            }
+
+            btnOpen.IsEnabled = true;
+            _mainWindow.enableNextButton(_loaded);
+            _mainWindow.enableBackButton(true);
         }
 
         private Util.SaveType _saveType = Util.SaveType.Reach;

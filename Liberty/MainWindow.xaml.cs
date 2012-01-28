@@ -333,6 +333,8 @@ namespace Liberty
 
         private Util.SaveType loadSaveFile(string stfsPath)
         {
+            // lolmultithreading
+
             _reachTaglists.RemoveMapSpecificTaglists();
             if (_saveManager != null)
                 _saveManager.Close();
@@ -340,39 +342,46 @@ namespace Liberty
             STFSPackage package = null;
             try
             {
-                package = new STFSPackage(stfsPath, null);
+                // Open the STFS package
                 string rawFileName;
-                _currentGame = DetectGame(package, out rawFileName);
+                package = new STFSPackage(stfsPath, null);
+
+                // Detect the save's game
+                _currentGame = detectGame(package, out rawFileName);
                 classInfo.storage.settings.applicationSettings.gameIdent.gameID = _currentGame;
+
                 if (_currentGame == Util.SaveType.Unknown)
                 {
-                    showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo: Reach, and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
+                    Action notSupportedAction = new Action(() =>
+                        {
+                            showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo 3: ODST, Halo: Reach, and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
+                        }
+                    );
+                    Dispatcher.Invoke(notSupportedAction);
                     return Util.SaveType.Unknown;
                 }
                 else if (_currentGame == Util.SaveType.SomeGame)
                 {
-                    eggData.egg3Dialog dialog = new eggData.egg3Dialog();
-                    dialog.Owner = this;
-                    dialog.ShowDialog();
+                    Action eggAction = new Action(() =>
+                        {
+                            eggData.egg3Dialog dialog = new eggData.egg3Dialog();
+                            dialog.Owner = this;
+                            dialog.ShowDialog();
+                        }
+                    );
+                    Dispatcher.Invoke(eggAction);
                     return Util.SaveType.Unknown;
                 }
 
                 _saveManager.LoadSTFS(package, rawFileName, classInfo.extraIO.makeTempSaveDir());
                 _packagePath = stfsPath;
 
-                _stepTransfer.GameName = package.Header.Title_Package + " / " + package.Header.TitleID.ToString("X");
-                _stepTransfer.Gamertag = package.Header.Title_Display + " / " + package.Header.ProfileID.ToString("X");
-                _cexVerifyFile.Gamertag = package.Header.Title_Display;
-            }
-            catch (ArgumentException ex)
-            {
-                showMessage(ex.Message, "ERROR");
-                return Util.SaveType.Unknown;
-            }
-            catch (Exception ex)
-            {
-                showException(ex.ToString());
-                return Util.SaveType.Unknown;
+                // Update some UI controls with package info
+                Dispatcher.Invoke(new Action<string, uint, string, long>(setPackageInfo),
+                    new object[] {package.Header.Title_Package,
+                        package.Header.TitleID,
+                        package.Header.Title_Display,
+                        package.Header.ProfileID});
             }
             finally
             {
@@ -383,7 +392,14 @@ namespace Liberty
             return _currentGame;
         }
 
-        private Util.SaveType DetectGame(STFSPackage package, out string rawFileName)
+        private void setPackageInfo(string package, uint titleId, string display, long profileId)
+        {
+            _stepTransfer.GameName = package + " / " + titleId.ToString("X");
+            _stepTransfer.Gamertag = display + " / " + profileId.ToString("X");
+            _cexVerifyFile.Gamertag = display;
+        }
+
+        private Util.SaveType detectGame(STFSPackage package, out string rawFileName)
         {
             if (((~package.Header.TitleID) ^ 0x12345678) == 0xAC9DA14C)
             {
@@ -543,6 +559,16 @@ namespace Liberty
                 return showQuestion(message, title);
             else
                 return true;
+        }
+
+        public void enableNextButton(bool enabled)
+        {
+            btnOK.IsEnabled = enabled;
+        }
+
+        public void enableBackButton(bool enabled)
+        {
+            btnBack.IsEnabled = enabled;
         }
 
         private void about()
@@ -855,6 +881,7 @@ namespace Liberty
             }
             else
             {
+                btnOK.IsEnabled = true;
                 _stepViewer.Back();
             }
         }

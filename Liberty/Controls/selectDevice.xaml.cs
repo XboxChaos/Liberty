@@ -49,22 +49,14 @@ namespace Liberty.Controls
 		
 		public bool Save()
 		{
-            if (cBStorageType.SelectedIndex == -1)
+            for (int i = 0; i < _physDrives.Length; i++)
             {
-                _mainWindow.showMessage("You need to select a device before you can continue.", "HOLD ON!");
-                return false;
+                if (i == cBStorageType.SelectedIndex)
+                    _selectedDrive = _physDrives[i];
+                else
+                    _physDrives[i].Close();
             }
-            else
-            {
-                for (int i = 0; i < _physDrives.Length; i++)
-                {
-                    if (i == cBStorageType.SelectedIndex)
-                        _selectedDrive = _physDrives[i];
-                    else
-                        _physDrives[i].Close();
-                }
-                return true;
-            }
+            return true;
 		}
 
         public void Show()
@@ -109,11 +101,13 @@ namespace Liberty.Controls
             {
                 cBStorageType.IsEnabled = false;
                 _mainWindow.showMessage("Liberty could not detect any FATX devices. Try re-connecting them and pressing Refresh. Also, check that you don't have any other FATX browsers open.", "NO FATX DEVICES");
+                _mainWindow.enableNextButton(false);
             }
             else
             {
                 cBStorageType.IsEnabled = true;
                 cBStorageType.SelectedIndex = 0;
+                _mainWindow.enableNextButton(true);
             }
         }
 
