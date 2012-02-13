@@ -41,9 +41,9 @@ namespace Liberty.Halo3ODST.UI
             Halo3ODST.BipedObject playerBiped = saveData.PlayerBiped;
             checkInvincible.IsChecked = playerBiped.Invincible;
 
-            txtPlayerXCord.Text = playerBiped.Position.X.ToString();
-            txtPlayerYCord.Text = playerBiped.Position.Y.ToString();
-            txtPlayerZCord.Text = playerBiped.Position.Z.ToString();
+            txtPlayerXCord.Text = playerBiped.PositionMain.X.ToString();
+            txtPlayerYCord.Text = playerBiped.PositionMain.Y.ToString();
+            txtPlayerZCord.Text = playerBiped.PositionMain.Z.ToString();
         }
 
         public bool Save()
@@ -62,7 +62,10 @@ namespace Liberty.Halo3ODST.UI
             float newX = Convert.ToSingle(txtPlayerXCord.Text);
             float newY = Convert.ToSingle(txtPlayerYCord.Text);
             float newZ = Convert.ToSingle(txtPlayerZCord.Text);
-            playerBiped.Position = new MathUtil.Vector3(newX, newY, newZ);
+            playerBiped.PositionMain = new MathUtil.Vector3(newX, newY, newZ);
+            playerBiped.Position2 = playerBiped.PositionMain;
+            playerBiped.Position3 = playerBiped.PositionMain;
+            playerBiped.Position4 = playerBiped.PositionMain;
 
             return true;
         }
