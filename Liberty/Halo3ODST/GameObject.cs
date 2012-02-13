@@ -43,11 +43,29 @@ namespace Liberty.Halo3ODST
             // TODO: get offset for BSP zone
             //_zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
 
-
+            // Read PositionMain
             reader.SeekTo(baseOffset + PositionOffset1);
-            _position.X = reader.ReadFloat();
-            _position.Y = reader.ReadFloat();
-            _position.Z = reader.ReadFloat();
+            _positionMain.X = reader.ReadFloat();
+            _positionMain.Y = reader.ReadFloat();
+            _positionMain.Z = reader.ReadFloat();
+
+            // Read Position2
+            reader.SeekTo(baseOffset + PositionOffset2);
+            _position2.X = reader.ReadFloat();
+            _position2.Y = reader.ReadFloat();
+            _position2.Z = reader.ReadFloat();
+
+            // Read Position3
+            reader.SeekTo(baseOffset + PositionOffset3);
+            _position3.X = reader.ReadFloat();
+            _position3.Y = reader.ReadFloat();
+            _position3.Z = reader.ReadFloat();
+
+            // Read Position4
+            reader.SeekTo(baseOffset + PositionOffset4);
+            _position4.X = reader.ReadFloat();
+            _position4.Y = reader.ReadFloat();
+            _position4.Z = reader.ReadFloat();
 
             reader.SeekTo(baseOffset + CarryInfoOffset);
             _nextCarriedIndex = DatumIndex.ReadFrom(reader);
@@ -104,31 +122,31 @@ namespace Liberty.Halo3ODST
 
             // BSP Zone
             writer.SeekTo(chunkStartOffset + 0x18);
-            writer.WriteUInt16(_zone);
+            //writer.WriteUInt16(_zone);
 
             // Position1
             writer.SeekTo(chunkStartOffset + PositionOffset1);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
+            writer.WriteFloat(PositionMain.X);
+            writer.WriteFloat(PositionMain.Y);
+            writer.WriteFloat(PositionMain.Z);
 
             // Position2
             writer.SeekTo(chunkStartOffset + PositionOffset2);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
+            writer.WriteFloat(Position2.X);
+            writer.WriteFloat(Position2.Y);
+            writer.WriteFloat(Position2.Z);
 
             // Position3
             writer.SeekTo(chunkStartOffset + PositionOffset3);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
+            writer.WriteFloat(Position3.X);
+            writer.WriteFloat(Position3.Y);
+            writer.WriteFloat(Position3.Z);
 
             // Position4
             writer.SeekTo(chunkStartOffset + PositionOffset4);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
+            writer.WriteFloat(Position4.X);
+            writer.WriteFloat(Position4.Y);
+            writer.WriteFloat(Position4.Z);
         }
 
         #region Declarations
@@ -181,12 +199,39 @@ namespace Liberty.Halo3ODST
         }
 
         /// <summary>
-        /// The object's position.
+        /// The object's position (Main).
         /// </summary>
-        public Vector3 Position
+        public Vector3 PositionMain
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return _positionMain; }
+            set { _positionMain = value; }
+        }
+
+        /// <summary>
+        /// The object's position (Main).
+        /// </summary>
+        public Vector3 Position2
+        {
+            get { return _position2; }
+            set { _position2 = value; }
+        }
+
+        /// <summary>
+        /// The object's position (Main).
+        /// </summary>
+        public Vector3 Position3
+        {
+            get { return _position3; }
+            set { _position3 = value; }
+        }
+
+        /// <summary>
+        /// The object's position (Main).
+        /// </summary>
+        public Vector3 Position4
+        {
+            get { return _position4; }
+            set { _position4 = value; }
         }
 
         /// <summary>
@@ -259,7 +304,10 @@ namespace Liberty.Halo3ODST
 
         private ushort _zone;
 
-        private Vector3 _position;
+        private Vector3 _positionMain;
+        private Vector3 _position2;
+        private Vector3 _position3;
+        private Vector3 _position4;
 
         private HealthInfo _healthInfo;
         private const float DefaultChiefHealthModifier = 80;
