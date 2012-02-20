@@ -40,7 +40,7 @@ namespace Liberty.classInfo
         public static void loadApplicationSettings()
         {
             RegistryKey keyApp = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\appSettings\\");
-            RegistryKey keyTheme = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\themeSettings\\");
+            RegistryKey keyTheme = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\MetroThemes\\");
 
             // Update
             applicationSettings.checkUpdatesOL = applicationExtra.settingsConvertIntToBool((int)keyApp.GetValue("updOnLaunch", 1));
@@ -93,7 +93,6 @@ namespace Liberty.classInfo
 
             App.Current.Resources.MergedDictionaries.Add(rd);
         }
-
         public static void updateAccent()
         {
             ResourceDictionary rd;

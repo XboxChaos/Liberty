@@ -35,7 +35,7 @@ namespace Liberty.Controls.Settings
         public void loadSettings()
         {
             // Load from RegTable
-            RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\themeSettings\\");
+            RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\MetroThemes\\");
 
             int accentColour = (int)key.GetValue("accentColour", 1);
             int themeColour = (int)key.GetValue("themeColour", 1);
@@ -99,7 +99,7 @@ namespace Liberty.Controls.Settings
         public void saveSettings()
         {
             // Save to RegTable
-            RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\themeSettings");
+            RegistryKey key = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\MetroThemes\\");
             int AccentColour = 1;
             int ThemeColour = 1;
 
