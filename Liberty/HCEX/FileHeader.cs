@@ -19,6 +19,8 @@ namespace Liberty.HCEX
             _dataBlock1Size = reader.ReadInt32();
             _dataBlock2Size = reader.ReadInt32();
             _saveDataSize = reader.ReadInt32();
+            if (_saveDataSize == 0)
+                throw new ArgumentException("The save file is empty. Please get a different save and ensure that you reach a checkpoint first.");
 
             // Skip the CFG CRC32 and read the CFG text
             reader.Skip(CRC32Size);

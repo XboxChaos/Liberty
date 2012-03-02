@@ -35,15 +35,12 @@ namespace Liberty.Halo3
             _tag = DatumIndex.ReadFrom(reader);
 
             reader.SeekTo(baseOffset + StrengthInfoOffset);
-            // Using the default Master Chief values is kind of hackish,
-            // but at the same time it would be overkill to have a huge DB of original health/shield values.
-            _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier);
+            _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier, float.PositiveInfinity);
 
             reader.SeekTo(baseOffset + 0x18);
             _zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
 
-
-            reader.SeekTo(baseOffset + PositionOffset3);
+            reader.SeekTo(baseOffset + PositionOffset4);
             _position.X = reader.ReadFloat();
             _position.Y = reader.ReadFloat();
             _position.Z = reader.ReadFloat();
@@ -62,17 +59,6 @@ namespace Liberty.Halo3
         public void MakeInvincible(bool invincible)
         {
             _healthInfo.MakeInvincible(invincible);
-        }
-
-        /// <summary>
-        /// Changes the object's invincibility status.
-        /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
-        /// </summary>
-        /// <param name="invincible">true if the object should become invincible</param>
-        /// <param name="healthVal">set a custom float for health</param>
-        public void MakeInvincible(bool invincible, float healthVal)
-        {
-            _healthInfo.MakeInvincible(invincible, healthVal);
         }
 
         /// <summary>

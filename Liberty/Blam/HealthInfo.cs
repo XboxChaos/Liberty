@@ -6,35 +6,29 @@ using Liberty.SaveIO;
 
 namespace Liberty.Blam
 {
-    // TODO: Refactor the Reach backend to use this
     public class HealthInfo
     {
         /// <summary>
         /// Constructs a HealthInfo object, reading strength data from a SaveReader.
         /// </summary>
         /// <param name="reader">The SaveReader to read from.</param>
-        /// <param name="defaultHealthModifier">
-        /// The default health modifier that this object should use
-        /// (in case the object is already invincible and needs to be made vulnerable)
-        /// </param>
-        /// <param name="defaultShieldModifier">
-        /// The default shield modifier that this object should use
-        /// (in case the object is already invincible and needs to be made vulnerable)
-        /// </param>
-        public HealthInfo(SaveReader reader, float defaultHealthModifier, float defaultShieldModifier)
+        /// <param name="defaultHealthModifier">The default health modifier that this object should use</param>
+        /// <param name="defaultShieldModifier">The default shield modifier that this object should use</param>
+        public HealthInfo(SaveReader reader, float defaultHealthModifier, float defaultShieldModifier, float customInvincibility = float.NaN)
         {
+            _customInvincibility = customInvincibility;
             _healthModifier = reader.ReadFloat();
             _shieldModifier = reader.ReadFloat();
             //System.Diagnostics.Debug.WriteLine("{0:F} {1:F}", _healthModifier, _shieldModifier);
 
             // Keep backups of the values so that invincibility can be disabled
             // However, if a value is already NaN (invincible), we have to resort to the default value that was passed in.
-            if (float.IsNaN(_healthModifier) || _healthModifier == float.MaxValue)
+            if (float.IsNaN(_healthModifier) || float.IsPositiveInfinity(_healthModifier) || _healthModifier == customInvincibility)
                 _oldHealthModifier = defaultHealthModifier;
             else
                 _oldHealthModifier = _healthModifier;
 
-            if (float.IsNaN(_shieldModifier) || _shieldModifier == float.MaxValue)
+            if (float.IsNaN(_shieldModifier) || float.IsPositiveInfinity(_shieldModifier) || _shieldModifier == customInvincibility)
                 _oldShieldModifier = defaultShieldModifier;
             else
                 _oldShieldModifier = _shieldModifier;
@@ -48,7 +42,10 @@ namespace Liberty.Blam
             get
             {
                 // If either modifier is NaN or the object has no health and no shields, it's invincible
-                return (float.IsNaN(_healthModifier) || float.IsNaN(_shieldModifier) || (_healthModifier == 0 && _shieldModifier == 0) || _healthModifier == float.MaxValue || _shieldModifier == float.MaxValue);
+                return (float.IsNaN(_healthModifier) || float.IsNaN(_shieldModifier) ||
+                    float.IsPositiveInfinity(_healthModifier) || float.IsPositiveInfinity(_shieldModifier) ||
+                    _healthModifier == _customInvincibility || _shieldModifier == _customInvincibility ||
+                    (_healthModifier == 0 && _shieldModifier == 0));
             }
         }
 
@@ -61,37 +58,10 @@ namespace Liberty.Blam
         {
             if (invincible)
             {
-                // Set the modifiers to NaN :P
                 if (_healthModifier != 0)
-                    _healthModifier = float.NaN;
+                    _healthModifier = _customInvincibility;
                 if (_shieldModifier != 0)
-                    _shieldModifier = float.NaN;
-            }
-            else
-            {
-                // Revert them to their old values
-                if (_healthModifier != 0)
-                    _healthModifier = _oldHealthModifier;
-                if (_shieldModifier != 0)
-                    _shieldModifier = _oldShieldModifier;
-            }
-        }
-
-        /// <summary>
-        /// Changes the object's invincibility status.
-        /// If invincibility is disabled, then the modifiers will be restored to the values they were last set to.
-        /// </summary>
-        /// <param name="invincible"></param>
-        /// <param name="healthVal"></param>
-        public void MakeInvincible(bool invincible, float healthVal)
-        {
-            if (invincible)
-            {
-                // Set the modifiers to custom value :P
-                if (_healthModifier != 0)
-                    _healthModifier = healthVal;
-                if (_shieldModifier != 0)
-                    _shieldModifier = healthVal;
+                    _shieldModifier = _customInvincibility;
             }
             else
             {
@@ -151,5 +121,6 @@ namespace Liberty.Blam
         private float _shieldModifier;
         private float _oldHealthModifier;
         private float _oldShieldModifier;
+        private float _customInvincibility;
     }
 }
