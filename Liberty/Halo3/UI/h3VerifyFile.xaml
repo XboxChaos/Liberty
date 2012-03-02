@@ -21,7 +21,7 @@
         <Label x:Name="subHeading1_Copy" Content="If this is all correct, please continue to edit your save. Otherwise, click Back and let's start again." Margin="8,0,44,8" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="26.267" VerticalAlignment="Bottom" />
         <Label x:Name="lblDifficulty1" Content="difficulty: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="23,156,0,158" HorizontalAlignment="Left" Width="76" />
         <Label x:Name="lblGamertag" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="123,106,133.5,0" Height="24.911" VerticalAlignment="Top" />
-        <TextBlock x:Name="lblMapName" TextWrapping="Wrap" Margin="123,131,133.5,0" Padding="5" FontFamily="Segeo UI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="25" VerticalAlignment="Top"/>
+        <TextBlock x:Name="lblMapName" TextWrapping="Wrap" Margin="123,131,44,0" Padding="5" FontFamily="Segeo UI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="25" VerticalAlignment="Top" TextTrimming="CharacterEllipsis"/>
         <Label x:Name="lblDifficulty" Content="" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Margin="123,156,133.5,158" />
     </Grid>
 </UserControl>

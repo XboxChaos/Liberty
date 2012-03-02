@@ -48,21 +48,19 @@ namespace Liberty.Halo3.UI
 
         public bool Save()
         {
-            //Halo3.CampaignSave saveData = _saveManager.SaveData;
+            Halo3.CampaignSave saveData = _saveManager.SaveData;
 
-            //Halo3.BipedObject playerBiped = saveData.PlayerBiped;
-            //playerBiped.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
+            Halo3.BipedObject playerBiped = saveData.PlayerBiped;
+            playerBiped.MakeInvincible((bool)checkInvincible.IsChecked);
             
-            //// TODO: Actually detect if this is a vehicle, and not some homosexual dragon (fixhax)
-            //// I think that should work AMD -Xerax
-            //GameObject playerCarrier = playerBiped.Carrier;
-            //if (playerCarrier != null && playerCarrier.TagGroup == TagGroup.Vehi)
-            //    playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
+            GameObject playerCarrier = playerBiped.Carrier;
+            if (playerCarrier != null && playerCarrier.TagGroup == TagGroup.Vehi)
+                playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked);
 
-            //float newX = Convert.ToSingle(txtPlayerXCord.Text);
-            //float newY = Convert.ToSingle(txtPlayerYCord.Text);
-            //float newZ = Convert.ToSingle(txtPlayerZCord.Text);
-            //playerBiped.Position = new MathUtil.Vector3(newX, newY, newZ);
+            float newX = Convert.ToSingle(txtPlayerXCord.Text);
+            float newY = Convert.ToSingle(txtPlayerYCord.Text);
+            float newZ = Convert.ToSingle(txtPlayerZCord.Text);
+            playerBiped.Position = new MathUtil.Vector3(newX, newY, newZ);
 
             return true;
         }

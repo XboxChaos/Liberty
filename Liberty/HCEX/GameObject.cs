@@ -66,6 +66,12 @@ namespace Liberty.HCEX
             _position.Y = reader.ReadFloat();
             _position.Z = reader.ReadFloat();
 
+            reader.SeekTo(baseOffset + PositionOffset2);
+            _unkPosition.X = reader.ReadFloat();
+            _unkPosition.Y = reader.ReadFloat();
+            _unkPosition.Z = reader.ReadFloat();
+            _unkPosition = Vector3.Subtract(_unkPosition, _position);
+
             reader.SeekTo(baseOffset + CarryInfoOffset);
             _nextCarriedIndex = DatumIndex.ReadFrom(reader);
             _firstCarriedIndex = DatumIndex.ReadFrom(reader);
@@ -91,10 +97,11 @@ namespace Liberty.HCEX
             writer.WriteFloat(Position.Y);
             writer.WriteFloat(Position.Z);
 
+            Vector3 position2 = Vector3.Add(_unkPosition, _position);
             writer.SeekTo(SourceOffset + PositionOffset2);
-            writer.WriteFloat(Position.X);
-            writer.WriteFloat(Position.Y);
-            writer.WriteFloat(Position.Z);
+            writer.WriteFloat(position2.X);
+            writer.WriteFloat(position2.Y);
+            writer.WriteFloat(position2.Z);
         }
 
         /// <summary>
@@ -206,6 +213,7 @@ namespace Liberty.HCEX
         private DatumIndex _tag;
 
         private Vector3 _position;
+        private Vector3 _unkPosition;   // Not entirely sure what this does, it's close to the position but isn't exactly it
 
         private HealthInfo _healthInfo;
         private const float DefaultChiefHealthModifier = 75;

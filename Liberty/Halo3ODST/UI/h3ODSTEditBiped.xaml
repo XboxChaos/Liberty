@@ -17,7 +17,7 @@
 
         <Label Name="lblBiped" Content="The Rookie" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextLight}" Margin="121,87,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
 
-        <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light"  Margin="44,116,0,0" HorizontalAlignment="Left" Width="418" Height="18" VerticalAlignment="Top"/>
+        <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light"  Margin="36,116,0,0" HorizontalAlignment="Left" Width="418" Height="18" VerticalAlignment="Top"/>
         <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,175,0,138" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
         <Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,110" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
         <Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,82" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />

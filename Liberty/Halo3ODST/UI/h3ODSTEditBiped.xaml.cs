@@ -51,13 +51,13 @@ namespace Liberty.Halo3ODST.UI
             Halo3ODST.CampaignSave saveData = _saveManager.SaveData;
 
             Halo3ODST.BipedObject playerBiped = saveData.PlayerBiped;
-            playerBiped.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
+            playerBiped.MakeInvincible((bool)checkInvincible.IsChecked);
 
             // TODO: Actually detect if this is a vehicle, and not some homosexual dragon (fixhax)
             // I think that should work AMD -Xerax
             GameObject playerCarrier = playerBiped.Carrier;
             if (playerCarrier != null && playerCarrier.TagGroup == TagGroup.Vehi)
-                playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked, float.MaxValue);
+                playerBiped.Carrier.MakeInvincible((bool)checkInvincible.IsChecked);
 
             float newX = Convert.ToSingle(txtPlayerXCord.Text);
             float newY = Convert.ToSingle(txtPlayerYCord.Text);
