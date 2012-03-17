@@ -154,19 +154,6 @@ namespace Liberty.Controls
             Visibility = Visibility.Hidden;
         }
 
-        /*private void changeTab(TextBlock newTab)
-        {
-            ((UIElement)currentTab.Tag).Visibility = Visibility.Hidden;
-            currentTab.FontWeight = FontWeights.Normal;
-            currentTab.Foreground = (Brush)bc.ConvertFrom("#FF868686");
-
-            ((UIElement)newTab.Tag).Visibility = Visibility.Visible;
-            newTab.Foreground = (Brush)bc.ConvertFrom("#FF000000");
-            newTab.FontWeight = FontWeights.ExtraBold;
-
-            currentTab = newTab;
-        }*/
-
         private bool textBoxChanged(TextBox textBox)
         {
             return (bool)textBox.Tag;
@@ -192,6 +179,11 @@ namespace Liberty.Controls
                 case Reach.TagGroup.Vehi:
                     // Moved to checked/unchecked events
                     //objVehi.MakeInvincible((bool)cBVehiInvici.IsChecked);
+                    if (rbVehiUncontrolled.IsChecked == true)
+                        objVehi.Controller = null;
+                    else if (rbVehiOwner.IsChecked == true)
+                        objVehi.Controller = objVehi.Carrier;
+                    // if rbVehiOther is checked, the controller is set in the Change button's code
                     break;
             }
         }
@@ -451,6 +443,7 @@ namespace Liberty.Controls
                                     objVehi = currentObject as Reach.VehicleObject;
 
                                     //cBVehiInvici.IsChecked = objVehi.Invincible;
+                                    updateVehiControllerInfo();
 
                                     changePlugin(tabVehicle);
                                     break;
@@ -637,7 +630,8 @@ namespace Liberty.Controls
                 {
                     if (oldObj.TagGroup == Reach.TagGroup.Vehi)
                         fixTreeForVehicleReplacement(oldObj);
-                    oldObj.ReplaceWith(newObj, true);
+                    oldObj.ReplaceWith(newObj);
+                    oldObj.Delete(true);
                 }
 
                 // Select the new item and bold it if necessary
@@ -1039,11 +1033,11 @@ namespace Liberty.Controls
         {
             listCarried.Items.Clear();
 
-            // If the object is a biped, add its weapons to the list
-            Reach.BipedObject biped = obj as Reach.BipedObject;
-            if (biped != null)
+            // If the object is a WeaponUser, add its weapons to the list
+            Reach.WeaponUser weaponUser = obj as Reach.WeaponUser;
+            if (weaponUser != null)
             {
-                foreach (Reach.WeaponObject weapon in biped.Weapons)
+                foreach (Reach.WeaponObject weapon in weaponUser.Weapons)
                     addObjectToCarryList(weapon);
             }
 
@@ -1051,7 +1045,7 @@ namespace Liberty.Controls
             while (currentObj != null)
             {
                 // Only add the object if it was not added in the weapon pass earlier
-                if (biped == null || (currentObj != biped.PrimaryWeapon && currentObj != biped.SecondaryWeapon && currentObj != biped.TertiaryWeapon && currentObj != biped.QuaternaryWeapon))
+                if (weaponUser == null || (currentObj != weaponUser.PrimaryWeapon && currentObj != weaponUser.SecondaryWeapon && currentObj != weaponUser.TertiaryWeapon && currentObj != weaponUser.QuaternaryWeapon))
                     addObjectToCarryList(currentObj);
                 currentObj = currentObj.NextCarried;
             }
@@ -1059,33 +1053,57 @@ namespace Liberty.Controls
             refreshChildrenButton();
         }
 
-        private TreeViewItem cloneTreeViewItem(TreeViewItem item)
+        private TreeViewItem cloneTreeViewItem(TreeViewItem item, HashSet<Reach.GameObject> skip)
         {
             TreeViewItem newItem = new TreeViewItem();
             newItem.Header = item.Header;
             newItem.FontWeight = item.FontWeight;
             newItem.Tag = item.Tag;
             foreach (TreeViewItem child in item.Items)
-                newItem.Items.Add(cloneTreeViewItem(child));
+            {
+                if (!(child.Tag is int && skip.Contains(_saveData.Objects[(int)child.Tag])))
+                    newItem.Items.Add(cloneTreeViewItem(child, skip));
+            }
             return newItem;
         }
 
-        private List<TreeViewItem> cloneObjectTree()
+        private List<TreeViewItem> cloneObjectTree(HashSet<Reach.GameObject> skip)
         {
             List<TreeViewItem> items = new List<TreeViewItem>();
             foreach (TreeViewItem item in tVObjects.Items)
-                items.Add(cloneTreeViewItem(item));
+            {
+                if (!(item.Tag is int && skip.Contains(_saveData.Objects[(int)item.Tag])))
+                    items.Add(cloneTreeViewItem(item, skip));
+            }
             return items;
         }
 
         private void btnPickUpObject_Click(object sender, RoutedEventArgs e)
         {
-            TreeViewItem selectedItem = mainWindow.showObjectTree("Select an object to pick up:", "PICK UP OBJECT", cloneObjectTree());
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+
+            // Build a set of objects to hide from the tree dialog by scanning the carry and weapon lists
+            HashSet<Reach.GameObject> skip = new HashSet<Reach.GameObject>();
+            skip.Add(currentObject);
+            Reach.GameObject carried = currentObject.FirstCarried;
+            while (carried != null)
+            {
+                skip.Add(carried);
+                carried = carried.NextCarried;
+            }
+            Reach.WeaponUser weaponUser = currentObject as Reach.WeaponUser;
+            if (weaponUser != null)
+            {
+                foreach (Reach.WeaponObject weapon in weaponUser.Weapons)
+                    skip.Add(weapon);
+            }
+
+            TreeViewItem selectedItem = mainWindow.showObjectTree("Select an object to pick up:", "PICK UP OBJECT", cloneObjectTree(skip));
             if (selectedItem != null)
             {
                 Reach.GameObject pickUp = _saveData.Objects[(int)selectedItem.Tag];
-                Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
                 currentObject.PickUp(pickUp);
+                pickUp.ParentNode = 0;
 
                 if (objectsAreRelated(_saveData.Player.Biped, pickUp))
                     objectItems[(int)(pickUp.ID & 0xFFFF)].FontWeight = FontWeights.Bold;
@@ -1140,6 +1158,49 @@ namespace Liberty.Controls
         private void listCarried_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             refreshCarryButtons();
+        }
+
+        private void updateVehiControllerInfo()
+        {
+            Reach.VehicleObject vehicle = _saveData.Objects[currentChunkIndex] as Reach.VehicleObject;
+            if (vehicle == null)
+                return;
+
+            lblVehiController.Text = "(nothing is selected)";
+            rbVehiOther.IsEnabled = false;
+            if (vehicle.Controller == null)
+            {
+                rbVehiUncontrolled.IsChecked = true;
+            }
+            else if (vehicle.Controller.TagGroup == Reach.TagGroup.Vehi && vehicle.Carrier == vehicle.Controller)
+            {
+                rbVehiOwner.IsChecked = true;
+            }
+            else
+            {
+                rbVehiOther.IsEnabled = true;
+                rbVehiOther.IsChecked = true;
+                lblVehiController.Text = (string)objectItems[(int)(vehicle.Controller.ID & 0xFFFF)].Header;
+            }
+
+            rbVehiOwner.IsEnabled = (vehicle.Carrier != null && vehicle.Carrier.TagGroup == Reach.TagGroup.Vehi);
+        }
+
+        private void btnChangeController_Click(object sender, RoutedEventArgs e)
+        {
+            Reach.VehicleObject vehicle = _saveData.Objects[currentChunkIndex] as Reach.VehicleObject;
+            if (vehicle == null)
+                return;
+
+            HashSet<Reach.GameObject> skip = new HashSet<Reach.GameObject>();
+            skip.Add(vehicle);
+            TreeViewItem selectedItem = mainWindow.showObjectTree("Select the object which should control this vehicle:", "CHANGE VEHICLE CONTROLLER", cloneObjectTree(skip));
+            if (selectedItem != null)
+            {
+                Reach.GameObject obj = _saveData.Objects[(int)selectedItem.Tag];
+                vehicle.Controller = obj;
+                updateVehiControllerInfo();
+            }
         }
         #endregion
     }

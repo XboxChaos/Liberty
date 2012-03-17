@@ -9,7 +9,7 @@ namespace Liberty.Reach
     /// <summary>
     /// A weapon object.
     /// </summary>
-    public class WeaponObject : GameObject
+    public class WeaponObject : GameObject, Blam.IWeapon
     {
         /// <summary>
         /// Constructs a new WeaponObject.
@@ -39,6 +39,15 @@ namespace Liberty.Reach
             set { _clipAmmo = value; }
         }
 
+        /// <summary>
+        /// The percentage (0 - 100) of energy remaining in the weapon.
+        /// </summary>
+        public float Energy
+        {
+            get { return (1 - _plasmaUsage) * 100; }
+            set { _plasmaUsage = 1 - value / 100; }
+        }
+
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
         {
             base.DoLoad(reader, start);
@@ -53,6 +62,9 @@ namespace Liberty.Reach
             // User ID
             reader.Seek(start + 0x1B6, SeekOrigin.Begin);
             _userId = reader.ReadUInt16();
+
+            reader.Seek(start + 0x1E0, SeekOrigin.Begin);
+            _plasmaUsage = reader.ReadFloat();
 
             // Ammo
             reader.Seek(start + 0x2C6, SeekOrigin.Begin);
@@ -84,6 +96,9 @@ namespace Liberty.Reach
                 writer.WriteUInt32(0xFFFFFFFF);
             }
 
+            writer.Seek(start + 0x1E0, SeekOrigin.Begin);
+            writer.WriteFloat(_plasmaUsage);
+
             writer.Seek(start + 0x2C6, SeekOrigin.Begin);
             writer.WriteInt16(_ammo);
             writer.Seek(2, SeekOrigin.Current);
@@ -113,7 +128,7 @@ namespace Liberty.Reach
             _weaponFlags |= WeaponFlags.InUse;
         }
 
-        public override void ReplaceWith(GameObject newObj, bool deleteCarried)
+        public override void ReplaceWith(GameObject newObj)
         {
             GameObject user = _user;
             if (Carrier == null && _user != null)
@@ -123,10 +138,13 @@ namespace Liberty.Reach
             if (newWeapon != null)
                 newWeapon._weaponFlags = _weaponFlags;
 
-            base.ReplaceWith(newObj, deleteCarried);
+            base.ReplaceWith(newObj);
 
             if (newWeapon != null)
+            {
                 newWeapon._user = user;
+                _user = null;
+            }
 
             newWeapon._usageInfo = _usageInfo;
         }
@@ -141,6 +159,7 @@ namespace Liberty.Reach
 
         private uint _weaponFlags;
 
+        private float _plasmaUsage;
         private short _ammo;
         private short _clipAmmo;
 

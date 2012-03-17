@@ -80,15 +80,15 @@ namespace Liberty.Controls
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Open Campaign Save";
-            ofd.Filter = "Halo: Reach Campaign STFS Packages|*";
-            Nullable<bool> result = ofd.ShowDialog();
+            ofd.Filter = "STFS Packages|*";
+            bool? result = ofd.ShowDialog();
             if (result.HasValue && result.Value)
                 LoadSave(ofd.FileName);
         }
 
         private void LoadSave(string path)
         {
-            lblFileDirec.Text = "processing your save file...";
+            lblFileDirec.Text = "processing your save...";
             btnOpen.IsEnabled = false;
             _mainWindow.enableNextButton(false);
             _mainWindow.enableBackButton(false);

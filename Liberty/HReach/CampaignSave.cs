@@ -98,6 +98,10 @@ namespace Liberty.Reach
             // Update player information
             Player.Update(writer);
 
+            // Target locator ammo
+            writer.Seek(0x915E1A, SeekOrigin.Begin);
+            writer.WriteInt16(_targetLocatorAmmo);
+
             // Checkpoint message
             writer.Seek(0x9DF9E0, SeekOrigin.Begin);
             writer.WriteUTF16(_checkpointMsg);
@@ -115,6 +119,34 @@ namespace Liberty.Reach
             FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
             Update(stream);
             stream.Close();
+        }
+
+        /// <summary>
+        /// Copies the gamestate header from an MMIOF stream into an output stream.
+        /// </summary>
+        /// <param name="mmiof">A stream to read the MMIOF data from</param>
+        /// <param name="output">The stream to write the gamestate header to</param>
+        public void WriteGamestateHeader(Stream mmiof, Stream output)
+        {
+            byte[] buffer = new byte[GamestateHeaderSize];
+            mmiof.Read(buffer, 0, buffer.Length);
+            output.Write(buffer, 0, buffer.Length);
+        }
+
+        /// <summary>
+        /// Copies the gamestate header from an mmiof.bmf file into an output gamestate.hdr file.
+        /// </summary>
+        /// <param name="mmiofPath">The path to the mmiof.bmf file to read</param>
+        /// <param name="outputPath">The path to the file to write the header to</param>
+        public void WriteGamestateHeader(string mmiofPath, string outputPath)
+        {
+            FileStream mmiof = File.OpenRead(mmiofPath);
+            FileStream gamestate = File.Open(outputPath, FileMode.Create, FileAccess.Write);
+
+            WriteGamestateHeader(mmiof, gamestate);
+
+            gamestate.Close();
+            mmiof.Close();
         }
 
         /// <summary>
@@ -159,12 +191,12 @@ namespace Liberty.Reach
         }
 
         /// <summary>
-        /// Returns a bitfield that specifies which skulls are active.
-        /// Not much is known about the order of the bits.
+        /// A bitfield that specifies which skulls are active.
         /// </summary>
         public Skulls ActiveSkulls
         {
             get { return _skulls; }
+            set { _skulls = value; }
         }
 
         /// <summary>
@@ -175,6 +207,16 @@ namespace Liberty.Reach
         {
             get { return _checkpointMsg; }
             set { _checkpointMsg = value; }
+        }
+
+        /// <summary>
+        /// How many airstrikes are left in the player's target locator.
+        /// This value is shared by all target locators in the save.
+        /// </summary>
+        public short Airstrikes
+        {
+            get { return _targetLocatorAmmo; }
+            set { _targetLocatorAmmo = value; }
         }
 
         /// <summary>
@@ -247,6 +289,10 @@ namespace Liberty.Reach
             reader.Seek(0x1D6AC, SeekOrigin.Begin);
             _serviceTag = reader.ReadUTF16();
 
+            // Target locator ammo
+            reader.Seek(0x915E1A, SeekOrigin.Begin);
+            _targetLocatorAmmo = reader.ReadInt16();
+
             // Message
             reader.Seek(0x9DF9E0, SeekOrigin.Begin);
             _checkpointMsg = reader.ReadUTF16();
@@ -271,5 +317,8 @@ namespace Liberty.Reach
         private GamePlayer _player = null;
         private Skulls _skulls;
         private string _checkpointMsg;
+        private short _targetLocatorAmmo;
+
+        private static int GamestateHeaderSize = 0x1E720;
     }
 }

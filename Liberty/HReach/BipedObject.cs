@@ -59,7 +59,7 @@ namespace Liberty.Reach
             set
             {
                 if (_armorAbility != null)
-                    _armorAbility.ReplaceWith(value, false);
+                    _armorAbility.ReplaceWith(value);
                 else
                     PickUp(value);
                 _armorAbility = value;
@@ -229,7 +229,7 @@ namespace Liberty.Reach
                 _armorAbility = null;
         }
 
-        public override void ReplaceWith(GameObject newObj, bool deleteCarried)
+        public override void ReplaceWith(GameObject newObj)
         {
             ushort seat = _seatIndex;
             BipedObject newBiped = newObj as BipedObject;
@@ -242,7 +242,7 @@ namespace Liberty.Reach
                 newBiped._bipedFlags = _bipedFlags;
             }
 
-            base.ReplaceWith(newObj, deleteCarried);
+            base.ReplaceWith(newObj);
 
             newBiped._seatIndex = seat;
         }

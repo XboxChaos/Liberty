@@ -105,7 +105,13 @@
 				<TabItem x:Name="tabVehicle" Header="VEHICLE" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy4" Content="vehicle properties;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="133" d:LayoutOverrides="HorizontalAlignment" Padding="5,0,5,5" />
-						<CheckBox x:Name="cBVehiInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,30,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="135" Height="24" VerticalAlignment="Top" IsChecked="{Binding IsChecked, ElementName=cBInvincible}"/>
+						<CheckBox x:Name="cBVehiInvici" Content="Invincible" Foreground="{DynamicResource AccentTextLight}" FontSize="13" FontWeight="Light" Margin="21,24,0,0" FontFamily="Segeo UI" HorizontalAlignment="Left" Width="135" Height="24" VerticalAlignment="Top" IsChecked="{Binding IsChecked, ElementName=cBInvincible}"/>
+						<Label x:Name="subHeading1_Copy5" Content="controller;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="133" Padding="5,0,5,5" d:LayoutOverrides="HorizontalAlignment" Margin="0,96,0,115" />
+						<RadioButton x:Name="rbVehiUncontrolled" Content="Uncontrolled" Margin="21,120,0,0" Style="{DynamicResource {x:Type RadioButton}}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="94" IsChecked="True"/>
+						<RadioButton x:Name="rbVehiOwner" Content="Controlled by carrier vehicle's driver" Margin="21,141,100,0" Style="{DynamicResource {x:Type RadioButton}}" VerticalAlignment="Top"/>
+						<RadioButton x:Name="rbVehiOther" Content="Controlled by other:" Margin="21,162,0,0" Style="{DynamicResource {x:Type RadioButton}}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="135"/>
+						<Button x:Name="btnChangeController" Content="Change" Margin="0,160,32,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="btnChangeController_Click"/>
+						<TextBlock x:Name="lblVehiController" Margin="156,160,111,0" Text="(nothing is selected)" FontFamily="Segeo UI" FontSize="10.667" FontWeight="SemiBold" Padding="0,6,5,5" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource AccentTextDark}" Height="24" VerticalAlignment="Top"/>
 					</Grid>
 				</TabItem>
 				<TabItem x:Name="tabAdvanced" Header="ADVANCED" Style="{DynamicResource MetroTabItem}">
@@ -121,7 +127,7 @@
 						<TextBox Margin="104,156,0,0" MaxLines="1" x:Name="txtParentNode" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateByte" HorizontalAlignment="Left" Width="36" />
 					</Grid>
 				</TabItem>
-				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
+				<TabItem x:Name="tabNodes" Header="NODES" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy1" Content="node selection;" Margin="0,0,0,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Left" Width="109" d:LayoutOverrides="HorizontalAlignment" />
 						<ListBox x:Name="listNodes" Margin="21,25,180,63" SelectionChanged="listNodes_SelectionChanged" Width="174" Height="152"/>
@@ -140,7 +146,7 @@
 						<TextBox Margin="0,205,14,9" MaxLines="1" x:Name="txtPartRoll" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" d:LayoutOverrides="HorizontalAlignment, GridBox" Padding="0" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
 						<Label Content="Scale: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="210,115,109,0" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" HorizontalContentAlignment="Right" Padding="5,5,9,5" />
 						<TextBox MaxLines="1" x:Name="txtPartScale" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" VerticalAlignment="Top" HorizontalAlignment="Right" Width="94.042" Margin="0,115,14,0" IsEnabled="False" />
-						<Button x:Name="btnExportParts" Content="Export" HorizontalAlignment="Left" Margin="21,0,0,33.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="72" Click="btnExportParts_Click"/>
+						<Button x:Name="btnExportParts" Content="Export All" HorizontalAlignment="Left" Margin="21,0,0,33.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="85" Click="btnExportParts_Click"/>
 					</Grid>
 				</TabItem>
             <TabItem x:Name="tabMassMove" Header="MASS MOVE" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">

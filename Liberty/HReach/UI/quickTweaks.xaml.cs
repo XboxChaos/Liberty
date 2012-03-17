@@ -42,7 +42,7 @@ namespace Liberty.Controls
             }
             txtStartingMsg.Text = message;
 
-            Skulls activeSkulls = _saveManager.SaveData.ActiveSkulls;
+            /*Skulls activeSkulls = _saveManager.SaveData.ActiveSkulls;
             cBIron.IsChecked = activeSkulls.HasFlag(Skulls.Iron);
             cBBlackEye.IsChecked = activeSkulls.HasFlag(Skulls.BlackEye);
             cBToughLuck.IsChecked = activeSkulls.HasFlag(Skulls.ToughLuck);
@@ -55,7 +55,7 @@ namespace Liberty.Controls
             cBBlind.IsChecked = activeSkulls.HasFlag(Skulls.Blind);
             cBCowbell.IsChecked = activeSkulls.HasFlag(Skulls.Cowbell);
             cBBirthday.IsChecked = activeSkulls.HasFlag(Skulls.GruntBirthday);
-            cBIWHBYD.IsChecked = activeSkulls.HasFlag(Skulls.IWHBYD);
+            cBIWHBYD.IsChecked = activeSkulls.HasFlag(Skulls.IWHBYD);*/
 		}
 		
 		public bool Save()

@@ -7,7 +7,7 @@ using Liberty.Blam;
 
 namespace Liberty.HCEX
 {
-    public class WeaponObject : GameObject
+    public class WeaponObject : GameObject, Blam.IWeapon
     {
         public WeaponObject(ObjectEntry entry, SaveReader reader)
             : base(entry, reader)
@@ -50,6 +50,21 @@ namespace Liberty.HCEX
         {
             get { return _clipAmmo; }
             set { _clipAmmo = value; }
+        }
+
+        /// <summary>
+        /// Not implemented yet.
+        /// </summary>
+        public float Energy
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private short _remainingAmmo;

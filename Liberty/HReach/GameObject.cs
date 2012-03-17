@@ -183,10 +183,9 @@ namespace Liberty.Reach
 
         /// <summary>
         /// Replaces this object with another one.
-        /// The old object will be deleted.
         /// </summary>
         /// <param name="newObj">The object to replace this object with.</param>
-        public virtual void ReplaceWith(GameObject newObj, bool deleteCarried)
+        public virtual void ReplaceWith(GameObject newObj)
         {
             float oldX = _x;
             float oldY = _y;
@@ -217,8 +216,6 @@ namespace Liberty.Reach
                 // Adjust flags
                 newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (oldFlags & ObjectFlags.NotCarried);
             }
-
-            Delete(deleteCarried);
         }
 
         /// <summary>
@@ -748,7 +745,6 @@ namespace Liberty.Reach
             obj._nextCarried = _firstCarried;
             obj.PhysicsEnabled = false;
             _firstCarried = obj;
-            obj._parentNodeIndex = 0;
             obj.OnPickUp();
         }
 

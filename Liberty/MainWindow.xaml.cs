@@ -102,7 +102,7 @@ namespace Liberty
             #region Reach
             verifyFile reachVerifyFile = new verifyFile(_reachSaveManager, _reachTaglists, this);
             editBiped reachBiped = new editBiped(_reachSaveManager, _reachTaglists);
-            editWeapons reachWeapons = new editWeapons(_reachSaveManager);
+            editWeapons reachWeapons = new editWeapons(_reachSaveManager, _reachTaglists);
             editGrenades reachGrenades = new editGrenades(_reachSaveManager);
             editObjects reachObjects = new editObjects(_reachSaveManager, _reachTaglists);
             quickTweaks reachTweaks = new quickTweaks(_reachSaveManager);
@@ -344,7 +344,14 @@ namespace Liberty
             {
                 // Open the STFS package
                 string rawFileName;
-                package = new STFSPackage(stfsPath, null);
+                try
+                {
+                    package = new STFSPackage(stfsPath, null);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException("The selected file is not a valid STFS package.", ex);
+                }
 
                 // Detect the save's game
                 _currentGame = detectGame(package, out rawFileName);
@@ -382,6 +389,16 @@ namespace Liberty
                         package.Header.TitleID,
                         package.Header.Title_Display,
                         package.Header.ProfileID});
+            }
+            catch (ArgumentException ex)
+            {
+                Dispatcher.Invoke(new Action<string, string>(showMessage), new object[] { ex.Message, "ERROR" });
+                return Util.SaveType.Unknown;
+            }
+            catch (Exception ex)
+            {
+                Dispatcher.Invoke(new Action<string>(showException), new object[] { ex.ToString() });
+                return Util.SaveType.Unknown;
             }
             finally
             {
@@ -852,13 +869,14 @@ namespace Liberty
         {
             btnBack.Visibility = e.CanGoBack ? Visibility.Visible : Visibility.Hidden;
 
-            if (!e.CanGoForward)
+            if (e.NextNode is SimpleStepNode && e.NextNode.Next == null)
             {
                 if (_stepSelectDevice.SelectedDevice != null)
                     _stepSelectDevice.SelectedDevice.Close();
 
                 btnOK.Content = "Close";
                 btnBack.Content = "Restart";
+
                 if (_stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
                 {
                     string argument = @"/select, " + _packagePath;
@@ -869,7 +887,7 @@ namespace Liberty
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            if (!_stepViewer.CanGoForward)
+            if ((string)btnBack.Content == "Restart")
             {
                 // Restart
                 _saveManager.Close();
