@@ -93,13 +93,7 @@
 				<TabItem x:Name="tabWeapon" Header="WEAPON" Style="{DynamicResource MetroTabItem}">
 					<Grid>
 						<Label x:Name="subHeading1_Copy2" Content="weapon properties;" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="134" Height="29" VerticalAlignment="Top" Padding="5,0,5,5" />
-						<Label x:Name="lblPrimaryClipAmmo" Content="weapon clip ammo:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,25,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="122" />
-						<Label x:Name="lblGamertag_Copy6" Content="weapon ammo:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="16,55,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="122" />
-				
-						<TextBox Margin="138,25,178,0" MaxLines="1" x:Name="txtWeapPluginClipAmmo" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="ValidateWord" />
-						<TextBox x:Name="txtWeapPluginAmmo" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Margin="138,55,178,0" TextChanged="ValidateWord" MaxLines="1" d:LayoutOverrides="VerticalAlignment"/>
-                        <Button x:Name="btnMaxPrimaryClip" Content="Max" HorizontalAlignment="Right" Margin="0,25,98,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxPrimaryClip_Click"/>
-                        <Button x:Name="btnPrimaryMaxWeaponAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,55,98,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnPrimaryMaxWeaponAmmo_Click"/>
+						<WrapPanel x:Name="ammoGrid" Height="57" Margin="16,25,8,0" VerticalAlignment="Top" d:LayoutOverrides="Width, HorizontalMargin"/>
 					</Grid>
 				</TabItem>
 				<TabItem x:Name="tabVehicle" Header="VEHICLE" Style="{DynamicResource MetroTabItem}">
