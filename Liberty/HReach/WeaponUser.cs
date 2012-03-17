@@ -45,8 +45,9 @@ namespace Liberty.Reach
 
             if (newWeapon != null)
             {
-                _weapons[index].ReplaceWith(newWeapon, false);
-                _weapons[index] = newWeapon;
+                int listIndex = TranslateIndex(index);
+                _weapons[listIndex].ReplaceWith(newWeapon);
+                _weapons[listIndex] = newWeapon;
             }
             else
             {
@@ -61,21 +62,19 @@ namespace Liberty.Reach
         /// <returns>The weapon at the specified index. Can be null if no weapon is in the specified slot.</returns>
         public WeaponObject GetWeapon(int index)
         {
-            if (index < 0 || index >= _weapons.Count)
-                throw new IndexOutOfRangeException("Trying to access a non-existant weapon slot");
-
-            return _weapons[index];
+            if (index >= 0 && index < _weapons.Count)
+                return _weapons[TranslateIndex(index)];
+            else
+                return null;
         }
 
         public void DropWeapon(int index)
         {
-            if (index < 0 || index >= _weapons.Count)
-                throw new IndexOutOfRangeException("Trying to drop from a non-existant weapon slot");
-
-            WeaponObject weapon = _weapons[index];
-            weapon.Drop();
-            /*if (index < _weapons.Count && _weapons[index] == weapon)
-                _weapons.RemoveAt(index);   // is this necessary? derp...*/
+            if (index >= 0 && index < _weapons.Count)
+            {
+                WeaponObject weapon = _weapons[TranslateIndex(index)];
+                weapon.Drop();
+            }
         }
 
         /// <summary>
@@ -100,8 +99,12 @@ namespace Liberty.Reach
                 receiver.DropWeapon(0);
 
             while (_weapons.Count > 0)
-                receiver.PickUpWeapon(_weapons[0]);
+                receiver.PickUpWeapon(GetWeapon(0));
+
             _weapons.Clear();
+            _backupWeaponIndex = -1;
+            if (Carrier == null || Carrier.TagGroup != TagGroup.Vehi)
+                _currentWeaponIndex = -1;
         }
 
         /// <summary>
@@ -109,7 +112,7 @@ namespace Liberty.Reach
         /// </summary>
         public WeaponObject PrimaryWeapon
         {
-            get { return (_weapons.Count >= 1) ? _weapons[0] : null; }
+            get { return GetWeapon(0); }
             set { ChangeWeapon(0, value); }
         }
 
@@ -118,7 +121,7 @@ namespace Liberty.Reach
         /// </summary>
         public WeaponObject SecondaryWeapon
         {
-            get { return (_weapons.Count >= 2) ? _weapons[1] : null; }
+            get { return GetWeapon(1); }
             set { ChangeWeapon(1, value); }
         }
 
@@ -127,7 +130,7 @@ namespace Liberty.Reach
         /// </summary>
         public WeaponObject TertiaryWeapon
         {
-            get { return (_weapons.Count >= 3) ? _weapons[2] : null; }
+            get { return GetWeapon(2); }
             set { ChangeWeapon(2, value); }
         }
         
@@ -136,7 +139,7 @@ namespace Liberty.Reach
         /// </summary>
         public WeaponObject QuaternaryWeapon
         {
-            get { return (_weapons.Count >= 4) ? _weapons[3] : null; }
+            get { return GetWeapon(3); }
             set { ChangeWeapon(3, value); }
         }
 
@@ -158,6 +161,11 @@ namespace Liberty.Reach
         {
             base.DoLoad(reader, start);
 
+            reader.Seek(start + 0x342, SeekOrigin.Begin);
+            _currentWeaponIndex = reader.ReadSByte();
+            reader.Seek(start + 0x346, SeekOrigin.Begin);
+            _backupWeaponIndex = reader.ReadSByte();
+
             reader.Seek(start + 0x348, SeekOrigin.Begin);
             for (int i = 0; i < 4; i++)
                 _weaponId[i] = (ushort)(reader.ReadUInt32() & 0xFFFF);
@@ -177,10 +185,15 @@ namespace Liberty.Reach
             }
             _weapons = newList;*/
 
-            // Write weapon count info (twice?)
+            // Write weapon index info
             writer.Seek(start + 0x340, SeekOrigin.Begin);
-            WriteWeaponCountInfo(writer);
-            WriteWeaponCountInfo(writer);
+            writer.WriteUInt16((ushort)(_weapons.Count + 2));
+            writer.WriteSByte(_currentWeaponIndex);
+            writer.Skip(1);
+
+            writer.WriteUInt16((ushort)(_weapons.Count + 2));
+            writer.WriteSByte(_backupWeaponIndex);
+            writer.Skip(1);
 
             // Write the weapon list
             foreach (WeaponObject weapon in _weapons)
@@ -189,15 +202,6 @@ namespace Liberty.Reach
             // Write empty spots
             for (int i = _weapons.Count; i < 4; i++)
                 writer.WriteUInt32(0xFFFFFFFF);
-        }
-
-        private void WriteWeaponCountInfo(SaveIO.SaveWriter writer)
-        {
-            writer.WriteUInt16((ushort)(_weapons.Count + 2));
-            if (_weapons.Count == 0)
-                writer.WriteUInt16(0xFFFF);
-            else
-                writer.WriteUInt16(0x00FF);
         }
 
         internal override void ResolveObjectRefs(List<GameObject> objects)
@@ -215,6 +219,13 @@ namespace Liberty.Reach
         {
             base.OnDropUsedObject(obj);
             _weapons.Remove(obj as WeaponObject);
+
+            if (_backupWeaponIndex >= _weapons.Count)
+            {
+                _backupWeaponIndex--;
+                if (Carrier == null || Carrier.TagGroup != TagGroup.Vehi)
+                    _currentWeaponIndex--;
+            }
         }
 
         protected override void OnReplaceUsedObject(GameObject oldObj, GameObject newObj)
@@ -231,6 +242,13 @@ namespace Liberty.Reach
             }
         }
 
+        private int TranslateIndex(int index)
+        {
+            return (index + _backupWeaponIndex) % _weapons.Count;
+        }
+
+        private sbyte _currentWeaponIndex;
+        private sbyte _backupWeaponIndex;
         private ushort[] _weaponId = new ushort[4];
         private List<WeaponObject> _weapons = new List<WeaponObject>();
         private IList<WeaponObject> _roWeapons;

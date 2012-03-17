@@ -10,22 +10,30 @@
     <Grid x:Name="LayoutRoot">
         <Label x:Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Weapon Customization" Height="46" VerticalAlignment="Top" />
         <Label x:Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Grenades.. Grenades Galore" Height="25.911" VerticalAlignment="Top" />
-        <Label Content="fragmentation grenades;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26.267" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187.17" Margin="0,96,0,0" d:LayoutOverrides="HorizontalAlignment" />
-        <Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,123,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="93" />
-        <TextBox x:Name="txtFragNades" TextWrapping="Wrap" VerticalAlignment="Top" Margin="128,123,0,0" TextChanged="txtFragNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-        <Button x:Name="btnMaxFragNades" Content="Max" HorizontalAlignment="Left" Margin="195,123,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" Click="btnMaxFragNades_Click" Width="71"/>
-        <Label Content="plasma grenades;" Margin="0,188,0,0" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26.267" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153" />
-        <Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,215,0,0" HorizontalAlignment="Left" Width="93" Height="24.911" VerticalAlignment="Top" />
-        <TextBox x:Name="txtPlasmaNades" TextWrapping="Wrap" Text="" Margin="128,215,0,0" VerticalAlignment="Top" TextChanged="txtPlasmaNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="HorizontalAlignment"/>
-        <Button x:Name="btnMaxPlasmaNades" Content="Max" HorizontalAlignment="Left" Margin="195,215,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" Click="btnMaxPlasmaNades_Click" Width="71"/>
+        <Grid HorizontalAlignment="Left" Height="53" Margin="0,96,0,0" VerticalAlignment="Top" Width="266">
+        	<Label Content="fragmentation grenades;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26.267" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187.17" />
+        	<Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,0,0,1.089" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="93" />
+        	<TextBox x:Name="txtFragNades" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="128,0,78,0" TextChanged="txtFragNadeCount_TextChanged" MaxLines="1"/>
+        	<Button x:Name="btnMaxFragNades" Content="Max" HorizontalAlignment="Left" Margin="195,0,0,0.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnMaxFragNades_Click" Width="71"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="53" Margin="0,0,0,98" VerticalAlignment="Bottom" Width="266">
+        	<Label Content="plasma grenades;" Margin="0,0,113,0" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26.267" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" />
+        	<Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,27,0,0" HorizontalAlignment="Left" Width="93" Height="24.911" VerticalAlignment="Top" />
+        	<TextBox x:Name="txtPlasmaNades" TextWrapping="Wrap" Text="" Margin="128,27,0,0" VerticalAlignment="Top" TextChanged="txtPlasmaNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
+        	<Button x:Name="btnMaxPlasmaNades" Content="Max" HorizontalAlignment="Left" Margin="195,27,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnMaxPlasmaNades_Click" Width="71"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="53" Margin="283,96,0,0" VerticalAlignment="Top" Width="266">
         
-        <Label Content="spike grenades;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187" Margin="311,96,0,0" d:LayoutOverrides="HorizontalAlignment" />
-        <Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="342,123,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Width="93" />
-        <TextBox x:Name="txtSpikeNades" TextWrapping="Wrap" VerticalAlignment="Top" Margin="439,123,0,0" TextChanged="txtFragNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
-        <Button x:Name="btnMaxSpikeNades" Content="Max" HorizontalAlignment="Left" Margin="506,123,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnMaxSpikeNades_Click" Width="71" d:LayoutOverrides="HorizontalAlignment"/>
-        <Label Content="firebomb grenades;" Margin="311,188,0,0" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153" />
-        <Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="342,215,0,0" HorizontalAlignment="Left" Width="93" Height="25" VerticalAlignment="Top" />
-        <TextBox x:Name="txtFirebombNades" TextWrapping="Wrap" Text="" Margin="439,215,0,0" VerticalAlignment="Top" TextChanged="txtPlasmaNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="HorizontalAlignment"/>
-        <Button x:Name="btnMaxFirebombNades" Content="Max" HorizontalAlignment="Left" Margin="506,215,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnMaxFirebombNades_Click" Width="71" d:LayoutOverrides="HorizontalAlignment"/>
+        	<Label Content="spike grenades;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="187" />
+        	<Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,0,0,1" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="93" d:LayoutOverrides="HorizontalAlignment" />
+        	<TextBox x:Name="txtSpikeNades" TextWrapping="Wrap" VerticalAlignment="Bottom" Margin="128,0,0,0" TextChanged="txtFragNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
+        	<Button x:Name="btnMaxSpikeNades" Content="Max" HorizontalAlignment="Left" Margin="195,0,0,0.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnMaxSpikeNades_Click" Width="71"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="53" Margin="283,0,0,98" VerticalAlignment="Bottom" Width="266">
+        	<Label Content="firebomb grenades;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153" d:LayoutOverrides="VerticalAlignment" />
+        	<Label Content="grenade count: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,27,0,0" HorizontalAlignment="Left" Width="93" Height="25" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" />
+        	<TextBox x:Name="txtFirebombNades" TextWrapping="Wrap" Text="" Margin="128,27,0,0" VerticalAlignment="Top" TextChanged="txtPlasmaNadeCount_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
+        	<Button x:Name="btnMaxFirebombNades" Content="Max" HorizontalAlignment="Left" Margin="195,27,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnMaxFirebombNades_Click" Width="71"/>
+        </Grid>
     </Grid>
 </UserControl>

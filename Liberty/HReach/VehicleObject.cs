@@ -35,6 +35,7 @@ namespace Liberty.Reach
         public GameObject Controller
         {
             get { return _controller; }
+            set { _controller = value; }
         }
 
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
@@ -101,7 +102,7 @@ namespace Liberty.Reach
             base.Drop();
         }
 
-        public override void ReplaceWith(GameObject newObj, bool deleteCarried)
+        public override void ReplaceWith(GameObject newObj)
         {
             GameObject driver = _driver;
             GameObject controller = _controller;
@@ -131,15 +132,7 @@ namespace Liberty.Reach
                 current = next;
             }
 
-            if (newObj.Carrier != null && newObj.Carrier.TagGroup == TagGroup.Vehi)
-            {
-                // The new vehicle is a turret, so hack around the base ReplaceWith and just delete us
-                Delete(deleteCarried);
-            }
-            else
-            {
-                base.ReplaceWith(newObj, deleteCarried);
-            }
+            base.ReplaceWith(newObj);
 
             // Adjust pointers
             VehicleObject newVehicle = newObj as VehicleObject;
@@ -147,6 +140,8 @@ namespace Liberty.Reach
             {
                 newVehicle._driver = driver;
                 newVehicle._controller = controller;
+                driver = null;
+                controller = null;
             }
         }
 

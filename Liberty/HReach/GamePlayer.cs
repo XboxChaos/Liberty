@@ -68,9 +68,8 @@ namespace Liberty.Reach
                     newBiped.FragGrenades = _biped.FragGrenades;
                     newBiped.PlasmaGrenades = _biped.PlasmaGrenades;
                 }
-                /*newBiped.Drop();
-                _biped.Delete(true);*/
-                _biped.ReplaceWith(newBiped, true);
+                _biped.ReplaceWith(newBiped);
+                _biped.Delete(true);
                 _biped = newBiped;
             }
         }
