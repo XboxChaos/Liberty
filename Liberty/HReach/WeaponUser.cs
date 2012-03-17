@@ -84,9 +84,18 @@ namespace Liberty.Reach
         /// <returns>true if the weapon was picked up successfully.</returns>
         public bool PickUpWeapon(WeaponObject weapon)
         {
-            if (_weapons.Count < 4)
+            if (weapon != null && _weapons.Count < 4)
             {
                 PickUp(weapon);
+                if (_backupWeaponIndex >= 0)
+                    _weapons.Insert(_backupWeaponIndex, weapon);
+                else
+                    _weapons.Add(weapon);
+
+                _backupWeaponIndex++;
+                if (Carrier == null || Carrier.TagGroup != TagGroup.Vehi)
+                    _currentWeaponIndex++;
+
                 return true;
             }
 
@@ -148,14 +157,14 @@ namespace Liberty.Reach
             get { return _roWeapons; }
         }
 
-        public override void PickUp(GameObject obj)
+        /*public override void PickUp(GameObject obj)
         {
             base.PickUp(obj);
 
             WeaponObject weapon = obj as WeaponObject;
             if (weapon != null && _weapons.Count < 4)
                 _weapons.Add(weapon);
-        }
+        }*/
 
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
         {

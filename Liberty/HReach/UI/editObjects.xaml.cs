@@ -172,8 +172,8 @@ namespace Liberty.Controls
 
                 case Reach.TagGroup.Weap:
                     //objWeap.Invincible = (bool)cBWeapInvici.IsChecked;
-                    objWeap.Ammo = Convert.ToInt16(txtWeapPluginAmmo.Text);
-                    objWeap.ClipAmmo = Convert.ToInt16(txtWeapPluginClipAmmo.Text);
+                    Util.IAmmoDisplay display = (Util.IAmmoDisplay)ammoGrid.Children[0];
+                    display.Save();
                     break;
 
                 case Reach.TagGroup.Vehi:
@@ -310,8 +310,8 @@ namespace Liberty.Controls
         {
             if (e.NewValue != null)
             {
-                TreeViewItem SelectedItem = tVObjects.SelectedItem as TreeViewItem;
-                if (SelectedItem.Items.Count > 0)
+                TreeViewItem selectedItem = tVObjects.SelectedItem as TreeViewItem;
+                if (selectedItem.Items.Count > 0)
                 {
                     // Item is a mass-movable tag group
                     btnDelete.Visibility = Visibility.Hidden;
@@ -331,8 +331,8 @@ namespace Liberty.Controls
                     instructions.Visibility = Visibility.Hidden;
                     tabs.Visibility = Visibility.Visible;
 
-                    currentParentNodeTag = (string)SelectedItem.Tag;
-                    btnMassMoveMover.Content = "Move All " + SelectedItem.Header;
+                    currentParentNodeTag = (string)selectedItem.Tag;
+                    btnMassMoveMover.Content = "Move All " + selectedItem.Header;
                 }
                 else if (e.NewValue.ToString().Contains("Header:["))
                 {
@@ -353,8 +353,8 @@ namespace Liberty.Controls
                     try
                     {
                         //Chunk Load Code
-                        currentChunkIndex = int.Parse(SelectedItem.Tag.ToString());
-                        string[] parentTag = SelectedItem.Parent.ToString().Split(' ');
+                        currentChunkIndex = int.Parse(selectedItem.Tag.ToString());
+                        string[] parentTag = selectedItem.Parent.ToString().Split(' ');
 
                         if (e.NewValue.ToString().Contains("Header:["))
                         {
@@ -430,9 +430,11 @@ namespace Liberty.Controls
 
                                 case Reach.TagGroup.Weap:
                                     objWeap = currentObject as Reach.WeaponObject;
+                                    string name = selectedItem.Header.ToString();
+                                    name = name.Substring(name.IndexOf(']') + 2);
 
-                                    txtWeapPluginClipAmmo.Text = Convert.ToString(objWeap.ClipAmmo);
-                                    txtWeapPluginAmmo.Text = Convert.ToString(objWeap.Ammo);
+                                    ammoGrid.Children.Clear();
+                                    ammoGrid.Children.Add(Reach.WeaponEditing.GetAmmoDisplay(_saveData, objWeap, name));
 
                                     //cBWeapInvici.IsChecked = objWeap.Invincible;
 
@@ -470,7 +472,7 @@ namespace Liberty.Controls
                             if ((currentObject.TagGroup == Reach.TagGroup.Weap ||
                                 currentObject.TagGroup == Reach.TagGroup.Vehi ||
                                 currentObject.TagGroup == Reach.TagGroup.Eqip) &&
-                                ((TreeViewItem)SelectedItem.Parent).Items.Count > 1)
+                                ((TreeViewItem)selectedItem.Parent).Items.Count > 1)
                             {
                                 btnReplace.Visibility = Visibility.Visible;
                             }
@@ -507,16 +509,6 @@ namespace Liberty.Controls
         private void btnBipdPlasmaMax_Click(object sender, RoutedEventArgs e)
         {
             txtBipdPlasmaNade.Text = "127";
-        }
-
-        private void btnPrimaryMaxWeaponAmmo_Click(object sender, RoutedEventArgs e)
-        {
-            txtWeapPluginAmmo.Text = "32767";
-        }
-
-        private void btnMaxPrimaryClip_Click(object sender, RoutedEventArgs e)
-        {
-            txtWeapPluginClipAmmo.Text = "32767";
         }
 
         private void recursiveDelete(Reach.GameObject obj)
@@ -1103,6 +1095,14 @@ namespace Liberty.Controls
             {
                 Reach.GameObject pickUp = _saveData.Objects[(int)selectedItem.Tag];
                 currentObject.PickUp(pickUp);
+                if (currentObject is Reach.WeaponUser && pickUp is Reach.WeaponObject)
+                {
+                    Reach.WeaponUser user = (Reach.WeaponUser)currentObject;
+                    Reach.WeaponObject weapon = (Reach.WeaponObject)pickUp;
+                    if (!user.PickUpWeapon(weapon))
+                        mainWindow.showMessage("The object is already carrying four weapons. It will still be picked up, but it will not be usable.", "WEAPON PICK UP");
+                }
+
                 pickUp.ParentNode = 0;
 
                 if (objectsAreRelated(_saveData.Player.Biped, pickUp))

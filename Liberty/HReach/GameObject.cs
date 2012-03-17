@@ -736,8 +736,11 @@ namespace Liberty.Reach
         /// Picks up and starts carrying another object.
         /// </summary>
         /// <param name="obj">The object to pick up.</param>
-        public virtual void PickUp(GameObject obj)
+        public void PickUp(GameObject obj)
         {
+            if (obj.Carrier == this)
+                return;
+
             obj.Drop();
             obj._flags &= ~ObjectFlags.NotCarried;
             obj._zone = 0xFFFF;

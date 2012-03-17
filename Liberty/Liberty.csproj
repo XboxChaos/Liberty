@@ -105,6 +105,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HReach\WeaponEditing.cs" />
     <Compile Include="Util\IAmmoDisplay.cs" />
     <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="Blam\HealthInfo.cs" />
