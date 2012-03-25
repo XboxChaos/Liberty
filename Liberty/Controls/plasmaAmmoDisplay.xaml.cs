@@ -33,7 +33,7 @@ namespace Liberty
             get
             {
                 if ((bool)cBInfinite.IsChecked)
-                    return float.NegativeInfinity;
+                    return float.PositiveInfinity;
                 else
                     return float.Parse(txtPlasma.Text);
             }
