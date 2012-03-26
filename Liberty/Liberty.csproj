@@ -97,7 +97,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="X360">
-      <HintPath>..\..\..\..\..\Resources\X360\X360.dll</HintPath>
+      <HintPath>..\..\..\Resources\X360.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
