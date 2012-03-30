@@ -18,6 +18,7 @@ namespace Liberty.Controls
     /// </summary>
     public partial class editWeapons : UserControl, StepUI.IStep
     {
+        private MainWindow _mainWindow;
         private Util.SaveManager<Reach.CampaignSave> _saveManager;
         private Reach.TagListManager _tagList;
         private ComboBox[] _weaponBoxes;
@@ -41,6 +42,13 @@ namespace Liberty.Controls
             cbSecondaryWeapon.Tag = gridSecondaryAmmo;
             cbTertiaryWeapon.Tag = gridTertiaryAmmo;
             cbQuaternaryWeapon.Tag = gridQuaternaryAmmo;
+
+            this.Loaded += new RoutedEventHandler(editWeapons_Loaded);
+        }
+
+        void editWeapons_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mainWindow = Window.GetWindow(this) as MainWindow;
         }
 
         public void Load()
@@ -62,6 +70,7 @@ namespace Liberty.Controls
         public bool Save()
         {
             Reach.BipedObject playerBiped = _saveManager.SaveData.Player.Biped;
+            bool weaponChanged = false;
 
             // We have to do the save in two passes:
             // 1. Replace weapons and edit ammo
@@ -78,6 +87,7 @@ namespace Liberty.Controls
                     WeaponItem weapon = (WeaponItem)item.Tag;
                     if (weapon.Object != playerBiped.GetWeapon(i))
                     {
+                        weaponChanged = true;
                         playerBiped.ChangeWeapon(i, weapon.Object);
                         if (_tagList.Identify(playerBiped, false) == "Noble 6")
                         {
@@ -109,6 +119,10 @@ namespace Liberty.Controls
                     playerBiped.DropWeapon(i);
                 }
             }
+
+            if (weaponChanged && playerBiped.Weapons.Count > 1)
+                _mainWindow.showMessage("Once your save loads, cycle through all of your weapons at least once. This will fix the carry data for your new weapons and ensure that they work properly.", "WEAPON REPLACEMENT");
+            
             return true;
         }
 

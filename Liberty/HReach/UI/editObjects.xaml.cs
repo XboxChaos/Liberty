@@ -177,13 +177,10 @@ namespace Liberty.Controls
                     break;
 
                 case Reach.TagGroup.Vehi:
-                    // Moved to checked/unchecked events
-                    //objVehi.MakeInvincible((bool)cBVehiInvici.IsChecked);
                     if (rbVehiUncontrolled.IsChecked == true)
                         objVehi.Controller = null;
                     else if (rbVehiOwner.IsChecked == true)
                         objVehi.Controller = objVehi.Carrier;
-                    // if rbVehiOther is checked, the controller is set in the Change button's code
                     break;
             }
         }
@@ -216,6 +213,8 @@ namespace Liberty.Controls
             }*/
 
             saveHealthInfo(currentObject);
+            saveCarryInfo(listCarried.SelectedItem);
+            
             currentObject.ParentNode = Convert.ToSByte(txtParentNode.Text);
 
             // Nodes
@@ -411,9 +410,6 @@ namespace Liberty.Controls
                             cBInvincible.IsChecked = currentObject.Invincible;
                             cBInvincible.IsEnabled = currentObject.HasHealth || currentObject.HasShields;
 
-                            // Parent node
-                            txtParentNode.Text = currentObject.ParentNode.ToString();
-
                             // "Plugin" stuff
                             switch (currentObject.TagGroup)
                             {
@@ -528,8 +524,8 @@ namespace Liberty.Controls
             TreeViewItem tvi = objectItems[(int)(obj.ID & 0xFFFF)];
             if (tvi != null)
             {
-            TreeViewItem parent = (TreeViewItem)tvi.Parent;
-            parent.Items.Remove(tvi);
+                TreeViewItem parent = (TreeViewItem)tvi.Parent;
+                parent.Items.Remove(tvi);
             }
 
             obj.Delete(false);
@@ -972,7 +968,6 @@ namespace Liberty.Controls
             if (groupName.EndsWith("s"))
                 groupName = groupName.Substring(0, groupName.Length - 1);
             item.Content = "[" + groupName + "] " + objTvi.Header;
-            item.FontWeight = objTvi.FontWeight;
             item.Tag = obj;
             listCarried.Items.Add(item);
         }
@@ -1007,17 +1002,33 @@ namespace Liberty.Controls
             }
         }
 
+        private void saveCarryInfo(object item)
+        {
+            if (item != null)
+            {
+                ListBoxItem lbItem = (ListBoxItem)item;
+                Reach.GameObject obj = (Reach.GameObject)lbItem.Tag;
+                obj.ParentNode = Convert.ToSByte(txtParentNode.Text);
+            }
+        }
+
         private void refreshCarryButtons()
         {
             if (listCarried.SelectedIndex != -1)
             {
                 btnDropObject.Visibility = Visibility.Visible;
                 btnViewCarriedObject.Visibility = Visibility.Visible;
+
+                gridAttachSettings.Visibility = Visibility.Visible;
+                ListBoxItem item = (ListBoxItem)listCarried.SelectedItem;
+                Reach.GameObject obj = (Reach.GameObject)item.Tag;
+                txtParentNode.Text = obj.ParentNode.ToString();
             }
             else
             {
                 btnDropObject.Visibility = Visibility.Collapsed;
                 btnViewCarriedObject.Visibility = Visibility.Collapsed;
+                gridAttachSettings.Visibility = Visibility.Hidden;
             }
         }
 
@@ -1157,6 +1168,8 @@ namespace Liberty.Controls
 
         private void listCarried_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (e.RemovedItems.Count > 0)
+                saveCarryInfo(e.RemovedItems[0]);
             refreshCarryButtons();
         }
 
