@@ -26,16 +26,12 @@ namespace Liberty.Controls
 		{
             _saveManager = saveManager;
 			this.InitializeComponent();
-
-#if DEBUG
-            skullsPanel.Visibility = System.Windows.Visibility.Visible;
-#endif
 		}
 		
 		public void Load()
 		{
             string message = _saveManager.SaveData.Message;
-            if (message == "Checkpoint... done")
+            if (message == "Checkpoint... done" || message.StartsWith("Modded with Liberty "))
             {
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 message = "Modded with Liberty " + version;

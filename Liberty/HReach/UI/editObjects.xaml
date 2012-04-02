@@ -51,7 +51,7 @@
 						</StackPanel>
 						<Label Content="object position data;" Margin="0,0,14,215" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" Padding="5,0,5,5" HorizontalAlignment="Right" Width="139.042" d:LayoutOverrides="GridBox" />
 						<Label Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,25,116,0" HorizontalAlignment="Right" Width="20" Height="24.982" VerticalAlignment="Top" d:LayoutOverrides="GridBox" />
-						<TextBox Margin="0,25,14,0" MaxLines="1" x:Name="txtObjectXCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" HorizontalAlignment="Right" Width="94.042" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="GridBox" />
+						<TextBox Margin="0,25,14,0" MaxLines="1" x:Name="txtObjectXCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="GridBox" HorizontalAlignment="Right" Width="94.042" />
 						<Label Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,55,116,0" HorizontalAlignment="Right" Width="20" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" />
 						<TextBox Margin="0,55,14,0" MaxLines="1" x:Name="txtObjectYCord" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" HorizontalAlignment="Right" Width="94.042" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="GridBox" />
 						<Label Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,85,116,0" HorizontalAlignment="Right" Width="20" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" />
@@ -131,9 +131,9 @@
 						<Label Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="239,25,109,0" Height="24.982" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
 						<Label Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,55,109,0" HorizontalAlignment="Right" Width="27" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
 						<Label Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,85,109,0" HorizontalAlignment="Right" Width="27" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" d:LayoutOverrides="GridBox" Padding="5,5,9,5" />
-						<TextBox Margin="0,25,14,0" MaxLines="1" x:Name="txtPartXCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
-						<TextBox Margin="0,55,14,0" MaxLines="1" x:Name="txtPartYCord" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
-						<TextBox Margin="0,85,14,0" MaxLines="1" x:Name="txtPartZCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" />
+						<TextBox Margin="0,25,14,0" MaxLines="1" x:Name="txtPartXCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
+						<TextBox Margin="0,55,14,0" MaxLines="1" x:Name="txtPartYCord" Text="0" TextChanged="ValidateFloat" VerticalAlignment="Top" MaxHeight="22" Height="22" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
+						<TextBox Margin="0,85,14,0" MaxLines="1" x:Name="txtPartZCord" Text="0" TextChanged="ValidateFloat" MaxHeight="22" Height="22" VerticalAlignment="Top" Padding="0" VerticalContentAlignment="Center" d:LayoutOverrides="HorizontalAlignment, GridBox" HorizontalAlignment="Right" Width="94.042" IsEnabled="False" />
 						<Label Content="Yaw: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,145,109,0" HorizontalAlignment="Right" Width="41.998" Height="26" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="GridBox" />
 						<Label Content="Pitch: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,175,109,0" HorizontalAlignment="Right" Width="46" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="GridBox" />
 						<Label Content="Roll: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,205,109,0" HorizontalAlignment="Right" Width="39.997" Height="24.911" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,9,5" d:LayoutOverrides="HorizontalAlignment, GridBox" />
@@ -145,44 +145,22 @@
 						<Button x:Name="btnExportParts" Content="Export CSV" HorizontalAlignment="Left" Margin="21,0,0,33.04" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Width="85" Click="btnExportParts_Click"/>
 					</Grid>
 				</TabItem>
-            <TabItem x:Name="tabMassMove" Header="MASS MOVE" Style="{DynamicResource MetroTabItem}" Visibility="Collapsed">
+            <TabItem x:Name="tabMassMove" Header="MASS MOVE" Style="{DynamicResource MetroTabItem}">
                 <Grid>
-                    <TextBox x:Name="txtMassMoveX" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,5,184,0" d:LayoutOverrides="HorizontalAlignment">
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScope.Names>
-                                    <InputScopeName NameValue="Number"/>
-                                </InputScope.Names>
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
+                    <TextBox x:Name="txtMassMoveX" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="34,0,0,0" TextChanged="ValidateFloat" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="152" />
+                    <TextBox x:Name="txtMassMoveY" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="34,30,189,0" TextChanged="ValidateFloat" VerticalContentAlignment="Center" Width="152" />
+                    <TextBox x:Name="txtMassMoveZ" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="34,60,189,0" TextChanged="ValidateFloat" VerticalContentAlignment="Center" Width="152" />
 
-                    <TextBox x:Name="txtMassMoveY" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,35,184,0" d:LayoutOverrides="HorizontalAlignment" >
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScope.Names>
-                                    <InputScopeName NameValue="Number"/>
-                                </InputScope.Names>
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-                    <TextBox x:Name="txtMassMoveZ" Height="22" MaxLines="1" AcceptsReturn="False" VerticalAlignment="Top" Text="0" Margin="8,65,184,0" d:LayoutOverrides="HorizontalAlignment" >
-                        <TextBox.InputScope>
-                            <InputScope>
-                                <InputScope.Names>
-                                    <InputScopeName NameValue="Number"/>
-                                </InputScope.Names>
-                            </InputScope>
-                        </TextBox.InputScope>
-                    </TextBox>
-
-                    <Button x:Name="btnMassMoveCordSetter" Margin="8,100,184,113" Style="{DynamicResource MetroSecondaryButton}" Content="Set Coordinates From Object" Click="btnMassMoveCordSetter_Click" d:LayoutOverrides="HorizontalAlignment" />
+                    <Button x:Name="btnMassMoveCordSetter" Margin="8,95,184,118" Style="{DynamicResource MetroSecondaryButton}" Content="Set Coordinates From Object" Click="btnMassMoveCordSetter_Click" d:LayoutOverrides="HorizontalAlignment" />
 
                     <TextBlock x:Name="lblMassMoveSliderDetail" Text="spacing type: 2.5 - fair" Margin="12,172,8,53" FontFamily="SegeoUI" FontSize="11" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
                     <Slider x:Name="sliderMassMove" Maximum="10" SmallChange="0.1" LargeChange="0.1" Value="2.5" Margin="13,148,215,69" ValueChanged="sliderMassMove_ValueChanged" />
                     <TextBlock Text="set the spacing of the grid;" Margin="12,133,215,92" FontFamily="SegeoUI" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" />
 
                     <Button x:Name="btnMassMoveMover" Margin="8,198,8,14" Style="{DynamicResource MetroPrimaryButton}" Content="Move All Objects" Click="btnMassMoveMover_Click" />
+                    <Label Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="8,0,0,0" HorizontalAlignment="Left" Width="20" Height="24.982" VerticalAlignment="Top" d:LayoutOverrides="GridBox" RenderTransformOrigin="0.65,-0.168" />
+                    <Label Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="8,30,0,0" HorizontalAlignment="Left" Width="20" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" />
+                    <Label Content="Z: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="8,60,0,0" HorizontalAlignment="Left" Width="20" Height="24.911" VerticalAlignment="Top" d:LayoutOverrides="GridBox" />
                 </Grid>
             </TabItem>
         </TabControl>

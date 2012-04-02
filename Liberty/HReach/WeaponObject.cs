@@ -48,6 +48,11 @@ namespace Liberty.Reach
             set { _plasmaUsage = 1 - value / 100; }
         }
 
+        public Reach.GameObject User
+        {
+            get { return _user; }
+        }
+
         protected override void DoLoad(SaveIO.SaveReader reader, long start)
         {
             base.DoLoad(reader, start);
@@ -166,6 +171,6 @@ namespace Liberty.Reach
         private ushort _userId;
         private GameObject _user = null;
 
-        private uint _usageInfo;  // I hardly even know what this value means, it's just needed for weapon carrying
+        private uint _usageInfo;  // I hardly even know what this value means, it's just needed for weapon carrying...I think.
     }
 }

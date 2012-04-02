@@ -86,12 +86,12 @@
 							<RowDefinition Height="0.545*"/>
 						</Grid.RowDefinitions>
 						<Image x:Name="btnClose" Width="11" Height="11" Source="Images/l-close.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,11,-4.955" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnClose_IsMouseDirectlyOverChanged" MouseDown="btnClose_MouseDown" MouseUp="btnClose_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
-						<Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,1.5,242.376,8" HorizontalAlignment="Right" Width="66.138" MouseEnter="btnBugReport_MouseEnter" MouseLeave="btnBugReport_MouseLeave" MouseDown="btnBugReport_MouseDown" MouseUp="btnBugReport_MouseUp" Grid.RowSpan="2"/>
+						<Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Margin="0,1,242.376,8" HorizontalAlignment="Right" Width="66.138" MouseUp="btnBugReport_MouseUp" Grid.RowSpan="2" Style="{DynamicResource SmallButtonLabel}"/>
 						<Label x:Name="lblDevider2" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="0,-0.61,238,-7.413" HorizontalAlignment="Right" Width="13" />
-						<Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,1.5,161,8" HorizontalAlignment="Right" Width="85.514" MouseDown="btnCFU_MouseDown" MouseEnter="btnCFU_MouseEnter" MouseLeave="btnCFU_MouseLeave" MouseUp="btnCFU_MouseUp" Padding="5,5,0,5" Grid.RowSpan="2"/>
+						<Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Margin="0,1,161,8" HorizontalAlignment="Right" Width="85.514" MouseUp="btnCFU_MouseUp" Padding="5,5,0,5" Grid.RowSpan="2" Style="{DynamicResource SmallButtonLabel}"/>
 						<Label x:Name="lblDevider" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="0,-0.409,152.998,-7.614" HorizontalAlignment="Right" Width="13"/>
-						<Label x:Name="btnAbout" Content="ABOUT" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,1.583,124,7.917" HorizontalAlignment="Right" Width="37" MouseEnter="btnAbout_MouseEnter" MouseLeave="btnAbout_MouseLeave" MouseDown="btnAbout_MouseDown" MouseUp="btnAbout_MouseUp" Grid.RowSpan="2"/>
-						<Label x:Name="btnSettings" Content="SETTINGS" FontWeight="SemiBold" FontSize="8" Foreground="{DynamicResource AccentTextDark}" Margin="0,1.5,303,8" HorizontalAlignment="Right" Width="47.919" MouseEnter="btnSettings_MouseEnter" MouseLeave="btnSettings_MouseLeave" MouseDown="btnSettings_MouseDown" MouseUp="btnSettings_MouseUp" Grid.RowSpan="2"/>
+						<Label x:Name="btnAbout" Content="ABOUT" FontWeight="SemiBold" FontSize="8" Margin="0,1,124,7.917" HorizontalAlignment="Right" Width="37" MouseUp="btnAbout_MouseUp" Grid.RowSpan="2" Style="{DynamicResource SmallButtonLabel}"/>
+						<Label x:Name="btnSettings" Content="SETTINGS" FontWeight="SemiBold" FontSize="8" Margin="0,1,303,8" HorizontalAlignment="Right" Width="47.919" MouseLeave="btnSettings_MouseLeave" MouseDown="btnSettings_MouseDown" MouseUp="btnSettings_MouseUp" Grid.RowSpan="2" Style="{DynamicResource SmallButtonLabel}"/>
 						<Label x:Name="lblDevider3" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="302,-0.61,300,-7.413" />
 		            </Grid>
 				</Grid>
@@ -103,8 +103,8 @@
         </Grid>
             
             <Grid x:Name="stepGrid" Margin="40,85,0,0" Height="339" Background="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="585"/>
-            <Grid x:Name="gridButtons" HorizontalAlignment="Right" Height="25.96" Margin="0,0,25,29" VerticalAlignment="Bottom" Width="153">
-            <Button x:Name="btnOK" Content="Next" HorizontalAlignment="Right" Style="{DynamicResource MetroPrimaryButton}" Click="btnOK_Click" Width="69" d:LayoutOverrides="Height" />
+            <Grid x:Name="gridButtons" HorizontalAlignment="Right" Height="25.96" Margin="0,422,25,0" VerticalAlignment="Top" Width="153">
+            <Button x:Name="btnOK" Content="Next" HorizontalAlignment="Left" Style="{DynamicResource MetroPrimaryButton}" Click="btnOK_Click" Width="69" d:LayoutOverrides="Height" Margin="84,0,0,0" />
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Style="{DynamicResource MetroSecondaryButton}" d:LayoutOverrides="Height" Click="btnBack_Click" Width="69"/>
 
         </Grid>

@@ -134,9 +134,9 @@ namespace Liberty.classInfo
         {
             try
             {
-                Dns.GetHostEntry("xeraxic.com");
+                Dns.GetHostEntry("xboxchaos.com");
                 System.Net.WebClient wb = new System.Net.WebClient();
-                return wb.DownloadString("http://www.xeraxic.com/downloads/0/haloreachliberty/taglists.ini");
+                return wb.DownloadString("http://www.xboxchaos.com/reach/liberty/taglists.ini");
             } catch { return Properties.Resources.taglists; }
         }
 

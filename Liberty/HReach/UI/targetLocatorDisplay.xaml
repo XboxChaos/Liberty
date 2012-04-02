@@ -9,7 +9,7 @@
 	<Grid HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="261" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment">
                             
 		<Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" HorizontalAlignment="Left" Width="120" Height="24" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,5,0" d:LayoutOverrides="VerticalAlignment" />
-		<TextBox Margin="124,0,0,0" MaxLines="1" x:Name="txtAirstrikes" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Left" Width="60" />
+		<TextBox Margin="124,0,0,0" MaxLines="1" x:Name="txtAirstrikes" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Left" Width="60" TextChanged="ValidateWord" />
 		<Button x:Name="btnMaxAirstrikes" Content="Max" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="71" d:LayoutOverrides="VerticalAlignment" Click="btnMaxAirstrikes_Click"/>
 	</Grid>
 </UserControl>

@@ -1448,4 +1448,16 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="SmallButtonLabel" TargetType="{x:Type Label}">
+    	<Setter Property="Foreground" Value="{DynamicResource AccentTextDark}"/>
+    	<Setter Property="Background" Value="Transparent"/>
+    	<Setter Property="Padding" Value="5"/>
+    	<Setter Property="HorizontalContentAlignment" Value="Left"/>
+    	<Setter Property="VerticalContentAlignment" Value="Top"/>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="true">
+				<Setter Property="Foreground" Value="{DynamicResource AccentTextMid}" />
+			</Trigger>
+		</Style.Triggers>
+    </Style>
 </ResourceDictionary>

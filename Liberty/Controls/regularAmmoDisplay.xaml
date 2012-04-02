@@ -10,10 +10,10 @@
 	<Grid HorizontalAlignment="Left" Height="57" VerticalAlignment="Top" Width="261">
                             
 		<Label Content="weapon clip ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" HorizontalAlignment="Left" Width="120" Height="24" VerticalAlignment="Top" HorizontalContentAlignment="Right" Padding="5,5,5,0" d:LayoutOverrides="VerticalAlignment" />
-		<TextBox Margin="124,0,0,0" MaxLines="1" x:Name="txtClipAmmo" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="VerticalAlignment" />
+		<TextBox Margin="124,0,0,0" MaxLines="1" x:Name="txtClipAmmo" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="60" d:LayoutOverrides="VerticalAlignment" TextChanged="ValidateWord" />
 		<Button x:Name="btnMaxClipAmmo" Content="Max" Style="{DynamicResource MetroSecondaryButton}" Click="btnMaxClipAmmo_Click" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="71"/>
 		<Label Content="weapon ammo: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="0,31,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" HorizontalContentAlignment="Right" Padding="5,5,5,0" />
-		<TextBox x:Name="txtAmmo" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Margin="124,31,0,0" MaxLines="1" HorizontalAlignment="Left" Width="60" RenderTransformOrigin="0.489,0.5"/>
+		<TextBox x:Name="txtAmmo" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Margin="124,31,0,0" MaxLines="1" HorizontalAlignment="Left" Width="60" RenderTransformOrigin="0.489,0.5" TextChanged="ValidateWord"/>
 		<Button x:Name="btnMaxAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,31,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxAmmo_Click"/>
 	</Grid>
 </UserControl>

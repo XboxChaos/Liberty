@@ -56,5 +56,34 @@ namespace Liberty
             _weapon.ClipAmmo = ClipAmmo;
             _weapon.Ammo = UnloadedAmmo;
         }
+
+        private void ValidateWord(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox == null)
+                return;
+
+            textBox.Tag = true; // Mark as changed
+
+            if (textBox.Text != "")
+            {
+                int value;
+                if (int.TryParse(textBox.Text, out value))
+                {
+                    if (value > 32767)
+                        textBox.Text = "32767";
+                }
+                else
+                {
+                    int line = textBox.Text.Length - 1;
+                    textBox.Text = textBox.Text.Remove(line, 1);
+                    textBox.Select(line, 0);
+                }
+            }
+            else
+            {
+                textBox.Text = "0";
+            }
+        }
     }
 }
