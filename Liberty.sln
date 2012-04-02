@@ -3,30 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Liberty", "Liberty\Liberty.csproj", "{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetroLiberty", "MetroLiberty\MetroLiberty.csproj", "{9ED8F43B-2CE2-4951-8636-891313098F86}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H3GamestateTest", "H3GamestateTest\H3GamestateTest.csproj", "{BCF7A82D-326B-49C6-AF2E-F94B9ADC423F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HCEAGamestateTest", "HCEAGamestateTest\HCEAGamestateTest.csproj", "{1904A7E2-B834-4F72-8215-900DFB1AD72C}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs17
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Liberty\\Liberty.csproj
 		SccProjectName1 = Liberty
 		SccLocalPath1 = Liberty
-		SccProjectUniqueName2 = MetroLiberty\\MetroLiberty.csproj
-		SccProjectName2 = MetroLiberty
-		SccLocalPath2 = MetroLiberty
-		SccProjectUniqueName3 = H3GamestateTest\\H3GamestateTest.csproj
-		SccProjectName3 = H3GamestateTest
-		SccLocalPath3 = H3GamestateTest
-		SccProjectUniqueName4 = HCEAGamestateTest\\HCEAGamestateTest.csproj
-		SccProjectName4 = HCEAGamestateTest
-		SccLocalPath4 = HCEAGamestateTest
+		SccProjectUniqueName2 = H3GamestateTest\\H3GamestateTest.csproj
+		SccProjectName2 = H3GamestateTest
+		SccLocalPath2 = H3GamestateTest
+		SccProjectUniqueName3 = HCEAGamestateTest\\HCEAGamestateTest.csproj
+		SccProjectName3 = HCEAGamestateTest
+		SccLocalPath3 = HCEAGamestateTest
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,20 +44,6 @@ Global
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Release|x86.ActiveCfg = Release|x86
 		{4D92CC4A-58ED-4FCA-8999-544E69E3D7B5}.Release|x86.Build.0 = Release|x86
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
-		{9ED8F43B-2CE2-4951-8636-891313098F86}.Release|x86.ActiveCfg = Release|Any CPU
 		{BCF7A82D-326B-49C6-AF2E-F94B9ADC423F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BCF7A82D-326B-49C6-AF2E-F94B9ADC423F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCF7A82D-326B-49C6-AF2E-F94B9ADC423F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

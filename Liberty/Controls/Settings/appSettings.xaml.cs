@@ -33,7 +33,7 @@ namespace Liberty.Controls.Settings
             this.Loaded += new RoutedEventHandler(appSettings_Loaded);
 
             hideAllTris();
-            btnUpdateSettings_MouseDown(null, null);
+            btnLaunchSettings_MouseDown(null, null);
         }
 
         void appSettings_Loaded(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ namespace Liberty.Controls.Settings
                 string adding = string.Format("Dependency Name:    {0} " + Environment.NewLine +
                                               "Dependency Author:   {1} " + Environment.NewLine +
                                               "Dependency Size:       {2} " + Environment.NewLine +
-                                              "Dependency License:  {3} " + Environment.NewLine + Environment.NewLine + Environment.NewLine,
+                                              "Dependency License:  {3} " + Environment.NewLine + Environment.NewLine,
 
                               tmp[0], tmp[1], tmp[2], tmp[3]);
 
@@ -130,14 +130,6 @@ namespace Liberty.Controls.Settings
 
         #region uncleanWPFshit
         #region btnUpdate
-        private void btnUpdateSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnUpdateSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-        private void btnUpdateSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnUpdateSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
         private void btnUpdateSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
@@ -148,14 +140,6 @@ namespace Liberty.Controls.Settings
         #endregion
 
         #region btnLaunch
-        private void btnLaunchSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnLaunchSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-        private void btnLaunchSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnLaunchSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
         private void btnLaunchSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
@@ -166,14 +150,6 @@ namespace Liberty.Controls.Settings
         #endregion
 
         #region btnTaglist
-        private void btnTaglistSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnTaglistSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-        private void btnTaglistSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnTaglistSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
         private void btnTaglistSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();
@@ -198,14 +174,6 @@ namespace Liberty.Controls.Settings
         #endregion
 
         #region btnappAbout
-        private void btnAppAbout_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnAppAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-        private void btnAppAbout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnAppAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
         private void btnAppAbout_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             hideAllTris();

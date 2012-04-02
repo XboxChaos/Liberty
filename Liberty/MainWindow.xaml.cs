@@ -678,12 +678,6 @@ namespace Liberty
         private void settingsMain_Closed(object sender, EventArgs e)
         {
             settingsPanel.Visibility = System.Windows.Visibility.Hidden;
-
-            // Set theme colours on static objects
-            btnSettings_MouseLeave(null, null);
-            btnAbout_MouseLeave(null, null);
-            btnCFU_MouseLeave(null, null);
-            btnBugReport_MouseLeave(null, null);
         }
 
         #region uncleanBullshitforWFP
@@ -759,77 +753,29 @@ namespace Liberty
         #endregion
 
         #region btnAboutwpf
-        private void btnAbout_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-
-        private void btnAbout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
-
-        private void btnAbout_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
-
         private void btnAbout_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnAbout.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-
             about();
         }
         #endregion
 
         #region btnCFUwpf
-        private void btnCFU_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-
-        private void btnCFU_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
-
-        private void btnCFU_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
-
         private void btnCFU_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnCFU.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-
             checkForUpdates();
         }
         #endregion
 
         #region btnBugReportwpf
-        private void btnBugReport_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-
-        private void btnBugReport_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-        }
-
-        private void btnBugReport_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e) { }
-
         private void btnBugReport_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnBugReport.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-
             showLeavingDialog("http://liberty.codeplex.com/workitem/list/basic", "CodePlex");
         }
         #endregion
 
         #region btnSettingswpf
-        private void btnSettings_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextMid);
-        }
-
         private void btnSettings_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
             isMouseDownEgg2 = false;
         }
 
@@ -841,10 +787,12 @@ namespace Liberty
 
         private void btnSettings_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            btnSettings.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-            settingsMain.Reload();
-            settingsPanel.Visibility = System.Windows.Visibility.Visible;
-            isMouseDownEgg2 = false;
+            if (settingsPanel.Visibility != Visibility.Visible)
+            {
+                settingsMain.Reload();
+                settingsPanel.Visibility = Visibility.Visible;
+                isMouseDownEgg2 = false;
+            }
         }
         #endregion
 

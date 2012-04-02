@@ -19,7 +19,6 @@ namespace Liberty.Controls
     /// </summary>
     public partial class settingsMain : UserControl
     {
-        private bool isApp = true;
         BrushConverter bc = new BrushConverter();
 
         public event EventHandler SettingsChanged;
@@ -28,8 +27,6 @@ namespace Liberty.Controls
         public settingsMain()
         {
             InitializeComponent();
-
-            themePanel.Visibility = Visibility.Hidden;
         }
 
         public void Reload()
@@ -39,78 +36,6 @@ namespace Liberty.Controls
         }
 
         #region uncleanWPFstuff
-        #region btnSoftwpf
-        private void btnSoft_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (!isApp)
-                btnSoft.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
-        }
-
-        private void btnSoft_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (!isApp)
-                btnSoft.Foreground = (Brush)bc.ConvertFrom("#FF868686");
-        }
-
-        private void btnSoft_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (!isApp)
-               btnSoft.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
-        }
-
-        private void btnSoft_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (!isApp)
-            {
-                btnSoft.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-                btnSoft.FontWeight = FontWeights.ExtraBold;
-
-                btnTheme.FontWeight = FontWeights.Normal;
-                btnTheme.Foreground = (Brush)bc.ConvertFrom("#FF868686");
-            }
-
-            isApp = true;
-            softwarePanel.Visibility = Visibility.Visible;
-            themePanel.Visibility = Visibility.Hidden;
-        }
-        #endregion
-
-        #region btnThemewpf
-        private void btnTheme_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (isApp)
-                btnTheme.Foreground = (Brush)bc.ConvertFrom("#FFD4D2D2");
-        }
-
-        private void btnTheme_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            if (isApp)
-                btnTheme.Foreground = (Brush)bc.ConvertFrom("#FF868686");
-        }
-
-        private void btnTheme_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (isApp)
-                btnTheme.Foreground = (Brush)bc.ConvertFrom("#FFD4D2DF");
-        }
-
-        private void btnTheme_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (isApp)
-            {
-                btnTheme.Foreground = (Brush)bc.ConvertFrom(classInfo.AccentCodebase.AccentStorage.CodesideStorage.AccentTextDark);
-                btnTheme.FontWeight = FontWeights.ExtraBold;
-
-                btnSoft.FontWeight = FontWeights.Normal;
-                btnSoft.Foreground = (Brush)bc.ConvertFrom("#FF868686");
-            }
-
-            isApp = false;
-            themePanel.Visibility = Visibility.Visible;
-            softwarePanel.Visibility = Visibility.Hidden;
-        }
-        #endregion
-
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
             //Save Code

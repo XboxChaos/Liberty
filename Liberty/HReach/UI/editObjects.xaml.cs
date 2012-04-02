@@ -386,13 +386,15 @@ namespace Liberty.Controls
                             txtObjectScale.Tag = false;
 
                             // Parent button
-                            if (currentObject.Carrier != null)
+                            Reach.GameObject parent = getLogicalParent(currentObject);
+                            if (parent != null)
                             {
-                                if (currentObject.TagGroup == Reach.TagGroup.Bipd && currentObject.Carrier.TagGroup == Reach.TagGroup.Vehi)
+                                if (currentObject.TagGroup == Reach.TagGroup.Bipd && parent.TagGroup == Reach.TagGroup.Vehi)
                                     btnParent.Content = "Vehicle";
                                 else
                                     btnParent.Content = "Carrier";
-                                lblParentIdent.Text = (string)objectItems[(int)(currentObject.Carrier.ID & 0xFFFF)].Header;
+                                btnParent.Tag = parent;
+                                lblParentIdent.Text = (string)objectItems[(int)(parent.ID & 0xFFFF)].Header;
                                 carriedBy.Visibility = Visibility.Visible;
                             }
                             else
@@ -641,8 +643,8 @@ namespace Liberty.Controls
 
         private void btnParent_Click(object sender, RoutedEventArgs e)
         {
-            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-            selectItem(objectItems[(int)(currentObject.Carrier.ID & 0xFFFF)]);
+            Reach.GameObject parent = (Reach.GameObject)btnParent.Tag;
+            selectItem(objectItems[(int)(parent.ID & 0xFFFF)]);
         }
         #endregion
 
@@ -917,7 +919,7 @@ namespace Liberty.Controls
             }
 
             string friendlyTagName = (string)parent.Header;
-            mainWindow.showMessage("All " + friendlyTagName.ToLower() + (friendlyTagName.EndsWith("s") ? " were" : " was") + " moved successfully!", "MASS MOVE");
+            mainWindow.showMessage("All " + friendlyTagName.ToLower() + (friendlyTagName.EndsWith("s") ? " were" : " was") + " moved successfully.", "MASS MOVE");
         }
 
         private void btnMassMoveCordSetter_Click(object sender, RoutedEventArgs e)
@@ -1081,6 +1083,17 @@ namespace Liberty.Controls
             return items;
         }
 
+        private Reach.GameObject getLogicalParent(Reach.GameObject obj)
+        {
+            Reach.GameObject parent = obj.Carrier;
+            if (parent == null && obj is Reach.WeaponObject)
+            {
+                Reach.WeaponObject weapon = (Reach.WeaponObject)obj;
+                parent = weapon.User;
+            }
+            return parent;
+        }
+
         private void btnPickUpObject_Click(object sender, RoutedEventArgs e)
         {
             Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
@@ -1088,12 +1101,24 @@ namespace Liberty.Controls
             // Build a set of objects to hide from the tree dialog by scanning the carry and weapon lists
             HashSet<Reach.GameObject> skip = new HashSet<Reach.GameObject>();
             skip.Add(currentObject);
+
+            // Ignore parent objects
+            Reach.GameObject parent = getLogicalParent(currentObject);
+            while (parent != null)
+            {
+                skip.Add(parent);
+                parent = getLogicalParent(parent);
+            }
+
+            // Ignore child objects
             Reach.GameObject carried = currentObject.FirstCarried;
             while (carried != null)
             {
                 skip.Add(carried);
                 carried = carried.NextCarried;
             }
+
+            // Ignore any held weapons
             Reach.WeaponUser weaponUser = currentObject as Reach.WeaponUser;
             if (weaponUser != null)
             {

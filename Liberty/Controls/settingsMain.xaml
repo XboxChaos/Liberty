@@ -9,20 +9,24 @@
              mc:Ignorable="d">
 
     <Grid>
-    	<Label Content="settings" Height="45" HorizontalAlignment="Left" Margin="18,-11,0,0" Name="lblSettingsHeader" VerticalAlignment="Top" Width="109" FontWeight="Light" FontSize="23" Foreground="#FF868686" />
-    
-	    <Label Content="SOFTWARE" Height="29" HorizontalAlignment="Left" Margin="18,26,0,0" x:Name="btnSoft" VerticalAlignment="Top" Width="71" FontWeight="Bold" FontSize="11" Foreground="{DynamicResource AccentTextDark}" MouseEnter="btnSoft_MouseEnter" MouseLeave="btnSoft_MouseLeave" MouseDown="btnSoft_MouseDown" MouseUp="btnSoft_MouseUp"/>
-	    <Label Content="THEMES" Height="29" HorizontalAlignment="Left" Margin="93,26,0,0" x:Name="btnTheme" VerticalAlignment="Top" Width="52" FontWeight="Normal" FontSize="11" Foreground="#FF868686" MouseEnter="btnTheme_MouseEnter" MouseLeave="btnTheme_MouseLeave" MouseDown="btnTheme_MouseDown" MouseUp="btnTheme_MouseUp" Padding="5,5,0,5"/>
 	
-		<StackPanel x:Name="softwarePanel" VerticalAlignment="Top" Width="615" Margin="0,30,0,0" Height="320">
-			<Child:appSettings x:Name="softCode" />
-		</StackPanel>
-		
-		<StackPanel x:Name="themePanel" VerticalAlignment="Top" Margin="0,30,0,0" Height="320">
-			<Child:themeSettings x:Name="themeCode" />
-		</StackPanel>
+    	<Label Content="settings" Height="45" HorizontalAlignment="Left" Margin="18,-11,0,0" x:Name="lblSettingsHeader" VerticalAlignment="Top" Width="109" FontWeight="Light" FontSize="23" Foreground="#FF868686" />
+    	<TabControl Style="{DynamicResource MetroTabControl}" Margin="18,34,0,0">
+    		<TabItem Header="SOFTWARE" Style="{DynamicResource MetroTabItem}">
+    			<Grid>
+    				<Child:appSettings x:Name="softCode" Height="Auto" />
+    			</Grid>
+    		</TabItem>
+    		<TabItem Header="THEMES" Style="{DynamicResource MetroTabItem}">
+    			<Grid>
+    				<Child:themeSettings x:Name="themeCode" Margin="0" d:LayoutOverrides="Height" VerticalAlignment="Top" HorizontalAlignment="Left" />
+    			</Grid>
+    		</TabItem>
+    	</TabControl>
+    	<Grid HorizontalAlignment="Right" Height="25.96" Margin="0,382,14,0" VerticalAlignment="Top" Width="153">
         
-        <Button x:Name="btnOK" Content="Okay" Margin="435,295,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="btnOK_Click" Width="69"/>
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="519,295,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Bottom" Click="btnCancel_Click" Width="69"/>
+    		<Button x:Name="btnOK" Content="Okay" Style="{DynamicResource MetroPrimaryButton}" HorizontalAlignment="Left" Click="btnOK_Click" Width="69" d:LayoutOverrides="HorizontalAlignment, Height" Margin="84,0,0,0"/>
+    		<Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="0" Style="{DynamicResource MetroSecondaryButton}" Click="btnCancel_Click" Width="69" d:LayoutOverrides="Height"/>
+    	</Grid>
 	</Grid>
 </UserControl>

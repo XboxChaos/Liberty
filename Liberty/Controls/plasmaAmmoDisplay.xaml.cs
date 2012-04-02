@@ -66,5 +66,29 @@ namespace Liberty
         {
             _weapon.Energy = Energy;
         }
+
+        private void ValidateFloat(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox == null)
+                return;
+
+            textBox.Tag = true; // Mark as changed
+
+            if (textBox.Text != "")
+            {
+                float value;
+                if (!float.TryParse(textBox.Text, out value))
+                {
+                    int line = textBox.Text.Length - 1;
+                    textBox.Text = textBox.Text.Remove(line, 1);
+                    textBox.Select(line, 0);
+                }
+            }
+            else
+            {
+                textBox.Text = "0";
+            }
+        }
     }
 }

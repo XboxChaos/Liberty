@@ -62,56 +62,33 @@ namespace Liberty
             txtPlasmaNades.Text = "127";
         }
 
-        private void txtFragNadeCount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void ValidateByte(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            /*if (txtFragNadeCount.Text == "") { }
-            else
+            TextBox textBox = sender as TextBox;
+            if (textBox == null)
+                return;
+
+            textBox.Tag = true; // Mark as changed
+
+            if (textBox.Text != "")
             {
-                try
+                int value;
+                if (int.TryParse(textBox.Text, out value))
                 {
-                    int validate = int.Parse(txtFragNadeCount.Text);
-
-                    if (validate > 127)
-                    {
-                        txtFragNadeCount.Text = "127";
-                    }
-
+                    if (value > 127)
+                        textBox.Text = "127";
                 }
-                catch
+                else
                 {
-                    int line = txtFragNadeCount.Text.Length - 1;
-                    txtFragNadeCount.Text = txtFragNadeCount.Text.Remove(line, 1);
-                    txtFragNadeCount.Select(line, 0);
+                    int line = textBox.Text.Length - 1;
+                    textBox.Text = textBox.Text.Remove(line, 1);
+                    textBox.Select(line, 0);
                 }
             }
-
-            if (txtFragNadeCount.Text == "") { txtFragNadeCount.Text = "0"; }*/
-        }
-
-        private void txtPlasmaNadeCount_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            /*if (txtPlasmaNadeCount.Text == "") { }
             else
             {
-                try
-                {
-                    int validate = int.Parse(txtPlasmaNadeCount.Text);
-
-                    if (validate > 127)
-                    {
-                        txtPlasmaNadeCount.Text = "127";
-                    }
-
-                }
-                catch
-                {
-                    int line = txtPlasmaNadeCount.Text.Length - 1;
-                    txtPlasmaNadeCount.Text = txtPlasmaNadeCount.Text.Remove(line, 1);
-                    txtPlasmaNadeCount.Select(line, 0);
-                }
+                textBox.Text = "0";
             }
-
-            if (txtPlasmaNadeCount.Text == "") { txtPlasmaNadeCount.Text = "0"; }*/
         }
     }
 }
