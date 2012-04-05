@@ -58,7 +58,7 @@ namespace Liberty.Controls
             availableBipeds.Add(playerBiped);
             SortedDictionary<string, Reach.BipedObject> sortedBipeds = new SortedDictionary<string, Reach.BipedObject>();
             foreach (Reach.BipedObject obj in availableBipeds)
-                sortedBipeds[_taglistManager.Identify(obj, false)] = obj;
+                sortedBipeds[_taglistManager.Identify(obj)] = obj;
 
             foreach (KeyValuePair<string, Reach.BipedObject> obj in sortedBipeds)
             {

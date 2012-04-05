@@ -108,7 +108,6 @@ namespace Liberty.Controls
             Reach.BipedObject playerBiped = _saveData.Player.Biped;
             objectItems.Clear();
             int i = 0;
-            bool guessName = classInfo.storage.settings.applicationSettings.lookUpObjectTypes;
             foreach (Reach.GameObject obj in _saveData.Objects)
             {
                 if (obj != null && !obj.Deleted)
@@ -118,7 +117,7 @@ namespace Liberty.Controls
                     TreeViewItem tvi = new TreeViewItem();
                     tvi.Name = "tVItem" + i.ToString();
 
-                    tvi.Header = "[" + i.ToString() + "] " + _taglistManager.Identify(obj, guessName);
+                    tvi.Header = "[" + i.ToString() + "] " + _taglistManager.Identify(obj);
                     tvi.Tag = i;
 
                     if (objectsAreRelated(playerBiped, obj))

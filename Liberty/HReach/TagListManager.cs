@@ -19,9 +19,8 @@ namespace Liberty.Reach
         /// Attempts to identify an object in the campaign save.
         /// </summary>
         /// <param name="obj">The object to identify</param>
-        /// <param name="guess">Whether or not name guessing should be used (generic taglists only)</param>
         /// <returns>The object's name</returns>
-        public string Identify(Reach.GameObject obj, bool guess)
+        public string Identify(Reach.GameObject obj)
         {
             string mapName = _saveManager.SaveData.Map;
             mapName = mapName.Substring(mapName.LastIndexOf('\\') + 1);
@@ -32,22 +31,6 @@ namespace Liberty.Reach
                 string name = tagList.Translate(mapName, obj.MapID);
                 if (!string.IsNullOrEmpty(name))
                     return name;
-
-                if (guess)
-                {
-                    string group = "bytype " + obj.TagGroup.ToString().ToLower();
-                    if (obj.Carrier != null)
-                    {
-                        string groupWithCarry = group + " carriedby " + obj.Carrier.TagGroup.ToString().ToLower();
-                        name = tagList.Translate(groupWithCarry, (uint)obj.Type);
-
-                        if (!string.IsNullOrEmpty(name))
-                            return name;
-                    }
-                    name = tagList.Translate(group, obj.MapID);
-                    if (!string.IsNullOrEmpty(name))
-                        return name;
-                }
             }
 
             // Map-specific taglists

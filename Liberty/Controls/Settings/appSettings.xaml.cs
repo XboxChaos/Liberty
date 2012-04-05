@@ -88,7 +88,6 @@ namespace Liberty.Controls.Settings
             // Taglist
             TLTdlLatestTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appDLTagLst", 1));
             TLTtaglstNoMem.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstNoMem", 0));
-            TLTtaglstUseTypes.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTgLstUseTypes", 0));
             TLTExtAscTaglst.IsChecked = applicationExtra.settingsConvertIntToBool((int)key.GetValue("appTglstFromAsc", 0));
             TLTAsvTagLstDirec.Text = (string)key.GetValue("appTglstFromAscDirec", "");
 
@@ -117,13 +116,11 @@ namespace Liberty.Controls.Settings
             // Taglist
             key.SetValue("appDLTagLst", applicationExtra.settingsConvertBoolToInt(TLTdlLatestTaglst));
             key.SetValue("appTgLstNoMem", applicationExtra.settingsConvertBoolToInt(TLTtaglstNoMem));
-            key.SetValue("appTgLstUseTypes", applicationExtra.settingsConvertBoolToInt(TLTtaglstUseTypes));
             key.SetValue("appTglstFromAsc", applicationExtra.settingsConvertBoolToInt(TLTExtAscTaglst));
             key.SetValue("appTglstFromAscDirec", TLTAsvTagLstDirec.Text);
 
             classInfo.storage.settings.applicationSettings.enableEasterEggs = (bool)LNSenableEggs.IsChecked;
             classInfo.storage.settings.applicationSettings.noWarnings = (bool)LNSnoWarnings.IsChecked;
-            classInfo.storage.settings.applicationSettings.lookUpObjectTypes = (bool)TLTtaglstUseTypes.IsChecked;
             classInfo.storage.settings.applicationSettings.extTaglistFrmAsc = (bool)TLTExtAscTaglst.IsChecked;
             classInfo.storage.settings.applicationSettings.extTaglistFromAscDirec = TLTAsvTagLstDirec.Text;
         }
