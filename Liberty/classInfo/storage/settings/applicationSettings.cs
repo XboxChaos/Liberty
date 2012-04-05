@@ -18,7 +18,6 @@ namespace Liberty.classInfo.storage.settings
 
         public static bool getLatestTagLst;
         public static bool storeTaglistNoMem;
-        public static bool lookUpObjectTypes;
         public static bool extTaglistFrmAsc;
         public static string extTaglistFromAscDirec;
 

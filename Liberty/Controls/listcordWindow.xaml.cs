@@ -88,9 +88,9 @@ namespace Liberty.Controls
                 {
                     ListBoxItem lbi = new ListBoxItem();
                     string posData = " -- [X: {0} - Y: {1} - Z: {2}]";
-                    lbi.Content = _reachTaglist.Identify(obj, true) + string.Format(posData, obj.X.ToString(),
-                                                                                         obj.Y.ToString(),
-                                                                                         obj.Z.ToString());
+                    lbi.Content = _reachTaglist.Identify(obj) + string.Format(posData, obj.X.ToString(),
+                                                                                       obj.Y.ToString(),
+                                                                                       obj.Z.ToString());
                     lbi.Tag = obj;
 
                     listObjects.Items.Add(lbi);

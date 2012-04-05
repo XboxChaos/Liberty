@@ -89,7 +89,7 @@ namespace Liberty.Controls
                     {
                         weaponChanged = true;
                         playerBiped.ChangeWeapon(i, weapon.Object);
-                        if (_tagList.Identify(playerBiped, false) == "Noble 6")
+                        if (_tagList.Identify(playerBiped) == "Noble 6")
                         {
                             if (i == 0)
                                 weapon.Object.ParentNode = NobleSixPrimaryWeaponNode;
@@ -180,7 +180,7 @@ namespace Liberty.Controls
                 // Only process non-null weapons that aren't deleted, aren't carried by a vehicle, or that are carried by the player
                 if (obj != null && obj.TagGroup == Reach.TagGroup.Weap && !obj.Deleted && (obj.Carrier == null || obj.Carrier.TagGroup != Reach.TagGroup.Vehi || obj.Carrier == playerBiped))
                 {
-                    string name = _tagList.Identify(obj, false);
+                    string name = _tagList.Identify(obj);
                     if (name.StartsWith("Spartan"))
                         continue;
 
@@ -336,7 +336,7 @@ namespace Liberty.Controls
                 freeWeapons.Remove(newIndex);
                 PropagateWeaponChange(freeWeapons, item.Object.MapID, newIndex, typeBox);
 
-                string name = _tagList.Identify(item.Object, true);
+                string name = _tagList.Identify(item.Object);
                 ammoGrid.Children.Add(Reach.WeaponEditing.GetAmmoDisplay(_saveManager.SaveData, item.Object, name));
 
                 EnableComboBox(boxIndex, true);

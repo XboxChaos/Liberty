@@ -78,14 +78,14 @@
 							Foreground="{x:Null}" 
 							Margin="0,0,0,-12" DragDelta="headerThumb_DragDelta" Grid.RowSpan="2"
 							/>
-						<Image x:Name="btnMinimize" Width="11" Height="11" Source="Images/l-minimize.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,29,-3.955" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnMinimize_IsMouseDirectlyOverChanged" MouseDown="btnMinimize_MouseDown" MouseUp="btnMinimize_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
+						<Image x:Name="btnMinimize" Width="11" Height="11" Source="Images/l-minimize.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,29,-4" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnMinimize_IsMouseDirectlyOverChanged" MouseDown="btnMinimize_MouseDown" MouseUp="btnMinimize_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
 					</Grid>
 					<Grid x:Name="headerControls">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="0.455*"/>
 							<RowDefinition Height="0.545*"/>
 						</Grid.RowDefinitions>
-						<Image x:Name="btnClose" Width="11" Height="11" Source="Images/l-close.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,11,-4.955" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnClose_IsMouseDirectlyOverChanged" MouseDown="btnClose_MouseDown" MouseUp="btnClose_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
+						<Image x:Name="btnClose" Width="11" Height="11" Source="Images/l-close.png" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Margin="0,0,11,-5" StretchDirection="DownOnly" Stretch="UniformToFill" IsMouseDirectlyOverChanged="btnClose_IsMouseDirectlyOverChanged" MouseDown="btnClose_MouseDown" MouseUp="btnClose_MouseUp" VerticalAlignment="Bottom" d:LayoutOverrides="Height" />
 						<Label x:Name="btnBugReport" Content="REPORT A BUG" FontWeight="SemiBold" FontSize="8" Margin="0,1,242.376,8" HorizontalAlignment="Right" Width="66.138" MouseUp="btnBugReport_MouseUp" Grid.RowSpan="2" Style="{DynamicResource SmallButtonLabel}"/>
 						<Label x:Name="lblDevider2" Content="|" FontWeight="SemiBold" FontSize="10" Foreground="{DynamicResource AccentTextDark}" Margin="0,-0.61,238,-7.413" HorizontalAlignment="Right" Width="13" />
 						<Label x:Name="btnCFU" Content="CHECK FOR UPDATES" FontWeight="SemiBold" FontSize="8" Margin="0,1,161,8" HorizontalAlignment="Right" Width="85.514" MouseUp="btnCFU_MouseUp" Padding="5,5,0,5" Grid.RowSpan="2" Style="{DynamicResource SmallButtonLabel}"/>
