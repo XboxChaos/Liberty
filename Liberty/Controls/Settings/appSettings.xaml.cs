@@ -66,7 +66,7 @@ namespace Liberty.Controls.Settings
 
                 appExternal.Text = appExternal.Text + adding;
             }
-            appExternal.Text = appExternal.Text.Remove(appExternal.Text.Length - 7);
+            appExternal.Text = appExternal.Text.Remove(appExternal.Text.Length - 5);
         }
 
         public void loadSettings()
