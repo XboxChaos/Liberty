@@ -332,7 +332,7 @@ namespace Liberty.Controls
                     currentParentNodeTag = (string)selectedItem.Tag;
                     btnMassMoveMover.Content = "Move All " + selectedItem.Header;
                 }
-                else if (e.NewValue.ToString().Contains("Header:["))
+                else if (selectedItem.Parent is TreeViewItem)
                 {
                     foreach (TabItem tab in tabs.Items)
                     {
@@ -345,147 +345,145 @@ namespace Liberty.Controls
                         tabs.SelectedIndex = 0;
 
                     if (currentChunkIndex != -1)
-                    {
                         saveValues(e.OldValue.ToString());
-                    }
+
                     try
                     {
                         //Chunk Load Code
-                        currentChunkIndex = int.Parse(selectedItem.Tag.ToString());
-                        string[] parentTag = selectedItem.Parent.ToString().Split(' ');
+                        currentChunkIndex = (int)selectedItem.Tag;
 
-                        if (e.NewValue.ToString().Contains("Header:["))
+                        tabMassMove.Visibility = Visibility.Collapsed;
+                        instructions.Visibility = Visibility.Hidden;
+                        tabInfo.Visibility = tabs.Visibility = Visibility.Visible;
+
+                        // Info values
+                        Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+                        lblMapIdent.Content = "0x" + currentObject.ID.ToString("X");
+                        lblResourceIdent.Content = "0x" + currentObject.MapID.ToString("X");
+                        lblFileOffset.Content = "0x" + currentObject.FileOffset.ToString("X");
+                        lblAddr.Content = "0x" + currentObject.LoadAddress.ToString("X");
+
+                        txtObjectXCord.Text = currentObject.X.ToString();
+                        txtObjectYCord.Text = currentObject.Y.ToString();
+                        txtObjectZCord.Text = currentObject.Z.ToString();
+                        txtObjectXCord.Tag = txtObjectYCord.Tag = txtObjectZCord.Tag = false;
+
+                        // Rotation values
+                        float yaw, pitch, roll;
+                        MathUtil.Convert.ToYawPitchRoll(currentObject.Right, currentObject.Forward, currentObject.Up, out yaw, out pitch, out roll);
+                        txtObjectYaw.Text = MathUtil.Convert.ToDegrees(yaw).ToString();
+                        txtObjectPitch.Text = MathUtil.Convert.ToDegrees(pitch).ToString();
+                        txtObjectRoll.Text = MathUtil.Convert.ToDegrees(roll).ToString();
+                        txtObjectYaw.Tag = txtObjectPitch.Tag = txtObjectRoll.Tag = false;
+
+                        // Scaling
+                        txtObjectScale.Text = currentObject.Scale.ToString();
+                        txtObjectScale.Tag = false;
+
+                        // Parent button
+                        Reach.GameObject parent = getLogicalParent(currentObject);
+                        if (parent != null)
                         {
-                            tabMassMove.Visibility = Visibility.Collapsed;
-                            instructions.Visibility = Visibility.Hidden;
-                            tabInfo.Visibility = tabs.Visibility = Visibility.Visible;
-
-                            // Info values
-                            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-                            lblMapIdent.Content = "0x" + currentObject.ID.ToString("X");
-                            lblResourceIdent.Content = "0x" + currentObject.MapID.ToString("X");
-                            lblFileOffset.Content = "0x" + currentObject.FileOffset.ToString("X");
-                            lblAddr.Content = "0x" + currentObject.LoadAddress.ToString("X");
-
-                            txtObjectXCord.Text = currentObject.X.ToString();
-                            txtObjectYCord.Text = currentObject.Y.ToString();
-                            txtObjectZCord.Text = currentObject.Z.ToString();
-                            txtObjectXCord.Tag = txtObjectYCord.Tag = txtObjectZCord.Tag = false;
-
-                            // Rotation values
-                            float yaw, pitch, roll;
-                            MathUtil.Convert.ToYawPitchRoll(currentObject.Right, currentObject.Forward, currentObject.Up, out yaw, out pitch, out roll);
-                            txtObjectYaw.Text = MathUtil.Convert.ToDegrees(yaw).ToString();
-                            txtObjectPitch.Text = MathUtil.Convert.ToDegrees(pitch).ToString();
-                            txtObjectRoll.Text = MathUtil.Convert.ToDegrees(roll).ToString();
-                            txtObjectYaw.Tag = txtObjectPitch.Tag = txtObjectRoll.Tag = false;
-
-                            // Scaling
-                            txtObjectScale.Text = currentObject.Scale.ToString();
-                            txtObjectScale.Tag = false;
-
-                            // Parent button
-                            Reach.GameObject parent = getLogicalParent(currentObject);
-                            if (parent != null)
-                            {
-                                if (currentObject.TagGroup == Reach.TagGroup.Bipd && parent.TagGroup == Reach.TagGroup.Vehi)
-                                    btnParent.Content = "Vehicle";
-                                else
-                                    btnParent.Content = "Carrier";
-                                btnParent.Tag = parent;
-                                lblParentIdent.Text = (string)objectItems[(int)(parent.ID & 0xFFFF)].Header;
-                                carriedBy.Visibility = Visibility.Visible;
-                            }
+                            if (currentObject.TagGroup == Reach.TagGroup.Bipd && parent.TagGroup == Reach.TagGroup.Vehi)
+                                btnParent.Content = "Vehicle";
                             else
-                            {
-                                carriedBy.Visibility = Visibility.Collapsed;
-                            }
+                                btnParent.Content = "Carrier";
+                            btnParent.Tag = parent;
+                            lblParentIdent.Text = (string)objectItems[(int)(parent.ID & 0xFFFF)].Header;
+                            carriedBy.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            carriedBy.Visibility = Visibility.Collapsed;
+                        }
 
-                            rebuildCarryList(currentObject);
+                        rebuildCarryList(currentObject);
 
-                            // Max health/shields
-                            txtMaxHealth.Text = currentObject.HealthModifier.ToString();
-                            txtMaxHealth.IsEnabled = currentObject.HasHealth && !currentObject.Invincible;
-                            txtMaxShields.Text = currentObject.ShieldModifier.ToString();
-                            txtMaxShields.IsEnabled = currentObject.HasShields && !currentObject.Invincible;
-                            cBInvincible.IsChecked = currentObject.Invincible;
-                            cBInvincible.IsEnabled = currentObject.HasHealth || currentObject.HasShields;
+                        // Max health/shields
+                        txtMaxHealth.Text = currentObject.HealthModifier.ToString();
+                        txtMaxHealth.IsEnabled = currentObject.HasHealth && !currentObject.Invincible;
+                        txtMaxShields.Text = currentObject.ShieldModifier.ToString();
+                        txtMaxShields.IsEnabled = currentObject.HasShields && !currentObject.Invincible;
+                        cBInvincible.IsChecked = currentObject.Invincible;
+                        cBInvincible.IsEnabled = currentObject.HasHealth || currentObject.HasShields;
 
-                            // "Plugin" stuff
-                            switch (currentObject.TagGroup)
-                            {
-                                case Reach.TagGroup.Bipd:
-                                    objBipd = currentObject as Reach.BipedObject;
+                        // "Plugin" stuff
+                        switch (currentObject.TagGroup)
+                        {
+                            case Reach.TagGroup.Bipd:
+                                objBipd = currentObject as Reach.BipedObject;
 
-                                    txtBipdPlasmaNade.Text = Convert.ToString(objBipd.PlasmaGrenades);
-                                    txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
+                                txtBipdPlasmaNade.Text = Convert.ToString(objBipd.PlasmaGrenades);
+                                txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
 
-                                    //cBBipdInvici.IsChecked = objBipd.Invincible;
+                                //cBBipdInvici.IsChecked = objBipd.Invincible;
 
-                                    changePlugin(tabBiped);
-                                    break;
+                                changePlugin(tabBiped);
+                                break;
 
-                                case Reach.TagGroup.Weap:
-                                    objWeap = currentObject as Reach.WeaponObject;
-                                    string name = selectedItem.Header.ToString();
-                                    name = name.Substring(name.IndexOf(']') + 2);
+                            case Reach.TagGroup.Weap:
+                                objWeap = currentObject as Reach.WeaponObject;
+                                string name = selectedItem.Header.ToString();
+                                name = name.Substring(name.IndexOf(']') + 2);
 
-                                    ammoGrid.Children.Clear();
-                                    ammoGrid.Children.Add(Reach.WeaponEditing.GetAmmoDisplay(_saveData, objWeap, name));
+                                ammoGrid.Children.Clear();
+                                ammoGrid.Children.Add(Reach.WeaponEditing.GetAmmoDisplay(_saveData, objWeap, name));
 
-                                    //cBWeapInvici.IsChecked = objWeap.Invincible;
+                                //cBWeapInvici.IsChecked = objWeap.Invincible;
 
-                                    changePlugin(tabWeapon);
-                                    break;
+                                changePlugin(tabWeapon);
+                                break;
 
-                                case Reach.TagGroup.Vehi:
-                                    objVehi = currentObject as Reach.VehicleObject;
+                            case Reach.TagGroup.Vehi:
+                                objVehi = currentObject as Reach.VehicleObject;
 
-                                    //cBVehiInvici.IsChecked = objVehi.Invincible;
-                                    updateVehiControllerInfo();
+                                //cBVehiInvici.IsChecked = objVehi.Invincible;
+                                updateVehiControllerInfo();
 
-                                    changePlugin(tabVehicle);
-                                    break;
+                                changePlugin(tabVehicle);
+                                break;
 
-                                default:
-                                    changePlugin(null);
-                                    break;
-                            }
+                            default:
+                                changePlugin(null);
+                                break;
+                        }
 
 #if ENABLE_NODE_EDITOR
-                            // Nodes
-                            listNodes.Items.Clear();
-                            for (int i = 0; i < currentObject.Nodes.Count; i++)
-                            {
-                                ListBoxItem item = new ListBoxItem();
-                                item.Tag = currentObject.Nodes[i];
-                                item.Content = "Node " + i;
-                                listNodes.Items.Add(item);
-                            }
-                            listNodes.SelectedIndex = 0;
+                        // Nodes
+                        listNodes.Items.Clear();
+                        for (int i = 0; i < currentObject.Nodes.Count; i++)
+                        {
+                            ListBoxItem item = new ListBoxItem();
+                            item.Tag = currentObject.Nodes[i];
+                            item.Content = "Node " + i;
+                            listNodes.Items.Add(item);
+                        }
+                        listNodes.SelectedIndex = 0;
 #endif
 
-                            // Replace button
-                            if ((currentObject.TagGroup == Reach.TagGroup.Weap ||
-                                currentObject.TagGroup == Reach.TagGroup.Vehi ||
-                                currentObject.TagGroup == Reach.TagGroup.Eqip) &&
-                                ((TreeViewItem)selectedItem.Parent).Items.Count > 1)
-                            {
-                                btnReplace.Visibility = Visibility.Visible;
-                            }
-                            else
-                            {
-                                btnReplace.Visibility = Visibility.Hidden;
-                            }
-
-                            // Delete button
-                            if (currentObject != _saveData.Player.Biped)
-                                btnDelete.Visibility = Visibility.Visible;
-                            else
-                                btnDelete.Visibility = Visibility.Hidden;
+                        // Replace button
+                        if ((currentObject.TagGroup == Reach.TagGroup.Weap ||
+                            currentObject.TagGroup == Reach.TagGroup.Vehi ||
+                            currentObject.TagGroup == Reach.TagGroup.Eqip) &&
+                            ((TreeViewItem)selectedItem.Parent).Items.Count > 1)
+                        {
+                            btnReplace.Visibility = Visibility.Visible;
                         }
+                        else
+                        {
+                            btnReplace.Visibility = Visibility.Hidden;
+                        }
+
+                        // Delete button
+                        if (currentObject != _saveData.Player.Biped)
+                            btnDelete.Visibility = Visibility.Visible;
+                        else
+                            btnDelete.Visibility = Visibility.Hidden;
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        mainWindow.showException(ex.ToString());
+                    }
                 }
                 else
                 {
