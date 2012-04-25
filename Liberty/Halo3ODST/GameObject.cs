@@ -313,6 +313,6 @@ namespace Liberty.Halo3ODST
         private const int PositionOffset3 = 0x3C;
         private const int PositionOffset4 = 0x1C;
         private const int CarryInfoOffset = 0x08;
-        private const int StrengthInfoOffset = 0xEC;
+        private const int StrengthInfoOffset = 0xF8;
     }
 }
