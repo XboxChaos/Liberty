@@ -21,6 +21,7 @@ namespace Liberty
     {
         public string initException = null;
         public string descData = "";
+        public string _secretAES = null;
         public int svrBuild = 0;
         public int pcBuild = 0;
         public Util.TagList tagList = null;
@@ -99,6 +100,18 @@ namespace Liberty
                 catch
                 {
                 }
+            }
+
+            try
+            {
+                Dns.GetHostEntry("xeraxic.com");
+                WebClient wb = new WebClient();
+                string downloadedInfo = wb.DownloadString(new Uri("http://xboxchaos.com/reach/liberty/Secret_App_Liberty.key"));
+                if (downloadedInfo != "" || downloadedInfo.Length == 64)
+                    _secretAES = downloadedInfo;
+            }
+            catch (Exception ex)
+            {
             }
 
             tagList = classInfo.nameLookup.loadTaglist();
