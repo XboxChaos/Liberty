@@ -608,6 +608,7 @@ namespace Liberty
             Process.Start(temp + "update.exe");
             classInfo.applicationExtra.closeApplication();
         }
+        
 
         private void checkForUpdates()
         {
@@ -617,6 +618,13 @@ namespace Liberty
 
             if (update.startUpdate)
                 startUpdater();
+        }
+
+        private void showSecretStuff(string Key)
+        {
+            dat_super_secret_app secret = new dat_super_secret_app(Key);
+            secret.Owner = this;
+            secret.ShowDialog();
         }
 
         private void showUpdateDescription(string description)
@@ -635,6 +643,9 @@ namespace Liberty
 
             if (app.initException != null)
                 showException(app.initException);
+
+            if (app._secretAES != null)
+                showSecretStuff(app._secretAES);
 
             if (app.svrBuild > app.pcBuild)
             {

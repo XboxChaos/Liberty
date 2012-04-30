@@ -105,7 +105,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\dat_super_secret_app.xaml.cs">
+      <DependentUpon>dat_super_secret_app.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HReach\WeaponEditing.cs" />
+    <Compile Include="Security\AES.cs" />
     <Compile Include="Util\IAmmoDisplay.cs" />
     <Compile Include="Blam\IDatumIndexResolver.cs" />
     <Compile Include="Blam\HealthInfo.cs" />
@@ -355,6 +359,10 @@
     <Resource Include="Images\hcexMaps\c40.png" />
     <Resource Include="Images\hcexMaps\d20.png" />
     <Resource Include="Images\hcexMaps\d40.png" />
+    <Page Include="Controls\dat_super_secret_app.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\plasmaAmmoDisplay.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
