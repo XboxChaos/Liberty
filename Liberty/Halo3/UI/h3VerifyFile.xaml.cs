@@ -44,7 +44,7 @@ namespace Liberty.Halo3.UI
                 var source = new Uri(@"/Liberty;component/Images/h3Maps/" + mapName + ".jpg", UriKind.Relative);
                 imgMapImage.Source = new BitmapImage(source);
 
-                int diff = (int)saveData.Header.Difficulty;
+                int diff = (int)saveData.Header.Difficulty + 1;
                 source = new Uri(@"/Liberty;component/Images/Difficulty/Blam_Default/" + diff.ToString() + ".png", UriKind.Relative);
                 imgDifficulty.Source = new BitmapImage(source);
             }

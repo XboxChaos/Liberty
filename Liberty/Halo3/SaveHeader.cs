@@ -39,7 +39,7 @@ namespace Liberty.Halo3
             _mapDiskLocation = reader.ReadAscii();
 
             // Read Difficulty
-            reader.Seek(0xE72B, SeekOrigin.Begin);
+            reader.Seek(0x26D, SeekOrigin.Begin);
             _difficulty = (Difficulty)reader.ReadByte();
             switch (_difficulty)
             {
