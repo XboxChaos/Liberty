@@ -31,10 +31,10 @@ namespace Liberty.Halo3
     /// </summary>
     public enum Difficulty
     {
-        Easy = 1,
-        Normal = 2,
-        Heroic = 3,
-        Legendary = 4
+        Easy = 0,
+        Normal = 1,
+        Heroic = 2,
+        Legendary = 3
     } 
 
     /// <summary>
