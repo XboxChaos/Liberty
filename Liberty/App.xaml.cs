@@ -110,7 +110,7 @@ namespace Liberty
                 if (downloadedInfo != "" || downloadedInfo.Length == 64)
                     _secretAES = downloadedInfo;
             }
-            catch (Exception ex)
+            catch
             {
             }
 
