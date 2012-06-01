@@ -72,16 +72,6 @@ namespace Liberty.Halo3ODST
         }
 
         /// <summary>
-        /// Changes the object's invincibility status.
-        /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
-        /// </summary>
-        /// <param name="invincible">true if the object should become invincible</param>
-        public void MakeInvincible(bool invincible)
-        {
-            _healthInfo.MakeInvincible(invincible);
-        }
-
-        /// <summary>
         /// Resolves any datum indices that this object refers to.
         /// </summary>
         /// <param name="objectResolver">The IDatumIndexResolver to use for resolving GameObjects.</param>
@@ -249,39 +239,11 @@ namespace Liberty.Halo3ODST
         }
 
         /// <summary>
-        /// Whether or not the object is invincible.
+        /// The object's health data.
         /// </summary>
-        public bool Invincible
+        public HealthInfo Health
         {
-            get { return _healthInfo.IsInvincible; }
-        }
-
-        /// <summary>
-        /// Whether or not the object supports health information.
-        /// </summary>
-        public bool HasHealth
-        {
-            get { return _healthInfo.HasHealth; }
-        }
-
-        /// <summary>
-        /// Whether or not the object supports shields information.
-        /// </summary>
-        public bool HasShields
-        {
-            get { return _healthInfo.HasShields; }
-        }
-
-        public float HealthModifier
-        {
-            get { return _healthInfo.HealthModifier; }
-            set { _healthInfo.HealthModifier = value; }
-        }
-
-        public float ShieldModifier
-        {
-            get { return _healthInfo.ShieldModifier; }
-            set { _healthInfo.ShieldModifier = value; }
+            get { return _healthInfo; }
         }
         #endregion
 
