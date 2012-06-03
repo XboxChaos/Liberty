@@ -32,7 +32,7 @@ namespace Liberty.Halo3.UI
         public void Load()
         {
             Halo3.CampaignSave saveData = _saveManager.SaveData;
-            lblGamertag.Content = saveData.Player.Gamertag + " - (" + saveData.Player.ServiceTag + ")";
+            lblGamertag.Content = saveData.Player.Gamertag + " (" + saveData.Player.ServiceTag + ")";
             lblMapName.Text = Util.EditorSupport.GetMissionName(saveData) + " - " + saveData.Header.Map;
             lblDifficulty.Content = saveData.Header.DifficultyString;
 

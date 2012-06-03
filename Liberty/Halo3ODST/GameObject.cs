@@ -41,29 +41,37 @@ namespace Liberty.Halo3ODST
             // TODO: get offset for BSP zone
             //_zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
 
-            // Read PositionMain
+            // Read Position
             reader.SeekTo(baseOffset + PositionOffset1);
             _positionMain.X = reader.ReadFloat();
             _positionMain.Y = reader.ReadFloat();
             _positionMain.Z = reader.ReadFloat();
 
             // Read Position2
+            Vector3 position2 = new Vector3();
             reader.SeekTo(baseOffset + PositionOffset2);
-            _position2.X = reader.ReadFloat();
-            _position2.Y = reader.ReadFloat();
-            _position2.Z = reader.ReadFloat();
+            position2.X = reader.ReadFloat();
+            position2.Y = reader.ReadFloat();
+            position2.Z = reader.ReadFloat();
 
             // Read Position3
+            Vector3 position3 = new Vector3();
             reader.SeekTo(baseOffset + PositionOffset3);
-            _position3.X = reader.ReadFloat();
-            _position3.Y = reader.ReadFloat();
-            _position3.Z = reader.ReadFloat();
+            position3.X = reader.ReadFloat();
+            position3.Y = reader.ReadFloat();
+            position3.Z = reader.ReadFloat();
 
             // Read Position4
+            Vector3 position4 = new Vector3();
             reader.SeekTo(baseOffset + PositionOffset4);
-            _position4.X = reader.ReadFloat();
-            _position4.Y = reader.ReadFloat();
-            _position4.Z = reader.ReadFloat();
+            position4.X = reader.ReadFloat();
+            position4.Y = reader.ReadFloat();
+            position4.Z = reader.ReadFloat();
+
+            // Compute position deltas
+            _position2Delta = Vector3.Subtract(position2, _positionMain);
+            _position3Delta = Vector3.Subtract(position3, _positionMain);
+            _position4Delta = Vector3.Subtract(position4, _positionMain);
 
             reader.SeekTo(baseOffset + CarryInfoOffset);
             _nextCarriedIndex = DatumIndex.ReadFrom(reader);
@@ -92,7 +100,7 @@ namespace Liberty.Halo3ODST
         public virtual void Update(SaveWriter writer)
         {
             // Strength info
-            long chunkStartOffset = _entry.ObjectAddress + (long)TableOffset.ObjectPool;
+            long chunkStartOffset = _entry.ObjectOffset + (long)TableOffset.ObjectPool;
 
             writer.SeekTo(chunkStartOffset + StrengthInfoOffset);
             _healthInfo.WriteTo(writer);
@@ -103,27 +111,32 @@ namespace Liberty.Halo3ODST
 
             // Position1
             writer.SeekTo(chunkStartOffset + PositionOffset1);
-            writer.WriteFloat(PositionMain.X);
-            writer.WriteFloat(PositionMain.Y);
-            writer.WriteFloat(PositionMain.Z);
+            writer.WriteFloat(_positionMain.X);
+            writer.WriteFloat(_positionMain.Y);
+            writer.WriteFloat(_positionMain.Z);
+
+            // Calculate extra position vectors
+            Vector3 position2 = Vector3.Add(_position2Delta, _positionMain);
+            Vector3 position3 = Vector3.Add(_position3Delta, _positionMain);
+            Vector3 position4 = Vector3.Add(_position4Delta, _positionMain);
 
             // Position2
             writer.SeekTo(chunkStartOffset + PositionOffset2);
-            writer.WriteFloat(Position2.X);
-            writer.WriteFloat(Position2.Y);
-            writer.WriteFloat(Position2.Z);
+            writer.WriteFloat(position2.X);
+            writer.WriteFloat(position2.Y);
+            writer.WriteFloat(position2.Z);
 
             // Position3
             writer.SeekTo(chunkStartOffset + PositionOffset3);
-            writer.WriteFloat(Position3.X);
-            writer.WriteFloat(Position3.Y);
-            writer.WriteFloat(Position3.Z);
+            writer.WriteFloat(position3.X);
+            writer.WriteFloat(position3.Y);
+            writer.WriteFloat(position3.Z);
 
             // Position4
             writer.SeekTo(chunkStartOffset + PositionOffset4);
-            writer.WriteFloat(Position4.X);
-            writer.WriteFloat(Position4.Y);
-            writer.WriteFloat(Position4.Z);
+            writer.WriteFloat(position4.X);
+            writer.WriteFloat(position4.Y);
+            writer.WriteFloat(position4.Z);
         }
 
         #region Declarations
@@ -178,37 +191,10 @@ namespace Liberty.Halo3ODST
         /// <summary>
         /// The object's position (Main).
         /// </summary>
-        public Vector3 PositionMain
+        public Vector3 Position
         {
             get { return _positionMain; }
             set { _positionMain = value; }
-        }
-
-        /// <summary>
-        /// The object's position (Main).
-        /// </summary>
-        public Vector3 Position2
-        {
-            get { return _position2; }
-            set { _position2 = value; }
-        }
-
-        /// <summary>
-        /// The object's position (Main).
-        /// </summary>
-        public Vector3 Position3
-        {
-            get { return _position3; }
-            set { _position3 = value; }
-        }
-
-        /// <summary>
-        /// The object's position (Main).
-        /// </summary>
-        public Vector3 Position4
-        {
-            get { return _position4; }
-            set { _position4 = value; }
         }
 
         /// <summary>
@@ -254,9 +240,9 @@ namespace Liberty.Halo3ODST
         //private ushort _zone;
 
         private Vector3 _positionMain;
-        private Vector3 _position2;
-        private Vector3 _position3;
-        private Vector3 _position4;
+        private Vector3 _position2Delta;
+        private Vector3 _position3Delta;
+        private Vector3 _position4Delta;
 
         private HealthInfo _healthInfo;
         private const float DefaultChiefHealthModifier = 80;
@@ -275,6 +261,6 @@ namespace Liberty.Halo3ODST
         private const int PositionOffset3 = 0x3C;
         private const int PositionOffset4 = 0x1C;
         private const int CarryInfoOffset = 0x08;
-        private const int StrengthInfoOffset = 0xF8;
+        private const int StrengthInfoOffset = 0xEC;
     }
 }

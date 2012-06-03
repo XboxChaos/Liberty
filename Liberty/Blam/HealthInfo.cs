@@ -50,52 +50,27 @@ namespace Liberty.Blam
         }
 
         /// <summary>
-        /// Adjusts an object's maximum health value so that the object is invincible.
-        /// </summary>
-        /// <param name="invincible">true if the object should become invincible</param>
-        public void MakeHealthInvincible(bool invincible)
-        {
-            if (invincible)
-            {
-                if (_healthModifier != 0)
-                    _healthModifier = _customInvincibility;
-            }
-            else
-            {
-                // Revert to the old values
-                if (_healthModifier != 0)
-                    _healthModifier = _oldHealthModifier;
-            }
-        }
-
-        /// <summary>
-        /// Adjusts an object's maximum shield value so that the object is invincible.
-        /// </summary>
-        /// <param name="invincible">true if the object should become invincible</param>
-        public void MakeShieldsInvincible(bool invincible)
-        {
-            if (invincible)
-            {
-                if (_shieldModifier != 0)
-                    _shieldModifier = _customInvincibility;
-            }
-            else
-            {
-                // Revert to the old values
-                if (_shieldModifier != 0)
-                    _shieldModifier = _oldShieldModifier;
-            }
-        }
-
-        /// <summary>
         /// Changes the object's invincibility status.
         /// If invincibility is disabled, then the modifiers will be restored to the values they were last set to.
         /// </summary>
         /// <param name="invincible"></param>
         public void MakeInvincible(bool invincible)
         {
-            MakeHealthInvincible(invincible);
-            MakeShieldsInvincible(invincible);
+            if (invincible)
+            {
+                if (_healthModifier != 0)
+                    _healthModifier = _customInvincibility;
+                if (_shieldModifier != 0)
+                    _shieldModifier = _customInvincibility;
+            }
+            else
+            {
+                // Revert them to their old values
+                if (_healthModifier != 0)
+                    _healthModifier = _oldHealthModifier;
+                if (_shieldModifier != 0)
+                    _shieldModifier = _oldShieldModifier;
+            }
         }
 
         /// <summary>
