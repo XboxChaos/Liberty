@@ -84,7 +84,7 @@ namespace Liberty.Halo3ODST
 
             // Read the ObjectEntry and seek to the object's file offset
             ObjectEntry entry = new ObjectEntry(index, reader);
-            long fileOffset = entry.ObjectAddress + (long)TableOffset.ObjectPool;
+            long fileOffset = entry.ObjectOffset + (long)TableOffset.ObjectPool;
             reader.SeekTo(fileOffset);
 
             // Construct a specialized GameObject class depending on the tag group

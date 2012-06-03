@@ -35,7 +35,7 @@
             <TextBox x:Name="txtSecondaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="131,57,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
             <Button x:Name="btnMaxSecondaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxSecondaryAmmo_Click"/>
         </Grid>
-        <Grid x:Name="gridTertiary" Width="271" HorizontalAlignment="Left" Margin="283,84,0,0" Height="90" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
+        <Grid x:Name="gridTertiary" Width="271" HorizontalAlignment="Left" Margin="288,84,0,0" Height="90" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment">
             <Label Content="tertiary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
 
             <Label Content="weapon name: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="34,28,0,0" HorizontalAlignment="Left" Width="122" Height="25" VerticalAlignment="Top" Visibility="Collapsed" />
@@ -48,7 +48,7 @@
             <TextBox x:Name="txtTertiaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,57,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
             <Button x:Name="btnMaxTertiaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxTertiaryAmmo_Click" RenderTransformOrigin="0.455,0.564"/>
         </Grid>
-        <Grid x:Name="gridQuaternary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90" Margin="283,180,0,0">
+        <Grid x:Name="gridQuaternary" Width="271" HorizontalAlignment="Left" VerticalAlignment="Top" Height="90" Margin="288,180,0,0">
             <Label Content="quaternary weapon;" FontFamily="SegeoUI" FontSize="13.333" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="131" Height="26.267" VerticalAlignment="Top" />
 
             <Label Content="weapon name: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="34,28,0,0" HorizontalAlignment="Left" Width="122" Height="25" VerticalAlignment="Top" Visibility="Collapsed" />

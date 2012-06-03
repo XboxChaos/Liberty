@@ -15,7 +15,7 @@ namespace Liberty.Halo3ODST
             _flags = reader.ReadByte();
             _tagGroup = (TagGroup)reader.ReadByte();
             reader.Skip(4);
-            _chunkAddress = reader.ReadUInt32();
+            _chunkOffset = reader.ReadUInt32();
         }
 
         /// <summary>
@@ -43,16 +43,16 @@ namespace Liberty.Halo3ODST
         }
 
         /// <summary>
-        /// The object's memory address.
+        /// The object's offset from the start of the object pool.
         /// </summary>
-        public uint ObjectAddress
+        public uint ObjectOffset
         {
-            get { return _chunkAddress; }
+            get { return _chunkOffset; }
         }
 
         private DatumIndex _index;
         private byte _flags;
         private TagGroup _tagGroup;
-        private uint _chunkAddress;
+        private uint _chunkOffset;
     }
 }

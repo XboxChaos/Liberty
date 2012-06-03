@@ -15,21 +15,28 @@ using Liberty.Reach;
 
 namespace Liberty.Controls
 {
-	/// <summary>
-	/// Interaction logic for step4_0.xaml
-	/// </summary>
-	public partial class quickTweaks : UserControl, StepUI.IStep
-	{
+    /// <summary>
+    /// Interaction logic for step4_0.xaml
+    /// </summary>
+    public partial class quickTweaks : UserControl, StepUI.IStep
+    {
         private Util.SaveManager<CampaignSave> _saveManager;
+        private MainWindow _mainWindow;
 
         public quickTweaks(Util.SaveManager<CampaignSave> saveManager)
-		{
+        {
+            this.InitializeComponent();
+            this.Loaded += new RoutedEventHandler(quickTweaks_Loaded);
             _saveManager = saveManager;
-			this.InitializeComponent();
-		}
-		
-		public void Load()
-		{
+        }
+
+        void quickTweaks_Loaded(object sender, RoutedEventArgs e)
+        {
+            _mainWindow = Window.GetWindow(this) as MainWindow;
+        }
+
+        public void Load()
+        {
             string message = _saveManager.SaveData.Message;
             if (message == "Checkpoint... done" || message.StartsWith("Modded with Liberty "))
             {
@@ -52,15 +59,40 @@ namespace Liberty.Controls
             cBCowbell.IsChecked = activeSkulls.HasFlag(Skulls.Cowbell);
             cBBirthday.IsChecked = activeSkulls.HasFlag(Skulls.GruntBirthday);
             cBIWHBYD.IsChecked = activeSkulls.HasFlag(Skulls.IWHBYD);*/
-		}
-		
-		public bool Save()
-		{
+        }
+
+        public bool Save()
+        {
+            if ((bool)checkWeaken.IsChecked)
+            {
+                float maxHealth;
+                if (!float.TryParse(txtMaxHealth.Text, out maxHealth))
+                {
+                    _mainWindow.showMessage("Please enter a valid maximum health value. It must be a number greater than zero.", "ERROR");
+                    return false;
+                }
+                float maxShields;
+                if (!float.TryParse(txtMaxShields.Text, out maxShields))
+                {
+                    _mainWindow.showMessage("Please enter a valid maximum shields value. It must be a number greater than zero.", "ERROR");
+                    return false;
+                }
+                foreach (GameObject obj in _saveManager.SaveData.Objects)
+                {
+                    if (obj != null && obj != _saveManager.SaveData.Player.Biped && obj.TagGroup == TagGroup.Bipd)
+                    {
+                        if (obj.HasHealth)
+                            obj.HealthModifier = maxHealth;
+                        if (obj.HasShields)
+                            obj.ShieldModifier = maxShields;
+                    }
+                }
+            }
             if ((bool)checkAllMaxAmmo.IsChecked)
                 Util.EditorSupport.AllWeaponsMaxAmmo(_saveManager.SaveData);
             _saveManager.SaveData.Message = txtStartingMsg.Text;
             return true;
-		}
+        }
 
         public void Show()
         {
@@ -91,5 +123,5 @@ namespace Liberty.Controls
         {
             checkAll(false);
         }
-	}
+    }
 }
