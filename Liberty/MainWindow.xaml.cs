@@ -622,9 +622,17 @@ namespace Liberty
 
         private void showSecretStuff(string Key)
         {
-            dat_super_secret_app secret = new dat_super_secret_app(Key);
-            secret.Owner = this;
-            secret.ShowDialog();
+            // Should we show it?
+            RegistryKey keyApp = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\");
+
+            if (keyApp.GetValue("secret", "0") == "0")
+            {
+                dat_super_secret_app secret = new dat_super_secret_app(Key);
+                secret.Owner = this;
+                secret.ShowDialog();
+
+                keyApp.SetValue("secret", "1");
+            }
         }
 
         private void showUpdateDescription(string description)
