@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Liberty.Halo4.UI.h4QuickTweaks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	
+    mc:Ignorable="d"
+	x:Name="stepQuickTweaks"
+	d:DesignWidth="585" d:DesignHeight="339">
+
+    <Grid x:Name="LayoutRoot">
+        <Label Name="title" FontFamily="SegeoUI" FontSize="30" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Finishing Up" Height="46" VerticalAlignment="Top" />
+        <Label Name="subTitle" Margin="0,35,0,0" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Content="Let's make some final tweaks to your save" Height="25.911" VerticalAlignment="Top" />
+        <Label Name="subHeading1" Content="extra tweaks;" Margin="0,75,0,238" FontFamily="SegeoUI" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="107" />
+        <CheckBox Name="checkAllMaxAmmo" Content="Give max ammo to all loaded weapons" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Margin="37,101,0,221" HorizontalAlignment="Left" Width="236" d:LayoutOverrides="HorizontalAlignment"/>
+        <!--<Label x:Name="lblStartingMsg" Content="custom game start message:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,123.089,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="168" />
+        <TextBox Margin="203,123.089,22,0" MaxLines="1" x:Name="txtStartingMsg" Text="Modded with Liberty 2.3.0.0" TextWrapping="Wrap" VerticalAlignment="Top" MaxLength="400" >
+        </TextBox>-->
+    </Grid>
+</UserControl>

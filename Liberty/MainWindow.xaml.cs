@@ -24,6 +24,7 @@ using Liberty.StepUI;
 using Liberty.HCEX.UI;
 using Liberty.Halo3.UI;
 using Liberty.Halo3ODST.UI;
+using Liberty.Halo4.UI;
 
 using X360.STFS;
 using System.Windows.Threading;
@@ -43,6 +44,7 @@ namespace Liberty
         private Util.SaveManager<HCEX.CampaignSave> _hcexSaveManager;
         private Util.SaveManager<Halo3.CampaignSave> _halo3SaveManager;
         private Util.SaveManager<Halo3ODST.CampaignSave> _halo3ODSTSaveManager;
+        private Util.SaveManager<Halo4.CampaignSave> _halo4SaveManager;
         private Reach.TagListManager _reachTaglists = null;
         private string _reachTaglistDir = applicationSettings.extTaglistFromAscDirec;
         private StepViewer _stepViewer = null;
@@ -84,6 +86,9 @@ namespace Liberty
 
             // Set up Halo3: ODST stuff
             _halo3ODSTSaveManager = new Util.SaveManager<Halo3ODST.CampaignSave>(path => new Halo3ODST.CampaignSave(path));
+
+            // Set up Halo4 stuff
+            _halo4SaveManager = new Util.SaveManager<Halo4.CampaignSave>(path => new Halo4.CampaignSave(path));
 
             // Set up the step viewer
             _stepViewer = new StepViewer(stepGrid);
@@ -131,6 +136,14 @@ namespace Liberty
             h3ODSTEditGrenades h3ODSTEditGrenades = new Halo3ODST.UI.h3ODSTEditGrenades(_halo3ODSTSaveManager);
             #endregion
 
+            #region Halo 4
+            h4VerifyFile h4VerifyFile = new Halo4.UI.h4VerifyFile(_halo4SaveManager);
+            h4EditBiped h4EditBiped = new Halo4.UI.h4EditBiped(_halo4SaveManager);
+            h4EditWeapons h4EditWeapons = new Halo4.UI.h4EditWeapons(_halo4SaveManager);
+            h4EditGrenades h4EditGrenades = new Halo4.UI.h4EditGrenades(_halo4SaveManager);
+            h4QuickTweaks h4QuickTweaks = new Halo4.UI.h4QuickTweaks(_halo4SaveManager);
+            #endregion
+
             // FIXME: hax, the StepGraphBuilder can't set up a WorkStepProgressUpdater or else StepViewer.Forward() will get called twice due to two events being attached
             // Maybe I should just throw away that feature where the progress bar can update mid-step so a group reference isn't needed
             IStep workStepSaving = new WorkStepProgressUpdater(new UnnavigableWorkStep(stepSaving, gridButtons, headerControls), null, _stepViewer);
@@ -172,6 +185,14 @@ namespace Liberty
             addStep(h3ODSTEditBiped);
             addStep(h3ODSTEditWeapons);
             addStep(h3ODSTEditGrenades);
+            #endregion
+
+            #region Halo4Steps
+            addStep(h4VerifyFile);
+            addStep(h4EditBiped);
+            addStep(h4EditWeapons);
+            addStep(h4EditGrenades);
+            addStep(h4QuickTweaks);
             #endregion
 
             addStep(stepSaving);
@@ -283,6 +304,29 @@ namespace Liberty
             halo3ODSTDeviceSave.AddStep(workStepSaving);
             halo3ODSTDeviceSave.AddStep(workStepTransfer);
             halo3ODSTDeviceSave.AddStep(stepAllDone, "FINISHED");
+            #endregion
+
+            #region Halo4Steps
+            // Step graph: Edit Halo3 save on computer
+            StepGraphBuilder halo4ComputerSave = editSaveOnComputer.StartBranch(Util.SaveType.Halo4, true);
+            halo4ComputerSave.AddStep(h4VerifyFile, "SAVE SELECTION");
+            halo4ComputerSave.AddStep(h4EditBiped, "CHARACTER DATA");
+            halo4ComputerSave.AddStep(h4EditWeapons, "WEAPON DATA");
+            halo4ComputerSave.AddStep(h4EditGrenades, "WEAPON DATA");
+            halo4ComputerSave.AddStep(h4QuickTweaks, "OBJECT DATA");
+            halo4ComputerSave.AddStep(workStepSaving);
+            halo4ComputerSave.AddStep(stepAllDone, "FINISHED");
+
+            // Step graph: Edit Halo3 save on removable device
+            StepGraphBuilder halo4DeviceSave = editSaveOnDevice.StartBranch(Util.SaveType.Halo4, true);
+            halo4DeviceSave.AddStep(h4VerifyFile, "SAVE SELECTION");
+            halo4DeviceSave.AddStep(h4EditBiped, "CHARACTER DATA");
+            halo4DeviceSave.AddStep(h4EditWeapons, "WEAPON DATA");
+            halo4DeviceSave.AddStep(h4EditGrenades, "WEAPON DATA");
+            halo4DeviceSave.AddStep(h4QuickTweaks, "OBJECT DATA");
+            halo4DeviceSave.AddStep(workStepSaving);
+            halo4DeviceSave.AddStep(workStepTransfer);
+            halo4DeviceSave.AddStep(stepAllDone, "FINISHED");
             #endregion
 
             // Add dummy groups so that they show in the progress bar
@@ -443,6 +487,11 @@ namespace Liberty
                     break;
                 case Util.SaveType.Halo3ODST:
                     _saveManager = _halo3ODSTSaveManager;
+                    rawFileName = "mmiof.bmf";
+                    break;
+
+                case Util.SaveType.Halo4:
+                    _saveManager = _halo4SaveManager;
                     rawFileName = "mmiof.bmf";
                     break;
 
@@ -844,11 +893,11 @@ namespace Liberty
                 btnOK.Content = "Close";
                 btnBack.Content = "Restart";
 
-                if (_stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
-                {
-                    string argument = @"/select, " + _packagePath;
-                    Process.Start("explorer.exe", argument);
-                }
+                //if (_stepSelectMode.SelectedBranch == selectMode.EditingMode.EditSaveComputer)
+                //{
+                //    string argument = @"/select, " + _packagePath;
+                //    Process.Start("explorer.exe", argument);
+                //}
             }
         }
 

@@ -58,6 +58,18 @@ namespace Liberty.Util
                 }
             }
         }
+        public static void AllWeaponsMaxAmmo(Halo4.CampaignSave saveData)
+        {
+            foreach (Halo4.GameObject obj in saveData.Objects)
+            {
+                Halo4.WeaponObject weap = obj as Halo4.WeaponObject;
+                if (weap != null)
+                {
+                    weap.Ammo = 32767;
+                    weap.ClipAmmo = 32767;
+                }
+            }
+        }
 
 
         public static HashSet<Reach.BipedObject> FindSwappableBipeds(Reach.CampaignSave saveData)
@@ -237,6 +249,44 @@ namespace Liberty.Util
 
                 case @"sc150":
                     return "Kikiwani Station";
+
+                default:
+                    return saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower();
+            }
+        }
+        public static string GetMissionName(Halo4.CampaignSave saveData)
+        {
+            switch (saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower())
+            {
+                case @"m020":
+                    return "Prologue";
+
+                case @"m05_prologue":
+                    return "Dawn";
+
+                case @"m10_crash":
+                    return "Requiem";
+
+                case @"m30_cryptum":
+                    return "Forerunner";
+
+                case @"m40_invasion":
+                    return "Infinity";
+
+                case @"m60_rescue":
+                    return "Reclaimer";
+
+                case @"m70_liftoff":
+                    return "Shutdown";
+
+                case @"m80_delta":
+                    return "Composer";
+
+                case @"m90_sacrifice":
+                    return "Midnight";
+
+                case @"m95_epilogue":
+                    return "Epilogue";
 
                 default:
                     return saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower();

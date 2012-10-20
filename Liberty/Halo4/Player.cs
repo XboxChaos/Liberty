@@ -5,7 +5,7 @@ using System.Text;
 using Liberty.SaveIO;
 using Liberty.Blam;
 
-namespace Liberty.Halo3
+namespace Liberty.Halo4
 {
     public class Player
     {
@@ -23,6 +23,11 @@ namespace Liberty.Halo3
             playerTable.ReadEntries(reader, ProcessPlayer);
 
             _biped = objectResolver.ResolveIndex(_bipedIndex) as BipedObject;
+
+            _bipedPrimaryWeapon = objectResolver.ResolveIndex(_bipedPrimaryWeaponIndex) as WeaponObject;
+            _bipedSecondaryWeapon = objectResolver.ResolveIndex(_bipedSecondaryWeaponIndex) as WeaponObject;
+            _bipedThirdWeapon = objectResolver.ResolveIndex(_bipedThirdWeaponIndex) as WeaponObject;
+            _bipedFourthWeapon = objectResolver.ResolveIndex(_bipedFourthWeaponIndex) as WeaponObject;
         }
 
         /// <summary>
@@ -64,20 +69,36 @@ namespace Liberty.Halo3
             reader.SeekTo(baseOffset + PlayerBipedOffset);
             _bipedIndex = DatumIndex.ReadFrom(reader);
 
-            reader.Seek(baseOffset + 0x50, System.IO.SeekOrigin.Begin);
+            reader.SeekTo(baseOffset + PlayerWeaponOffset);
+            _bipedPrimaryWeaponIndex = DatumIndex.ReadFrom(reader);
+            _bipedSecondaryWeaponIndex = DatumIndex.ReadFrom(reader);
+            _bipedThirdWeaponIndex = DatumIndex.ReadFrom(reader);
+            _bipedFourthWeaponIndex = DatumIndex.ReadFrom(reader);
+
+            reader.Seek(baseOffset + 0xB0, System.IO.SeekOrigin.Begin);
             _gamertag = reader.ReadUTF16();
 
-            reader.Seek(baseOffset + 0x86, System.IO.SeekOrigin.Begin);
+            reader.Seek(baseOffset + 0xF4, System.IO.SeekOrigin.Begin);
             _serviceTag = reader.ReadUTF16();
         }
 
         private DatumIndex _bipedIndex;
+        private DatumIndex _bipedPrimaryWeaponIndex;
+        private DatumIndex _bipedSecondaryWeaponIndex;
+        private DatumIndex _bipedThirdWeaponIndex;
+        private DatumIndex _bipedFourthWeaponIndex;
+
         private BipedObject _biped;
+        private WeaponObject _bipedPrimaryWeapon;
+        private WeaponObject _bipedSecondaryWeapon;
+        private WeaponObject _bipedThirdWeapon;
+        private WeaponObject _bipedFourthWeapon;
         private string _gamertag;
         private string _serviceTag;
 
 
         // Offsets
         private const int PlayerBipedOffset = 0x24;
+        private const int PlayerWeaponOffset = 0x5C;
     }
 }
