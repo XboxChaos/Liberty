@@ -29,7 +29,7 @@ namespace Liberty.Halo4
             // Read Map Scenario
             reader.Seek(8, SeekOrigin.Begin);
             _mapScenario = reader.ReadAscii();
-
+            
             // Read Engine Build
             reader.Seek(0x108, SeekOrigin.Begin);
             _engineBuild = reader.ReadAscii();
@@ -76,6 +76,10 @@ namespace Liberty.Halo4
         /// <seealso cref="SaveIO.SaveWriter"/>
         public void WriteTo(SaveWriter writer)
         {
+            // Write Important Code that is needed
+            writer.Seek(539, SeekOrigin.Begin);
+            writer.WriteASCII("Fuck Horizon", "Fuck Horizon".Length);
+
             //// Write Map Scenario
             //writer.Seek(8, System.IO.SeekOrigin.Begin);
             //writer.WriteASCII(_mapScenario, 0x100);
