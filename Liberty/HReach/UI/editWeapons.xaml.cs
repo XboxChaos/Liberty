@@ -22,9 +22,11 @@ namespace Liberty.Controls
         private Util.SaveManager<Reach.CampaignSave> _saveManager;
         private Reach.TagListManager _tagList;
         private ComboBox[] _weaponBoxes;
+        private Dictionary<ComboBox, ComboBoxItem> _selectedWeapons = new Dictionary<ComboBox, ComboBoxItem>();
         private Dictionary<Reach.WeaponObject, int> _weaponIndices = new Dictionary<Reach.WeaponObject, int>();
         private Dictionary<uint, SortedSet<int>> _freeWeapons = new Dictionary<uint, SortedSet<int>>();
         private bool _loading = false;
+        private bool _acceptedWeaponWarning = false;
 
         // Noble 6 node constants
         private static sbyte NobleSixPrimaryWeaponNode = 50;
@@ -181,7 +183,7 @@ namespace Liberty.Controls
                 if (obj != null && obj.TagGroup == Reach.TagGroup.Weap && !obj.Deleted && (obj.Carrier == null || obj.Carrier.TagGroup != Reach.TagGroup.Vehi || obj.Carrier == playerBiped))
                 {
                     string name = _tagList.Identify(obj);
-                    if (name.StartsWith("Spartan"))
+                    if (name.StartsWith("Spartan") || name == "Knife" || name == "Knife Sheath")
                         continue;
 
                     weapons.Add(new WeaponItem() { Name = name, Object = (Reach.WeaponObject)obj });
@@ -236,6 +238,7 @@ namespace Liberty.Controls
                 ChangeWeapon(typeBox, 0, 0);
                 typeBox.SelectedIndex = 0;
             }
+            _selectedWeapons[typeBox] = typeBox.SelectedItem as ComboBoxItem;
         }
 
         /// <summary>
@@ -353,8 +356,16 @@ namespace Liberty.Controls
         /// </summary>
         private void WeaponSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_loading)
+            ComboBox box = (ComboBox)sender;
+            if (_loading || box.SelectedItem == _selectedWeapons[box])
                 return;
+
+            if (!_acceptedWeaponWarning && !_mainWindow.showWarning("Changing your weapons may cause your save to become corrupted. Are you sure you want to continue?", "WEAPON CHANGE"))
+            {
+                box.SelectedItem = _selectedWeapons[box];
+                return;
+            }
+            _acceptedWeaponWarning = true;
 
             // Get the old index
             int oldIndex = -1;
@@ -365,7 +376,7 @@ namespace Liberty.Controls
                     oldIndex = ((WeaponItem)oldItem.Tag).Index;
             }
 
-            ComboBox box = (ComboBox)sender;
+            _selectedWeapons[box] = box.SelectedItem as ComboBoxItem;
             ChangeWeapon(box, oldIndex, box.SelectedIndex);
         }
     }

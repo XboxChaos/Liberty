@@ -696,24 +696,27 @@ namespace Liberty
 
         private void mainWindow_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            App app = (App)Application.Current;
-
-            if (app.initException != null)
-                showException(app.initException);
-
-            if (app._secretAES != null)
-                showSecretStuff(app._secretAES);
-
-            if (app.svrBuild > app.pcBuild)
+            if (IsVisible)
             {
-                if (applicationSettings.showChangeLog)
-                    showUpdateDescription(app.descData);
-                else
-                    checkForUpdates();
-            }
+                App app = (App)Application.Current;
 
-            if (app.tagList != null)
-                _reachTaglists.AddGenericTaglist(app.tagList);
+                if (app.initException != null)
+                    showException(app.initException);
+
+                if (app._secretAES != null)
+                    showSecretStuff(app._secretAES);
+
+                if (app.svrBuild > app.pcBuild)
+                {
+                    if (applicationSettings.showChangeLog)
+                        showUpdateDescription(app.descData);
+                    else
+                        checkForUpdates();
+                }
+
+                if (app.tagList != null)
+                    _reachTaglists.AddGenericTaglist(app.tagList);
+            }
         }
 
         private void settingsMain_SettingsChanged(object sender, EventArgs e)
