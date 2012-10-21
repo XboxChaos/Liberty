@@ -97,7 +97,9 @@ namespace Liberty.Controls
                         {
                             foreach (Folder profileContent in profiles.SubFolders(false))
                             {
-                                if (profileContent.Name == "4D53085B" || profileContent.Name == "4D5309B1" || profileContent.Name == "4D5307E6" || profileContent.Name == "4D530877")
+                                if (profileContent.Name == "4D53085B" || profileContent.Name == "4D5309B1" || 
+                                    profileContent.Name == "4D5307E6" || profileContent.Name == "4D530877" || 
+                                    profileContent.Name == "4D530919")
                                 {
                                     foreach (Folder reachSub1 in profileContent.SubFolders(false))
                                     {
