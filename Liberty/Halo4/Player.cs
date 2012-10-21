@@ -39,6 +39,35 @@ namespace Liberty.Halo4
         }
 
         /// <summary>
+        /// The player's primary weapon.
+        /// </summary>
+        public WeaponObject PrimaryWeapon
+        {
+            get { return _bipedPrimaryWeapon; }
+        }
+        /// <summary>
+        /// The player's secondary weapon.
+        /// </summary>
+        public WeaponObject SecondaryWeapon
+        {
+            get { return _bipedSecondaryWeapon; }
+        }
+        /// <summary>
+        /// The player's third weapon.
+        /// </summary>
+        public WeaponObject TertiaryWeapon
+        {
+            get { return _bipedThirdWeapon; }
+        }
+        /// <summary>
+        /// The player's fourth weapon.
+        /// </summary>
+        public WeaponObject QuaternaryWeapon
+        {
+            get { return _bipedFourthWeapon; }
+        }
+
+        /// <summary>
         /// The player's Gamertag
         /// </summary>
         public string Gamertag

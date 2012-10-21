@@ -37,7 +37,7 @@ namespace Liberty.Halo4.UI
         public void Load()
         {
             Halo4.CampaignSave saveData = _saveManager.SaveData;
-            Halo4.BipedObject playerBiped = saveData.PlayerBiped;
+            Halo4.Player playerBiped = saveData.Player;
             loadWeapon(playerBiped.PrimaryWeapon, gridPrimary, txtPrimaryAmmo, txtPrimaryClip);
             loadWeapon(playerBiped.SecondaryWeapon, gridSecondary, txtSecondaryAmmo, txtSecondaryClip);
             loadWeapon(playerBiped.TertiaryWeapon, gridTertiary, txtTertiaryAmmo, txtTertiaryClip);
@@ -47,7 +47,7 @@ namespace Liberty.Halo4.UI
         public bool Save()
         {
             Halo4.CampaignSave saveData = _saveManager.SaveData;
-            Halo4.BipedObject playerBiped = saveData.PlayerBiped;
+            Halo4.Player playerBiped = saveData.Player;
 
             try
             {
