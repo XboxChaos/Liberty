@@ -482,7 +482,7 @@ namespace Liberty.Controls
                     }
                     catch (Exception ex)
                     {
-                        mainWindow.showException(ex.ToString());
+                        mainWindow.showException(ex.ToString(), true);
                     }
                 }
                 else

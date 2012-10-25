@@ -19,11 +19,18 @@ namespace Liberty.Controls
 	{
         private bool _exit = false;
 
-		public exceptionWindow(string message)
+		public exceptionWindow(string message, bool canContinue)
 		{
 			this.InitializeComponent();
 
             lblException.Text = message;
+
+            if (!canContinue)
+            {
+                lblContinue.Visibility = Visibility.Collapsed;
+                btnContinue.Visibility = Visibility.Collapsed;
+                btnExit.Margin = btnContinue.Margin;    // TODO: Put these in a StackPanel
+            }
 		}
 		
 		private void btnContinue_Click(object sender, RoutedEventArgs e)

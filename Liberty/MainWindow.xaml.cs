@@ -63,6 +63,8 @@ namespace Liberty
         {
             InitializeComponent();
 
+            Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+
             TaskbarItemInfo.ProgressState = System.Windows.Shell.TaskbarItemProgressState.None;
 
             // Setup egg2 Timers
@@ -369,6 +371,12 @@ namespace Liberty
 #endif
         }
 
+        void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            showException(e.Exception.ToString(), true);
+            e.Handled = true;
+        }
+
         private void addStep(UIElement step)
         {
             step.Visibility = Visibility.Collapsed;
@@ -441,7 +449,7 @@ namespace Liberty
             }
             catch (Exception ex)
             {
-                Dispatcher.Invoke(new Action<string>(showException), new object[] { ex.ToString() });
+                Dispatcher.Invoke(new Action<string, bool>(showException), new object[] { ex.ToString(), true });
                 return Util.SaveType.Unknown;
             }
             finally
@@ -518,7 +526,7 @@ namespace Liberty
                 }
                 catch (Exception ex)
                 {
-                    showException(ex.ToString());
+                    showException(ex.ToString(), true);
                 }
             }
         }
@@ -546,9 +554,9 @@ namespace Liberty
             msgBox.ShowDialog();
         }
 
-        public void showException(string message)
+        public void showException(string message, bool canContinue)
         {
-            exceptionWindow exp = new exceptionWindow(message);
+            exceptionWindow exp = new exceptionWindow(message, canContinue);
             exp.Owner = this;
             exp.ShowDialog();
         }
@@ -674,7 +682,7 @@ namespace Liberty
             // Should we show it?
             RegistryKey keyApp = Registry.CurrentUser.CreateSubKey("Software\\Xeraxic\\Liberty\\");
 
-            if (keyApp.GetValue("secret", "0") == "0")
+            if ((string)keyApp.GetValue("secret", "0") == "0")
             {
                 dat_super_secret_app secret = new dat_super_secret_app(Key);
                 secret.Owner = this;
@@ -701,7 +709,7 @@ namespace Liberty
                 App app = (App)Application.Current;
 
                 if (app.initException != null)
-                    showException(app.initException);
+                    showException(app.initException, true);
 
                 if (app._secretAES != null)
                     showSecretStuff(app._secretAES);
@@ -734,7 +742,7 @@ namespace Liberty
                         }
                         catch (Exception ex)
                         {
-                            showException("Unable to load this map's Ascension taglist:\n\n" + ex.Message);
+                            showException("Unable to load this map's Ascension taglist:\n\n" + ex.Message, true);
                         }
                         _reachTaglistDir = newTaglistDir;
                     }
