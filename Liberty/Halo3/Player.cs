@@ -78,6 +78,6 @@ namespace Liberty.Halo3
 
 
         // Offsets
-        private const int PlayerBipedOffset = 0x24;
+        private const int PlayerBipedOffset = 0x28;
     }
 }
