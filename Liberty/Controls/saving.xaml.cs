@@ -72,7 +72,7 @@ namespace Liberty
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
-                _mainWindow.showException(e.Error.ToString());
+                _mainWindow.showException(e.Error.ToString(), true);
 
             OnComplete();
         }

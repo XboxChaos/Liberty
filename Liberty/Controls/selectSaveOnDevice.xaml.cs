@@ -171,7 +171,7 @@ namespace Liberty.Controls
                     }
                     catch (Exception ex)
                     {
-                        _mainWindow.showException(ex.ToString());
+                        _mainWindow.showException(ex.ToString(), true);
                         return false;
                     }
                 }

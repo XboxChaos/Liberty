@@ -61,7 +61,7 @@ namespace Liberty.Controls
             }
             catch (Exception ex)
             {
-                _mainWindow.showException("Unable to load this map's Ascension taglist:\n\n" + ex.Message);
+                _mainWindow.showException("Unable to load this map's Ascension taglist:\n\n" + ex.Message, true);
             }
             return true;
         }

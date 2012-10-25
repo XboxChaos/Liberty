@@ -125,7 +125,7 @@ namespace Liberty.Controls
             }
             else
             {
-                _mainWindow.showException(e.Error.ToString());
+                _mainWindow.showException(e.Error.ToString(), true);
 
                 lblFileDirec.Text = "please load a file...";
                 _saveType = Util.SaveType.Unknown;
