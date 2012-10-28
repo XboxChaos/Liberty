@@ -259,13 +259,13 @@ namespace Liberty.Util
             switch (saveData.Header.Map.Substring(saveData.Header.Map.LastIndexOf('\\') + 1).ToLower())
             {
                 case @"m020":
-                    return "Prologue";
+                    return "Requiem";
 
                 case @"m05_prologue":
-                    return "Dawn";
+                    return "Prologue";
 
                 case @"m10_crash":
-                    return "Requiem";
+                    return "Dawn";
 
                 case @"m30_cryptum":
                     return "Forerunner";

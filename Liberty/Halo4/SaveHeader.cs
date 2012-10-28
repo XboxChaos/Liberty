@@ -39,7 +39,7 @@ namespace Liberty.Halo4
             _engineMapLocation = reader.ReadAscii();
 
             // Read Difficulty
-            reader.Seek(0x26D, SeekOrigin.Begin);
+            reader.Seek(0x1CB03, SeekOrigin.Begin);
             _difficulty = (Difficulty)reader.ReadByte();
             switch (_difficulty)
             {
