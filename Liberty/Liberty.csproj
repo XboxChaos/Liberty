@@ -809,9 +809,9 @@
     <Resource Include="Images\h3ODSTMaps\sc150.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\h4Maps\m020.jpg" />
     <Resource Include="Images\h4Maps\m05_prologue.jpg" />
     <Resource Include="Images\h4Maps\m10_crash.jpg" />
+    <Resource Include="Images\h4Maps\m020.jpg" />
     <Resource Include="Images\h4Maps\m30_cryptum.jpg" />
     <Resource Include="Images\h4Maps\m40_invasion.jpg" />
     <Resource Include="Images\h4Maps\m60_rescue.jpg" />
