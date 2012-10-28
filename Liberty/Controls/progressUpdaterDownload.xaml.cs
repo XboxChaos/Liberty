@@ -26,7 +26,7 @@ namespace Liberty.Controls
             string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Liberty\\update\\";
             using (WebClient wb = new WebClient())
             {
-                wb.DownloadFileAsync(new Uri("http://xeraxic.com/downloads/updater.exe"), temp + "update.exe");
+                wb.DownloadFileAsync(new Uri("http://xboxchaos.com/reach/liberty/updater.exe"), temp + "update.exe");
                 wb.DownloadFileCompleted += new System.ComponentModel.AsyncCompletedEventHandler(wb_DownloadFileCompleted);
                 wb.DownloadProgressChanged += new DownloadProgressChangedEventHandler(wb_DownloadProgressChanged);
             }
