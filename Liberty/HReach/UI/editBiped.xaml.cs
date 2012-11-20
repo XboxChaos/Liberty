@@ -43,9 +43,10 @@ namespace Liberty.Controls
             loading = true;
             Reach.CampaignSave saveData = _saveManager.SaveData;
             Reach.BipedObject playerBiped = saveData.Player.Biped;
-            checkInvincible.IsChecked = playerBiped.Invincible;
+            checkInvincible.IsChecked = playerBiped.Health.IsInfinite;
             checkNoPhysics.IsEnabled = (playerBiped.Vehicle == null);
             checkNoPhysics.IsChecked = !playerBiped.PhysicsEnabled;
+            checkNoFallDamage.IsChecked = playerBiped.NoFallDamage;
 
             txtPlayerXCord.Text = playerBiped.X.ToString();
             txtPlayerYCord.Text = playerBiped.Y.ToString();
@@ -87,8 +88,12 @@ namespace Liberty.Controls
 
             Reach.BipedObject playerBiped = saveData.Player.Biped;
             playerBiped.MakeInvincible((bool)checkInvincible.IsChecked);
+            playerBiped.NoFallDamage = (bool)checkNoFallDamage.IsChecked;
             if (playerBiped.Vehicle != null)
+            {
                 playerBiped.Vehicle.MakeInvincible((bool)checkInvincible.IsChecked);
+                playerBiped.Vehicle.NoFallDamage = (bool)checkNoFallDamage.IsChecked;
+            }
             playerBiped.PhysicsEnabled = !(bool)checkNoPhysics.IsChecked;
 
             playerBiped.X = Convert.ToSingle(txtPlayerXCord.Text);
@@ -200,5 +205,10 @@ namespace Liberty.Controls
             }
         }
         #endregion
+
+        private void checkInvincible_Checked(object sender, RoutedEventArgs e)
+        {
+            checkNoFallDamage.IsChecked = true;
+        }
     }
 }

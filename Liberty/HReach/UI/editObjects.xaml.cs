@@ -28,7 +28,6 @@ namespace Liberty.Controls
         private Reach.CampaignSave _saveData = null;
         private int currentChunkIndex = -1;
         private string currentParentNodeTag = null;
-        public TabItem currentPlugin = null;
         Reach.BipedObject objBipd;
         Reach.WeaponObject objWeap;
         Reach.VehicleObject objVehi;
@@ -51,6 +50,15 @@ namespace Liberty.Controls
             lblResourceIdent.CommandBindings.Add(copyLabel);
             lblFileOffset.CommandBindings.Add(copyLabel);
             lblAddr.CommandBindings.Add(copyLabel);
+
+            cBTeam.Items.Add("Default");
+            cBTeam.Items.Add("Player");
+            cBTeam.Items.Add("Human");
+            cBTeam.Items.Add("Covenant");
+            cBTeam.Items.Add("Brute");
+            cBTeam.Items.Add("Mule");
+            cBTeam.Items.Add("Spare");
+            cBTeam.Items.Add("Covenant Player");
 		}
 
         void step4_Loaded(object sender, RoutedEventArgs e)
@@ -167,6 +175,11 @@ namespace Liberty.Controls
                     //objBipd.MakeInvincible((bool)cBBipdInvici.IsChecked);
                     objBipd.PlasmaGrenades = Convert.ToSByte(txtBipdPlasmaNade.Text);
                     objBipd.FragGrenades = Convert.ToSByte(txtBipdFragNade.Text);
+                    if (objBipd.Actor != null)
+                    {
+                        objBipd.Actor.Blind = (bool)cBBlind.IsChecked;
+                        objBipd.Actor.Deaf = (bool)cBDeaf.IsChecked;
+                    }
                     break;
 
                 case Reach.TagGroup.Weap:
@@ -180,7 +193,15 @@ namespace Liberty.Controls
                         objVehi.Controller = null;
                     else if (rbVehiOwner.IsChecked == true)
                         objVehi.Controller = objVehi.Carrier;
+                    objVehi.PlayerCantEnter = !(bool)cBDrivable.IsChecked;
                     break;
+            }
+
+            Reach.UnitObject objUnit = obj as Reach.UnitObject;
+            if (objUnit != null)
+            {
+                objUnit.NoFallDamage = (bool)cBNoFallDamage.IsChecked;
+                objUnit.Team = (byte)Math.Max(0, cBTeam.SelectedIndex);
             }
         }
 
@@ -188,9 +209,21 @@ namespace Liberty.Controls
         {
             //Save those sexy values
             Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-            if (textBoxChanged(txtObjectXCord)) currentObject.X = Convert.ToSingle(txtObjectXCord.Text);
-            if (textBoxChanged(txtObjectYCord)) currentObject.Y = Convert.ToSingle(txtObjectYCord.Text);
-            if (textBoxChanged(txtObjectZCord)) currentObject.Z = Convert.ToSingle(txtObjectZCord.Text);
+            bool changedX = textBoxChanged(txtObjectXCord);
+            bool changedY = textBoxChanged(txtObjectYCord);
+            bool changedZ = textBoxChanged(txtObjectZCord);
+            if (changedX)
+                currentObject.X = Convert.ToSingle(txtObjectXCord.Text);
+            if (changedY)
+                currentObject.Y = Convert.ToSingle(txtObjectYCord.Text);
+            if (changedZ)
+                currentObject.Z = Convert.ToSingle(txtObjectZCord.Text);
+
+            float velocityX = Convert.ToSingle(txtXVelocity.Text);
+            float velocityY = Convert.ToSingle(txtYVelocity.Text);
+            float velocityZ = Convert.ToSingle(txtZVelocity.Text);
+            currentObject.Velocity = new MathUtil.Vector3(velocityX, velocityY, velocityZ);
+
             if (textBoxChanged(txtObjectScale))
             {
                 currentObject.Scale = Convert.ToSingle(txtObjectScale.Text);
@@ -216,6 +249,8 @@ namespace Liberty.Controls
             
             currentObject.ParentNode = Convert.ToSByte(txtParentNode.Text);
 
+            currentObject.PhysicsEnabled = (bool)cBSimulatePhysics.IsChecked;
+
             // Nodes
 #if ENABLE_NODE_EDITOR
             if (currentNode != null)
@@ -230,22 +265,41 @@ namespace Liberty.Controls
         {
             try
             {
-                if (obj.HasHealth)
+                if (obj.Health.HasHealth)
                 {
                     float newHealth = Convert.ToSingle(txtMaxHealth.Text);
                     if (!float.IsNaN(newHealth))
-                        obj.HealthModifier = newHealth;
+                        obj.Health.HealthModifier = newHealth;
                 }
-                if (obj.HasShields)
+                if (obj.Health.HasShields)
                 {
                     float newShields = Convert.ToSingle(txtMaxShields.Text);
                     if (!float.IsNaN(newShields))
-                        obj.ShieldModifier = newShields;
+                        obj.Health.ShieldModifier = newShields;
                 }
             }
             catch
             {
             }
+
+            if (rbCantDieExceptKillZones.IsChecked == true)
+            {
+                obj.CannotDie = false;
+                obj.CannotDieExceptKillVolumes = true;
+            }
+            else if (rbCantDie.IsChecked == true)
+            {
+                obj.CannotDie = true;
+                obj.CannotDieExceptKillVolumes = false;
+            }
+            else
+            {
+                obj.CannotDie = false;
+                obj.CannotDieExceptKillVolumes = false;
+            }
+            obj.CannotTakeDamage = (cBCantBeDamaged.IsChecked == true);
+            obj.IgnoresEMP = (cBIgnoresEMP.IsChecked == true);
+            obj.ImmuneToFriendlyFire = (cBIgnoresFriendlyFire.IsChecked == true);
         }
 
         private bool objectsAreRelated(Reach.GameObject obj1, Reach.GameObject obj2)
@@ -292,18 +346,6 @@ namespace Liberty.Controls
             }
         }
 
-        private void changePlugin(TabItem pluginTab)
-        {
-            tabBiped.Visibility = Visibility.Collapsed;
-            tabWeapon.Visibility = Visibility.Collapsed;
-            tabVehicle.Visibility = Visibility.Collapsed;
-            if (pluginTab != null)
-                pluginTab.Visibility = Visibility.Visible;
-            if (pluginTab != currentPlugin && tabs.SelectedItem == currentPlugin)
-                tabs.SelectedItem = tabInfo;
-            currentPlugin = pluginTab;
-        }
-
         private void tVObjects_SelectedItemChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue != null)
@@ -323,7 +365,6 @@ namespace Liberty.Controls
                             itm.Visibility = System.Windows.Visibility.Collapsed;
                     }
 
-                    changePlugin(null);
                     tabs.SelectedItem = tabMassMove;
 
                     instructions.Visibility = Visibility.Hidden;
@@ -355,6 +396,10 @@ namespace Liberty.Controls
                         tabMassMove.Visibility = Visibility.Collapsed;
                         instructions.Visibility = Visibility.Hidden;
                         tabInfo.Visibility = tabs.Visibility = Visibility.Visible;
+                        tabUnit.Visibility = Visibility.Collapsed;
+                        tabBiped.Visibility = Visibility.Collapsed;
+                        tabWeapon.Visibility = Visibility.Collapsed;
+                        tabVehicle.Visibility = Visibility.Collapsed;
 
                         // Info values
                         Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
@@ -368,13 +413,19 @@ namespace Liberty.Controls
                         txtObjectZCord.Text = currentObject.Z.ToString();
                         txtObjectXCord.Tag = txtObjectYCord.Tag = txtObjectZCord.Tag = false;
 
+                        txtXVelocity.Text = currentObject.Velocity.X.ToString();
+                        txtYVelocity.Text = currentObject.Velocity.Y.ToString();
+                        txtZVelocity.Text = currentObject.Velocity.Z.ToString();
+                        txtXVelocity.Tag = txtYVelocity.Tag = txtZVelocity.Tag = false;
+
                         // Rotation values
-                        float yaw, pitch, roll;
+                        // REMOVED BY AMD - These are kinda pointless tbh, since we don't know how to edit them...
+                        /*float yaw, pitch, roll;
                         MathUtil.Convert.ToYawPitchRoll(currentObject.Right, currentObject.Forward, currentObject.Up, out yaw, out pitch, out roll);
                         txtObjectYaw.Text = MathUtil.Convert.ToDegrees(yaw).ToString();
                         txtObjectPitch.Text = MathUtil.Convert.ToDegrees(pitch).ToString();
                         txtObjectRoll.Text = MathUtil.Convert.ToDegrees(roll).ToString();
-                        txtObjectYaw.Tag = txtObjectPitch.Tag = txtObjectRoll.Tag = false;
+                        txtObjectYaw.Tag = txtObjectPitch.Tag = txtObjectRoll.Tag = false;*/
 
                         // Scaling
                         txtObjectScale.Text = currentObject.Scale.ToString();
@@ -397,17 +448,32 @@ namespace Liberty.Controls
                             carriedBy.Visibility = Visibility.Collapsed;
                         }
 
-                        rebuildCarryList(currentObject);
+                        rebuildCarryListbox(currentObject);
 
                         // Max health/shields
-                        txtMaxHealth.Text = currentObject.HealthModifier.ToString();
-                        txtMaxHealth.IsEnabled = currentObject.HasHealth && !currentObject.Invincible;
-                        txtMaxShields.Text = currentObject.ShieldModifier.ToString();
-                        txtMaxShields.IsEnabled = currentObject.HasShields && !currentObject.Invincible;
-                        cBInvincible.IsChecked = currentObject.Invincible;
-                        cBInvincible.IsEnabled = currentObject.HasHealth || currentObject.HasShields;
+                        gridHealthControls.IsEnabled = currentObject.Health.HasHealth || currentObject.Health.HasShields;
+                        txtMaxHealth.Text = currentObject.Health.HealthModifier.ToString();
+                        txtMaxHealth.IsEnabled = currentObject.Health.HasHealth && !currentObject.Health.IsInfinite;
+                        txtMaxShields.Text = currentObject.Health.ShieldModifier.ToString();
+                        txtMaxShields.IsEnabled = currentObject.Health.HasShields && !currentObject.Health.IsInfinite;
+                        cBIgnoresEMP.IsChecked = currentObject.IgnoresEMP;
+                        cBIgnoresFriendlyFire.IsChecked = currentObject.ImmuneToFriendlyFire;
+                        cBCantBeDamaged.IsChecked = currentObject.CannotTakeDamage;
 
-                        // "Plugin" stuff
+                        if (currentObject.CannotDieExceptKillVolumes)
+                            rbCantDieExceptKillZones.IsChecked = true;
+                        else if (currentObject.CannotDie)
+                            rbCantDie.IsChecked = true;
+                        else
+                            rbKillable.IsChecked = true;
+
+                        // HAX: This has to be done last because it forces a save of the health info
+                        cBInvincible.IsChecked = currentObject.Health.IsInfinite;
+
+                        // Physics
+                        cBSimulatePhysics.IsChecked = currentObject.PhysicsEnabled;
+
+                        // Tag group-specific tabs
                         switch (currentObject.TagGroup)
                         {
                             case Reach.TagGroup.Bipd:
@@ -416,9 +482,21 @@ namespace Liberty.Controls
                                 txtBipdPlasmaNade.Text = Convert.ToString(objBipd.PlasmaGrenades);
                                 txtBipdFragNade.Text = Convert.ToString(objBipd.FragGrenades);
 
-                                //cBBipdInvici.IsChecked = objBipd.Invincible;
+                                tabUnit.Visibility = Visibility.Visible;
+                                tabBiped.Visibility = Visibility.Visible;
 
-                                changePlugin(tabBiped);
+                                if (objBipd.Actor != null)
+                                {
+                                    gridAi.IsEnabled = true;
+                                    cBBlind.IsChecked = objBipd.Actor.Blind;
+                                    cBDeaf.IsChecked = objBipd.Actor.Deaf;
+                                }
+                                else
+                                {
+                                    gridAi.IsEnabled = false;
+                                    cBBlind.IsChecked = false;
+                                    cBDeaf.IsChecked = false;
+                                }
                                 break;
 
                             case Reach.TagGroup.Weap:
@@ -431,7 +509,7 @@ namespace Liberty.Controls
 
                                 //cBWeapInvici.IsChecked = objWeap.Invincible;
 
-                                changePlugin(tabWeapon);
+                                tabWeapon.Visibility = Visibility.Visible;
                                 break;
 
                             case Reach.TagGroup.Vehi:
@@ -440,13 +518,22 @@ namespace Liberty.Controls
                                 //cBVehiInvici.IsChecked = objVehi.Invincible;
                                 updateVehiControllerInfo();
 
-                                changePlugin(tabVehicle);
-                                break;
-
-                            default:
-                                changePlugin(null);
+                                tabUnit.Visibility = Visibility.Visible;
+                                tabVehicle.Visibility = Visibility.Visible;
+                                cBDrivable.IsChecked = !objVehi.PlayerCantEnter;
                                 break;
                         }
+
+                        Reach.UnitObject objUnit = currentObject as Reach.UnitObject;
+                        if (objUnit != null)
+                        {
+                            cBNoFallDamage.IsChecked = objUnit.NoFallDamage;
+                            cBTeam.SelectedIndex = objUnit.Team;
+                        }
+
+                        // If the selected tab got removed, show the info page
+                        if (tabs.SelectedItem == null || ((TabItem)tabs.SelectedItem).Visibility != Visibility.Visible)
+                            tabs.SelectedItem = tabInfo;
 
 #if ENABLE_NODE_EDITOR
                         // Nodes
@@ -834,22 +921,22 @@ namespace Liberty.Controls
             CheckBox checkBox = (CheckBox)sender;
             Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
             saveHealthInfo(currentObject);
-            currentObject.MakeInvincible(true);
+            currentObject.Health.MakeInfinite(true);
             txtMaxHealth.IsEnabled = false;
-            txtMaxHealth.Text = currentObject.HealthModifier.ToString();
+            txtMaxHealth.Text = currentObject.Health.HealthModifier.ToString();
             txtMaxShields.IsEnabled = false;
-            txtMaxShields.Text = currentObject.ShieldModifier.ToString();
+            txtMaxShields.Text = currentObject.Health.ShieldModifier.ToString();
         }
 
         private void cBInvincible_Unchecked(object sender, RoutedEventArgs e)
         {
             CheckBox checkBox = (CheckBox)sender;
             Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-            currentObject.MakeInvincible(false);
-            txtMaxHealth.IsEnabled = currentObject.HasHealth;
-            txtMaxHealth.Text = currentObject.HealthModifier.ToString();
-            txtMaxShields.IsEnabled = currentObject.HasShields;
-            txtMaxShields.Text = currentObject.ShieldModifier.ToString();
+            currentObject.Health.MakeInfinite(false);
+            txtMaxHealth.IsEnabled = currentObject.Health.HasHealth;
+            txtMaxHealth.Text = currentObject.Health.HealthModifier.ToString();
+            txtMaxShields.IsEnabled = currentObject.Health.HasShields;
+            txtMaxShields.Text = currentObject.Health.ShieldModifier.ToString();
         }
 
         #region MassObjectMove
@@ -906,6 +993,7 @@ namespace Liberty.Controls
                             _saveData.Objects[k].X = CurrentVert;
                             _saveData.Objects[k].Y = CurrentHor;
                             _saveData.Objects[k].Z = pZ;
+                            _saveData.Objects[k].IsAwake = true;
 
                             CurrentVert += Convert.ToSingle(spread);
                         }
@@ -1031,12 +1119,12 @@ namespace Liberty.Controls
             }
         }
 
-        private void rebuildCarryList(Reach.GameObject obj)
+        private void rebuildCarryListbox(Reach.GameObject obj)
         {
             listCarried.Items.Clear();
 
-            // If the object is a WeaponUser, add its weapons to the list
-            Reach.WeaponUser weaponUser = obj as Reach.WeaponUser;
+            // If the object is a UnitObject, add its weapons to the list
+            Reach.UnitObject weaponUser = obj as Reach.UnitObject;
             if (weaponUser != null)
             {
                 foreach (Reach.WeaponObject weapon in weaponUser.Weapons)
@@ -1091,16 +1179,14 @@ namespace Liberty.Controls
             return parent;
         }
 
-        private void btnPickUpObject_Click(object sender, RoutedEventArgs e)
+        private Reach.GameObject showUnrelatedObjectTree(Reach.GameObject baseObject, string description, string title)
         {
-            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
-
             // Build a set of objects to hide from the tree dialog by scanning the carry and weapon lists
             HashSet<Reach.GameObject> skip = new HashSet<Reach.GameObject>();
-            skip.Add(currentObject);
+            skip.Add(baseObject);
 
             // Ignore parent objects
-            Reach.GameObject parent = getLogicalParent(currentObject);
+            Reach.GameObject parent = getLogicalParent(baseObject);
             while (parent != null)
             {
                 skip.Add(parent);
@@ -1108,7 +1194,7 @@ namespace Liberty.Controls
             }
 
             // Ignore child objects
-            Reach.GameObject carried = currentObject.FirstCarried;
+            Reach.GameObject carried = baseObject.FirstCarried;
             while (carried != null)
             {
                 skip.Add(carried);
@@ -1116,31 +1202,43 @@ namespace Liberty.Controls
             }
 
             // Ignore any held weapons
-            Reach.WeaponUser weaponUser = currentObject as Reach.WeaponUser;
+            Reach.UnitObject weaponUser = baseObject as Reach.UnitObject;
             if (weaponUser != null)
             {
                 foreach (Reach.WeaponObject weapon in weaponUser.Weapons)
                     skip.Add(weapon);
             }
 
-            TreeViewItem selectedItem = mainWindow.showObjectTree("Select an object to pick up:", "PICK UP OBJECT", cloneObjectTree(skip));
-            if (selectedItem != null)
+            TreeViewItem selectedItem = mainWindow.showObjectTree(description, title, cloneObjectTree(skip));
+            if (selectedItem == null)
+                return null;
+            return _saveData.Objects[(int)selectedItem.Tag];
+        }
+
+        private void btnPickUpObject_Click(object sender, RoutedEventArgs e)
+        {
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+            Reach.GameObject pickUp = showUnrelatedObjectTree(currentObject, "Select an object to pick up:", "PICK UP OBJECT");
+
+            if (pickUp != null)
             {
-                Reach.GameObject pickUp = _saveData.Objects[(int)selectedItem.Tag];
                 currentObject.PickUp(pickUp);
-                if (currentObject is Reach.WeaponUser && pickUp is Reach.WeaponObject)
+                pickUp.ParentNode = 0;
+
+                // If this is a weapon and a unit is picking it up, add it to the unit's weapon list
+                if (currentObject is Reach.UnitObject && pickUp is Reach.WeaponObject)
                 {
-                    Reach.WeaponUser user = (Reach.WeaponUser)currentObject;
+                    Reach.UnitObject user = (Reach.UnitObject)currentObject;
                     Reach.WeaponObject weapon = (Reach.WeaponObject)pickUp;
                     if (!user.PickUpWeapon(weapon))
                         mainWindow.showMessage("The object is already carrying four weapons. It will still be picked up, but it will not be usable.", "WEAPON PICK UP");
                 }
 
-                pickUp.ParentNode = 0;
-
+                // Bold the object's TreeViewItem if it's related to the player now
                 if (objectsAreRelated(_saveData.Player.Biped, pickUp))
                     objectItems[(int)(pickUp.ID & 0xFFFF)].FontWeight = FontWeights.Bold;
-                rebuildCarryList(currentObject);
+
+                rebuildCarryListbox(currentObject);
             }
         }
 
@@ -1238,5 +1336,27 @@ namespace Liberty.Controls
             }
         }
         #endregion
+
+        private void btnZeroVelocity_Click(object sender, RoutedEventArgs e)
+        {
+            txtXVelocity.Text = "0";
+            txtYVelocity.Text = "0";
+            txtZVelocity.Text = "0";
+        }
+
+        private void btnQuickMove_Click(object sender, RoutedEventArgs e)
+        {
+            Reach.GameObject currentObject = _saveData.Objects[currentChunkIndex];
+            Reach.GameObject target = showUnrelatedObjectTree(currentObject, "Select an object to move this to:", "QUICK MOVE");
+            if (target != null)
+            {
+                currentObject.X = target.X;
+                currentObject.Y = target.Y;
+                currentObject.Z = target.Z;
+                txtObjectXCord.Text = currentObject.X.ToString();
+                txtObjectYCord.Text = currentObject.Y.ToString();
+                txtObjectZCord.Text = currentObject.Z.ToString();
+            }
+        }
     }
 }

@@ -134,6 +134,8 @@
       <DependentUpon>h4VerifyFile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Halo4\WeaponObject.cs" />
+    <Compile Include="HReach\Actor.cs" />
+    <Compile Include="HReach\Squad.cs" />
     <Compile Include="HReach\WeaponEditing.cs" />
     <Compile Include="Security\AES.cs" />
     <Compile Include="Util\IAmmoDisplay.cs" />
@@ -357,7 +359,7 @@
     <Compile Include="HReach\GamePlayer.cs" />
     <Compile Include="HReach\VehicleObject.cs" />
     <Compile Include="HReach\WeaponObject.cs" />
-    <Compile Include="HReach\WeaponUser.cs" />
+    <Compile Include="HReach\UnitObject.cs" />
     <Compile Include="Security\SaveSHA1.cs" />
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>

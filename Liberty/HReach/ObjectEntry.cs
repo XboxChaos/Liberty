@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Collections.Specialized;
 
 namespace Liberty.Reach
 {
@@ -57,7 +58,7 @@ namespace Liberty.Reach
 		{
 			_chunk = chunk;
 			_id = datumIndex;
-			_flags = flags;
+            _flags = new BitVector32((int)flags);
 			_tagGroup = (TagGroup)(reader.ReadUInt16() >> 8);
 			_type = reader.ReadUInt16();
 			_poolOffset = reader.ReadUInt32();
@@ -69,7 +70,7 @@ namespace Liberty.Reach
         {
 			_chunk = chunk;
             _id = id;
-            _flags = flags;
+            _flags = new BitVector32((int)flags);
             _tagGroup = tagGroup;
             _type = type;
             _poolOffset = poolOffset;
@@ -82,7 +83,7 @@ namespace Liberty.Reach
             writer.Seek(_offset, SeekOrigin.Begin);
 
             writer.WriteUInt16((ushort)(_id >> 16));
-            writer.WriteUInt16(_flags);
+            writer.WriteUInt16((ushort)_flags.Data);
             writer.WriteUInt16((ushort)((ushort)_tagGroup << 8));
             writer.WriteUInt16(_type);
             writer.WriteUInt32(_poolOffset);
@@ -92,7 +93,7 @@ namespace Liberty.Reach
 		public void Delete()
 		{
 			_chunk.DeleteEntry(_id & 0xFFFF);
-			_flags = 0x22;
+			_flags = new BitVector32(0x22);
 			_memAddress = 0;
 		}
 
@@ -100,12 +101,6 @@ namespace Liberty.Reach
         {
             get { return _id; }
             set { _id = value; }
-        }
-
-        public ushort Flags
-        {
-            get { return _flags; }
-            set { _flags = value; }
         }
 
         public TagGroup TagGroup
@@ -132,10 +127,21 @@ namespace Liberty.Reach
             set { _memAddress = value; }
         }
 
+        public bool Awake
+        {
+            get { return _flags[EntryFlags.Awake]; }
+            set { _flags[EntryFlags.Awake] = value; }
+        }
+
+        class EntryFlags
+        {
+            public const int Awake = 1 << 1;
+        }
+
 		private Chunk _chunk;
         private long _offset;
         private uint _id;
-        private ushort _flags;
+        private BitVector32 _flags;
         private TagGroup _tagGroup;
         private ushort _type;
         private uint _poolOffset;

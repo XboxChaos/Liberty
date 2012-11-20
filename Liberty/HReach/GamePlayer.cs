@@ -71,13 +71,14 @@ namespace Liberty.Reach
                 _biped.ReplaceWith(newBiped);
                 _biped.Delete(true);
                 _biped = newBiped;
+                newBiped.Actor = null;
             }
         }
 
         internal void ResolvePlayerRefs()
         {
             _biped.Player = this;
-            _biped.Actor = 0xFFFFFFFF;
+            _biped.Actor = null;
             if (_biped.ArmorAbility != null)
                 _biped.ArmorAbility.Player = this;
         }

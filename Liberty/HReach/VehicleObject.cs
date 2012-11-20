@@ -9,7 +9,7 @@ namespace Liberty.Reach
     /// <summary>
     /// A vehicle object.
     /// </summary>
-    public class VehicleObject : WeaponUser
+    public class VehicleObject : UnitObject
     {
         /// <summary>
         /// Constructs a new VehicleObject.

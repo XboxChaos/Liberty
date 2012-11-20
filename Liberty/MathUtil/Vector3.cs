@@ -60,5 +60,13 @@ namespace Liberty.MathUtil
             result.Z = one.X * two.Y - one.Y * two.X;
             return result;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            Vector3 other = (Vector3)obj;
+            return (X == other.X && Y == other.Y && Z == other.Z);
+        }
     }
 }

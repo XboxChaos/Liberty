@@ -43,6 +43,7 @@ namespace Liberty.Controls
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 message = "Modded with Liberty " + version;
             }
+            txtGravity.Text = (_saveManager.SaveData.Gravity / CampaignSave.DefaultGravity).ToString();
             txtStartingMsg.Text = message;
 
             /*Skulls activeSkulls = _saveManager.SaveData.ActiveSkulls;
@@ -63,16 +64,23 @@ namespace Liberty.Controls
 
         public bool Save()
         {
+            float gravityMultiplier;
+            if (!float.TryParse(txtGravity.Text, out gravityMultiplier))
+            {
+                _mainWindow.showMessage("Please enter a valid gravity multiplier value.", "ERROR");
+                return false;
+            }
+
             if ((bool)checkWeaken.IsChecked)
             {
                 float maxHealth;
-                if (!float.TryParse(txtMaxHealth.Text, out maxHealth))
+                if (!float.TryParse(txtMaxHealth.Text, out maxHealth) || maxHealth <= 0)
                 {
                     _mainWindow.showMessage("Please enter a valid maximum health value. It must be a number greater than zero.", "ERROR");
                     return false;
                 }
                 float maxShields;
-                if (!float.TryParse(txtMaxShields.Text, out maxShields))
+                if (!float.TryParse(txtMaxShields.Text, out maxShields) || maxShields <= 0)
                 {
                     _mainWindow.showMessage("Please enter a valid maximum shields value. It must be a number greater than zero.", "ERROR");
                     return false;
@@ -81,16 +89,18 @@ namespace Liberty.Controls
                 {
                     if (obj != null && obj != _saveManager.SaveData.Player.Biped && obj.TagGroup == TagGroup.Bipd)
                     {
-                        if (obj.HasHealth)
-                            obj.HealthModifier = maxHealth;
-                        if (obj.HasShields)
-                            obj.ShieldModifier = maxShields;
+                        if (obj.Health.HasHealth)
+                            obj.Health.HealthModifier = maxHealth;
+                        if (obj.Health.HasShields)
+                            obj.Health.ShieldModifier = maxShields;
                     }
                 }
             }
             if ((bool)checkAllMaxAmmo.IsChecked)
                 Util.EditorSupport.AllWeaponsMaxAmmo(_saveManager.SaveData);
+
             _saveManager.SaveData.Message = txtStartingMsg.Text;
+            _saveManager.SaveData.Gravity = CampaignSave.DefaultGravity * gravityMultiplier;
             return true;
         }
 
@@ -122,6 +132,11 @@ namespace Liberty.Controls
         private void btnNoSkulls_Click(object sender, RoutedEventArgs e)
         {
             checkAll(false);
+        }
+
+        private void btnResetGravity_Click(object sender, RoutedEventArgs e)
+        {
+            txtGravity.Text = "1";
         }
     }
 }

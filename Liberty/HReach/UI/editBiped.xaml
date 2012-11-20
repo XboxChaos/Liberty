@@ -16,7 +16,7 @@
         <Label Name="subHeading1" Content="biped infomation;" Margin="0,61,0,252" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
         <Label Name="lblGamertag" Content="current biped: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Margin="31,87,0,0" Height="24.911" VerticalAlignment="Top" HorizontalAlignment="Left" Width="90" />
             <ComboBox Name="cBBipeds" VerticalAlignment="Top" Margin="131,88,0,0" Height="23" HorizontalAlignment="Left" Width="120" SelectionChanged="cBBipeds_SelectionChanged" />
-            <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light"  Margin="37,142,0,0" HorizontalAlignment="Left" Width="418" Height="18.161" VerticalAlignment="Top"/>
+            <CheckBox Name="checkInvincible" Content="Enable player (and current vehicle) invincibility " FontFamily="SegeoUI" FontSize="13" FontWeight="Light"  Margin="37,142,0,0" HorizontalAlignment="Left" Width="418" Height="18.161" VerticalAlignment="Top" Checked="checkInvincible_Checked"/>
         <Label x:Name="subHeading1_Copy1" Content="biped position data;" Margin="0,192,0,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" HorizontalAlignment="Left" Width="153" />
 	        <Label x:Name="lblGamertag_Copy" Content="X: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,93" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
 	        <Label x:Name="lblGamertag_Copy1" Content="Y: " FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="#949494" Margin="31,0,0,65" Height="24.911" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" />
@@ -29,6 +29,7 @@
         <Label x:Name="subHeading1_Copy" Content="extras;" Margin="231,192,201,121" FontFamily="SegeoUI" FontSize="14" FontWeight="SemiBold" Foreground="{DynamicResource AccentTextDark}" />
             <CheckBox x:Name="checkNoPhysics" Content="Noclip mode (disables physics and collisions)" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Margin="262,0,0,100.839" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Bottom" Checked="checkNoPhysics_Checked"/>
             <Button x:Name="btnNameIdent" Content="Yes" HorizontalAlignment="Left" Margin="410,164,0,0" Style="{DynamicResource MetroPrimaryButton}" VerticalAlignment="Top" Width="61" d:LayoutOverrides="Height" Click="btnNameIdent_Click"/>
+            <CheckBox x:Name="checkNoFallDamage" Content="No fall damage" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Margin="262,242,0,0" HorizontalAlignment="Left" Width="265.929" Height="18.161" VerticalAlignment="Top"/>
         </Grid>
 
 </UserControl>

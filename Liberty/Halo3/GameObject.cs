@@ -85,7 +85,7 @@ namespace Liberty.Halo3
         /// <param name="invincible">true if the object should become invincible</param>
         public void MakeInvincible(bool invincible)
         {
-            _healthInfo.MakeInvincible(invincible);
+            _healthInfo.MakeInfinite(invincible);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Liberty.Halo3
         /// </summary>
         public bool Invincible
         {
-            get { return _healthInfo.IsInvincible; }
+            get { return _healthInfo.IsInfinite; }
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Liberty.HCEX
         /// <param name="invincible">true if the object should become invincible</param>
         public void MakeInvincible(bool invincible)
         {
-            _healthInfo.MakeInvincible(invincible);
+            _healthInfo.MakeInfinite(invincible);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Liberty.HCEX
         /// </summary>
         public bool Invincible
         {
-            get { return _healthInfo.IsInvincible; }
+            get { return _healthInfo.IsInfinite; }
         }
 
         /// <summary>

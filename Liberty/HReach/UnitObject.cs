@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Collections.Specialized;
 
 namespace Liberty.Reach
 {
-    /// <summary>
-    /// Implements a consistent weapon interface for objects that can carry and use weapons.
-    /// </summary>
-    public class WeaponUser : GameObject
+    public class UnitObject : GameObject
     {
         /// <summary>
-        /// Constructs a new WeaponUser.
+        /// Constructs a new UnitObject.
         /// </summary>
         /// <param name="reader">The SaveReader to read from.</param>
         /// <param name="entry">The object entry data.</param>
-        internal WeaponUser(Liberty.SaveIO.SaveReader reader, ObjectEntry entry)
+        internal UnitObject(Liberty.SaveIO.SaveReader reader, ObjectEntry entry)
             : base(reader, entry)
         {
             _roWeapons = _weapons.AsReadOnly();
@@ -35,7 +33,7 @@ namespace Liberty.Reach
             if (index < 0 || index >= 4)
                 throw new IndexOutOfRangeException("Trying to change a non-existant weapon slot");
             
-            if (index >= _weapons.Count)
+            if (index >= _weapons.Count || _backupWeaponIndex < 0)
             {
                 // No slot available - just pick it up
                 if (newWeapon != null)
@@ -62,7 +60,7 @@ namespace Liberty.Reach
         /// <returns>The weapon at the specified index. Can be null if no weapon is in the specified slot.</returns>
         public WeaponObject GetWeapon(int index)
         {
-            if (index >= 0 && index < _weapons.Count)
+            if (index >= 0 && index < _weapons.Count && _backupWeaponIndex >= 0)
                 return _weapons[TranslateIndex(index)];
             else
                 return null;
@@ -70,7 +68,7 @@ namespace Liberty.Reach
 
         public void DropWeapon(int index)
         {
-            if (index >= 0 && index < _weapons.Count)
+            if (index >= 0 && index < _weapons.Count && _backupWeaponIndex >= 0)
             {
                 WeaponObject weapon = _weapons[TranslateIndex(index)];
                 weapon.Drop();
@@ -102,7 +100,7 @@ namespace Liberty.Reach
             return false;
         }
 
-        public void TransferWeapons(WeaponUser receiver)
+        public void TransferWeapons(UnitObject receiver)
         {
             while (receiver._weapons.Count > 0)
                 receiver.DropWeapon(0);
@@ -117,7 +115,7 @@ namespace Liberty.Reach
         }
 
         /// <summary>
-        /// The first weapon that this WeaponUser is holding. Can be null.
+        /// The first weapon that this UnitObject is holding. Can be null.
         /// </summary>
         public WeaponObject PrimaryWeapon
         {
@@ -126,7 +124,7 @@ namespace Liberty.Reach
         }
 
         /// <summary>
-        /// The second weapon that this WeaponUser is holding. Can be null.
+        /// The second weapon that this UnitObject is holding. Can be null.
         /// </summary>
         public WeaponObject SecondaryWeapon
         {
@@ -135,7 +133,7 @@ namespace Liberty.Reach
         }
 
         /// <summary>
-        /// The third weapon that this WeaponUser is holding. Can be null.
+        /// The third weapon that this UnitObject is holding. Can be null.
         /// </summary>
         public WeaponObject TertiaryWeapon
         {
@@ -144,7 +142,7 @@ namespace Liberty.Reach
         }
         
         /// <summary>
-        /// The fourth weapon that this WeaponUser is holding. Can be null.
+        /// The fourth weapon that this UnitObject is holding. Can be null.
         /// </summary>
         public WeaponObject QuaternaryWeapon
         {
@@ -155,6 +153,56 @@ namespace Liberty.Reach
         public IList<WeaponObject> Weapons
         {
             get { return _roWeapons; }
+        }
+
+        public Actor Actor
+        {
+            get { return _actor; }
+            set { _actor = value; }
+        }
+
+        /// <summary>
+        /// The unit's team.
+        /// </summary>
+        public byte Team
+        {
+            get { return _team; }
+            set
+            {
+                _team = value;
+                if (_actor != null)
+                {
+                    // Need to change the actor and squad team index as well
+                    _actor.Team = value;
+                    if (_actor.Squad != null)
+                        _actor.Squad.Team = value;
+                }
+            }
+        }
+
+        public bool NightVision
+        {
+            get { return _unitFlags[UnitFlags.NightVision]; }
+            set { _unitFlags[UnitFlags.NightVision] = value; }
+        }
+
+        public bool NoFallDamage
+        {
+            get { return _unitFlags[UnitFlags.NoFallDamage]; }
+            set { _unitFlags[UnitFlags.NoFallDamage] = value; }
+        }
+
+        public bool PlayerCantEnter
+        {
+            get { return _unitFlags[UnitFlags.PlayerCantEnter]; }
+            set { _unitFlags[UnitFlags.PlayerCantEnter] = value; }
+        }
+
+        public override void MakeInvincible(bool invincible)
+        {
+            base.MakeInvincible(invincible);
+
+            NoFallDamage = invincible;
         }
 
         /*public override void PickUp(GameObject obj)
@@ -170,6 +218,15 @@ namespace Liberty.Reach
         {
             base.DoLoad(reader, start);
 
+            reader.Seek(start + 0x1BE, SeekOrigin.Begin);
+            _actorId = reader.ReadUInt16();
+
+            reader.Seek(start + 0x1C4, SeekOrigin.Begin);
+            _unitFlags = new BitVector32(reader.ReadInt32());
+
+            reader.Seek(start + 0x1C8, SeekOrigin.Begin);
+            _team = reader.ReadByte();
+
             reader.Seek(start + 0x342, SeekOrigin.Begin);
             _currentWeaponIndex = reader.ReadSByte();
             reader.Seek(start + 0x346, SeekOrigin.Begin);
@@ -184,15 +241,20 @@ namespace Liberty.Reach
         {
             base.DoUpdate(writer, start);
 
-            // Fill null spots in the weapons list
-            /*int numWeapons = 0;
-            WeaponObject[] newList = new WeaponObject[_weapons.Length];
-            for (int i = 0; i < _weapons.Length; i++)
-            {
-                if (_weapons[i] != null)
-                    newList[numWeapons++] = _weapons[i];
-            }
-            _weapons = newList;*/
+            // Actor
+            writer.Seek(start + 0x1BC, SeekOrigin.Begin);
+            if (_actor != null)
+                writer.WriteUInt32(_actor.DatumIndex);
+            else
+                writer.WriteUInt32(0xFFFFFFFF);
+
+            // Unit flags
+            writer.Seek(start + 0x1C4, SeekOrigin.Begin);
+            writer.WriteInt32(_unitFlags.Data);
+
+            // Team
+            writer.Seek(start + 0x1C8, SeekOrigin.Begin);
+            writer.WriteByte(_team);
 
             // Write weapon index info
             writer.Seek(start + 0x340, SeekOrigin.Begin);
@@ -222,6 +284,12 @@ namespace Liberty.Reach
                 if (_weaponId[i] != 0xFFFF)
                     _weapons.Add(objects[(int)_weaponId[i]] as WeaponObject);
             }
+        }
+
+        internal void ResolveActor(List<Actor> actors)
+        {
+            if (_actorId < actors.Count)
+                _actor = actors[(int)_actorId];
         }
 
         protected override void OnDropUsedObject(GameObject obj)
@@ -256,9 +324,24 @@ namespace Liberty.Reach
             return (index + _backupWeaponIndex) % _weapons.Count;
         }
 
+        /// <summary>
+        /// Constants for _unitFlags
+        /// </summary>
+        class UnitFlags
+        {
+            public const int NoFallDamage = 1 << 7;
+            public const int PlayerCantEnter = 1 << 10;
+            public const int NightVision = 1 << 12;
+        }
+
+        private BitVector32 _unitFlags;
+        private byte _team = 0;
+
         private sbyte _currentWeaponIndex;
         private sbyte _backupWeaponIndex;
         private ushort[] _weaponId = new ushort[4];
+        private Actor _actor = null;
+        private ushort _actorId;
         private List<WeaponObject> _weapons = new List<WeaponObject>();
         private IList<WeaponObject> _roWeapons;
     }
