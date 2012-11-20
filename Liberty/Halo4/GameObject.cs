@@ -35,7 +35,7 @@ namespace Liberty.Halo4
             _tag = DatumIndex.ReadFrom(reader);
 
             reader.SeekTo(baseOffset + StrengthInfoOffset);
-            _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier, float.PositiveInfinity);
+            _healthInfo = new HealthInfo(reader, DefaultChiefHealthModifier, DefaultChiefShieldModifier, float.MaxValue);
 
             // Read Position
             reader.SeekTo(baseOffset + PositionOffset1);
