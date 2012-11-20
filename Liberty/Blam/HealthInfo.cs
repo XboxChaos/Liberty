@@ -14,30 +14,30 @@ namespace Liberty.Blam
         /// <param name="reader">The SaveReader to read from.</param>
         /// <param name="defaultHealthModifier">The default health modifier that this object should use</param>
         /// <param name="defaultShieldModifier">The default shield modifier that this object should use</param>
-        public HealthInfo(SaveReader reader, float defaultHealthModifier, float defaultShieldModifier, float customInvincibility = float.NaN)
+        public HealthInfo(SaveReader reader, float defaultHealthModifier, float defaultShieldModifier, float customInfinity = float.NaN)
         {
-            _customInvincibility = customInvincibility;
+            _customInvincibility = customInfinity;
             _healthModifier = reader.ReadFloat();
             _shieldModifier = reader.ReadFloat();
             //System.Diagnostics.Debug.WriteLine("{0:F} {1:F}", _healthModifier, _shieldModifier);
 
             // Keep backups of the values so that invincibility can be disabled
             // However, if a value is already NaN (invincible), we have to resort to the default value that was passed in.
-            if (float.IsNaN(_healthModifier) || float.IsPositiveInfinity(_healthModifier) || _healthModifier == customInvincibility)
+            if (float.IsNaN(_healthModifier) || float.IsPositiveInfinity(_healthModifier) || _healthModifier == customInfinity)
                 _oldHealthModifier = defaultHealthModifier;
             else
                 _oldHealthModifier = _healthModifier;
 
-            if (float.IsNaN(_shieldModifier) || float.IsPositiveInfinity(_shieldModifier) || _shieldModifier == customInvincibility)
+            if (float.IsNaN(_shieldModifier) || float.IsPositiveInfinity(_shieldModifier) || _shieldModifier == customInfinity)
                 _oldShieldModifier = defaultShieldModifier;
             else
                 _oldShieldModifier = _shieldModifier;
         }
 
         /// <summary>
-        /// Whether or not the object is invincible.
+        /// Whether or not the object has an infinite amount of health/shields.
         /// </summary>
-        public bool IsInvincible
+        public bool IsInfinite
         {
             get
             {
@@ -50,13 +50,13 @@ namespace Liberty.Blam
         }
 
         /// <summary>
-        /// Changes the object's invincibility status.
-        /// If invincibility is disabled, then the modifiers will be restored to the values they were last set to.
+        /// Makes the object's health/shield modifiers infinite.
+        /// If disabled, then the modifiers will be restored to the values they were last set to.
         /// </summary>
-        /// <param name="invincible"></param>
-        public void MakeInvincible(bool invincible)
+        /// <param name="infinite"></param>
+        public void MakeInfinite(bool infinite)
         {
-            if (invincible)
+            if (infinite)
             {
                 if (_healthModifier != 0)
                     _healthModifier = _customInvincibility;

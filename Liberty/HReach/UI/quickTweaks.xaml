@@ -47,6 +47,9 @@
 				<Button x:Name="btnLasoSkulls" Content="All" HorizontalAlignment="Left" Margin="36,114,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnLasoSkulls_Click" Width="60"/>
 				<Button x:Name="btnNoSkulls" Content="None" HorizontalAlignment="Left" Margin="109,114,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Click="btnNoSkulls_Click" Width="60"/>
 			</Grid>
+			<Label Content="gravity multiplier:" FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="25" HorizontalAlignment="Left" Margin="31,254,0,0" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment" />
+			<TextBox x:Name="txtGravity" MaxLines="1" Text="1" TextWrapping="Wrap" MaxLength="400" VerticalAlignment="Top" Width="59" HorizontalAlignment="Left" Margin="138.047,254,0,0" d:LayoutOverrides="HorizontalAlignment" />
+			<Button x:Name="btnResetGravity" Content="Reset" Margin="201.047,254,0,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" Click="btnResetGravity_Click"/>
 	    </Grid>
 
 </UserControl>

@@ -98,6 +98,24 @@ namespace Liberty.Reach
             // Update player information
             Player.Update(writer);
 
+            // Update each squad
+            foreach (Squad squad in _squads)
+            {
+                if (squad != null)
+                    squad.Update(writer);
+            }
+
+            // Update each actor
+            foreach (Actor actor in _actors)
+            {
+                if (actor != null)
+                    actor.Update(writer);
+            }
+
+            // Gravity
+            writer.Seek(0x68EBF4, SeekOrigin.Begin);
+            writer.WriteFloat(_gravity);
+
             // Target locator ammo
             writer.Seek(0x915E1A, SeekOrigin.Begin);
             writer.WriteInt16(_targetLocatorAmmo);
@@ -220,6 +238,36 @@ namespace Liberty.Reach
         }
 
         /// <summary>
+        /// The squads in the file.
+        /// </summary>
+        public List<Squad> Squads
+        {
+            get { return _squads; }
+        }
+
+        /// <summary>
+        /// The actors in the file.
+        /// </summary>
+        public List<Actor> Actors
+        {
+            get { return _actors; }
+        }
+
+        /// <summary>
+        /// The world's gravity value.
+        /// </summary>
+        public float Gravity
+        {
+            get { return _gravity; }
+            set { _gravity = value; }
+        }
+
+        /// <summary>
+        /// The default gravity value.
+        /// </summary>
+        public const float DefaultGravity = 4.171259403228759765625F;
+
+        /// <summary>
         /// Checks the general validity of the save before processing it.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown if the save data is invalid.</exception>
@@ -259,6 +307,53 @@ namespace Liberty.Reach
             stream.Write(hash, 0, 20);
         }
 
+        private void ReadSquads(SaveIO.SaveReader reader, Chunk chunk)
+        {
+            if (chunk.EntrySize != 0xEC)
+                throw new ArgumentException("The file format is invalid: bad squad entry size\r\nExpected 0xEC but got 0x" + chunk.EntrySize.ToString("X"));
+
+            chunk.EnumEntries(reader, ProcessSquad);
+        }
+
+        private bool ProcessSquad(SaveIO.SaveReader reader, bool active, uint datumIndex, ushort flags, uint size, long offset)
+        {
+            if (active)
+            {
+                Squad squad = new Squad(reader, datumIndex, offset);
+                _squads.Add(squad);
+                if (squad.ActorIndex != 0xFFFFFFFF)
+                    _squadsByActor[squad.ActorIndex] = squad;
+            }
+            else
+            {
+                _squads.Add(null);
+            }
+            return true;
+        }
+
+        private void ReadActors(SaveIO.SaveReader reader, Chunk chunk)
+        {
+            if (chunk.EntrySize != 0xCE0)
+                throw new ArgumentException("The file format is invalid: bad actor entry size\r\nExpected 0xCE0 but got 0x" + chunk.EntrySize.ToString("X"));
+
+            chunk.EnumEntries(reader, ProcessActor);
+        }
+
+        private bool ProcessActor(SaveIO.SaveReader reader, bool active, uint datumIndex, ushort flags, uint size, long offset)
+        {
+            if (active)
+            {
+                Squad squad;
+                _squadsByActor.TryGetValue(datumIndex, out squad);
+                _actors.Add(new Actor(reader, squad, datumIndex, offset));
+            }
+            else
+            {
+                _actors.Add(null);
+            }
+            return true;
+        }
+
         /// <summary>
         /// Reads the data stored in the file header and some of the chunk data.
         /// </summary>
@@ -289,6 +384,10 @@ namespace Liberty.Reach
             reader.Seek(0x1D6AC, SeekOrigin.Begin);
             _serviceTag = reader.ReadUTF16();
 
+            // Gravity
+            reader.Seek(0x68EBF4, SeekOrigin.Begin);
+            _gravity = reader.ReadFloat();
+
             // Target locator ammo
             reader.Seek(0x915E1A, SeekOrigin.Begin);
             _targetLocatorAmmo = reader.ReadInt16();
@@ -308,6 +407,26 @@ namespace Liberty.Reach
             if (playersChunk.Name != "players")
                 throw new ArgumentException("The file format is invalid: the \"players\" chunk is missing or is at the wrong offset");
             ReadPlayers(reader, playersChunk);
+
+            // Read squads
+            Chunk squadChunk = new Chunk(reader, ChunkOffset.Squad);
+            if (squadChunk.Name != "squad")
+                throw new ArgumentException("The file format is invalid: the \"squad\" chunk is missing or is at the wrong offset");
+            ReadSquads(reader, squadChunk);
+
+            // Read actors
+            Chunk actorChunk = new Chunk(reader, ChunkOffset.Actor);
+            if (actorChunk.Name != "actor")
+                throw new ArgumentException("The file format is invalid: the \"actor\" chunk is missing or is at the wrong offset");
+            ReadActors(reader, actorChunk);
+
+            // Resolve actor references
+            foreach (GameObject obj in _objects)
+            {
+                UnitObject unit = obj as UnitObject;
+                if (unit != null)
+                    unit.ResolveActor(_actors);
+            }
         }
 
         private string _mapName;
@@ -317,7 +436,11 @@ namespace Liberty.Reach
         private GamePlayer _player = null;
         private Skulls _skulls;
         private string _checkpointMsg;
+        private float _gravity;
         private short _targetLocatorAmmo;
+        private List<Squad> _squads = new List<Squad>();
+        private Dictionary<uint, Squad> _squadsByActor = new Dictionary<uint, Squad>();
+        private List<Actor> _actors = new List<Actor>();
 
         private static int GamestateHeaderSize = 0x1E720;
     }

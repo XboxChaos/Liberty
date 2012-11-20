@@ -74,7 +74,7 @@ namespace Liberty.Halo4
         /// <param name="invincible">true if the object should become invincible</param>
         public void MakeInvincible(bool invincible)
         {
-            _healthInfo.MakeInvincible(invincible);
+            _healthInfo.MakeInfinite(invincible);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Liberty.Halo4
         /// </summary>
         public bool Invincible
         {
-            get { return _healthInfo.IsInvincible; }
+            get { return _healthInfo.IsInfinite; }
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace Liberty.Halo4
         private const int PositionOffset2 = 0x48;
         private const int PositionOffset3 = 0x5C;
 
-        private const int CarryInfoOffset = 0x08;
+        private const int CarryInfoOffset = 0x14;
         private const int StrengthInfoOffset = 0x138;
     }
 }

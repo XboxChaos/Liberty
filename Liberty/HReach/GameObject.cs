@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Liberty.Blam;
+using System.Collections.Specialized;
 
 namespace Liberty.Reach
 {
@@ -30,20 +31,31 @@ namespace Liberty.Reach
     // typecast every single time I want to use one of these
     public class ObjectFlags
     {
-        public const uint NotCarried = 0x80U;
-        public const uint Active = 0x20000000;
+        public const int NotCarried = 1 << 7;
+        public const int DeleteOnDeactivation = 1 << 16;
+        public const int Active = 1 << 29;
     }
 
     public class PhysicsFlags
     {
-        public const ulong Physical = 0x100UL;
-        public const ulong Activated = 0x8000000UL;
+        public const int Physical = 1 << 8;
+        public const int Asleep = 1 << 10;
+        public const int Activated = 1 << 27;
     }
 
     public class WeaponFlags
     {
         public const uint InUse = 0x3010000U;     // Not entirely sure what each of these flags does, I haven't had time to look into it
         public const uint Unused = 0x4000000U;
+    }
+
+    public class InvincibilityFlags
+    {
+        public const int CannotTakeDamage = 1 << 7; // I think...
+        public const int CannotDie = 1 << 18;
+        public const int CannotDieExceptKillVolumes = 1 << 19;
+        public const int ImmuneToFriendlyFire = 1 << 20;
+        public const int IgnoresEMP = 1 << 24;
     }
 
     /// <summary>
@@ -191,7 +203,7 @@ namespace Liberty.Reach
             float oldY = _y;
             float oldZ = _z;
             bool oldPhysics = PhysicsEnabled;
-            uint oldFlags = _flags;
+            BitVector32 oldFlags = _flags;
             sbyte oldParentNode = _parentNodeIndex;
 
             // Replace!
@@ -212,56 +224,29 @@ namespace Liberty.Reach
                 newObj._up = _up;
                 newObj._scale = _scale;
                 newObj._parentNodeIndex = oldParentNode;
+                newObj.IsAwake = true;
 
                 // Adjust flags
-                newObj._flags = (newObj._flags & ~ObjectFlags.NotCarried) | (oldFlags & ObjectFlags.NotCarried);
+                newObj._flags[ObjectFlags.NotCarried] = oldFlags[ObjectFlags.NotCarried];
             }
         }
 
-        /// <summary>
-        /// Changes the object's invincibility status.
-        /// If invincibility is disabled, then the health and shield modifiers will be restored to the values they were last set to.
-        /// </summary>
-        /// <param name="invincible">true if the object should become invincible</param>
-        public void MakeInvincible(bool invincible)
+        public virtual void MakeInvincible(bool invincible)
         {
-            _healthInfo.MakeInvincible(invincible);
+            _healthInfo.MakeInfinite(invincible);
+            ImmuneToFriendlyFire = invincible;
+            IgnoresEMP = invincible;
+            CannotDie = invincible;
+            CannotDieExceptKillVolumes = false;
+            CannotTakeDamage = invincible;
         }
 
         /// <summary>
-        /// Whether or not the object is invincible.
+        /// Information about the object's vitality.
         /// </summary>
-        public bool Invincible
+        public HealthInfo Health
         {
-            get { return _healthInfo.IsInvincible; }
-        }
-
-        /// <summary>
-        /// Whether or not the object has health information.
-        /// </summary>
-        public bool HasHealth
-        {
-            get { return _healthInfo.HasHealth; }
-        }
-
-        /// <summary>
-        /// Whether or not the object can have shields.
-        /// </summary>
-        public bool HasShields
-        {
-            get { return _healthInfo.HasShields; }
-        }
-
-        public float HealthModifier
-        {
-            get { return _healthInfo.HealthModifier; }
-            set { _healthInfo.HealthModifier = value; }
-        }
-
-        public float ShieldModifier
-        {
-            get { return _healthInfo.ShieldModifier; }
-            set { _healthInfo.ShieldModifier = value; }
+            get { return _healthInfo; }
         }
 
         /// <summary>
@@ -455,32 +440,73 @@ namespace Liberty.Reach
         /// </summary>
         public bool PhysicsEnabled
         {
-            get
-            {
-                return ((_physicsFlags & PhysicsFlags.Physical) == PhysicsFlags.Physical);
-            }
+            get { return _physicsFlags[PhysicsFlags.Physical]; }
+            set { _physicsFlags[PhysicsFlags.Physical] = value; }
+        }
+
+        /// <summary>
+        /// Whether or not the object is awake and physics need to be updated.
+        /// This is automatically set if the object's position or velocity changes.
+        /// </summary>
+        public bool IsAwake
+        {
+            get { return !_physicsFlags[PhysicsFlags.Asleep]; }
             set
             {
+                _physicsFlags[PhysicsFlags.Asleep] = !value;
                 if (value)
-                    _physicsFlags |= PhysicsFlags.Physical;
-                else
-                    _physicsFlags &= ~PhysicsFlags.Physical;
+                {
+                    // Wake up all parents
+                    GameObject current = this;
+                    while (current != null)
+                    {
+                        current._entry.Awake = true;
+                        current = current.Carrier;
+                    }
+                }
             }
         }
 
         public bool IsActive
         {
-            get
-            {
-                return ((_flags & ObjectFlags.Active) == ObjectFlags.Active);
-            }
-            set
-            {
-                if (value)
-                    _flags |= ObjectFlags.Active;
-                else
-                    _flags &= ~ObjectFlags.Active;
-            }
+            get { return _flags[ObjectFlags.Active]; }
+            set { _flags[ObjectFlags.Active] = value; }
+        }
+
+        public bool DeleteOnDeactivation
+        {
+            get { return _flags[ObjectFlags.DeleteOnDeactivation]; }
+            set { _flags[ObjectFlags.DeleteOnDeactivation] = value; }
+        }
+
+        public bool CannotTakeDamage
+        {
+            get { return _invincibilityFlags[InvincibilityFlags.CannotTakeDamage]; }
+            set { _invincibilityFlags[InvincibilityFlags.CannotTakeDamage] = value; }
+        }
+
+        public bool CannotDie
+        {
+            get { return _invincibilityFlags[InvincibilityFlags.CannotDie]; }
+            set { _invincibilityFlags[InvincibilityFlags.CannotDie] = value; }
+        }
+
+        public bool CannotDieExceptKillVolumes
+        {
+            get { return _invincibilityFlags[InvincibilityFlags.CannotDieExceptKillVolumes]; }
+            set { _invincibilityFlags[InvincibilityFlags.CannotDieExceptKillVolumes] = value; }
+        }
+
+        public bool IgnoresEMP
+        {
+            get { return _invincibilityFlags[InvincibilityFlags.IgnoresEMP]; }
+            set { _invincibilityFlags[InvincibilityFlags.IgnoresEMP] = value; }
+        }
+
+        public bool ImmuneToFriendlyFire
+        {
+            get { return _invincibilityFlags[InvincibilityFlags.ImmuneToFriendlyFire]; }
+            set { _invincibilityFlags[InvincibilityFlags.ImmuneToFriendlyFire] = value; }
         }
 
         public NodeCollection Nodes
@@ -492,6 +518,12 @@ namespace Liberty.Reach
         {
             get { return _scale; }
             set { _scale = value; }
+        }
+
+        public MathUtil.Vector3 Velocity
+        {
+            get { return _velocity; }
+            set { _velocity = value; }
         }
 
         /// <summary>
@@ -509,7 +541,7 @@ namespace Liberty.Reach
             _mapId = reader.ReadUInt32();
             
             // Flags
-            _flags = reader.ReadUInt32();
+            _flags = new BitVector32(reader.ReadInt32());
 
             // Zone?
             _zone = (ushort)((reader.ReadUInt32() & 0xFFFF0000) >> 16);
@@ -533,6 +565,9 @@ namespace Liberty.Reach
             _x = reader.ReadFloat();
             _y = reader.ReadFloat();
             _z = reader.ReadFloat();
+            _originalX = _x;
+            _originalY = _y;
+            _originalZ = _z;
 
             // Rotation data
             _right.X = reader.ReadFloat();
@@ -542,6 +577,13 @@ namespace Liberty.Reach
             _up.Y = -reader.ReadFloat();    // hax
             _up.Z = reader.ReadFloat();
 
+            // Velocity
+            reader.Seek(start + 0x68, SeekOrigin.Begin);
+            _velocity.X = reader.ReadFloat();
+            _velocity.Y = reader.ReadFloat();
+            _velocity.Z = reader.ReadFloat();
+            _originalVelocity = _velocity;
+
             // Calculate the forward vector with a cross product
             _forward = MathUtil.Vector3.Cross(_up, _right);
 
@@ -550,12 +592,16 @@ namespace Liberty.Reach
             _scale = reader.ReadFloat();
 
             // Flags
-            reader.Seek(start + 0xD8, SeekOrigin.Begin);
-            _physicsFlags = reader.ReadUInt64();
+            reader.Seek(start + 0xDC, SeekOrigin.Begin);
+            _physicsFlags = new BitVector32(reader.ReadInt32());
 
             // Health info
             reader.Seek(start + 0x110, SeekOrigin.Begin);
             _healthInfo = new HealthInfo(reader, DefaultNoble6HealthModifier, DefaultNoble6ShieldModifier);
+
+            // Invincibility data
+            reader.Seek(start + 0x13C, SeekOrigin.Begin);
+            _invincibilityFlags = new BitVector32(reader.ReadInt32());
 
             // Node data
             reader.Seek(start + 0x17C, SeekOrigin.Begin);
@@ -595,8 +641,12 @@ namespace Liberty.Reach
         /// <param name="start">The start of the object's data</param>
         protected virtual void DoUpdate(SaveIO.SaveWriter writer, long start)
         {
+            // If the object's position has changed, awaken it
+            if (_x != _originalX || _y != _originalY || _z != _originalZ || !_velocity.Equals(_originalVelocity))
+                IsAwake = true;
+
             writer.Seek(start + 0x4, SeekOrigin.Begin);
-            writer.WriteUInt32(_flags);
+            writer.WriteInt32(_flags.Data);
             writer.WriteUInt16(_zone);
             writer.Seek(2, SeekOrigin.Current);
             
@@ -642,13 +692,21 @@ namespace Liberty.Reach
             writer.WriteFloat(-_up.Y);  // hax
             writer.WriteFloat(_up.Z);
 
+            writer.Seek(start + 0x68, SeekOrigin.Begin);
+            writer.WriteFloat(_velocity.X);
+            writer.WriteFloat(_velocity.Y);
+            writer.WriteFloat(_velocity.Z);
+
             writer.Seek(start + 0x80, SeekOrigin.Begin);
             // Scale is stored twice??
             writer.WriteFloat(_scale);
             writer.WriteFloat(_scale);
 
-            writer.Seek(start + 0xD8, SeekOrigin.Begin);
-            writer.WriteUInt64(_physicsFlags);
+            writer.Seek(start + 0xDC, SeekOrigin.Begin);
+            writer.WriteInt32(_physicsFlags.Data);
+
+            writer.Seek(start + 0x13C, SeekOrigin.Begin);
+            writer.WriteInt32(_invincibilityFlags.Data);
 
             // Write strength info
             writer.Seek(start + 0x110, SeekOrigin.Begin);
@@ -716,7 +774,7 @@ namespace Liberty.Reach
             obj.Z += Z;
             obj.PhysicsEnabled = true;
 
-            obj._flags |= ObjectFlags.NotCarried;
+            obj._flags[ObjectFlags.NotCarried] = true;
             obj._carrier = null;
             obj._nextCarried = null;
             obj._parentNodeIndex = -1;
@@ -742,7 +800,7 @@ namespace Liberty.Reach
                 return;
 
             obj.Drop();
-            obj._flags &= ~ObjectFlags.NotCarried;
+            obj._flags[ObjectFlags.NotCarried] = false;
             obj._zone = 0xFFFF;
             obj._carrier = this;
             obj._nextCarried = _firstCarried;
@@ -800,7 +858,7 @@ namespace Liberty.Reach
         private long _dataPosition;
 
         private uint _mapId;
-        private uint _flags;
+        private BitVector32 _flags;
         private ushort _zone;
 
         private ushort _carrierId;
@@ -814,11 +872,15 @@ namespace Liberty.Reach
         private float _boundsX1, _boundsY1, _boundsZ1;
         private float _boundsX2, _boundsY2, _boundsZ2;
         private float _x, _y, _z;
+        private float _originalX, _originalY, _originalZ;
         private MathUtil.Vector3 _right;
         private MathUtil.Vector3 _forward;
         private MathUtil.Vector3 _up;
+        private MathUtil.Vector3 _velocity;
+        private MathUtil.Vector3 _originalVelocity;
 
-        private ulong _physicsFlags;
+        private BitVector32 _physicsFlags;
+        private BitVector32 _invincibilityFlags;
 
         private float _scale;
 
