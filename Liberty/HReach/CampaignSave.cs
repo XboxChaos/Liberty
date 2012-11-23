@@ -265,7 +265,7 @@ namespace Liberty.Reach
         /// <summary>
         /// The default gravity value.
         /// </summary>
-        public const float DefaultGravity = 4.171259403228759765625F;
+        public const float DefaultGravity = 4.171259403F;
 
         /// <summary>
         /// Checks the general validity of the save before processing it.

@@ -61,6 +61,7 @@
             <TextBox x:Name="txtQuaternaryAmmo" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Margin="132,57,0,0" TextChanged="txtPrimaryWeapAmmo_TextChanged" MaxLines="1" HorizontalAlignment="Left" Width="60"/>
             <Button x:Name="btnMaxQuaternaryAmmo" Content="Max" HorizontalAlignment="Right" Margin="0,57,2,0" Style="{DynamicResource MetroSecondaryButton}" VerticalAlignment="Top" Width="71" Click="btnMaxQuaternaryAmmo_Click"/>
         </Grid>
+        <Label Content="Note: if you drop or swap any of your weapons, the game will cap their ammo." FontFamily="SegeoUI" FontSize="13" FontWeight="Light" Foreground="{DynamicResource AccentTextLight}" Height="26.267" Margin="0,0,16,30" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment" />
     </Grid>
 
 </UserControl>
