@@ -194,7 +194,7 @@ namespace Liberty
             addStep(h4EditBiped);
             addStep(h4EditWeapons);
             addStep(h4EditGrenades);
-            addStep(h4QuickTweaks);
+            //addStep(h4QuickTweaks);
             #endregion
 
             addStep(stepSaving);
@@ -315,7 +315,7 @@ namespace Liberty
             halo4ComputerSave.AddStep(h4EditBiped, "CHARACTER DATA");
             halo4ComputerSave.AddStep(h4EditWeapons, "WEAPON DATA");
             halo4ComputerSave.AddStep(h4EditGrenades, "WEAPON DATA");
-            halo4ComputerSave.AddStep(h4QuickTweaks, "OBJECT DATA");
+            //halo4ComputerSave.AddStep(h4QuickTweaks, "OBJECT DATA");
             halo4ComputerSave.AddStep(workStepSaving);
             halo4ComputerSave.AddStep(stepAllDone, "FINISHED");
 
@@ -325,7 +325,7 @@ namespace Liberty
             halo4DeviceSave.AddStep(h4EditBiped, "CHARACTER DATA");
             halo4DeviceSave.AddStep(h4EditWeapons, "WEAPON DATA");
             halo4DeviceSave.AddStep(h4EditGrenades, "WEAPON DATA");
-            halo4DeviceSave.AddStep(h4QuickTweaks, "OBJECT DATA");
+            //halo4DeviceSave.AddStep(h4QuickTweaks, "OBJECT DATA");
             halo4DeviceSave.AddStep(workStepSaving);
             halo4DeviceSave.AddStep(workStepTransfer);
             halo4DeviceSave.AddStep(stepAllDone, "FINISHED");

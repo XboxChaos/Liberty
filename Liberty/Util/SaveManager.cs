@@ -84,7 +84,7 @@ namespace Liberty.Util
 
             // Extract the file and close the package
             if (!file.Extract(newRawPath))
-                throw new ArgumentException("Unable to extract " + rawFileName + " to \"" + extractDir + "\"");
+                throw new ArgumentException("Unable to extract " + rawFileName + " to \"" + extractDir + "\". Make sure that your save is not corrupt and that you reached a checkpoint first.");
 
             // Load the mmiof.bmf file into the _saveData object
             _saveData = _constructSave(newRawPath);

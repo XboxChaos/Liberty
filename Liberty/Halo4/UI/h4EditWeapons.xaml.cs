@@ -51,65 +51,6 @@ namespace Liberty.Halo4.UI
 
             try
             {
-                int primAmmo = 0;
-                int primClip = 0;
-                int secAmmo = 0;
-                int secClip = 0;
-                int terAmmo = 0;
-                int terClip = 0;
-                int quadAmmo = 0;
-                int quadClip = 0;
-
-                if (txtPrimaryAmmo.IsEnabled)
-                {
-                    primAmmo = int.Parse(txtPrimaryAmmo.Text);
-                    primClip = int.Parse(txtPrimaryClip.Text);
-                }
-                if (txtSecondaryAmmo.IsEnabled)
-                {
-                    secAmmo = int.Parse(txtSecondaryAmmo.Text);
-                    secClip = int.Parse(txtSecondaryClip.Text);
-                }
-                if (txtTertiaryAmmo.IsEnabled)
-                {
-                    terAmmo = int.Parse(txtTertiaryAmmo.Text);
-                    terClip = int.Parse(txtTertiaryClip.Text);
-                }
-                if (txtQuaternaryAmmo.IsEnabled)
-                {
-                    quadAmmo = int.Parse(txtQuaternaryAmmo.Text);
-                    quadClip = int.Parse(txtQuaternaryClip.Text);
-                }
-
-                if (txtPrimaryAmmo.IsEnabled)
-                {
-                    if (primAmmo > 32767 && primAmmo < 0)
-                        txtPrimaryAmmo.Text = "32767";
-                    if (primClip > 32767 && primClip < 0)
-                        txtPrimaryClip.Text = "32767";
-                }
-                if (txtSecondaryAmmo.IsEnabled)
-                {
-                    if (secAmmo > 32767 && secAmmo < 0)
-                        txtSecondaryAmmo.Text = "32767";
-                    if (secClip > 32767 && secClip < 0)
-                        txtSecondaryClip.Text = "32767";
-                }
-                if (txtTertiaryAmmo.IsEnabled)
-                {
-                    if (terAmmo > 32767 && terAmmo < 0)
-                        txtTertiaryAmmo.Text = "32767";
-                    if (terClip > 32767 && terClip < 0)
-                        txtTertiaryClip.Text = "32767";
-                }
-                if (txtQuaternaryAmmo.IsEnabled)
-                {
-                    if (quadAmmo > 32767 && quadAmmo < 0)
-                        txtQuaternaryAmmo.Text = "32767";
-                    if (quadAmmo > 32767 && quadAmmo < 0)
-                        txtQuaternaryClip.Text = "32767";
-                }
-
                 saveWeapon(playerBiped.PrimaryWeapon, txtPrimaryAmmo, txtPrimaryClip);
                 saveWeapon(playerBiped.SecondaryWeapon, txtSecondaryAmmo, txtSecondaryClip);
                 saveWeapon(playerBiped.TertiaryWeapon, txtTertiaryAmmo, txtTertiaryClip);
@@ -151,8 +92,8 @@ namespace Liberty.Halo4.UI
         {
             if (weapon != null)
             {
-                weapon.Ammo = Convert.ToInt16(ammoBox.Text);
-                weapon.ClipAmmo = Convert.ToInt16(clipBox.Text);
+                weapon.Ammo = Math.Min((short)0, Math.Max((short)32767, Convert.ToInt16(ammoBox.Text)));
+                weapon.ClipAmmo = Math.Max((short)0, Math.Min((short)32767, Convert.ToInt16(clipBox.Text)));
             }
         }
 

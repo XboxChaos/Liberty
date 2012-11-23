@@ -57,16 +57,9 @@ namespace Liberty.Halo4.UI
             Halo4.CampaignSave saveData = _saveManager.SaveData;
             try
             {
-                int validateF = int.Parse(txtFragNades.Text);
-                int validateP = int.Parse(txtPlasmaNades.Text);
-                int validateS = int.Parse(txtPulseNades.Text);
-
-                if (validateF > 127 && validateF < 0)
-                    txtFragNades.Text = "127";
-                if (validateP > 127 && validateP < 0)
-                    txtPlasmaNades.Text = "127";
-                if (validateS > 127 && validateS < 0)
-                    txtPulseNades.Text = "127";
+                int validateF = Math.Max(0, Math.Min(127, int.Parse(txtFragNades.Text)));
+                int validateP = Math.Max(0, Math.Min(127, int.Parse(txtPlasmaNades.Text)));
+                int validateS = Math.Max(0, Math.Min(127, int.Parse(txtPulseNades.Text)));
 
                 saveData.PlayerBiped.FragGrenades = Convert.ToSByte(validateF);
                 saveData.PlayerBiped.PlasmaGrenades = Convert.ToSByte(validateP);
