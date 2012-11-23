@@ -405,6 +405,19 @@ namespace Liberty
                     throw new ArgumentException("The selected file is not a valid STFS package.", ex);
                 }
 
+                // Before detecting the save's game, check if it's a "Halo 4 Data" package
+                // These packages aren't actually saved games, but a lot of users are getting this confused
+                if (package.GetFile("data.cache") != null)
+                {
+                    Action wrongFileAction = new Action(() =>
+                        {
+                            showMessage("Packages named \"Halo 3 Data\" or \"Halo 4 Data\" aren't actual save files. You need to copy the ~11 MB file named after your gamertag instead. If you don't see anything, make sure to get to a checkpoint first.", "OOPS");
+                        }
+                    );
+                    Dispatcher.Invoke(wrongFileAction);
+                    return Util.SaveType.Unknown;
+                }
+
                 // Detect the save's game
                 _currentGame = detectGame(package, out rawFileName);
                 classInfo.storage.settings.applicationSettings.gameIdent.gameID = _currentGame;
@@ -413,7 +426,7 @@ namespace Liberty
                 {
                     Action notSupportedAction = new Action(() =>
                         {
-                            showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo 3: ODST, Halo: Reach, and Halo: CE Anniversary saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
+                            showMessage(package.Header.Title_Display + " saves are not supported yet. Currently, only Halo 3, Halo 3: ODST, Halo: Reach, Halo: CE Anniversary, and Halo 4 saves are supported. Please select a different file.", "GAME NOT SUPPORTED");
                         }
                     );
                     Dispatcher.Invoke(notSupportedAction);
