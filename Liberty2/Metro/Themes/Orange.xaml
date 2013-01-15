@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="LibertyAccentBrush" x:Name="LibertyAccentBrush" Color="#CA5100"/>
+    <SolidColorBrush x:Key="LibertyAccentBrushSecondary" x:Name="LibertyAccentBrushSecondary" Color="#D66F2B"/>
+    
+    <Color x:Key="LibertyAccentBrushColour" A="#FF" R="#CA" G="#51" B="#00" />
+    <Color x:Key="LibertyAccentBrushColourSecondary"  A="#FF" R="#D9" G="#6F" B="#2B" />
+    
+</ResourceDictionary>
