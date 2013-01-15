@@ -71,44 +71,44 @@ namespace Liberty.Controls
 
         private void updateFATX()
         {
-			cBStorageType.Items.Clear();
-            if (_physDrives != null)
-            {
-                foreach (FATX.FATXDrive drive in _physDrives)
-                    drive.Close();
-                _physDrives = null;
-            }
+			    cBStorageType.Items.Clear();
+                if (_physDrives != null)
+                {
+                    foreach (FATX.FATXDrive drive in _physDrives)
+                        drive.Close();
+                    _physDrives = null;
+                }
 			
-            //Create a new instance of the IO class
-            FATX.IO.HDDFATX io = new FATX.IO.HDDFATX(false, null);
-            //Get the drives
-            _physDrives = io.GetFATXDrives(32);
-            FATX.Misc r = new FATX.Misc();
+                //Create a new instance of the IO class
+                FATX.IO.HDDFATX io = new FATX.IO.HDDFATX(false, null);
+                //Get the drives
+                _physDrives = io.GetFATXDrives(32);
+                FATX.Misc r = new FATX.Misc();
 
-            //For each index in our drives
-            int i=0;
-            while (i < _physDrives.Length)
-            {
-                string Type = _physDrives[i].DriveName;
-                ComboBoxItem hdd = new ComboBoxItem();
-                hdd.Content = Util.FATXSaveTransferrer.FormatDeviceName(_physDrives[i]);
-                hdd.Tag = _physDrives[i];
-                cBStorageType.Items.Add(hdd);
-                i++;
-            }
+                //For each index in our drives
+                int i=0;
+                while (i < _physDrives.Length)
+                {
+                    string Type = _physDrives[i].DriveName;
+                    ComboBoxItem hdd = new ComboBoxItem();
+                    hdd.Content = Util.FATXSaveTransferrer.FormatDeviceName(_physDrives[i]);
+                    hdd.Tag = _physDrives[i];
+                    cBStorageType.Items.Add(hdd);
+                    i++;
+                }
 
-            if (i == 0)
-            {
-                cBStorageType.IsEnabled = false;
-                _mainWindow.showMessage("Liberty could not detect any FATX devices. Try re-connecting them and pressing Refresh. Also, check that you don't have any other FATX browsers open.", "NO FATX DEVICES");
-                _mainWindow.enableNextButton(false);
-            }
-            else
-            {
-                cBStorageType.IsEnabled = true;
-                cBStorageType.SelectedIndex = 0;
-                _mainWindow.enableNextButton(true);
-            }
+                if (i == 0)
+                {
+                    cBStorageType.IsEnabled = false;
+                    _mainWindow.showMessage("Liberty could not detect any FATX devices. Try re-connecting them and pressing Refresh. Also, check that you don't have any other FATX browsers open.", "NO FATX DEVICES");
+                    _mainWindow.enableNextButton(false);
+                }
+                else
+                {
+                    cBStorageType.IsEnabled = true;
+                    cBStorageType.SelectedIndex = 0;
+                    _mainWindow.enableNextButton(true);
+                }
         }
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)

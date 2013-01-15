@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<layouts>
+  <layout for="header">
+    <asciiz name="scenario" offset="0x08" />
+    <asciiz name="engine build" offset="0x0108" />
+    <asciiz name="map path on disk" offset="0x0154" />
+    <byte name="difficulty" offset="0x26D" />
+    <utf16z name="gamer tag" offset="0xE6D8" />
+    <utf16z name="service tag" offset="0xE70E" />
+  </layout>
+</layouts>
